@@ -40,6 +40,12 @@ test('metadata presents the approved YUAN SHOWROOM positioning', async () => {
   assert.match(source, /description:\s*'YUAN SHOWROOM是深圳（香港）时胜集团的综合性商业时尚管理平台。集品牌代理、全域营销、文娱传媒与战略投资于一体，融合AI智能与知识管理，赋能商业长期价值。'/)
 })
 
+test('metadata declares YUANSHOWROOM as the official no-space brand alias', async () => {
+  const source = await read('src/app/layout.tsx')
+  assert.match(source, /'YUANSHOWROOM'/)
+  assert.match(source, /alternateName:\s*'YUANSHOWROOM'/)
+})
+
 test('Next configuration disables disclosure and defines security headers', async () => {
   const source = await read('next.config.js')
   assert.match(source, /poweredByHeader:\s*false/)
