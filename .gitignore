@@ -7,3 +7,4 @@ out/
 coverage/
 *.tsbuildinfo
 deploy-pkg.tar.gz
+.worktrees/
