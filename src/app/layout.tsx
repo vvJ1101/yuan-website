@@ -3,26 +3,29 @@ import './globals.css'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://yuanshowroom.cn'),
-  title: 'YUAN SHOWROOM — 连接国际设计师品牌与中国市场生态',
-  description: '深圳·香港·上海 | 品牌代理、市场开拓、运营管理、全域营销与战略投资于一体的系统性品牌管理支持平台。服务50+合作品牌，覆盖3000+全球买手渠道。上海时装周官方合作Showroom。',
-  keywords: ['YUAN SHOWROOM', '设计师品牌', 'Showroom', '订货会', '品牌管理', '时尚买手', '上海时装周', '品牌代理', '市场开拓', '深圳Showroom', '品牌服务', '时尚订货会'],
+  title: {
+    default: 'YUAN SHOWROOM国际时尚品牌管理平台',
+    template: '%s | YUAN SHOWROOM',
+  },
+  description: 'YUAN SHOWROOM是深圳（香港）时胜集团的综合性商业时尚管理平台。集品牌代理、全域营销、文娱传媒与战略投资于一体，融合AI智能与知识管理，赋能商业长期价值。',
+  keywords: ['YUAN SHOWROOM', 'YUAN', '设计师品牌代理', 'Showroom', '上海时装周', '品牌管理', '时尚买手', '订货会', '品牌服务', '市场开拓', '深圳Showroom', '香港Showroom', '国际设计师品牌', '时尚品牌代理'],
   robots: { index: true, follow: true },
   alternates: { canonical: 'https://yuanshowroom.cn/' },
   icons: { icon: '/favicon.png', apple: '/apple-icon.png' },
   openGraph: {
-    title: 'YUAN SHOWROOM — 连接创意与市场的桥梁',
-    description: '集品牌代理、市场开拓、运营管理、全域营销与战略投资于一体的系统性品牌管理支持平台。50+合作品牌，3000+全球买手渠道。',
+    title: 'YUAN SHOWROOM国际时尚品牌管理平台',
+    description: 'YUAN SHOWROOM是深圳（香港）时胜集团的综合性商业时尚管理平台。集品牌代理、全域营销、文娱传媒与战略投资于一体，融合AI智能与知识管理，赋能商业长期价值。',
     url: 'https://yuanshowroom.cn/',
     siteName: 'YUAN SHOWROOM',
-    images: [{ url: '/images/home/hero-main.png', width: 1200, height: 630 }],
+    images: [{ url: '/images/home/hero-main.png', width: 1200, height: 630, alt: 'YUAN SHOWROOM 品牌形象' }],
     locale: 'zh_CN',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'YUAN SHOWROOM — 连接创意与市场的桥梁',
-    description: '集品牌代理、市场开拓、运营管理、全域营销与战略投资于一体的系统性品牌管理支持平台。',
-    images: ['/images/home/hero-main.png'],
+    title: 'YUAN SHOWROOM国际时尚品牌管理平台',
+    description: 'YUAN SHOWROOM是深圳（香港）时胜集团的综合性商业时尚管理平台。集品牌代理、全域营销、文娱传媒与战略投资于一体，融合AI智能与知识管理，赋能商业长期价值。',
+    images: [{ url: '/images/home/hero-main.png', alt: 'YUAN SHOWROOM 品牌形象' }],
   },
   other: {
     'baidu-site-verification': 'codeva-0wAwq3lCfI',

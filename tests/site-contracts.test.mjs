@@ -34,6 +34,12 @@ test('metadata contains no verification placeholder', async () => {
   assert.doesNotMatch(source, /Your360VerificationCode/)
 })
 
+test('metadata presents the approved YUAN SHOWROOM positioning', async () => {
+  const source = await read('src/app/layout.tsx')
+  assert.match(source, /default:\s*'YUAN SHOWROOM国际时尚品牌管理平台'/)
+  assert.match(source, /description:\s*'YUAN SHOWROOM是深圳（香港）时胜集团的综合性商业时尚管理平台。集品牌代理、全域营销、文娱传媒与战略投资于一体，融合AI智能与知识管理，赋能商业长期价值。'/)
+})
+
 test('Next configuration disables disclosure and defines security headers', async () => {
   const source = await read('next.config.js')
   assert.match(source, /poweredByHeader:\s*false/)

@@ -6,3 +6,4 @@ out/
 ._*
 coverage/
 *.tsbuildinfo
+deploy-pkg.tar.gz
