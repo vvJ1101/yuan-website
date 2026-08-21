@@ -65,3 +65,17 @@ test('about preserves the approved Chinese positioning copy', async () => {
   assert.match(data, /YUAN以品牌批发业务拓展为核心，\\n为全球设计师品牌提供中国市场全链路解决方案，/)
   assert.match(data, /通过系统化运营支持品牌长期成长与可持续发展。/)
 })
+
+test('brand index exposes RTW FTW ACC and linked rooms', async () => {
+  const grid = await read('src/components/showroom/brand-grid.tsx')
+  for (const category of ['RTW', 'FTW', 'ACC']) assert.match(grid, new RegExp(category))
+  assert.match(grid, /`\/\$\{locale\}\/brands\/\$\{brand\.slug\}`/)
+})
+
+test('brand room has close and previous-next navigation without a lightbox', async () => {
+  const room = await read('src/components/showroom/brand-room.tsx')
+  assert.match(room, /CLOSE/)
+  assert.match(room, /previous/)
+  assert.match(room, /next/)
+  assert.doesNotMatch(room, /lightbox|zoom|camera/i)
+})
