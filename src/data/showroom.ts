@@ -1,4 +1,4 @@
-import type { Brand, CurrentEvent, LocalizedText, OnSiteService, Recap } from '@/types/showroom'
+import type { AboutContent, Brand, CurrentEvent, LocalizedText, OnSiteService, Recap } from '@/types/showroom'
 
 interface ShowroomImageRecord {
   src: `/images/showroom/${string}`
@@ -99,6 +99,48 @@ type ShowroomImagePath = keyof typeof showroomImages
 
 const showroomImage = (path: ShowroomImagePath) => showroomImages[path].src
 export const showroomImageAlt = (path: ShowroomImagePath) => showroomImages[path].alt
+
+export const aboutContent: AboutContent = {
+  introduction: [
+    {
+      cn: 'YUAN SHOWROOM 立足深圳和香港，是一家立足中国市场、融合国际视野的时尚专业运营平台，集品牌代理、市场开拓、运营管理、全域营销与战略投资于一体的综合性品牌管理支持平台。',
+      en: 'Based in Shenzhen and Hong Kong, YUAN SHOWROOM is a professional fashion operations platform rooted in the Chinese market with an international outlook. We bring together brand representation, market expansion, operations, integrated marketing, and strategic investment.',
+    },
+    {
+      cn: 'YUAN 以品牌批发业务拓展为核心，为全球设计师品牌提供中国市场全链路解决方案，通过系统化运营支持品牌长期成长与可持续发展。',
+      en: 'With wholesale development at its core, YUAN provides global designer brands with end-to-end solutions for the Chinese market, supporting long-term growth and sustainable development through systematic operations.',
+    },
+  ],
+  readMoreLabel: { cn: 'READ MORE', en: 'READ MORE' },
+  image: showroomImage('about/showroom.webp'),
+  imageAlt: showroomImageAlt('about/showroom.webp'),
+  statistics: [
+    {
+      value: '50+',
+      label: { cn: 'DESIGNER BRANDS', en: 'DESIGNER BRANDS' },
+      description: {
+        cn: '独家运营中国、欧洲、亚洲等超过 50+ 设计师品牌',
+        en: 'Exclusively representing 50+ designer brands across China, Europe, and Asia',
+      },
+    },
+    {
+      value: '3000+',
+      label: { cn: 'BUYER STORES', en: 'BUYER STORES' },
+      description: {
+        cn: '覆盖全国乃至国际销售与合作网络，连接超过 3000+ 买手店与百货渠道',
+        en: 'Connecting 3000+ buyer stores and department-store channels through a nationwide and international network',
+      },
+    },
+    {
+      value: '4',
+      label: { cn: 'FASHION WEEKS / YEAR', en: 'FASHION WEEKS / YEAR' },
+      description: {
+        cn: '每年固定在上海举办春夏、盛夏、秋冬、深冬四次季节性大型时装订货会',
+        en: 'Four major seasonal fashion ordering events held annually in Shanghai',
+      },
+    },
+  ],
+}
 
 export const brands: Brand[] = [
   { slug: 'ranyepersonal', name: 'RANYEPERSONAL', category: 'RTW', city: { cn: '上海', en: 'Shanghai' }, introduction: { cn: 'RANYEPERSONAL 以利落廓形和克制细节描绘当代女性的独立姿态，在日常与仪式感之间建立从容的着装语言。', en: 'RANYEPERSONAL frames the independent contemporary woman through precise silhouettes and restrained details, balancing everyday ease with a sense of occasion.' }, cover: showroomImage('brands/ranyepersonal.webp'), roomImages: [showroomImage('brand-room/ranyepersonal-main.webp'), showroomImage('brand-room/ranyepersonal-detail-01.webp'), showroomImage('brand-room/ranyepersonal-detail-02.webp')] },

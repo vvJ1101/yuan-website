@@ -2,6 +2,20 @@ export type Locale = 'cn' | 'en'
 export type BrandCategory = 'RTW' | 'FTW' | 'ACC'
 export type LocalizedText = Record<Locale, string>
 
+export interface AboutStatistic {
+  value: '50+' | '3000+' | '4'
+  label: LocalizedText
+  description: LocalizedText
+}
+
+export interface AboutContent {
+  introduction: readonly LocalizedText[]
+  readMoreLabel: LocalizedText
+  image: string
+  imageAlt: LocalizedText
+  statistics: readonly [AboutStatistic, AboutStatistic, AboutStatistic]
+}
+
 export interface Brand {
   slug: string
   name: string

@@ -36,8 +36,23 @@ test('root page redirects to Chinese', async () => {
   assert.match(source, /redirect\('\/cn'\)/)
 })
 
-test('each locale resolves to the minimal showroom cover page', async () => {
+test('cover contains only the approved hero title inside its main content', async () => {
   const source = await read('src/app/[locale]/page.tsx')
-  assert.match(source, /<main>/)
-  assert.match(source, /YUAN<br \/>SHOWROOM/)
+  assert.match(source, /<main[^>]*className="showroom-cover"/)
+  assert.match(source, /YUAN[\s\S]*SHOWROOM/)
+  assert.doesNotMatch(source, /<Image|subtitle|description|button/i)
+})
+
+test('about renders the localized image and exactly three approved statistics', async () => {
+  const page = await read('src/app/[locale]/about/page.tsx')
+  const data = await read('src/data/showroom.ts')
+
+  assert.match(page, /aboutContent/)
+  assert.match(page, /localize/)
+  assert.match(page, /<MediaFrame/)
+  assert.match(data, /about\/showroom\.webp/)
+  for (const value of ['50+', '3000+', "'4'"]) {
+    assert.match(data, new RegExp(value.replace('+', '\\+')))
+  }
+  assert.match(page, /aboutContent\.statistics\.map/)
 })
