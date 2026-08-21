@@ -11,14 +11,20 @@ export const metadata: Metadata = {
   description: 'YUAN SHOWROOM是深圳（香港）时胜集团的综合性商业时尚管理平台。集品牌代理、全域营销、文娱传媒与战略投资于一体，融合AI智能与知识管理，赋能商业长期价值。',
   keywords: ['YUAN SHOWROOM', 'YUANSHOWROOM', 'YUAN', '设计师品牌代理', 'Showroom', '上海时装周', '品牌管理', '时尚买手', '订货会', '品牌服务', '市场开拓', '深圳Showroom', '香港Showroom', '国际设计师品牌', '时尚品牌代理'],
   robots: { index: true, follow: true },
-  alternates: { canonical: 'https://yuanshowroom.cn/' },
+  alternates: {
+    canonical: 'https://yuanshowroom.cn/cn',
+    languages: {
+      'zh-CN': 'https://yuanshowroom.cn/cn',
+      en: 'https://yuanshowroom.cn/en',
+    },
+  },
   icons: { icon: '/favicon.png', apple: '/apple-icon.png' },
   openGraph: {
     title: 'YUAN SHOWROOM国际时尚品牌管理平台',
     description: 'YUAN SHOWROOM是深圳（香港）时胜集团的综合性商业时尚管理平台。集品牌代理、全域营销、文娱传媒与战略投资于一体，融合AI智能与知识管理，赋能商业长期价值。',
-    url: 'https://yuanshowroom.cn/',
+    url: 'https://yuanshowroom.cn/cn',
     siteName: 'YUAN SHOWROOM',
-    images: [{ url: '/images/home/hero-main.png', width: 1200, height: 630, alt: 'YUAN SHOWROOM 品牌形象' }],
+    images: [{ url: '/images/showroom/hero-reference.png', width: 1200, height: 630, alt: 'YUAN SHOWROOM 品牌形象' }],
     locale: 'zh_CN',
     type: 'website',
   },
@@ -26,7 +32,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'YUAN SHOWROOM国际时尚品牌管理平台',
     description: 'YUAN SHOWROOM是深圳（香港）时胜集团的综合性商业时尚管理平台。集品牌代理、全域营销、文娱传媒与战略投资于一体，融合AI智能与知识管理，赋能商业长期价值。',
-    images: [{ url: '/images/home/hero-main.png', alt: 'YUAN SHOWROOM 品牌形象' }],
+    images: [{ url: '/images/showroom/hero-reference.png', alt: 'YUAN SHOWROOM 品牌形象' }],
   },
   other: {
     'baidu-site-verification': 'codeva-0wAwq3lCfI',

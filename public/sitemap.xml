@@ -1,8 +1,297 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://yuanshowroom.cn/</loc>
-    <changefreq>weekly</changefreq>
+    <loc>https://yuanshowroom.cn/cn</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en" />
+    <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en" />
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/about</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/about" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/about" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/about</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/about" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/about" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/brands</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/brands</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/now</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/now" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/now" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/now</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/now" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/now" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/now/lookbook</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/now/lookbook" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/now/lookbook" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/now/lookbook</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/now/lookbook" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/now/lookbook" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/now/floor-map</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/now/floor-map" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/now/floor-map" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/now/floor-map</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/now/floor-map" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/now/floor-map" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/now/appointment</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/now/appointment" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/now/appointment" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/now/appointment</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/now/appointment" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/now/appointment" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/on-site</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/on-site" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/on-site" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/on-site</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/on-site" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/on-site" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/recap</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/recap" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/recap" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/recap</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/recap" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/recap" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/brands/ranyepersonal</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/ranyepersonal" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/ranyepersonal" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/brands/ranyepersonal</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/ranyepersonal" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/ranyepersonal" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/brands/maison-ther</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/maison-ther" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/maison-ther" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/brands/maison-ther</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/maison-ther" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/maison-ther" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/brands/nhoj</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/nhoj" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/nhoj" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/brands/nhoj</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/nhoj" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/nhoj" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/brands/playply</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/playply" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/playply" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/brands/playply</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/playply" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/playply" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/brands/alwools</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/alwools" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/alwools" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/brands/alwools</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/alwools" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/alwools" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/brands/tenspher</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/tenspher" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/tenspher" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/brands/tenspher</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/tenspher" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/tenspher" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/brands/4mile</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/4mile" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/4mile" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/brands/4mile</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/4mile" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/4mile" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/brands/datt</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/datt" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/datt" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/brands/datt</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/datt" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/datt" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/brands/pieton-episode</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/pieton-episode" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/pieton-episode" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/brands/pieton-episode</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/pieton-episode" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/pieton-episode" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/brands/lucia-tacci</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/lucia-tacci" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/lucia-tacci" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/brands/lucia-tacci</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/lucia-tacci" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/lucia-tacci" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/brands/helen-kaminski</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/helen-kaminski" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/helen-kaminski" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/brands/helen-kaminski</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/helen-kaminski" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/helen-kaminski" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/cn/brands/reindeer</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/reindeer" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/reindeer" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/brands/reindeer</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/cn/brands/reindeer" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/reindeer" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

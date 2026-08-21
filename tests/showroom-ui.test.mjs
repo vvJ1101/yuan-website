@@ -118,3 +118,25 @@ test('brand room uses one eager hero with responsive image hints', async () => {
   assert.match(room, /className="brand-room__main-image"[\s\S]*?sizes="\(max-width: 640px\) 100vw, \(max-width: 900px\) 66vw, 46vw"[\s\S]*?priority/)
   assert.match(room, /className="brand-room__detail-image"[\s\S]*?sizes="\(max-width: 640px\) 50vw, \(max-width: 900px\) 33vw, 22vw"/)
 })
+
+test('NOW landing links all three approved destinations', async () => {
+  const source = await read('src/app/[locale]/now/page.tsx')
+  for (const path of ['lookbook', 'floor-map', 'appointment']) {
+    assert.match(source, new RegExp(`/now/${path}`))
+  }
+  assert.doesNotMatch(source, /Arrow|<hr|<Image[^>]+className="now-link/i)
+})
+
+test('onsite carousel has accessible previous and next controls', async () => {
+  const source = await read('src/components/showroom/onsite-carousel.tsx')
+  assert.match(source, /aria-label=.*Previous|上一张/s)
+  assert.match(source, /aria-label=.*Next|下一张/s)
+  assert.match(source, /setActive/)
+  assert.doesNotMatch(source, /setInterval|setTimeout|autoplay/i)
+})
+
+test('recap orders entries from data and remains a long page', async () => {
+  const source = await read('src/app/[locale]/recap/page.tsx')
+  assert.match(source, /recaps[\s\S]*sort/)
+  assert.match(source, /recap-grid/)
+})

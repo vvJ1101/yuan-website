@@ -16,11 +16,13 @@ async function filesUnder(relativeDirectory) {
   return nested.flat()
 }
 
-test('sitemap publishes only the canonical homepage', async () => {
+test('sitemap publishes cn and en showroom routes', async () => {
   const sitemap = await read('public/sitemap.xml')
-  assert.match(sitemap, /<loc>https:\/\/yuanshowroom\.cn\/<\/loc>/)
-  assert.doesNotMatch(sitemap, /\/showroom/)
-  assert.equal((sitemap.match(/<url>/g) ?? []).length, 1)
+  for (const route of ['/cn', '/en', '/cn/brands', '/en/brands', '/cn/now', '/en/now']) {
+    assert.match(sitemap, new RegExp(`<loc>https://yuanshowroom.cn${route}</loc>`))
+  }
+  assert.match(sitemap, /hreflang="zh-CN"/)
+  assert.match(sitemap, /hreflang="en"/)
 })
 
 test('404 returns to the default Chinese locale homepage', async () => {
@@ -64,23 +66,21 @@ test('Next configuration disables disclosure and defines security headers', asyn
   }
 })
 
-test('source has no TypeScript any escape', async () => {
-  const plus = await read('src/components/home/section-plus.tsx')
-  assert.doesNotMatch(plus, /as any/)
-})
-
 test('source tree has no AppleDouble metadata', async () => {
   const files = await filesUnder('src')
   assert.deepEqual(files.filter((file) => path.basename(file).startsWith('._')), [])
 })
 
-test('brand section presents listed retailers as buyer partners', async () => {
-  const data = await read('src/data/home.ts')
-  const section = await read('src/components/home/section-brands.tsx')
-  assert.match(data, /title: '合作品牌与买手'/)
-  assert.match(data, /buyers: \[/)
-  assert.doesNotMatch(data, /channels: \[/)
-  assert.match(section, /合作买手与买手店/)
-  assert.match(section, /brands\.buyers/)
-  assert.doesNotMatch(section, /合作渠道|brands\.channels/)
+test('source has no TypeScript any escape', async () => {
+  const files = await filesUnder('src')
+  for (const file of files.filter((name) => /\.(ts|tsx)$/.test(name))) {
+    assert.doesNotMatch(await read(file), /\bas any\b/)
+  }
+})
+
+test('legacy home source is no longer imported', async () => {
+  const files = await filesUnder('src/app')
+  for (const file of files.filter((name) => /\.(ts|tsx)$/.test(name))) {
+    assert.doesNotMatch(await read(file), /components\/home|data\/home/)
+  }
 })
