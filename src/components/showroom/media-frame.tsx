@@ -24,7 +24,7 @@ export function MediaFrame({
         alt={alt}
         fill
         priority={priority}
-        sizes="(max-width: 760px) 100vw, 64vw"
+        sizes="(max-width: 900px) 100vw, 64vw"
       />
     </div>
   )

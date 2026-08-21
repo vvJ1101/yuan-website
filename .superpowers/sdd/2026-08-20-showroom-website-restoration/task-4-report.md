@@ -39,3 +39,12 @@ DONE
 
 - Non-blocking: Next.js prints its existing worktree-root inference warning because both the main checkout and linked worktree contain lockfiles.
 - Non-blocking: development mode reports React's CSP `eval()` diagnostic because the existing production security policy disallows `unsafe-eval`; the optimized production build is unaffected.
+
+## Fix round 1
+
+- Restored the two approved Chinese About paragraphs verbatim, including their line breaks, capitalization, spacing, and the reference phrase `品牌管理机构支持平台`.
+- Updated the English copy to translate the restored positioning faithfully.
+- Added a focused source contract for the key exact Chinese phrases and verified it red before changing the data, then green afterward.
+- Aligned the `MediaFrame` responsive `sizes` breakpoint with the actual `900px` single-column layout breakpoint.
+- Removed the unused `.showroom-viewport` rule; cover and About retain their page-specific viewport and overflow policies.
+- Verification: `node --test tests/showroom-ui.test.mjs` — 7 passed; `npm run lint` and `npm run typecheck` passed; `git diff --check` passed.

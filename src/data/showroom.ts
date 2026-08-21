@@ -103,12 +103,12 @@ export const showroomImageAlt = (path: ShowroomImagePath) => showroomImages[path
 export const aboutContent: AboutContent = {
   introduction: [
     {
-      cn: 'YUAN SHOWROOM 立足深圳和香港，是一家立足中国市场、融合国际视野的时尚专业运营平台，集品牌代理、市场开拓、运营管理、全域营销与战略投资于一体的综合性品牌管理支持平台。',
-      en: 'Based in Shenzhen and Hong Kong, YUAN SHOWROOM is a professional fashion operations platform rooted in the Chinese market with an international outlook. We bring together brand representation, market expansion, operations, integrated marketing, and strategic investment.',
+      cn: 'YUAN Showroom base 深圳和香港，\n是一家立足中国市场、融合国际视野的时尚专业运营平台，\n集品牌代理、市场开拓、运营管理、全域营销与战略投资\n于一体的综合性品牌管理机构支持平台。',
+      en: 'YUAN Showroom is based in Shenzhen and Hong Kong.\nIt is a professional fashion operations platform rooted in the Chinese market and informed by an international perspective,\nintegrating brand representation, market expansion, operations management, omnichannel marketing, and strategic investment\nas a comprehensive support platform for brand management organizations.',
     },
     {
-      cn: 'YUAN 以品牌批发业务拓展为核心，为全球设计师品牌提供中国市场全链路解决方案，通过系统化运营支持品牌长期成长与可持续发展。',
-      en: 'With wholesale development at its core, YUAN provides global designer brands with end-to-end solutions for the Chinese market, supporting long-term growth and sustainable development through systematic operations.',
+      cn: 'YUAN以品牌批发业务拓展为核心，\n为全球设计师品牌提供中国市场全链路解决方案，\n通过系统化运营支持品牌长期成长与可持续发展。',
+      en: 'With wholesale business development at its core, YUAN\nprovides global designer brands with end-to-end solutions for the Chinese market,\nsupporting long-term growth and sustainable development through systematic operations.',
     },
   ],
   readMoreLabel: { cn: 'READ MORE', en: 'READ MORE' },

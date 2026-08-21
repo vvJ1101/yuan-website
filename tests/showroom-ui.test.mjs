@@ -56,3 +56,12 @@ test('about renders the localized image and exactly three approved statistics', 
   }
   assert.match(page, /aboutContent\.statistics\.map/)
 })
+
+test('about preserves the approved Chinese positioning copy', async () => {
+  const data = await read('src/data/showroom.ts')
+
+  assert.match(data, /YUAN Showroom base 深圳和香港，\\n是一家立足中国市场、融合国际视野的时尚专业运营平台，/)
+  assert.match(data, /集品牌代理、市场开拓、运营管理、全域营销与战略投资\\n于一体的综合性品牌管理机构支持平台。/)
+  assert.match(data, /YUAN以品牌批发业务拓展为核心，\\n为全球设计师品牌提供中国市场全链路解决方案，/)
+  assert.match(data, /通过系统化运营支持品牌长期成长与可持续发展。/)
+})
