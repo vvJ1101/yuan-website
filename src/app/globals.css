@@ -63,6 +63,16 @@
 .sidebar-drawer { transition: transform 0.25s ease; will-change: transform; }
 .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
+/* Structural only; visual sizing and spacing are introduced with the page system. */
+.site-header { display: flex; flex-wrap: wrap; align-items: center; }
+.site-header nav { display: flex; flex: 1 1 auto; flex-wrap: wrap; }
+.site-language-switch { display: flex; }
+
+@media (max-width: 640px) {
+  .site-header nav { flex-basis: 100%; justify-content: space-between; }
+  .site-header nav a, .site-language-switch a { min-width: 0; min-height: 0; }
+}
+
 :focus-visible {
   outline: 2px solid #c8a46e;
   outline-offset: 3px;

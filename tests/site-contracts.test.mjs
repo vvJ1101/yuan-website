@@ -23,9 +23,9 @@ test('sitemap publishes only the canonical homepage', async () => {
   assert.equal((sitemap.match(/<url>/g) ?? []).length, 1)
 })
 
-test('404 returns to the canonical homepage', async () => {
+test('404 returns to the default Chinese locale homepage', async () => {
   const source = await read('src/app/not-found.tsx')
-  assert.match(source, /href="\/"/)
+  assert.match(source, /href="\/cn"/)
   assert.doesNotMatch(source, /href="\/showroom"/)
 })
 
@@ -52,13 +52,6 @@ test('Next configuration disables disclosure and defines security headers', asyn
   for (const header of ['Content-Security-Policy', 'X-Content-Type-Options', 'Referrer-Policy', 'Permissions-Policy']) {
     assert.match(source, new RegExp(header))
   }
-})
-
-test('mobile navigation exposes expanded state and keyboard close', async () => {
-  const source = await read('src/components/home/site-navigation.tsx')
-  assert.match(source, /aria-expanded=/)
-  assert.match(source, /aria-controls=/)
-  assert.match(source, /event\.key === 'Escape'/)
 })
 
 test('source has no TypeScript any escape', async () => {

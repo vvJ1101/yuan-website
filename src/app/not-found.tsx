@@ -8,10 +8,10 @@ export default function NotFound() {
         <h1 className="text-[1.2rem] font-semibold text-neutral-800 mb-2">页面未找到</h1>
         <p className="text-[0.85rem] text-neutral-500 mb-6">您访问的页面不存在或已被移除</p>
         <Link
-          href="/"
+          href="/cn"
           className="inline-block px-5 py-2.5 bg-[#3B82F6] text-white text-[0.82rem] font-medium rounded-lg hover:bg-blue-600 no-underline"
         >
-          返回首页
+          返回中文首页
         </Link>
       </div>
     </div>
