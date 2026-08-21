@@ -35,3 +35,9 @@ test('root page redirects to Chinese', async () => {
   const source = await read('src/app/page.tsx')
   assert.match(source, /redirect\('\/cn'\)/)
 })
+
+test('each locale resolves to the minimal showroom cover page', async () => {
+  const source = await read('src/app/[locale]/page.tsx')
+  assert.match(source, /<main>/)
+  assert.match(source, /YUAN<br \/>SHOWROOM/)
+})

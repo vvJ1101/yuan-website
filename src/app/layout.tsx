@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { headers } from 'next/headers'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -32,9 +33,11 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const locale = (await headers()).get('x-showroom-locale') ?? 'zh-CN'
+
   return (
-    <html lang="zh-CN" className="scroll-smooth" data-scroll-behavior="smooth">
+    <html lang={locale} className="scroll-smooth" data-scroll-behavior="smooth">
       <head>
         <script
           type="application/ld+json"

@@ -14,10 +14,5 @@ export default async function LocaleLayout({
 
   if (!isLocale(locale)) notFound()
 
-  return (
-    <div lang={locale === 'cn' ? 'zh-CN' : 'en'}>
-      <SiteHeader locale={locale} />
-      {children}
-    </div>
-  )
+  return <><SiteHeader locale={locale} />{children}</>
 }

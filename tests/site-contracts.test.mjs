@@ -34,6 +34,16 @@ test('metadata contains no verification placeholder', async () => {
   assert.doesNotMatch(source, /Your360VerificationCode/)
 })
 
+test('root document language is derived from the server-routed locale', async () => {
+  const rootLayout = await read('src/app/layout.tsx')
+  const proxy = await read('src/proxy.ts')
+  assert.match(rootLayout, /import \{ headers \} from 'next\/headers'/)
+  assert.match(rootLayout, /const locale = \(await headers\(\)\)\.get\('x-showroom-locale'\)/)
+  assert.match(rootLayout, /<html lang=\{locale\}/)
+  assert.match(proxy, /requestHeaders\.set\('x-showroom-locale', locale\)/)
+  assert.match(proxy, /NextResponse\.next\(\{ request: \{ headers: requestHeaders \} \}\)/)
+})
+
 test('metadata presents the approved YUAN SHOWROOM positioning', async () => {
   const source = await read('src/app/layout.tsx')
   assert.match(source, /default:\s*'YUAN SHOWROOM国际时尚品牌管理平台'/)
