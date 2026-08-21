@@ -12,6 +12,8 @@ interface BrandRoomProps {
 }
 
 export function BrandRoom({ locale, brand, previous, next }: BrandRoomProps) {
+  const introduction = localize(brand.introduction, locale).split(/\n\s*\n/).map((paragraph) => paragraph.trim()).filter(Boolean)
+
   return (
     <main className="brand-room">
       <Link className="brand-room__close" href={`/${locale}/brands`}>
@@ -23,7 +25,13 @@ export function BrandRoom({ locale, brand, previous, next }: BrandRoomProps) {
         <p className="brand-room__city">{localize(brand.city, locale)}</p>
         <p className="brand-room__label">BRAND ROOM</p>
         <span className="brand-room__rule" aria-hidden="true" />
-        <p className="brand-room__introduction">{localize(brand.introduction, locale)}</p>
+        <div className="brand-room__introduction">
+          {introduction.map((paragraph, index) => (
+            <p className="brand-room__introduction-paragraph" key={`${brand.slug}-introduction-${index + 1}`}>
+              {paragraph}
+            </p>
+          ))}
+        </div>
 
         <nav className="brand-room__pager" aria-label={locale === 'cn' ? '浏览品牌' : 'Browse brands'}>
           <Link
@@ -46,7 +54,8 @@ export function BrandRoom({ locale, brand, previous, next }: BrandRoomProps) {
           className="brand-room__main-image"
           src={brand.roomImages[0]}
           alt={`${brand.name} ${locale === 'cn' ? '主造型' : 'main campaign image'}`}
-          ratio="15 / 14"
+          ratio="16 / 15"
+          sizes="(max-width: 640px) 100vw, (max-width: 900px) 66vw, 46vw"
           priority
         />
         <div className="brand-room__auxiliary">
@@ -56,8 +65,8 @@ export function BrandRoom({ locale, brand, previous, next }: BrandRoomProps) {
               src={src}
               alt={`${brand.name} ${locale === 'cn' ? '造型细节' : 'campaign detail'} ${index + 1}`}
               ratio="1 / 1"
-              priority
-              key={src}
+              sizes="(max-width: 640px) 50vw, (max-width: 900px) 33vw, 22vw"
+              key={`${brand.slug}-detail-${index + 1}`}
             />
           ))}
         </div>

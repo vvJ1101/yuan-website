@@ -43,3 +43,13 @@ Compared both pages at the reference viewport (1672 × 941) against `BRANDS.png`
 
 - Next.js emits the pre-existing multi-lockfile workspace-root warning during builds; it does not affect compilation or route generation.
 - Several Brand Rooms intentionally use the approved provisional repeated source imagery where originals were unavailable.
+
+## Fix Round 1
+
+- Recalibrated the desktop Brand Room allocation from `25vw + 2vw` to `22vw + 2.7vw`, increased its desktop top inset, and adjusted the gallery split/hero ratio toward the approved 1672 × 941 geometry while preserving the right gutter and mobile overrides.
+- Updated the NHOJ introduction to four bilingual semantic paragraphs and made Brand Room introductions split safely on blank lines; single-paragraph records continue to render once.
+- Added a `sizes` override to `MediaFrame`, responsive width hints for cards and room images, first-row-only card priority, and a single eager Brand Room hero.
+- Changed auxiliary image keys to stable brand/role indices so provisional repeated sources cannot collide.
+- Strengthened contracts for exact category order/membership, three-image rooms, six desktop columns, static params, unknown slugs, circular paging, paragraph rendering, image sizing, and priority behavior.
+
+Fix-round verification: 17/17 focused UI/data tests passed, ESLint passed with zero warnings, and TypeScript passed with no errors. Per the quick first-version handoff request, no additional browser calibration was run after these edits.

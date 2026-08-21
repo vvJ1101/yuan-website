@@ -346,10 +346,10 @@ body:has(.brand-room) .site-language-switch {
 .brand-room {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(250px, 25vw) minmax(0, 1fr);
-  gap: clamp(24px, 2vw, 34px);
+  grid-template-columns: minmax(250px, 22vw) minmax(0, 1fr);
+  gap: clamp(32px, 2.7vw, 46px);
   min-height: calc(100svh - var(--ys-header-h));
-  padding: clamp(60px, 7vh, 74px) var(--ys-gutter) clamp(38px, 5vh, 52px);
+  padding: clamp(71px, 8.2vh, 86px) var(--ys-gutter) clamp(38px, 5vh, 52px);
 }
 
 .brand-room__close {
@@ -409,6 +409,14 @@ body:has(.brand-room) .site-language-switch {
   line-height: 1.75;
 }
 
+.brand-room__introduction-paragraph {
+  margin: 0;
+}
+
+.brand-room__introduction-paragraph + .brand-room__introduction-paragraph {
+  margin-top: clamp(13px, 1.8vh, 19px);
+}
+
 .brand-room__pager {
   display: flex;
   width: min(180px, 72%);
@@ -428,7 +436,7 @@ body:has(.brand-room) .site-language-switch {
 
 .brand-room__gallery {
   display: grid;
-  grid-template-columns: minmax(0, 2.1fr) minmax(220px, 1fr);
+  grid-template-columns: minmax(0, 2.12fr) minmax(220px, 1fr);
   gap: clamp(8px, 0.75vw, 12px);
   align-self: start;
 }

@@ -7,6 +7,7 @@ interface MediaFrameProps {
   alt: string
   ratio: string
   priority?: boolean
+  sizes?: string
   className?: string
 }
 
@@ -15,6 +16,7 @@ export function MediaFrame({
   alt,
   ratio,
   priority = false,
+  sizes = '(max-width: 900px) 100vw, 64vw',
   className,
 }: MediaFrameProps) {
   return (
@@ -24,7 +26,7 @@ export function MediaFrame({
         alt={alt}
         fill
         priority={priority}
-        sizes="(max-width: 900px) 100vw, 64vw"
+        sizes={sizes}
       />
     </div>
   )

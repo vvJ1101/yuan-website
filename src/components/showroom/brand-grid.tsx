@@ -36,7 +36,7 @@ export function BrandGrid({ locale, brands }: BrandGridProps) {
       </aside>
 
       <section className="brand-index__matrix" aria-label={locale === 'cn' ? '合作品牌' : 'Partner brands'}>
-        {brands.map((brand) => (
+        {brands.map((brand, index) => (
           <Link
             className="brand-index__card"
             href={`/${locale}/brands/${brand.slug}`}
@@ -46,7 +46,8 @@ export function BrandGrid({ locale, brands }: BrandGridProps) {
               src={brand.cover}
               alt={`${brand.name} ${locale === 'cn' ? '品牌造型' : 'campaign'}`}
               ratio="4 / 5"
-              priority
+              sizes="(max-width: 640px) 50vw, (max-width: 900px) 33vw, 13vw"
+              priority={index < 6}
             />
             <span>{brand.name}</span>
           </Link>

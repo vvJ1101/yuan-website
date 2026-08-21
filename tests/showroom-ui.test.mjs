@@ -79,3 +79,42 @@ test('brand room has close and previous-next navigation without a lightbox', asy
   assert.match(room, /next/)
   assert.doesNotMatch(room, /lightbox|zoom|camera/i)
 })
+
+test('brand index keeps six desktop columns and responsive image hints', async () => {
+  const grid = await read('src/components/showroom/brand-grid.tsx')
+  const media = await read('src/components/showroom/media-frame.tsx')
+  const css = await read('src/app/globals.css')
+
+  assert.match(css, /\.brand-index__matrix\s*\{[\s\S]*?grid-template-columns: repeat\(6, minmax\(0, 1fr\)\)/)
+  assert.match(media, /sizes\?: string/)
+  assert.match(media, /sizes=\{sizes\}/)
+  assert.match(grid, /brands\.map\(\(brand, index\) =>/)
+  assert.match(grid, /sizes="\(max-width: 640px\) 50vw, \(max-width: 900px\) 33vw, 13vw"/)
+  assert.match(grid, /priority=\{index < 6\}/)
+})
+
+test('brand room renders paragraph breaks and avoids duplicate auxiliary keys', async () => {
+  const room = await read('src/components/showroom/brand-room.tsx')
+  const auxiliary = room.slice(room.indexOf('brand.roomImages.slice(1)'), room.indexOf('</div>', room.indexOf('brand.roomImages.slice(1)')))
+
+  assert.match(room, /localize\(brand\.introduction, locale\)\.split/)
+  assert.match(room, /brand-room__introduction-paragraph/)
+  assert.match(auxiliary, /key=\{`\$\{brand\.slug\}-detail-\$\{index \+ 1\}`\}/)
+  assert.doesNotMatch(auxiliary, /priority/)
+})
+
+test('brand routes cover both locales, reject unknown slugs, and wrap circularly', async () => {
+  const page = await read('src/app/[locale]/brands/[slug]/page.tsx')
+
+  assert.match(page, /locales\.flatMap\(\(locale\) => brands\.map\(\(brand\) => \(\{ locale, slug: brand\.slug \}\)\)\)/)
+  assert.match(page, /if \(index < 0\) notFound\(\)/)
+  assert.match(page, /brands\[\(index - 1 \+ brands\.length\) % brands\.length\]/)
+  assert.match(page, /brands\[\(index \+ 1\) % brands\.length\]/)
+})
+
+test('brand room uses one eager hero with responsive image hints', async () => {
+  const room = await read('src/components/showroom/brand-room.tsx')
+
+  assert.match(room, /className="brand-room__main-image"[\s\S]*?sizes="\(max-width: 640px\) 100vw, \(max-width: 900px\) 66vw, 46vw"[\s\S]*?priority/)
+  assert.match(room, /className="brand-room__detail-image"[\s\S]*?sizes="\(max-width: 640px\) 50vw, \(max-width: 900px\) 33vw, 22vw"/)
+})
