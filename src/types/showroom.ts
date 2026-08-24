@@ -35,8 +35,6 @@ export interface EventBrand {
 
 export interface LookbookItem {
   image: string
-  styleNumber: string
-  name: LocalizedText
 }
 
 export interface CurrentEvent {

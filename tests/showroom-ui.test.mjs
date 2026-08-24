@@ -56,23 +56,30 @@ test('proxy restores the saved English preference on clean public URLs', async (
   assert.match(source, /NextResponse\.redirect/)
 })
 
-test('cover uses the official logo with a restrained entrance animation', async () => {
+test('cover uses editorial image fragments and split transparent lettering', async () => {
   const source = await read('src/app/[locale]/page.tsx')
   const css = await read('src/app/globals.css')
   assert.match(source, /<main[^>]*className="showroom-cover"/)
-  assert.match(source, /<Image[\s\S]*?src="\/images\/showroom\/yuan-logo\.png"/)
-  assert.match(source, /className="showroom-cover__logo-image"/)
-  assert.match(css, /@keyframes showroom-logo-entrance/)
-  assert.match(css, /\.showroom-cover__logo\s*\{[^}]*animation: showroom-logo-entrance/)
+  assert.match(source, /showroom-cover__collage/)
+  assert.match(source, /home\/texture\.png/)
+  assert.match(source, /home\/paper-sculpture\.png/)
+  assert.match(source, /home\/flower-monochrome\.png/)
+  assert.match(source, /'YUAN'\.split\(''\)\.map/)
+  assert.match(source, /'SHOWROOM'\.split\(''\)\.map/)
+  assert.match(css, /-webkit-text-stroke:/)
+  assert.match(css, /mix-blend-mode:/)
+  assert.match(css, /@keyframes showroom-collage-entrance/)
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)/)
-  assert.doesNotMatch(source, /subtitle|description|button/i)
+  assert.doesNotMatch(source, /yuan-logo\.png/)
 })
 
-test('header uses the same official logo image as the cover', async () => {
+test('header places the official logo above the navigation row', async () => {
   const header = await read('src/components/showroom/site-header.tsx')
   assert.match(header, /import Image from 'next\/image'/)
   assert.match(header, /src="\/images\/showroom\/yuan-logo\.png"/)
   assert.match(header, /className="site-logo__image"/)
+  assert.match(header, /className="site-header__brand"/)
+  assert.match(header, /className="site-header__navigation"/)
   assert.doesNotMatch(header, /YUAN<br \/>SHOWROOM/)
 })
 
@@ -172,14 +179,16 @@ test('NOW exhibition posters link to separate lookbook-only brand routes', async
   assert.doesNotMatch(detail, /DESIGNER|CATEGORY|ORIGIN|ESTABLISHED|WEBSITE|description/)
 })
 
-test('lookbook detail renders style number and localized product name for every look', async () => {
+test('lookbook detail is an image-only editorial gallery', async () => {
   const detail = await read('src/app/[locale]/now/lookbook/[slug]/page.tsx')
+  const types = await read('src/types/showroom.ts')
   const now = await read('src/app/[locale]/now/page.tsx')
   const appointment = await read('src/app/[locale]/now/appointment/page.tsx')
 
   assert.match(detail, /brand\.items\.map/)
-  assert.match(detail, /item\.styleNumber/)
-  assert.match(detail, /localize\(item\.name, locale\)/)
+  assert.doesNotMatch(detail, /styleNumber|item\.name|款号|品名|STYLE NO\.|ITEM/)
+  assert.doesNotMatch(types, /styleNumber|name: LocalizedText/)
+  assert.match(types, /interface LookbookItem\s*\{[^}]*image: string/)
   assert.doesNotMatch(now, /currentEvent\.dates/)
   assert.doesNotMatch(appointment, /currentEvent\.dates/)
 })

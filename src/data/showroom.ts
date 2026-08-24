@@ -9,6 +9,11 @@ const image = (src: ShowroomImageRecord['src'], cn: string, en: string): Showroo
 
 const showroomImages = {
   'hero-reference.png': image('/images/showroom/hero-reference.png', 'YUAN SHOWROOM 首页版式参考', 'YUAN SHOWROOM homepage layout reference'),
+  'now/lookbook/editorial-01.png': image('/images/showroom/now/lookbook/editorial-01.png', '订货会品牌大片 01', 'Ordering-season editorial look 01'),
+  'now/lookbook/editorial-02.png': image('/images/showroom/now/lookbook/editorial-02.png', '订货会品牌大片 02', 'Ordering-season editorial look 02'),
+  'now/lookbook/editorial-03.png': image('/images/showroom/now/lookbook/editorial-03.png', '订货会品牌大片 03', 'Ordering-season editorial look 03'),
+  'now/lookbook/editorial-04.png': image('/images/showroom/now/lookbook/editorial-04.png', '订货会品牌大片 04', 'Ordering-season editorial look 04'),
+  'now/lookbook/editorial-05.png': image('/images/showroom/now/lookbook/editorial-05.png', '订货会品牌大片 05', 'Ordering-season editorial look 05'),
   'about/showroom.webp': image('/images/showroom/about/showroom.webp', 'YUAN SHOWROOM 前台与接待空间', 'YUAN SHOWROOM reception and showroom interior'),
   'brands/ranyepersonal.webp': image('/images/showroom/brands/ranyepersonal.webp', 'RANYEPERSONAL 品牌造型肖像', 'RANYEPERSONAL campaign portrait'),
   'brands/maison-ther.webp': image('/images/showroom/brands/maison-ther.webp', 'MAISON THER 品牌造型肖像', 'MAISON THER campaign portrait'),
@@ -157,24 +162,32 @@ export const brands: Brand[] = [
   { slug: 'reindeer', name: 'REINDEER', category: 'ACC', city: { cn: '首尔', en: 'Seoul' }, introduction: { cn: 'REINDEER 以不规则线条与极简语汇探索自由而松弛的配饰表达，为日常造型注入轻盈个性。', en: 'REINDEER explores free, relaxed accessories through irregular lines and a minimalist vocabulary, bringing a light individuality to everyday styling.' }, cover: showroomImage('brands/reindeer.webp'), roomImages: [showroomImage('brand-room/reindeer-main.webp'), showroomImage('brand-room/reindeer-detail-01.webp'), showroomImage('brand-room/reindeer-detail-02.webp')] },
 ]
 
+const editorialLookbook = [
+  { image: showroomImage('now/lookbook/editorial-01.png') },
+  { image: showroomImage('now/lookbook/editorial-02.png') },
+  { image: showroomImage('now/lookbook/editorial-03.png') },
+  { image: showroomImage('now/lookbook/editorial-04.png') },
+  { image: showroomImage('now/lookbook/editorial-05.png') },
+] as const
+
 export const currentEvent: CurrentEvent = {
   city: { cn: '上海', en: 'Shanghai' },
   title: { cn: '上海时装周', en: 'Shanghai Fashion Week' },
   season: 'SS 2027',
   heroImage: showroomImage('now/event.webp'),
   exhibitionBrands: [
-    { slug: 'ranyepersonal', name: 'RANYEPERSONAL', poster: showroomImage('brands/ranyepersonal.webp'), items: [{ image: showroomImage('brand-room/ranyepersonal-main.webp'), styleNumber: 'RANYE-SS27-001', name: { cn: '款式 01', en: 'LOOK 01' } }, { image: showroomImage('brand-room/ranyepersonal-detail-01.webp'), styleNumber: 'RANYE-SS27-002', name: { cn: '款式 02', en: 'LOOK 02' } }, { image: showroomImage('brand-room/ranyepersonal-detail-02.webp'), styleNumber: 'RANYE-SS27-003', name: { cn: '款式 03', en: 'LOOK 03' } }] },
-    { slug: 'maison-ther', name: 'MAISON THER', poster: showroomImage('brands/maison-ther.webp'), items: [{ image: showroomImage('brand-room/maison-ther-main.webp'), styleNumber: 'MTHER-SS27-001', name: { cn: '款式 01', en: 'LOOK 01' } }, { image: showroomImage('brand-room/maison-ther-detail-01.webp'), styleNumber: 'MTHER-SS27-002', name: { cn: '款式 02', en: 'LOOK 02' } }, { image: showroomImage('brand-room/maison-ther-detail-02.webp'), styleNumber: 'MTHER-SS27-003', name: { cn: '款式 03', en: 'LOOK 03' } }] },
-    { slug: 'nhoj', name: 'NHOJ', poster: showroomImage('brands/nhoj.webp'), items: [{ image: showroomImage('brand-room/nhoj-main.webp'), styleNumber: 'NHOJ-SS27-001', name: { cn: '款式 01', en: 'LOOK 01' } }, { image: showroomImage('brand-room/nhoj-detail-01.webp'), styleNumber: 'NHOJ-SS27-002', name: { cn: '款式 02', en: 'LOOK 02' } }, { image: showroomImage('brand-room/nhoj-detail-02.webp'), styleNumber: 'NHOJ-SS27-003', name: { cn: '款式 03', en: 'LOOK 03' } }] },
-    { slug: 'playply', name: 'PLAYPLY', poster: showroomImage('brands/playply.webp'), items: [{ image: showroomImage('brand-room/playply-main.webp'), styleNumber: 'PLAY-SS27-001', name: { cn: '款式 01', en: 'LOOK 01' } }, { image: showroomImage('brand-room/playply-detail-01.webp'), styleNumber: 'PLAY-SS27-002', name: { cn: '款式 02', en: 'LOOK 02' } }, { image: showroomImage('brand-room/playply-detail-02.webp'), styleNumber: 'PLAY-SS27-003', name: { cn: '款式 03', en: 'LOOK 03' } }] },
-    { slug: 'alwools', name: 'ALWOOLS', poster: showroomImage('brands/alwools.webp'), items: [{ image: showroomImage('brand-room/alwools-main.webp'), styleNumber: 'ALWOOLS-SS27-001', name: { cn: '款式 01', en: 'LOOK 01' } }, { image: showroomImage('brand-room/alwools-detail-01.webp'), styleNumber: 'ALWOOLS-SS27-002', name: { cn: '款式 02', en: 'LOOK 02' } }, { image: showroomImage('brand-room/alwools-detail-02.webp'), styleNumber: 'ALWOOLS-SS27-003', name: { cn: '款式 03', en: 'LOOK 03' } }] },
-    { slug: 'tenspher', name: 'TENSPHER', poster: showroomImage('brands/tenspher.webp'), items: [{ image: showroomImage('brand-room/tenspher-main.webp'), styleNumber: 'TEN-SS27-001', name: { cn: '款式 01', en: 'LOOK 01' } }, { image: showroomImage('brand-room/tenspher-detail-01.webp'), styleNumber: 'TEN-SS27-002', name: { cn: '款式 02', en: 'LOOK 02' } }, { image: showroomImage('brand-room/tenspher-detail-02.webp'), styleNumber: 'TEN-SS27-003', name: { cn: '款式 03', en: 'LOOK 03' } }] },
-    { slug: '4mile', name: '4MILE', poster: showroomImage('brands/4mile.webp'), items: [{ image: showroomImage('brand-room/4mile-main.webp'), styleNumber: '4MILE-SS27-001', name: { cn: '款式 01', en: 'LOOK 01' } }, { image: showroomImage('brand-room/4mile-detail-01.webp'), styleNumber: '4MILE-SS27-002', name: { cn: '款式 02', en: 'LOOK 02' } }, { image: showroomImage('brand-room/4mile-detail-02.webp'), styleNumber: '4MILE-SS27-003', name: { cn: '款式 03', en: 'LOOK 03' } }] },
-    { slug: 'datt', name: 'DATT', poster: showroomImage('brands/datt.webp'), items: [{ image: showroomImage('brand-room/datt-main.webp'), styleNumber: 'DATT-SS27-001', name: { cn: '款式 01', en: 'LOOK 01' } }, { image: showroomImage('brand-room/datt-detail-01.webp'), styleNumber: 'DATT-SS27-002', name: { cn: '款式 02', en: 'LOOK 02' } }, { image: showroomImage('brand-room/datt-detail-02.webp'), styleNumber: 'DATT-SS27-003', name: { cn: '款式 03', en: 'LOOK 03' } }] },
-    { slug: 'pieton-episode', name: 'PIÉTON ÉPISODE', poster: showroomImage('brands/pieton-episode.webp'), items: [{ image: showroomImage('brand-room/pieton-episode-main.webp'), styleNumber: 'PIETON-SS27-001', name: { cn: '款式 01', en: 'LOOK 01' } }, { image: showroomImage('brand-room/pieton-episode-detail-01.webp'), styleNumber: 'PIETON-SS27-002', name: { cn: '款式 02', en: 'LOOK 02' } }, { image: showroomImage('brand-room/pieton-episode-detail-02.webp'), styleNumber: 'PIETON-SS27-003', name: { cn: '款式 03', en: 'LOOK 03' } }] },
-    { slug: 'lucia-tacci', name: 'LUCIA TACCI', poster: showroomImage('brands/lucia-tacci.webp'), items: [{ image: showroomImage('brand-room/lucia-tacci-main.webp'), styleNumber: 'LUCIA-SS27-001', name: { cn: '款式 01', en: 'LOOK 01' } }, { image: showroomImage('brand-room/lucia-tacci-detail-01.webp'), styleNumber: 'LUCIA-SS27-002', name: { cn: '款式 02', en: 'LOOK 02' } }, { image: showroomImage('brand-room/lucia-tacci-detail-02.webp'), styleNumber: 'LUCIA-SS27-003', name: { cn: '款式 03', en: 'LOOK 03' } }] },
-    { slug: 'helen-kaminski', name: 'HELEN KAMINSKI', poster: showroomImage('brands/helen-kaminski.webp'), items: [{ image: showroomImage('brand-room/helen-kaminski-main.webp'), styleNumber: 'HELEN-SS27-001', name: { cn: '款式 01', en: 'LOOK 01' } }, { image: showroomImage('brand-room/helen-kaminski-detail-01.webp'), styleNumber: 'HELEN-SS27-002', name: { cn: '款式 02', en: 'LOOK 02' } }, { image: showroomImage('brand-room/helen-kaminski-detail-02.webp'), styleNumber: 'HELEN-SS27-003', name: { cn: '款式 03', en: 'LOOK 03' } }] },
-    { slug: 'reindeer', name: 'REINDEER', poster: showroomImage('brands/reindeer.webp'), items: [{ image: showroomImage('brand-room/reindeer-main.webp'), styleNumber: 'REINDEER-SS27-001', name: { cn: '款式 01', en: 'LOOK 01' } }, { image: showroomImage('brand-room/reindeer-detail-01.webp'), styleNumber: 'REINDEER-SS27-002', name: { cn: '款式 02', en: 'LOOK 02' } }, { image: showroomImage('brand-room/reindeer-detail-02.webp'), styleNumber: 'REINDEER-SS27-003', name: { cn: '款式 03', en: 'LOOK 03' } }] },
+    { slug: 'ranyepersonal', name: 'RANYEPERSONAL', poster: showroomImage('brands/ranyepersonal.webp'), items: editorialLookbook },
+    { slug: 'maison-ther', name: 'MAISON THER', poster: showroomImage('brands/maison-ther.webp'), items: editorialLookbook },
+    { slug: 'nhoj', name: 'NHOJ', poster: showroomImage('brands/nhoj.webp'), items: editorialLookbook },
+    { slug: 'playply', name: 'PLAYPLY', poster: showroomImage('brands/playply.webp'), items: editorialLookbook },
+    { slug: 'alwools', name: 'ALWOOLS', poster: showroomImage('brands/alwools.webp'), items: editorialLookbook },
+    { slug: 'tenspher', name: 'TENSPHER', poster: showroomImage('brands/tenspher.webp'), items: editorialLookbook },
+    { slug: '4mile', name: '4MILE', poster: showroomImage('brands/4mile.webp'), items: editorialLookbook },
+    { slug: 'datt', name: 'DATT', poster: showroomImage('brands/datt.webp'), items: editorialLookbook },
+    { slug: 'pieton-episode', name: 'PIÉTON ÉPISODE', poster: showroomImage('brands/pieton-episode.webp'), items: editorialLookbook },
+    { slug: 'lucia-tacci', name: 'LUCIA TACCI', poster: showroomImage('brands/lucia-tacci.webp'), items: editorialLookbook },
+    { slug: 'helen-kaminski', name: 'HELEN KAMINSKI', poster: showroomImage('brands/helen-kaminski.webp'), items: editorialLookbook },
+    { slug: 'reindeer', name: 'REINDEER', poster: showroomImage('brands/reindeer.webp'), items: editorialLookbook },
   ],
   floorMapImage: showroomImage('now/floor-map.webp'),
   appointmentQrImage: showroomImage('now/appointment-qr.webp'),

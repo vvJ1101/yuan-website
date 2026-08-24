@@ -40,24 +40,28 @@ function LanguageSwitch({ locale }: { locale: Locale }) {
 export function SiteHeader({ locale }: { locale: Locale }) {
   return (
     <header className="site-header">
-      <Link className="site-logo" href={localePath(locale, '/')}>
-        <Image
-          className="site-logo__image"
-          src="/images/showroom/yuan-logo.png"
-          alt="YUAN SHOWROOM"
-          fill
-          sizes="140px"
-          priority
-        />
-      </Link>
-      <nav aria-label={locale === 'cn' ? '主导航' : 'Primary navigation'}>
-        {items.map((item) => (
-          <Link key={item.href} href={localePath(locale, `/${item.href}`)}>
-            {item.label}
-          </Link>
-        ))}
-      </nav>
-      <LanguageSwitch locale={locale} />
+      <div className="site-header__brand">
+        <Link className="site-logo" href={localePath(locale, '/')}>
+          <Image
+            className="site-logo__image"
+            src="/images/showroom/yuan-logo.png"
+            alt="YUAN SHOWROOM"
+            fill
+            sizes="170px"
+            priority
+          />
+        </Link>
+      </div>
+      <div className="site-header__navigation">
+        <nav aria-label={locale === 'cn' ? '主导航' : 'Primary navigation'}>
+          {items.map((item) => (
+            <Link key={item.href} href={localePath(locale, `/${item.href}`)}>
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+        <LanguageSwitch locale={locale} />
+      </div>
     </header>
   )
 }

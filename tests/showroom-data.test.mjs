@@ -7,7 +7,7 @@ const read = (relativePath) => readFile(new URL(relativePath, root), 'utf8')
 
 test('brand categories match the approved matrix', async () => {
   const source = await read('src/data/showroom.ts')
-  const brandBlock = source.match(/export const brands: Brand\[\] = \[([\s\S]*?)\n\]\n\nexport const currentEvent/)?.[1]
+  const brandBlock = source.match(/export const brands: Brand\[\] = \[([\s\S]*?)\n\]\n\nconst editorialLookbook/)?.[1]
   assert.ok(brandBlock)
 
   const actual = [...brandBlock.matchAll(/\{ slug: '([^']+)', name: '[^']+', category: '(RTW|FTW|ACC)'/g)]
@@ -78,22 +78,14 @@ test('current event independently initializes the twelve approved exhibition bra
   assert.doesNotMatch(event, /brands\.map|exhibitionBrandSlugs|A\.NOUR|LE17SEPTEMBRE/)
 })
 
-test('every initialized event brand has three independent lookbook items', async () => {
+test('every initialized event brand starts with the five supplied editorial images', async () => {
   const source = await read('src/data/showroom.ts')
+  const lookbook = source.slice(source.indexOf('const editorialLookbook'), source.indexOf('export const currentEvent'))
   const event = source.slice(source.indexOf('export const currentEvent'), source.indexOf('export const onSiteServices'))
-  const records = [...event.matchAll(/\{ slug: '([^']+)', name: '[^']+', poster: [^,]+, items: \[([\s\S]*?)\] \}/g)]
 
-  assert.equal(records.length, 12)
-  const allStyleNumbers = []
-  for (const [, , itemBlock] of records) {
-    const items = [...itemBlock.matchAll(/\{ image: [^,]+, styleNumber: '([^']+)', name: \{ cn: '([^']+)', en: '([^']+)' \} \}/g)]
-    assert.equal(items.length, 3)
-    for (const [, styleNumber, cnName, enName] of items) {
-      assert.ok(styleNumber && cnName && enName)
-      allStyleNumbers.push(styleNumber)
-    }
-  }
-  assert.equal(new Set(allStyleNumbers).size, 36)
+  assert.equal([...lookbook.matchAll(/now\/lookbook\/editorial-\d{2}\.png/g)].length, 5)
+  assert.equal([...event.matchAll(/items: editorialLookbook/g)].length, 12)
+  assert.doesNotMatch(lookbook, /styleNumber|name:/)
 })
 
 test('recap initializes ten seasons for a balanced five-by-two desktop grid', async () => {
