@@ -881,7 +881,7 @@ a.lookbook-index__card:hover > span {
   font-family: "Arial Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: clamp(64px, 9.8vw, 178px);
   font-stretch: condensed;
-  font-weight: 900;
+  font-weight: 300;
   line-height: 0.78;
   letter-spacing: -0.06em;
   white-space: nowrap;
@@ -892,11 +892,11 @@ a.lookbook-index__card:hover > span {
 }
 
 .showroom-cover__word span:nth-child(2n) {
-  transform: translateY(0.045em);
+  transform: none;
 }
 
 .showroom-cover__word span:nth-child(3n) {
-  transform: translateY(-0.03em);
+  transform: none;
 }
 
 .showroom-cover__word--yuan {
@@ -913,6 +913,143 @@ a.lookbook-index__card:hover > span {
   transform: scaleX(0.84);
   transform-origin: right center;
 }
+
+/* Horizontal kinetic cover */
+.showroom-cover__experience {
+  height: 168svh;
+  animation: showroom-collage-entrance 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.showroom-cover__stage {
+  --pointer-x: 0;
+  --pointer-y: 0;
+  position: sticky;
+  top: var(--ys-header-h);
+  height: calc(100svh - var(--ys-header-h));
+  min-height: 520px;
+  overflow: hidden;
+  background: #fff;
+  isolation: isolate;
+}
+
+.showroom-cover__track {
+  position: absolute;
+  z-index: 1;
+  inset: 0 auto 0 0;
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.showroom-cover__sequence {
+  display: flex;
+  align-items: center;
+  width: 356vw;
+  min-width: 4860px;
+  padding-inline: clamp(34px, 4.8vw, 92px);
+  gap: clamp(52px, 7vw, 128px);
+}
+
+.showroom-cover__panel {
+  position: relative;
+  flex: none;
+  overflow: hidden;
+  background: #ece9e2;
+  transform: translate3d(calc(var(--pointer-x) * (var(--panel-index) - 3.5) * 2px), calc(var(--pointer-y) * (var(--panel-index) - 3.5) * 1.4px), 0);
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.showroom-cover__panel img { object-fit: cover; }
+.showroom-cover__panel--hero { width: 38vw; height: 76%; align-self: flex-start; }
+.showroom-cover__panel--small { width: 17vw; height: 27%; align-self: flex-end; margin-bottom: 8vh; }
+.showroom-cover__panel--tall { width: 24vw; height: 66%; align-self: flex-start; margin-top: 8vh; }
+.showroom-cover__panel--medium { width: 27vw; height: 48%; align-self: center; }
+.showroom-cover__panel--wide { width: 39vw; height: 57%; align-self: flex-end; margin-bottom: 5vh; }
+.showroom-cover__panel--small-low { width: 18vw; height: 31%; align-self: flex-start; margin-top: 10vh; }
+.showroom-cover__panel--tall-low { width: 26vw; height: 69%; align-self: flex-end; }
+.showroom-cover__panel--wide-high { width: 34vw; height: 45%; align-self: flex-start; margin-top: 3vh; }
+
+.showroom-cover__lettering {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  pointer-events: none;
+  color: #fff;
+  mix-blend-mode: difference;
+}
+
+.showroom-cover__lettering .showroom-cover__word {
+  display: block;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-stretch: normal;
+  line-height: 0.83;
+  letter-spacing: -0.075em;
+  transform: none;
+}
+
+.showroom-cover__lettering .showroom-cover__word--yuan {
+  top: 29%;
+  left: 7%;
+  font-size: clamp(78px, 9.6vw, 176px);
+}
+
+.showroom-cover__lettering .showroom-cover__word--showroom {
+  right: auto;
+  bottom: 27%;
+  left: 7%;
+  font-size: clamp(68px, 8.25vw, 152px);
+}
+
+.showroom-cover__timepiece {
+  position: absolute;
+  z-index: 5;
+  left: 54%;
+  bottom: 8%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #111;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  line-height: 1.45;
+}
+
+.showroom-cover__clock {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  animation: showroom-clock-turn 24s linear infinite;
+}
+
+.showroom-cover__clock i {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 1px);
+  width: 2px;
+  height: 8px;
+  background: currentColor;
+  transform: rotate(calc(var(--tick) * 30deg));
+  transform-origin: 1px 30px;
+}
+
+.showroom-cover__place { display: grid; gap: 1px; }
+.showroom-cover__place time { font-variant-numeric: tabular-nums; font-size: 13px; letter-spacing: 0.06em; }
+
+.showroom-cover__direction {
+  position: absolute;
+  z-index: 5;
+  right: var(--ys-gutter);
+  bottom: 4%;
+  color: #111;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+}
+
+.showroom-cover__stage[data-scrolling='true'] .showroom-cover__direction { opacity: 0.35; }
+
+@keyframes showroom-clock-turn { to { transform: rotate(360deg); } }
 
 .media-frame {
   position: relative;
@@ -1712,6 +1849,44 @@ a.lookbook-index__card:hover > span {
   .recap-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+@media (max-width: 900px) {
+  .showroom-cover__sequence {
+    width: 590vw;
+    min-width: 4200px;
+  }
+
+  .showroom-cover__panel--hero { width: 62vw; }
+  .showroom-cover__panel--small,
+  .showroom-cover__panel--small-low { width: 30vw; }
+  .showroom-cover__panel--tall,
+  .showroom-cover__panel--tall-low { width: 43vw; }
+  .showroom-cover__panel--medium { width: 48vw; }
+  .showroom-cover__panel--wide,
+  .showroom-cover__panel--wide-high { width: 66vw; }
+
+  .showroom-cover__lettering .showroom-cover__word--yuan {
+    top: 31%;
+    left: 5%;
+    font-size: clamp(68px, 16vw, 124px);
+  }
+
+  .showroom-cover__lettering .showroom-cover__word--showroom {
+    bottom: 31%;
+    left: 5%;
+    font-size: clamp(48px, 12vw, 96px);
+  }
+
+  .showroom-cover__timepiece { left: 8%; bottom: 7%; }
+}
+
+@media (max-width: 640px) {
+  .showroom-cover__experience { height: 145svh; }
+  .showroom-cover__stage { min-height: 500px; }
+  .showroom-cover__sequence { gap: 42px; padding-inline: 24px; }
+  .showroom-cover__timepiece { transform: scale(0.88); transform-origin: left bottom; }
+  .showroom-cover__direction { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
