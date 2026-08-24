@@ -28,7 +28,7 @@ export default async function RecapPage({
               src={recap.poster}
               alt={`${recap.season} ${localize(recap.title, locale)}`}
               ratio="3 / 5"
-              sizes="(max-width: 640px) 100vw, (max-width: 900px) 50vw, 25vw"
+              sizes="(max-width: 640px) 50vw, (max-width: 900px) 50vw, 140px"
               priority={index < 4}
             />
             <h2>{recap.season} {locale === 'cn' ? '订货会' : 'ORDERING'}</h2>

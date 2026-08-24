@@ -6,10 +6,6 @@ import { currentEvent } from '@/data/showroom'
 import { isLocale } from '@/lib/showroom-i18n'
 import { localePath } from '@/lib/showroom-routing'
 
-function displayBrandName(slug: string) {
-  return slug.replaceAll('-', ' ').toUpperCase()
-}
-
 export default async function LookbookPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   if (!isLocale(locale)) notFound()
@@ -22,16 +18,16 @@ export default async function LookbookPage({ params }: { params: Promise<{ local
           <p>{currentEvent.season}</p>
         </header>
         <div className="lookbook-index__grid">
-          {currentEvent.exhibitionBrandSlugs.map((brandSlug, index) => (
-            <Link className="lookbook-index__card" href={localePath(locale, `/now/lookbook/${brandSlug}`)} key={brandSlug}>
+          {currentEvent.exhibitionBrands.map((brand, index) => (
+            <Link className="lookbook-index__card" href={localePath(locale, `/now/lookbook/${brand.slug}`)} key={brand.slug}>
               <MediaFrame
-                src={`/images/showroom/now/lookbook/${brandSlug}.webp`}
-                alt={`${displayBrandName(brandSlug)} ${locale === 'cn' ? '参展品牌海报' : 'exhibition poster'}`}
+                src={brand.poster}
+                alt={`${brand.name} ${locale === 'cn' ? '参展品牌海报' : 'exhibition poster'}`}
                 ratio="4 / 5"
                 sizes="(max-width: 640px) 50vw, (max-width: 900px) 33vw, 16vw"
                 priority={index < 6}
               />
-              <span>{displayBrandName(brandSlug)}</span>
+              <span>{brand.name}</span>
             </Link>
           ))}
         </div>

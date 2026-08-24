@@ -66,14 +66,32 @@ test('current event is Shanghai Fashion Week and has no published dates', async 
   assert.doesNotMatch(event, /巴黎|Paris|dates:/)
 })
 
-test('every published lookbook item carries an image, style number and bilingual product name', async () => {
+test('current event independently initializes the twelve approved exhibition brands', async () => {
   const source = await read('src/data/showroom.ts')
   const event = source.slice(source.indexOf('export const currentEvent'), source.indexOf('export const onSiteServices'))
-  const items = [...event.matchAll(/\{ image: showroomImage\('now\/lookbook\/([^']+)'\), styleNumber: '([^']+)', name: \{ cn: '([^']+)', en: '([^']+)' \} \}/g)]
+  const names = [...event.matchAll(/name: '([^']+)', poster:/g)].map((match) => match[1])
 
-  assert.equal(items.length, 7)
-  assert.equal(new Set(items.map((item) => item[2])).size, 7)
-  for (const [, image, styleNumber, cnName, enName] of items) {
-    assert.ok(image && styleNumber && cnName && enName)
+  assert.deepEqual(names, [
+    'RANYEPERSONAL', 'MAISON THER', 'NHOJ', 'PLAYPLY', 'ALWOOLS', 'TENSPHER',
+    '4MILE', 'DATT', 'PIÉTON ÉPISODE', 'LUCIA TACCI', 'HELEN KAMINSKI', 'REINDEER',
+  ])
+  assert.doesNotMatch(event, /brands\.map|exhibitionBrandSlugs|A\.NOUR|LE17SEPTEMBRE/)
+})
+
+test('every initialized event brand has three independent lookbook items', async () => {
+  const source = await read('src/data/showroom.ts')
+  const event = source.slice(source.indexOf('export const currentEvent'), source.indexOf('export const onSiteServices'))
+  const records = [...event.matchAll(/\{ slug: '([^']+)', name: '[^']+', poster: [^,]+, items: \[([\s\S]*?)\] \}/g)]
+
+  assert.equal(records.length, 12)
+  const allStyleNumbers = []
+  for (const [, , itemBlock] of records) {
+    const items = [...itemBlock.matchAll(/\{ image: [^,]+, styleNumber: '([^']+)', name: \{ cn: '([^']+)', en: '([^']+)' \} \}/g)]
+    assert.equal(items.length, 3)
+    for (const [, styleNumber, cnName, enName] of items) {
+      assert.ok(styleNumber && cnName && enName)
+      allStyleNumbers.push(styleNumber)
+    }
   }
+  assert.equal(new Set(allStyleNumbers).size, 36)
 })

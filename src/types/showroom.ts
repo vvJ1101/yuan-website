@@ -26,15 +26,10 @@ export interface Brand {
   roomImages: readonly [string, string, string]
 }
 
-export interface Lookbook {
-  brandSlug: string
-  season: string
-  description: LocalizedText
-  designer: string
-  category: LocalizedText
-  origin: LocalizedText
-  established: string
-  website: string
+export interface EventBrand {
+  slug: string
+  name: string
+  poster: string
   items: readonly LookbookItem[]
 }
 
@@ -49,8 +44,7 @@ export interface CurrentEvent {
   title: LocalizedText
   season: string
   heroImage: string
-  exhibitionBrandSlugs: readonly string[]
-  lookbooks: readonly Lookbook[]
+  exhibitionBrands: readonly EventBrand[]
   floorMapImage: string
   appointmentQrImage: string
 }

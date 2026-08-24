@@ -133,10 +133,11 @@ test('NOW exhibition posters link to separate lookbook-only brand routes', async
   const index = await read('src/app/[locale]/now/lookbook/page.tsx')
   const detail = await read('src/app/[locale]/now/lookbook/[slug]/page.tsx')
 
-  assert.match(index, /localePath\(locale, `\/now\/lookbook\/\$\{brandSlug\}`\)/)
+  assert.match(index, /currentEvent\.exhibitionBrands\.map/)
+  assert.match(index, /localePath\(locale, `\/now\/lookbook\/\$\{brand\.slug\}`\)/)
   assert.doesNotMatch(index, /href={`#lookbook-/)
-  assert.match(detail, /lookbook\.items\.map/)
-  assert.match(detail, /LOOKBOOK 即将更新/)
+  assert.match(detail, /brand\.items\.map/)
+  assert.doesNotMatch(detail, /LOOKBOOK 即将更新/)
   assert.doesNotMatch(detail, /DESIGNER|CATEGORY|ORIGIN|ESTABLISHED|WEBSITE|description/)
 })
 
@@ -145,7 +146,7 @@ test('lookbook detail renders style number and localized product name for every 
   const now = await read('src/app/[locale]/now/page.tsx')
   const appointment = await read('src/app/[locale]/now/appointment/page.tsx')
 
-  assert.match(detail, /lookbook\.items\.map/)
+  assert.match(detail, /brand\.items\.map/)
   assert.match(detail, /item\.styleNumber/)
   assert.match(detail, /localize\(item\.name, locale\)/)
   assert.doesNotMatch(now, /currentEvent\.dates/)
@@ -168,8 +169,12 @@ test('onsite carousel has accessible previous and next controls', async () => {
   assert.doesNotMatch(source, /setInterval|setTimeout|autoplay/i)
 })
 
-test('recap orders entries from data and remains a long page', async () => {
+test('recap orders entries from data in a compact four-by-two desktop archive', async () => {
   const source = await read('src/app/[locale]/recap/page.tsx')
+  const css = await read('src/app/globals.css')
   assert.match(source, /recaps[\s\S]*sort/)
   assert.match(source, /recap-grid/)
+  assert.match(css, /\.recap-grid\s*\{[^}]*grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)[^}]*max-width:/)
+  assert.match(css, /@media \(min-width: 901px\) and \(max-height: 820px\)[\s\S]*?\.recap-page\s*\{[^}]*padding-top:/)
+  assert.match(css, /@media \(min-width: 901px\) and \(max-height: 820px\)[\s\S]*?\.recap-grid\s*\{[^}]*margin-top:/)
 })
