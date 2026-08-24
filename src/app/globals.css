@@ -980,11 +980,11 @@ a.lookbook-index__card:hover > span {
 
 .showroom-cover__lettering .showroom-cover__word {
   display: block;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Avenir Next", Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
   font-stretch: normal;
   line-height: 0.83;
-  letter-spacing: -0.075em;
+  letter-spacing: 0.01em;
   transform: none;
 }
 

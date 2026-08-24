@@ -72,7 +72,7 @@ export function HomepageExperience() {
     const render = (now: number) => {
       const elapsed = Math.min(now - previousTime, 64)
       previousTime = now
-      if (!scrollingRef.current && !reduceMotion) positionRef.current += elapsed * 0.022
+      if (!scrollingRef.current && !reduceMotion) positionRef.current += elapsed * 0.052
       normalizePosition()
       track.style.transform = `translate3d(${-positionRef.current}px, 0, 0)`
       animationFrame = requestAnimationFrame(render)
