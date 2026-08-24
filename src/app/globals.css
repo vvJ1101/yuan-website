@@ -758,26 +758,55 @@ a.lookbook-index__card:hover > span {
 .showroom-cover__image--macro {
   right: 0;
   bottom: 3%;
-  width: 11%;
-  height: 23%;
+  width: 20%;
+  height: 35%;
+}
+
+.showroom-cover__letter-layer {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+}
+
+.showroom-cover__letter-layer--base {
+  color: rgb(8 8 8 / 78%);
+}
+
+.showroom-cover__letter-layer--image {
+  color: rgb(255 255 255 / 82%);
+}
+
+.showroom-cover__letter-layer--fabric {
+  clip-path: inset(0 46% 14% 14%);
+}
+
+.showroom-cover__letter-layer--texture {
+  clip-path: inset(8% 82% 68% 0);
+}
+
+.showroom-cover__letter-layer--monochrome {
+  clip-path: inset(7% 10% 57% 73%);
+}
+
+.showroom-cover__letter-layer--macro {
+  clip-path: inset(62% 0 3% 80%);
 }
 
 .showroom-cover__word {
   position: absolute;
-  z-index: 2;
   display: flex;
   align-items: baseline;
   gap: 0.015em;
   margin: 0;
-  color: rgb(8 8 8 / 68%);
+  color: inherit;
   font-family: "Arial Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: clamp(82px, 13.2vw, 238px);
+  font-size: clamp(64px, 9.8vw, 178px);
   font-stretch: condensed;
   font-weight: 900;
   line-height: 0.78;
   letter-spacing: -0.06em;
   white-space: nowrap;
-  mix-blend-mode: multiply;
 }
 
 .showroom-cover__word span {
@@ -785,11 +814,11 @@ a.lookbook-index__card:hover > span {
 }
 
 .showroom-cover__word span:nth-child(2n) {
-  transform: translateY(0.1em);
+  transform: translateY(0.045em);
 }
 
 .showroom-cover__word span:nth-child(3n) {
-  transform: translateY(-0.07em);
+  transform: translateY(-0.03em);
 }
 
 .showroom-cover__word--yuan {
@@ -802,7 +831,7 @@ a.lookbook-index__card:hover > span {
 .showroom-cover__word--showroom {
   right: 2%;
   bottom: 22%;
-  font-size: clamp(68px, 11.2vw, 204px);
+  font-size: clamp(56px, 8.3vw, 152px);
   transform: scaleX(0.84);
   transform-origin: right center;
 }
@@ -1400,8 +1429,24 @@ a.lookbook-index__card:hover > span {
   }
 
   .showroom-cover__image--macro {
-    width: 24%;
-    height: 20%;
+    width: 36%;
+    height: 28%;
+  }
+
+  .showroom-cover__letter-layer--fabric {
+    clip-path: inset(12% 24% 28% 12%);
+  }
+
+  .showroom-cover__letter-layer--texture {
+    clip-path: inset(0 66% 80% 0);
+  }
+
+  .showroom-cover__letter-layer--monochrome {
+    clip-path: inset(4% 0 69% 70%);
+  }
+
+  .showroom-cover__letter-layer--macro {
+    clip-path: inset(70% 0 2% 64%);
   }
 
   .showroom-cover__word--yuan {
@@ -1412,7 +1457,7 @@ a.lookbook-index__card:hover > span {
   .showroom-cover__word--showroom {
     right: -2%;
     bottom: 27%;
-    font-size: clamp(42px, 16vw, 68px);
+    font-size: clamp(38px, 12vw, 54px);
   }
 
   .showroom-about__copy h1 {
