@@ -56,11 +56,24 @@ test('proxy restores the saved English preference on clean public URLs', async (
   assert.match(source, /NextResponse\.redirect/)
 })
 
-test('cover contains only the approved hero title inside its main content', async () => {
+test('cover uses the official logo with a restrained entrance animation', async () => {
   const source = await read('src/app/[locale]/page.tsx')
+  const css = await read('src/app/globals.css')
   assert.match(source, /<main[^>]*className="showroom-cover"/)
-  assert.match(source, /YUAN[\s\S]*SHOWROOM/)
-  assert.doesNotMatch(source, /<Image|subtitle|description|button/i)
+  assert.match(source, /<Image[\s\S]*?src="\/images\/showroom\/yuan-logo\.png"/)
+  assert.match(source, /className="showroom-cover__logo-image"/)
+  assert.match(css, /@keyframes showroom-logo-entrance/)
+  assert.match(css, /\.showroom-cover__logo\s*\{[^}]*animation: showroom-logo-entrance/)
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)/)
+  assert.doesNotMatch(source, /subtitle|description|button/i)
+})
+
+test('header uses the same official logo image as the cover', async () => {
+  const header = await read('src/components/showroom/site-header.tsx')
+  assert.match(header, /import Image from 'next\/image'/)
+  assert.match(header, /src="\/images\/showroom\/yuan-logo\.png"/)
+  assert.match(header, /className="site-logo__image"/)
+  assert.doesNotMatch(header, /YUAN<br \/>SHOWROOM/)
 })
 
 test('about renders the localized image and exactly three approved statistics', async () => {
@@ -192,7 +205,7 @@ test('recap fills the desktop in five columns with portrait posters', async () =
   const css = await read('src/app/globals.css')
   assert.match(source, /recaps[\s\S]*sort/)
   assert.match(source, /recap-grid/)
-  assert.match(source, /ratio="3 \/ 5"/)
+  assert.match(source, /ratio="3\.5 \/ 5"/)
   assert.match(css, /\.recap-grid\s*\{[^}]*grid-template-columns: repeat\(5, minmax\(0, 1fr\)\)/)
   assert.doesNotMatch(css.match(/\.recap-grid\s*\{[^}]*\}/)?.[0] ?? '', /max-width:/)
   assert.match(css, /@media \(max-width: 900px\)[\s\S]*?\.recap-grid\s*\{[^}]*repeat\(3, minmax\(0, 1fr\)\)/)

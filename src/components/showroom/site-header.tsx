@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -40,7 +41,14 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   return (
     <header className="site-header">
       <Link className="site-logo" href={localePath(locale, '/')}>
-        YUAN<br />SHOWROOM
+        <Image
+          className="site-logo__image"
+          src="/images/showroom/yuan-logo.png"
+          alt="YUAN SHOWROOM"
+          fill
+          sizes="140px"
+          priority
+        />
       </Link>
       <nav aria-label={locale === 'cn' ? '主导航' : 'Primary navigation'}>
         {items.map((item) => (

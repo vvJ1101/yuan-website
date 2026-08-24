@@ -27,7 +27,7 @@ export default async function RecapPage({
             <MediaFrame
               src={recap.poster}
               alt={`${recap.season} ${localize(recap.title, locale)}`}
-              ratio="3 / 5"
+              ratio="3.5 / 5"
               sizes="(max-width: 640px) 50vw, (max-width: 900px) 33vw, 20vw"
               priority={index < 5}
             />

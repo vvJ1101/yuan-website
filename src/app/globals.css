@@ -587,8 +587,15 @@ a.lookbook-index__card:hover > span {
 }
 
 .site-logo {
-  width: max-content;
-  font-size: clamp(17px, 1.3vw, 22px);
+  position: relative;
+  display: block;
+  width: clamp(108px, 8.5vw, 142px);
+  aspect-ratio: 4.8 / 1;
+  overflow: hidden;
+}
+
+.site-logo__image {
+  object-fit: cover;
 }
 
 .site-header nav {
@@ -604,8 +611,7 @@ a.lookbook-index__card:hover > span {
 }
 
 .site-header nav a:hover,
-.site-language-switch a:hover,
-.site-logo:hover {
+.site-language-switch a:hover {
   text-decoration: underline;
 }
 
@@ -704,17 +710,37 @@ a.lookbook-index__card:hover > span {
   display: flex;
   min-height: calc(100svh - var(--ys-header-h));
   align-items: center;
-  padding: clamp(32px, 5vh, 60px) var(--ys-gutter) clamp(28px, 4vh, 48px) clamp(48px, 5.8vw, 100px);
+  justify-content: center;
+  padding: clamp(32px, 5vh, 60px) var(--ys-gutter) clamp(28px, 4vh, 48px);
   overflow: clip;
 }
 
-.showroom-cover__title {
-  margin: 0;
-  font-size: clamp(76px, 8vw, 148px);
-  font-weight: 700;
-  letter-spacing: -0.065em;
-  line-height: 0.87;
-  transform: translateY(clamp(18px, 2.5vh, 26px));
+@keyframes showroom-logo-entrance {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    clip-path: inset(100% 0 0);
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    clip-path: inset(0);
+    transform: translateY(0);
+  }
+}
+
+.showroom-cover__logo {
+  position: relative;
+  width: min(84vw, 1600px);
+  aspect-ratio: 4.8 / 1;
+  overflow: hidden;
+  animation: showroom-logo-entrance 1.05s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.showroom-cover__logo-image {
+  object-fit: cover;
 }
 
 .media-frame {
@@ -1265,9 +1291,8 @@ a.lookbook-index__card:hover > span {
     padding-inline: var(--ys-gutter);
   }
 
-  .showroom-cover__title {
-    font-size: clamp(54px, 15vw, 72px);
-    transform: none;
+  .showroom-cover__logo {
+    width: 92vw;
   }
 
   .showroom-about__copy h1 {
