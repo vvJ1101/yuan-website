@@ -27,7 +27,7 @@ export async function generateMetadata({
   if (!isLocale(locale)) return {}
 
   const content = localeMetadata[locale]
-  const canonical = `https://yuanshowroom.cn/${locale}`
+  const canonical = locale === 'cn' ? 'https://yuanshowroom.cn' : 'https://yuanshowroom.cn/en'
 
   return {
     title: { absolute: content.title },
@@ -35,7 +35,7 @@ export async function generateMetadata({
     alternates: {
       canonical,
       languages: {
-        'zh-CN': 'https://yuanshowroom.cn/cn',
+        'zh-CN': 'https://yuanshowroom.cn',
         en: 'https://yuanshowroom.cn/en',
       },
     },

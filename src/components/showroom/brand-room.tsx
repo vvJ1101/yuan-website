@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import { MediaFrame } from '@/components/showroom/media-frame'
 import { localize } from '@/lib/showroom-i18n'
+import { localePath } from '@/lib/showroom-routing'
 import type { Brand, Locale } from '@/types/showroom'
 
 interface BrandRoomProps {
@@ -16,7 +17,7 @@ export function BrandRoom({ locale, brand, previous, next }: BrandRoomProps) {
 
   return (
     <main className="brand-room">
-      <Link className="brand-room__close" href={`/${locale}/brands`}>
+      <Link className="brand-room__close" href={localePath(locale, '/brands')}>
         CLOSE
       </Link>
 
@@ -35,13 +36,13 @@ export function BrandRoom({ locale, brand, previous, next }: BrandRoomProps) {
 
         <nav className="brand-room__pager" aria-label={locale === 'cn' ? '浏览品牌' : 'Browse brands'}>
           <Link
-            href={`/${locale}/brands/${previous.slug}`}
+            href={localePath(locale, `/brands/${previous.slug}`)}
             aria-label={`${locale === 'cn' ? '上一个品牌' : 'Previous brand'}: ${previous.name}`}
           >
             <span aria-hidden="true">←</span>
           </Link>
           <Link
-            href={`/${locale}/brands/${next.slug}`}
+            href={localePath(locale, `/brands/${next.slug}`)}
             aria-label={`${locale === 'cn' ? '下一个品牌' : 'Next brand'}: ${next.name}`}
           >
             <span aria-hidden="true">→</span>

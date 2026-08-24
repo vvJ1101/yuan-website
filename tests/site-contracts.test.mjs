@@ -16,18 +16,19 @@ async function filesUnder(relativeDirectory) {
   return nested.flat()
 }
 
-test('sitemap publishes cn and en showroom routes', async () => {
+test('sitemap publishes clean Chinese and /en English showroom routes', async () => {
   const sitemap = await read('public/sitemap.xml')
-  for (const route of ['/cn', '/en', '/cn/brands', '/en/brands', '/cn/now', '/en/now']) {
+  for (const route of ['', '/en', '/brands', '/en/brands', '/now', '/en/now']) {
     assert.match(sitemap, new RegExp(`<loc>https://yuanshowroom.cn${route}</loc>`))
   }
+  assert.doesNotMatch(sitemap, /yuanshowroom\.cn\/cn(?:<|\/)/)
   assert.match(sitemap, /hreflang="zh-CN"/)
   assert.match(sitemap, /hreflang="en"/)
 })
 
 test('404 returns to the default Chinese locale homepage', async () => {
   const source = await read('src/app/not-found.tsx')
-  assert.match(source, /href="\/cn"/)
+  assert.match(source, /href="\/"/)
   assert.doesNotMatch(source, /href="\/showroom"/)
 })
 

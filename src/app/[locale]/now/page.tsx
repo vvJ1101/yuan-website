@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { MediaFrame } from '@/components/showroom/media-frame'
 import { currentEvent } from '@/data/showroom'
 import { isLocale, localize } from '@/lib/showroom-i18n'
+import { localePath } from '@/lib/showroom-routing'
 
 const destinations = [
   { path: '/now/lookbook', cn: '参展品牌', en: 'LOOKBOOK' },
@@ -40,7 +41,7 @@ export default async function NowPage({
 
       <nav className="now-event__destinations" aria-label={locale === 'cn' ? '当前订货会' : 'Current event'}>
         {destinations.map((destination) => (
-          <Link href={`/${locale}${destination.path}`} key={destination.path}>
+          <Link href={localePath(locale, destination.path)} key={destination.path}>
             <strong>{locale === 'cn' ? destination.cn : destination.en}</strong>
             <span>{locale === 'cn' ? destination.en : destination.cn}</span>
           </Link>

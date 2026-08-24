@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { MediaFrame } from '@/components/showroom/media-frame'
+import { localePath } from '@/lib/showroom-routing'
 import type { Brand, BrandCategory, Locale } from '@/types/showroom'
 
 interface BrandGridProps {
@@ -26,7 +27,7 @@ export function BrandGrid({ locale, brands }: BrandGridProps) {
                   .filter((brand) => brand.category === category)
                   .map((brand) => (
                     <li key={brand.slug}>
-                      <Link href={`/${locale}/brands/${brand.slug}`}>{brand.name}</Link>
+                      <Link href={localePath(locale, `/brands/${brand.slug}`)}>{brand.name}</Link>
                     </li>
                   ))}
               </ul>
@@ -39,7 +40,7 @@ export function BrandGrid({ locale, brands }: BrandGridProps) {
         {brands.map((brand, index) => (
           <Link
             className="brand-index__card"
-            href={`/${locale}/brands/${brand.slug}`}
+            href={localePath(locale, `/brands/${brand.slug}`)}
             key={brand.slug}
           >
             <MediaFrame

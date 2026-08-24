@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { switchLocalePath } from '@/lib/showroom-i18n'
+import { localePath, switchLocalePath } from '@/lib/showroom-routing'
 import type { Locale } from '@/types/showroom'
 
 const items = [
@@ -35,12 +35,12 @@ function LanguageSwitch({ locale }: { locale: Locale }) {
 export function SiteHeader({ locale }: { locale: Locale }) {
   return (
     <header className="site-header">
-      <Link className="site-logo" href={`/${locale}`}>
+      <Link className="site-logo" href={localePath(locale, '/')}>
         YUAN<br />SHOWROOM
       </Link>
       <nav aria-label={locale === 'cn' ? '主导航' : 'Primary navigation'}>
         {items.map((item) => (
-          <Link key={item.href} href={`/${locale}/${item.href}`}>
+          <Link key={item.href} href={localePath(locale, `/${item.href}`)}>
             {item.label}
           </Link>
         ))}

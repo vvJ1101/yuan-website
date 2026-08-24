@@ -31,9 +31,11 @@ test('locale layout validates route params before rendering the shared header', 
   assert.match(source, /<SiteHeader locale=\{locale\} \/>/)
 })
 
-test('root page redirects to Chinese', async () => {
-  const source = await read('src/app/page.tsx')
-  assert.match(source, /redirect\('\/cn'\)/)
+test('proxy serves Chinese at clean root and redirects legacy /cn URLs', async () => {
+  const source = await read('src/proxy.ts')
+  assert.match(source, /pathname === '\/cn'/)
+  assert.match(source, /NextResponse\.redirect\(url, 308\)/)
+  assert.match(source, /pathname === '\/' \? '\/cn'/)
 })
 
 test('cover contains only the approved hero title inside its main content', async () => {
@@ -69,7 +71,7 @@ test('about preserves the approved Chinese positioning copy', async () => {
 test('brand index exposes RTW FTW ACC and linked rooms', async () => {
   const grid = await read('src/components/showroom/brand-grid.tsx')
   for (const category of ['RTW', 'FTW', 'ACC']) assert.match(grid, new RegExp(category))
-  assert.match(grid, /`\/\$\{locale\}\/brands\/\$\{brand\.slug\}`/)
+  assert.match(grid, /localePath\(locale, `\/brands\/\$\{brand\.slug\}`\)/)
 })
 
 test('brand room has close and previous-next navigation without a lightbox', async () => {
@@ -125,6 +127,17 @@ test('NOW landing links all three approved destinations', async () => {
     assert.match(source, new RegExp(`/now/${path}`))
   }
   assert.doesNotMatch(source, /Arrow|<hr|<Image[^>]+className="now-link/i)
+})
+
+test('NOW exhibition posters link to separate lookbook-only brand routes', async () => {
+  const index = await read('src/app/[locale]/now/lookbook/page.tsx')
+  const detail = await read('src/app/[locale]/now/lookbook/[slug]/page.tsx')
+
+  assert.match(index, /localePath\(locale, `\/now\/lookbook\/\$\{brandSlug\}`\)/)
+  assert.doesNotMatch(index, /href={`#lookbook-/)
+  assert.match(detail, /lookbook\.images\.map/)
+  assert.match(detail, /LOOKBOOK 即将更新/)
+  assert.doesNotMatch(detail, /DESIGNER|CATEGORY|ORIGIN|ESTABLISHED|WEBSITE|description/)
 })
 
 test('onsite carousel has accessible previous and next controls', async () => {

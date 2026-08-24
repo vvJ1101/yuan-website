@@ -1,12 +1,25 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
 export function proxy(request: NextRequest) {
+  const pathname = request.nextUrl.pathname
+  if (/\.[^/]+$/.test(pathname)) return NextResponse.next()
+
+  if (pathname === '/cn' || pathname.startsWith('/cn/')) {
+    const url = request.nextUrl.clone()
+    url.pathname = pathname.slice(3) || '/'
+    return NextResponse.redirect(url, 308)
+  }
+
   const requestHeaders = new Headers(request.headers)
-  const locale = request.nextUrl.pathname.split('/')[1] === 'en' ? 'en' : 'zh-CN'
+  const locale = pathname === '/en' || pathname.startsWith('/en/') ? 'en' : 'zh-CN'
 
   requestHeaders.set('x-showroom-locale', locale)
 
-  return NextResponse.next({ request: { headers: requestHeaders } })
+  if (locale === 'en') return NextResponse.next({ request: { headers: requestHeaders } })
+
+  const url = request.nextUrl.clone()
+  url.pathname = pathname === '/' ? '/cn' : `/cn${pathname}`
+  return NextResponse.rewrite(url, { request: { headers: requestHeaders } })
 }
 
 export const config = {

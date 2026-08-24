@@ -5,7 +5,7 @@ export default function NotFound() {
     <main className="not-found-page">
       <p>404</p>
       <h1>PAGE NOT FOUND</h1>
-      <Link href="/cn">返回中文首页 / RETURN HOME</Link>
+      <Link href="/">返回中文首页 / RETURN HOME</Link>
     </main>
   )
 }
