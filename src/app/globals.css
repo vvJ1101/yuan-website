@@ -660,6 +660,35 @@ a.lookbook-index__card:hover > span {
   gap: clamp(18px, 2vw, 32px);
 }
 
+.lookbook-item {
+  min-width: 0;
+}
+
+.lookbook-item__information {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 12px 0 0;
+}
+
+.lookbook-item__information div {
+  min-width: 0;
+}
+
+.lookbook-item__information dt {
+  color: var(--ys-muted);
+  font-size: clamp(8px, 0.62vw, 10px);
+  letter-spacing: 0.06em;
+}
+
+.lookbook-item__information dd {
+  margin: 5px 0 0;
+  overflow: hidden;
+  font-size: clamp(10px, 0.75vw, 13px);
+  line-height: 1.3;
+  text-overflow: ellipsis;
+}
+
 .lookbook-brand__pending {
   color: var(--ys-muted);
   text-align: center;

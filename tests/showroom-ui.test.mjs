@@ -135,9 +135,21 @@ test('NOW exhibition posters link to separate lookbook-only brand routes', async
 
   assert.match(index, /localePath\(locale, `\/now\/lookbook\/\$\{brandSlug\}`\)/)
   assert.doesNotMatch(index, /href={`#lookbook-/)
-  assert.match(detail, /lookbook\.images\.map/)
+  assert.match(detail, /lookbook\.items\.map/)
   assert.match(detail, /LOOKBOOK 即将更新/)
   assert.doesNotMatch(detail, /DESIGNER|CATEGORY|ORIGIN|ESTABLISHED|WEBSITE|description/)
+})
+
+test('lookbook detail renders style number and localized product name for every look', async () => {
+  const detail = await read('src/app/[locale]/now/lookbook/[slug]/page.tsx')
+  const now = await read('src/app/[locale]/now/page.tsx')
+  const appointment = await read('src/app/[locale]/now/appointment/page.tsx')
+
+  assert.match(detail, /lookbook\.items\.map/)
+  assert.match(detail, /item\.styleNumber/)
+  assert.match(detail, /localize\(item\.name, locale\)/)
+  assert.doesNotMatch(now, /currentEvent\.dates/)
+  assert.doesNotMatch(appointment, /currentEvent\.dates/)
 })
 
 test('onsite carousel has accessible previous and next controls', async () => {

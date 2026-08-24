@@ -21,12 +21,11 @@ export default async function AppointmentPage({
         <MediaFrame
           className="appointment-page__qr"
           src={currentEvent.appointmentQrImage}
-          alt={locale === 'cn' ? '巴黎时装周订货会预约二维码' : 'Paris Fashion Week appointment QR code'}
+          alt={locale === 'cn' ? '上海时装周订货会预约二维码' : 'Shanghai Fashion Week appointment QR code'}
           ratio="1 / 1"
           sizes="360px"
           priority
         />
-        <p className="appointment-page__dates">{localize(currentEvent.dates, locale)}</p>
       </section>
     </main>
   )

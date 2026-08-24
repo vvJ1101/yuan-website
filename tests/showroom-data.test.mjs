@@ -56,3 +56,24 @@ test('every public content record carries cn and en copy', async () => {
   assert.match(source, /en:/)
   assert.doesNotMatch(source, /TODO|TBD|待翻译/)
 })
+
+test('current event is Shanghai Fashion Week and has no published dates', async () => {
+  const source = await read('src/data/showroom.ts')
+  const event = source.slice(source.indexOf('export const currentEvent'), source.indexOf('export const onSiteServices'))
+
+  assert.match(event, /city:\s*\{ cn: '上海', en: 'Shanghai' \}/)
+  assert.match(event, /title:\s*\{ cn: '上海时装周', en: 'Shanghai Fashion Week' \}/)
+  assert.doesNotMatch(event, /巴黎|Paris|dates:/)
+})
+
+test('every published lookbook item carries an image, style number and bilingual product name', async () => {
+  const source = await read('src/data/showroom.ts')
+  const event = source.slice(source.indexOf('export const currentEvent'), source.indexOf('export const onSiteServices'))
+  const items = [...event.matchAll(/\{ image: showroomImage\('now\/lookbook\/([^']+)'\), styleNumber: '([^']+)', name: \{ cn: '([^']+)', en: '([^']+)' \} \}/g)]
+
+  assert.equal(items.length, 7)
+  assert.equal(new Set(items.map((item) => item[2])).size, 7)
+  for (const [, image, styleNumber, cnName, enName] of items) {
+    assert.ok(image && styleNumber && cnName && enName)
+  }
+})

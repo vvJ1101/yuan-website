@@ -35,14 +35,19 @@ export interface Lookbook {
   origin: LocalizedText
   established: string
   website: string
-  images: readonly string[]
+  items: readonly LookbookItem[]
+}
+
+export interface LookbookItem {
+  image: string
+  styleNumber: string
+  name: LocalizedText
 }
 
 export interface CurrentEvent {
   city: LocalizedText
   title: LocalizedText
   season: string
-  dates: LocalizedText
   heroImage: string
   exhibitionBrandSlugs: readonly string[]
   lookbooks: readonly Lookbook[]

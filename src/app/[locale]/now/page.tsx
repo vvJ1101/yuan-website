@@ -27,7 +27,6 @@ export default async function NowPage({
         <p className="now-event__city">{localize(currentEvent.city, locale)}</p>
         <h1 id="now-event-title">{localize(currentEvent.title, locale)}</h1>
         <p className="now-event__season">{currentEvent.season}</p>
-        <p className="now-event__dates">{localize(currentEvent.dates, locale)}</p>
       </section>
 
       <MediaFrame

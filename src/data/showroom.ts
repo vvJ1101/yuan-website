@@ -58,7 +58,7 @@ const showroomImages = {
   'brand-room/reindeer-main.webp': image('/images/showroom/brand-room/reindeer-main.webp', 'REINDEER 品牌造型肖像', 'REINDEER campaign portrait'),
   'brand-room/reindeer-detail-01.webp': image('/images/showroom/brand-room/reindeer-detail-01.webp', 'REINDEER 品牌造型肖像', 'REINDEER campaign portrait'),
   'brand-room/reindeer-detail-02.webp': image('/images/showroom/brand-room/reindeer-detail-02.webp', 'REINDEER 品牌造型肖像', 'REINDEER campaign portrait'),
-  'now/event.webp': image('/images/showroom/now/event.webp', '巴黎时装周订货会展厅内景', 'Paris Fashion Week showroom interior'),
+  'now/event.webp': image('/images/showroom/now/event.webp', '上海时装周订货会展厅内景', 'Shanghai Fashion Week showroom interior'),
   'now/lookbook/a-nour.webp': image('/images/showroom/now/lookbook/a-nour.webp', 'A.NOUR 展览品牌封面', 'A.NOUR exhibition brand cover'),
   'now/lookbook/blanche.webp': image('/images/showroom/now/lookbook/blanche.webp', 'BLANCHE 展览品牌封面', 'BLANCHE exhibition brand cover'),
   'now/lookbook/insis.webp': image('/images/showroom/now/lookbook/insis.webp', 'INSIS 展览品牌封面', 'INSIS exhibition brand cover'),
@@ -79,7 +79,7 @@ const showroomImages = {
   'now/lookbook/le17septembre-05.webp': image('/images/showroom/now/lookbook/le17septembre-05.webp', 'LE17SEPTEMBRE 白色套装侧面造型', 'LE17SEPTEMBRE white tailoring side view'),
   'now/lookbook/le17septembre-06.webp': image('/images/showroom/now/lookbook/le17septembre-06.webp', 'LE17SEPTEMBRE 白色露背细节', 'LE17SEPTEMBRE white open-back detail'),
   'now/floor-map.webp': image('/images/showroom/now/floor-map.webp', 'YUAN SHOWROOM 三层楼层导览图', 'YUAN SHOWROOM three-floor guide map'),
-  'now/appointment-qr.webp': image('/images/showroom/now/appointment-qr.webp', '巴黎时装周订货会预约二维码', 'Paris Fashion Week showroom appointment QR code'),
+  'now/appointment-qr.webp': image('/images/showroom/now/appointment-qr.webp', '上海时装周订货会预约二维码', 'Shanghai Fashion Week showroom appointment QR code'),
   'on-site/aano-caffe-01.webp': image('/images/showroom/on-site/aano-caffe-01.webp', 'Aano caffe 咖啡空间', 'Aano caffe showroom space'),
   'on-site/aano-caffe-02.webp': image('/images/showroom/on-site/aano-caffe-02.webp', 'Aano caffe 咖啡空间', 'Aano caffe showroom space'),
   'on-site/aano-caffe-03.webp': image('/images/showroom/on-site/aano-caffe-03.webp', 'Aano caffe 咖啡空间', 'Aano caffe showroom space'),
@@ -158,10 +158,9 @@ export const brands: Brand[] = [
 ]
 
 export const currentEvent: CurrentEvent = {
-  city: { cn: '巴黎', en: 'Paris' },
-  title: { cn: '巴黎时装周', en: 'Paris Fashion Week' },
+  city: { cn: '上海', en: 'Shanghai' },
+  title: { cn: '上海时装周', en: 'Shanghai Fashion Week' },
   season: 'SS 2027',
-  dates: { cn: '2026 年 6 月 24 日 — 6 月 30 日', en: 'JUN 24 – JUN 30, 2026' },
   heroImage: showroomImage('now/event.webp'),
   exhibitionBrandSlugs: ['a-nour', 'blanche', 'insis', 'le17septembre', 'nothing-written', 'oui-mais-non', 'recto', 'soft-goat', 'st-agni', 'vegetable', 'wnderkammer', 'yen'],
   lookbooks: [{
@@ -173,14 +172,14 @@ export const currentEvent: CurrentEvent = {
     origin: { cn: '韩国首尔', en: 'Seoul, Korea' },
     established: '2013',
     website: 'le17septembre.com',
-    images: [
-      showroomImage('now/lookbook/le17septembre-main.webp'),
-      showroomImage('now/lookbook/le17septembre-01.webp'),
-      showroomImage('now/lookbook/le17septembre-02.webp'),
-      showroomImage('now/lookbook/le17septembre-03.webp'),
-      showroomImage('now/lookbook/le17septembre-04.webp'),
-      showroomImage('now/lookbook/le17septembre-05.webp'),
-      showroomImage('now/lookbook/le17septembre-06.webp'),
+    items: [
+      { image: showroomImage('now/lookbook/le17septembre-main.webp'), styleNumber: 'LE17-SS27-001', name: { cn: '款式 01', en: 'LOOK 01' } },
+      { image: showroomImage('now/lookbook/le17septembre-01.webp'), styleNumber: 'LE17-SS27-002', name: { cn: '款式 02', en: 'LOOK 02' } },
+      { image: showroomImage('now/lookbook/le17septembre-02.webp'), styleNumber: 'LE17-SS27-003', name: { cn: '款式 03', en: 'LOOK 03' } },
+      { image: showroomImage('now/lookbook/le17septembre-03.webp'), styleNumber: 'LE17-SS27-004', name: { cn: '款式 04', en: 'LOOK 04' } },
+      { image: showroomImage('now/lookbook/le17septembre-04.webp'), styleNumber: 'LE17-SS27-005', name: { cn: '款式 05', en: 'LOOK 05' } },
+      { image: showroomImage('now/lookbook/le17septembre-05.webp'), styleNumber: 'LE17-SS27-006', name: { cn: '款式 06', en: 'LOOK 06' } },
+      { image: showroomImage('now/lookbook/le17septembre-06.webp'), styleNumber: 'LE17-SS27-007', name: { cn: '款式 07', en: 'LOOK 07' } },
     ],
   }],
   floorMapImage: showroomImage('now/floor-map.webp'),
