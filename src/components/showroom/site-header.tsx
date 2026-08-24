@@ -23,7 +23,11 @@ function LanguageSwitch({ locale }: { locale: Locale }) {
         <Link
           key={nextLocale}
           href={switchLocalePath(pathname, nextLocale)}
+          prefetch={false}
           aria-current={locale === nextLocale ? 'page' : undefined}
+          onClick={() => {
+            document.cookie = `showroom-locale=${nextLocale}; Path=/; Max-Age=31536000; SameSite=Lax`
+          }}
         >
           {nextLocale.toUpperCase()}
         </Link>

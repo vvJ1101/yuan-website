@@ -17,10 +17,13 @@ test('showroom header keeps the approved order and no hamburger', async () => {
   assert.doesNotMatch(source, /Menu|hamburger|aria-expanded/)
 })
 
-test('showroom header preserves the active deep route when switching languages', async () => {
+test('showroom header persists the selected language across navigation', async () => {
   const source = await read('src/components/showroom/site-header.tsx')
   assert.match(source, /usePathname\(\)/)
   assert.match(source, /switchLocalePath\(pathname, nextLocale\)/)
+  assert.match(source, /document\.cookie/)
+  assert.match(source, /showroom-locale/)
+  assert.match(source, /prefetch=\{false\}/)
 })
 
 test('locale layout validates route params before rendering the shared header', async () => {
@@ -36,6 +39,13 @@ test('proxy serves Chinese at clean root and redirects legacy /cn URLs', async (
   assert.match(source, /pathname === '\/cn'/)
   assert.match(source, /NextResponse\.redirect\(url, 308\)/)
   assert.match(source, /pathname === '\/' \? '\/cn'/)
+})
+
+test('proxy restores the saved English preference on clean public URLs', async () => {
+  const source = await read('src/proxy.ts')
+  assert.match(source, /request\.cookies\.get\(['"]showroom-locale['"]\)/)
+  assert.match(source, /savedLocale === ['"]en['"]/)
+  assert.match(source, /NextResponse\.redirect/)
 })
 
 test('cover contains only the approved hero title inside its main content', async () => {
@@ -169,12 +179,14 @@ test('onsite carousel has accessible previous and next controls', async () => {
   assert.doesNotMatch(source, /setInterval|setTimeout|autoplay/i)
 })
 
-test('recap orders entries from data in a compact four-by-two desktop archive', async () => {
+test('recap fills the desktop in five columns with sixteen-by-nine posters', async () => {
   const source = await read('src/app/[locale]/recap/page.tsx')
   const css = await read('src/app/globals.css')
   assert.match(source, /recaps[\s\S]*sort/)
   assert.match(source, /recap-grid/)
-  assert.match(css, /\.recap-grid\s*\{[^}]*grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)[^}]*max-width:/)
-  assert.match(css, /@media \(min-width: 901px\) and \(max-height: 820px\)[\s\S]*?\.recap-page\s*\{[^}]*padding-top:/)
-  assert.match(css, /@media \(min-width: 901px\) and \(max-height: 820px\)[\s\S]*?\.recap-grid\s*\{[^}]*margin-top:/)
+  assert.match(source, /ratio="16 \/ 9"/)
+  assert.match(css, /\.recap-grid\s*\{[^}]*grid-template-columns: repeat\(5, minmax\(0, 1fr\)\)/)
+  assert.doesNotMatch(css.match(/\.recap-grid\s*\{[^}]*\}/)?.[0] ?? '', /max-width:/)
+  assert.match(css, /@media \(max-width: 900px\)[\s\S]*?\.recap-grid\s*\{[^}]*repeat\(3, minmax\(0, 1fr\)\)/)
+  assert.match(css, /@media \(max-width: 640px\)[\s\S]*?\.recap-grid\s*\{[^}]*repeat\(2, minmax\(0, 1fr\)\)/)
 })
