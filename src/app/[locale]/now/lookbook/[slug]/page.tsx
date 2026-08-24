@@ -34,7 +34,7 @@ export default async function ExhibitionLookbookPage({ params }: { params: Promi
               src={item.image}
               alt={`${name} ${item.styleNumber} ${localize(item.name, locale)}`}
               ratio="2 / 3"
-              sizes="(max-width: 640px) 100vw, (max-width: 900px) 50vw, 31vw"
+              sizes="(max-width: 640px) 50vw, (max-width: 900px) 33vw, 16vw"
               priority={index < 3}
             />
             <dl className="lookbook-item__information">

@@ -152,6 +152,14 @@ test('lookbook detail renders style number and localized product name for every 
   assert.doesNotMatch(appointment, /currentEvent\.dates/)
 })
 
+test('lookbook item gallery uses six desktop, three tablet and two mobile columns', async () => {
+  const css = await read('src/app/globals.css')
+
+  assert.match(css, /\.lookbook-brand__gallery\s*\{[^}]*grid-template-columns: repeat\(6, minmax\(0, 1fr\)\)/)
+  assert.match(css, /@media \(max-width: 900px\)[\s\S]*?\.lookbook-brand__gallery\s*\{[^}]*repeat\(3, minmax\(0, 1fr\)\)/)
+  assert.match(css, /@media \(max-width: 640px\)[\s\S]*?\.lookbook-brand__gallery\s*\{[^}]*repeat\(2, minmax\(0, 1fr\)\)/)
+})
+
 test('onsite carousel has accessible previous and next controls', async () => {
   const source = await read('src/components/showroom/onsite-carousel.tsx')
   assert.match(source, /aria-label=.*Previous|上一张/s)
