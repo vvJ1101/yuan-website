@@ -48,6 +48,7 @@
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scrollbar-gutter: stable;
   }
 
   body {
@@ -571,6 +572,9 @@ a.lookbook-index__card:hover > span {
 }
 
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   display: grid;
   grid-template-columns: minmax(160px, 23vw) minmax(0, 1fr) minmax(88px, 12vw);
   align-items: start;
@@ -579,6 +583,7 @@ a.lookbook-index__card:hover > span {
   font-size: var(--ys-nav-size);
   font-weight: 500;
   line-height: 1.05;
+  background: var(--ys-bg);
 }
 
 .site-logo {
@@ -918,11 +923,6 @@ a.lookbook-index__card:hover > span {
   filter: contrast(1.05);
 }
 
-body:has(.brand-room) .site-header nav,
-body:has(.brand-room) .site-language-switch {
-  visibility: hidden;
-}
-
 .brand-room {
   position: relative;
   display: grid;
@@ -933,7 +933,7 @@ body:has(.brand-room) .site-language-switch {
 }
 
 .brand-room__close {
-  position: fixed;
+  position: absolute;
   z-index: 10;
   top: clamp(26px, 3.5vh, 38px);
   right: var(--ys-gutter);

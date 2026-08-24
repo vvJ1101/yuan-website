@@ -95,3 +95,10 @@ test('every initialized event brand has three independent lookbook items', async
   }
   assert.equal(new Set(allStyleNumbers).size, 36)
 })
+
+test('recap initializes ten seasons for a balanced five-by-two desktop grid', async () => {
+  const source = await read('src/data/showroom.ts')
+  const recapBlock = source.slice(source.indexOf('export const recaps'), source.length)
+  assert.equal([...recapBlock.matchAll(/\{ slug:/g)].length, 10)
+  assert.match(recapBlock, /order: 10/)
+})

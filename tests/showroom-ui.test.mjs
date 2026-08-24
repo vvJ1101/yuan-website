@@ -17,6 +17,14 @@ test('showroom header keeps the approved order and no hamburger', async () => {
   assert.doesNotMatch(source, /Menu|hamburger|aria-expanded/)
 })
 
+test('showroom header stays fixed and identical across every page', async () => {
+  const css = await read('src/app/globals.css')
+  assert.match(css, /html\s*\{[^}]*scrollbar-gutter: stable/)
+  assert.match(css, /\.site-header\s*\{[^}]*position: sticky[^}]*top: 0[^}]*z-index:/)
+  assert.doesNotMatch(css, /body:has\(\.brand-room\)[^{]*\.site-header/)
+  assert.match(css, /\.brand-room__close\s*\{[^}]*position: absolute/)
+})
+
 test('showroom header persists the selected language across navigation', async () => {
   const source = await read('src/components/showroom/site-header.tsx')
   assert.match(source, /usePathname\(\)/)
@@ -179,12 +187,12 @@ test('onsite carousel has accessible previous and next controls', async () => {
   assert.doesNotMatch(source, /setInterval|setTimeout|autoplay/i)
 })
 
-test('recap fills the desktop in five columns with sixteen-by-nine posters', async () => {
+test('recap fills the desktop in five columns with portrait posters', async () => {
   const source = await read('src/app/[locale]/recap/page.tsx')
   const css = await read('src/app/globals.css')
   assert.match(source, /recaps[\s\S]*sort/)
   assert.match(source, /recap-grid/)
-  assert.match(source, /ratio="16 \/ 9"/)
+  assert.match(source, /ratio="3 \/ 5"/)
   assert.match(css, /\.recap-grid\s*\{[^}]*grid-template-columns: repeat\(5, minmax\(0, 1fr\)\)/)
   assert.doesNotMatch(css.match(/\.recap-grid\s*\{[^}]*\}/)?.[0] ?? '', /max-width:/)
   assert.match(css, /@media \(max-width: 900px\)[\s\S]*?\.recap-grid\s*\{[^}]*repeat\(3, minmax\(0, 1fr\)\)/)

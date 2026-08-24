@@ -205,4 +205,6 @@ export const recaps: Recap[] = [
   { slug: 'aw-2023', season: 'AW 2023', title: { cn: '本质回归', en: 'Return to Essence' }, poster: showroomImage('recap/aw-2023.webp'), order: 6 },
   { slug: 'ss-2023', season: 'SS 2023', title: { cn: '自然共生', en: 'Nature in Symbiosis' }, poster: showroomImage('recap/ss-2023.webp'), order: 7 },
   { slug: 'aw-2022', season: 'AW 2022', title: { cn: '时间的刻度', en: 'The Measure of Time' }, poster: showroomImage('recap/aw-2022.webp'), order: 8 },
+  { slug: 'ss-2022', season: 'SS 2022', title: { cn: '光影之间', en: 'Between Light and Shadow' }, poster: showroomImage('recap/ss-2023.webp'), order: 9 },
+  { slug: 'aw-2021', season: 'AW 2021', title: { cn: '序章', en: 'Prologue' }, poster: showroomImage('recap/aw-2022.webp'), order: 10 },
 ]
