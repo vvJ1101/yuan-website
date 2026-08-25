@@ -1320,7 +1320,7 @@ a.lookbook-index__card:hover > span {
 }
 
 .brand-book__page--portrait {
-  width: min(54vh, 42vw, 760px);
+  width: min(var(--ys-nav-column-w), 900px);
 }
 
 .brand-book__page--landscape {

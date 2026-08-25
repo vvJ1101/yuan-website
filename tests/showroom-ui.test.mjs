@@ -228,10 +228,13 @@ test('brand book keeps its identity fixed above the scrolling campaign', async (
 })
 
 test('brand book pages share the desktop navigation width', async () => {
+  const book = await read('src/components/showroom/brand-book.tsx')
   const css = await read('src/app/globals.css')
 
   assert.match(css, /--ys-nav-column-w: 54vw/)
   assert.match(css, /\.site-header__navigation\s*\{[\s\S]*?grid-template-columns: 1fr minmax\(420px, var\(--ys-nav-column-w\)\) 1fr/)
+  assert.match(book, /page\.width > page\.height \? 'landscape' : 'portrait'/)
+  assert.match(css, /\.brand-book__page--portrait\s*\{[\s\S]*?width: min\(var\(--ys-nav-column-w\), 900px\)/)
   assert.match(css, /\.brand-book__page--landscape\s*\{[\s\S]*?width: min\(var\(--ys-nav-column-w\), 1200px\)/)
 })
 

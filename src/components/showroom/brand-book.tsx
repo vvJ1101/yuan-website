@@ -39,7 +39,7 @@ export function BrandBook({ locale, book, closeHref }: BrandBookProps) {
               alt={`${book.name} Brand Book ${locale === 'cn' ? '第' : 'page'} ${index + 1}${locale === 'cn' ? ' 页' : ''}`}
               width={page.width}
               height={page.height}
-              sizes="(max-width: 640px) 100vw, (orientation: landscape) 96vh, 48vh"
+              sizes="(max-width: 640px) calc(100vw - 24px), 54vw"
               priority={index === 0}
             />
           </figure>
