@@ -158,6 +158,8 @@ test('brand index keeps six desktop columns and responsive image hints', async (
   const css = await read('src/app/globals.css')
 
   assert.match(css, /\.brand-index__matrix\s*\{[\s\S]*?grid-template-columns: repeat\(6, minmax\(0, 1fr\)\)/)
+  assert.match(css, /\.brand-index\s*\{[\s\S]*?padding: clamp\(30px, 4\.2vh, 46px\)/)
+  assert.match(css, /\.brand-index__matrix\s*\{[\s\S]*?padding-top: clamp\(48px, 6vh, 62px\)/)
   assert.match(media, /sizes\?: string/)
   assert.match(media, /sizes=\{sizes\}/)
   assert.match(grid, /brands\.map\(\(brand, index\) =>/)

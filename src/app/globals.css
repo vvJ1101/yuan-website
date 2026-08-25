@@ -1180,7 +1180,7 @@ a.lookbook-index__card:hover > span {
   grid-template-columns: minmax(185px, 12.5vw) minmax(0, 1fr);
   gap: clamp(32px, 3.3vw, 56px);
   min-height: calc(100svh - var(--ys-header-h));
-  padding: clamp(68px, 9.8vh, 104px) var(--ys-gutter) clamp(38px, 5vh, 56px);
+  padding: clamp(30px, 4.2vh, 46px) var(--ys-gutter) clamp(24px, 3vh, 36px);
 }
 
 .brand-index__rail h1 {
@@ -1200,13 +1200,13 @@ a.lookbook-index__card:hover > span {
 }
 
 .brand-index__rule {
-  margin-top: 27px;
+  margin-top: 20px;
 }
 
 .brand-index__taxonomy {
   display: grid;
-  gap: clamp(22px, 3vh, 32px);
-  margin-top: clamp(38px, 6.3vh, 62px);
+  gap: clamp(18px, 2.4vh, 24px);
+  margin-top: clamp(28px, 3.8vh, 38px);
 }
 
 .brand-index__category h2,
@@ -1221,10 +1221,10 @@ a.lookbook-index__card:hover > span {
 }
 
 .brand-index__category ul {
-  padding: 13px 0 0;
+  padding: 9px 0 0;
   list-style: none;
   font-size: clamp(11px, 0.9vw, 15px);
-  line-height: 1.62;
+  line-height: 1.5;
 }
 
 .brand-index__category a:hover {
@@ -1237,7 +1237,7 @@ a.lookbook-index__card:hover > span {
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: clamp(10px, 1vw, 16px);
   align-content: start;
-  padding-top: clamp(118px, 13.6vh, 138px);
+  padding-top: clamp(48px, 6vh, 62px);
 }
 
 .brand-index__card {
