@@ -96,15 +96,15 @@ export function HomepageExperience({ locale }: { locale: Locale }) {
 
       try {
         const language = locale === 'cn' ? 'zh-CN' : 'en'
-        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&accept-language=${language}`, { headers: { Accept: 'application/json' } })
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=10&lat=${latitude}&lon=${longitude}&accept-language=${language}`, { headers: { Accept: 'application/json' } })
         if (!response.ok) throw new Error('Reverse geocoding failed')
         const result = await response.json() as { display_name?: string; address?: Record<string, string> }
         const address = result.address ?? {}
-        const place = address.city || address.town || address.village || address.county || address.state
-        const parts = [place, address.state, address.country].filter((part, index, values): part is string => Boolean(part) && values.indexOf(part) === index)
+        const place = address.city || address.municipality || address.town || address.state
+        const parts = [place, address.country].filter((part, index, values): part is string => Boolean(part) && values.indexOf(part) === index)
         setVisitorLocation({ address: parts.join(' · ') || result.display_name || copy.fallback, coordinates, timezone })
       } catch { setVisitorLocation({ address: copy.fallback, coordinates, timezone }) }
-    }, fallback, { enableHighAccuracy: false, timeout: 8000, maximumAge: 300000 })
+    }, fallback, { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 })
   }, [locale])
 
   useEffect(() => {
@@ -124,7 +124,7 @@ export function HomepageExperience({ locale }: { locale: Locale }) {
     const render = (now: number) => {
       const elapsed = Math.min(now - previousTime, 64)
       previousTime = now
-      if (!scrollingRef.current && !reduceMotion) positionRef.current += elapsed * (pointerSlowingRef.current ? 0.024 : 0.095)
+      if (!scrollingRef.current && !reduceMotion) positionRef.current += elapsed * (pointerSlowingRef.current ? 0.036 : 0.14)
       normalizePosition()
       track.style.transform = `translate3d(${-positionRef.current}px, 0, 0)`
       animationFrame = requestAnimationFrame(render)

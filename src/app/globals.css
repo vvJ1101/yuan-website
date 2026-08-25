@@ -989,12 +989,13 @@ a.lookbook-index__card:hover > span {
 
 .showroom-cover__lettering .showroom-cover__word {
   display: block;
-  font-family: "Avenir Next", Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 400;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 500;
   font-stretch: normal;
   line-height: 0.83;
-  letter-spacing: 0.005em;
-  transform: none;
+  letter-spacing: 0.012em;
+  transform: scaleX(0.94);
+  transform-origin: left center;
 }
 
 .showroom-cover__lettering .showroom-cover__word--yuan {
