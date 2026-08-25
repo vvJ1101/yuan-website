@@ -23,29 +23,31 @@ export default async function NowPage({
 
   return (
     <main className="now-event">
-      <section className="now-event__summary" aria-labelledby="now-event-title">
-        <p className="now-event__city">{localize(currentEvent.city, locale)}</p>
-        <h1 id="now-event-title">{localize(currentEvent.title, locale)}</h1>
-        <p className="now-event__season">{currentEvent.season}</p>
-      </section>
-
       <MediaFrame
         className="now-event__image"
         src={currentEvent.heroImage}
         alt={`${localize(currentEvent.title, locale)} ${locale === 'cn' ? '展厅现场' : 'showroom'}`}
-        ratio="4 / 3"
-        sizes="(max-width: 900px) 100vw, 64vw"
+        ratio="16 / 9"
+        sizes="(max-width: 900px) 100vw, 70vw"
         priority
       />
 
-      <nav className="now-event__destinations" aria-label={locale === 'cn' ? '当前订货会' : 'Current event'}>
-        {destinations.map((destination) => (
-          <Link href={localePath(locale, destination.path)} key={destination.path}>
-            <strong>{locale === 'cn' ? destination.cn : destination.en}</strong>
-            <span>{locale === 'cn' ? destination.en : destination.cn}</span>
-          </Link>
-        ))}
-      </nav>
+      <aside className="now-event__sidebar">
+        <section className="now-event__summary" aria-labelledby="now-event-title">
+          <p className="now-event__eyebrow">NOW</p>
+          <h1 id="now-event-title">{localize(currentEvent.title, locale)}</h1>
+          <p className="now-event__season">{currentEvent.season}</p>
+        </section>
+
+        <nav className="now-event__destinations" aria-label={locale === 'cn' ? '当前订货会' : 'Current event'}>
+          {destinations.map((destination) => (
+            <Link href={localePath(locale, destination.path)} key={destination.path}>
+              <strong>{locale === 'cn' ? destination.cn : destination.en}</strong>
+              <span>{locale === 'cn' ? destination.en : destination.cn}</span>
+            </Link>
+          ))}
+        </nav>
+      </aside>
     </main>
   )
 }
