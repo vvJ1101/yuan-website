@@ -48,6 +48,7 @@ export function BrandGrid({ locale, brands }: BrandGridProps) {
               alt={`${brand.name} ${locale === 'cn' ? '品牌造型' : 'campaign'}`}
               ratio="4 / 5"
               sizes="(max-width: 640px) 50vw, (max-width: 900px) 33vw, 13vw"
+              unoptimized
               priority={index < 6}
             />
             <span>{brand.name}</span>

@@ -190,6 +190,7 @@ test('brand index keeps six desktop columns and responsive image hints', async (
   assert.match(media, /sizes=\{sizes\}/)
   assert.match(grid, /brands\.map\(\(brand, index\) =>/)
   assert.match(grid, /sizes="\(max-width: 640px\) 50vw, \(max-width: 900px\) 33vw, 13vw"/)
+  assert.match(grid, /<MediaFrame[\s\S]*?src=\{brand\.cover\}[\s\S]*?unoptimized/)
   assert.match(grid, /priority=\{index < 6\}/)
 })
 
