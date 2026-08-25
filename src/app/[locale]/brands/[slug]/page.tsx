@@ -1,11 +1,16 @@
 import { notFound } from 'next/navigation'
 
+import { BrandBook } from '@/components/showroom/brand-book'
 import { BrandRoom } from '@/components/showroom/brand-room'
+import { brandBooks, getBrandBook } from '@/data/brand-books'
 import { brands } from '@/data/showroom'
 import { isLocale, locales } from '@/lib/showroom-i18n'
 
 export function generateStaticParams() {
-  return locales.flatMap((locale) => brands.map((brand) => ({ locale, slug: brand.slug })))
+  return [
+    ...locales.flatMap((locale) => brands.map((brand) => ({ locale, slug: brand.slug }))),
+    ...locales.flatMap((locale) => brandBooks.map((book) => ({ locale, slug: book.slug }))),
+  ]
 }
 
 export default async function BrandRoomPage({
@@ -16,6 +21,9 @@ export default async function BrandRoomPage({
   const { locale, slug } = await params
 
   if (!isLocale(locale)) notFound()
+
+  const brandBook = getBrandBook(slug)
+  if (brandBook) return <BrandBook locale={locale} book={brandBook} />
 
   const index = brands.findIndex((brand) => brand.slug === slug)
   if (index < 0) notFound()

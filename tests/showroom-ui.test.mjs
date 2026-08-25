@@ -193,6 +193,14 @@ test('brand room uses one eager hero with responsive image hints', async () => {
   assert.match(room, /className="brand-room__detail-image"[\s\S]*?sizes="\(max-width: 640px\) 50vw, \(max-width: 900px\) 33vw, 22vw"/)
 })
 
+test('brand book keeps its identity fixed above the scrolling campaign', async () => {
+  const book = await read('src/components/showroom/brand-book.tsx')
+  const css = await read('src/app/globals.css')
+
+  assert.match(book, /className="brand-book__title"[\s\S]*?\{book\.name\}[\s\S]*?BRAND BOOK/)
+  assert.match(css, /\.brand-book__title\s*\{[\s\S]*?position: fixed/)
+})
+
 test('NOW landing links all three approved destinations', async () => {
   const source = await read('src/app/[locale]/now/page.tsx')
   for (const path of ['lookbook', 'floor-map', 'appointment']) {
