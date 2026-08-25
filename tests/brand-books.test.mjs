@@ -2,12 +2,12 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { access, readFile } from 'node:fs/promises'
 
-test('RÓHE brand book omits the portrait cover and back cover', async () => {
+test('RANYEPERSONAL temporarily uses the supplied brand book without its covers', async () => {
   const { getBrandBook } = await import('../src/data/brand-books.ts')
-  const book = getBrandBook('rohe')
+  const book = getBrandBook('ranyepersonal')
 
   assert.ok(book)
-  assert.equal(book.name, 'RÓHE')
+  assert.equal(book.name, 'RANYEPERSONAL')
   assert.equal(book.pages.length, 32)
   assert.equal(new Set(book.pages.map((page) => page.src)).size, 32)
   assert.deepEqual(
@@ -18,7 +18,7 @@ test('RÓHE brand book omits the portrait cover and back cover', async () => {
   assert.match(book.pages.at(-1).src, /page-33\.webp$/)
 
   for (const page of book.pages) {
-    assert.match(page.src, /^\/images\/showroom\/brand-books\/rohe\/page-\d{2}\.webp$/)
+    assert.match(page.src, /^\/images\/showroom\/brand-books\/ranyepersonal\/page-\d{2}\.webp$/)
     const file = new URL(`../public${page.src}`, import.meta.url)
     await access(file)
     const signature = (await readFile(file)).subarray(0, 12)

@@ -1,7 +1,7 @@
-const rohePages = Array.from(
+const ranyepersonalPages = Array.from(
   { length: 32 },
   (_, index) => ({
-    src: `/images/showroom/brand-books/rohe/page-${String(index + 2).padStart(2, '0')}.webp`,
+    src: `/images/showroom/brand-books/ranyepersonal/page-${String(index + 2).padStart(2, '0')}.webp`,
     width: 2665,
     height: 1786,
   }),
@@ -9,9 +9,9 @@ const rohePages = Array.from(
 
 export const brandBooks = [
   {
-    slug: 'rohe',
-    name: 'RÓHE',
-    pages: rohePages,
+    slug: 'ranyepersonal',
+    name: 'RANYEPERSONAL',
+    pages: ranyepersonalPages,
   },
 ] as const
 
