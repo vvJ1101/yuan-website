@@ -33,7 +33,7 @@ export default async function AboutPage({
           className="showroom-about__media"
           src={aboutContent.image}
           alt={localize(aboutContent.imageAlt, locale)}
-          ratio="56 / 37"
+          ratio="16 / 9"
           priority
         />
       </div>

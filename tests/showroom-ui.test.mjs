@@ -138,6 +138,17 @@ test('about preserves the approved Chinese positioning copy', async () => {
   assert.match(data, /通过系统化运营支持品牌长期成长与可持续发展。/)
 })
 
+test('about fits its introduction and statistics into one desktop viewport', async () => {
+  const page = await read('src/app/[locale]/about/page.tsx')
+  const data = await read('src/data/showroom.ts')
+  const css = await read('src/app/globals.css')
+
+  assert.match(page, /className="showroom-about__media"[\s\S]*?ratio="16 \/ 9"/)
+  assert.match(data, /about\/showroom-v2\.webp/)
+  assert.match(css, /\.showroom-about\s*\{[\s\S]*?height: calc\(100svh - var\(--ys-header-h\)\)[\s\S]*?overflow: hidden/)
+  assert.match(css, /\.showroom-about__statistics\s*\{[\s\S]*?margin-top: clamp\(16px, 2\.4vh, 24px\)/)
+})
+
 test('brand index exposes RTW FTW ACC and linked rooms', async () => {
   const grid = await read('src/components/showroom/brand-grid.tsx')
   for (const category of ['RTW', 'FTW', 'ACC']) assert.match(grid, new RegExp(category))

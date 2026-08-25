@@ -1076,14 +1076,15 @@ a.lookbook-index__card:hover > span {
 }
 
 .showroom-about {
-  min-height: calc(100svh - var(--ys-header-h));
-  padding: clamp(20px, 3.8vh, 40px) var(--ys-gutter) clamp(20px, 3vh, 32px);
+  height: calc(100svh - var(--ys-header-h));
+  min-height: 0;
+  padding: clamp(12px, 1.8vh, 18px) var(--ys-gutter) clamp(14px, 2vh, 20px);
   overflow: hidden;
 }
 
 .showroom-about__intro {
   display: grid;
-  grid-template-columns: minmax(310px, 35fr) minmax(0, 65fr);
+  grid-template-columns: minmax(310px, 40fr) minmax(0, 60fr);
   gap: clamp(24px, 2.2vw, 38px);
   align-items: start;
 }
@@ -1093,12 +1094,12 @@ a.lookbook-index__card:hover > span {
   min-height: 100%;
   flex-direction: column;
   align-items: flex-start;
-  padding: clamp(52px, 8vh, 88px) clamp(12px, 2vw, 32px) 0 0;
+  padding: clamp(12px, 2.2vh, 22px) clamp(12px, 2vw, 32px) 0 0;
 }
 
 .showroom-about__copy h1 {
   margin: 0;
-  font-size: clamp(46px, 4.6vw, 72px);
+  font-size: clamp(40px, 3.7vw, 58px);
   font-weight: 600;
   letter-spacing: -0.045em;
   line-height: 0.95;
@@ -1107,15 +1108,15 @@ a.lookbook-index__card:hover > span {
 .showroom-about__rule {
   width: clamp(36px, 3vw, 52px);
   height: 2px;
-  margin-block: clamp(28px, 4.4vh, 46px) clamp(28px, 4.3vh, 44px);
+  margin-block: clamp(16px, 2.2vh, 22px) clamp(17px, 2.4vh, 24px);
   background: var(--ys-ink);
 }
 
 .showroom-about__body {
   max-width: 45ch;
-  font-size: var(--ys-body-size);
+  font-size: clamp(11px, 0.86vw, 14px);
   font-weight: 400;
-  line-height: 1.75;
+  line-height: 1.62;
 }
 
 .showroom-about__body p {
@@ -1123,21 +1124,26 @@ a.lookbook-index__card:hover > span {
 }
 
 .showroom-about__body p + p {
-  margin-top: clamp(24px, 3.2vh, 34px);
+  margin-top: clamp(14px, 2vh, 20px);
 }
 
 .showroom-about__more {
-  margin-top: auto;
-  font-size: var(--ys-body-size);
+  margin-top: clamp(17px, 2.4vh, 24px);
+  font-size: clamp(11px, 0.86vw, 14px);
   line-height: 1.2;
   text-decoration: underline;
   text-underline-offset: 0.18em;
 }
 
+.showroom-about__media {
+  width: min(100%, 920px);
+  justify-self: end;
+}
+
 .showroom-about__statistics {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-top: clamp(24px, 7vh, 72px);
+  margin-top: clamp(16px, 2.4vh, 24px);
   scroll-margin-top: var(--ys-header-h);
 }
 
@@ -1151,29 +1157,29 @@ a.lookbook-index__card:hover > span {
 }
 
 .showroom-about__statistic + .showroom-about__statistic {
-  border-left: 1px solid #cfcfcf;
+  border-left: 0;
 }
 
 .showroom-about__statistic strong {
   display: block;
-  font-size: clamp(44px, 4.4vw, 68px);
+  font-size: clamp(36px, 3.5vw, 54px);
   font-weight: 500;
   letter-spacing: -0.04em;
   line-height: 0.9;
 }
 
 .showroom-about__statistic h2 {
-  margin: clamp(15px, 2vh, 22px) 0 0;
-  font-size: clamp(15px, 1.25vw, 20px);
+  margin: clamp(9px, 1.2vh, 13px) 0 0;
+  font-size: clamp(12px, 1vw, 16px);
   font-weight: 500;
   line-height: 1.15;
 }
 
 .showroom-about__statistic p {
   max-width: 34em;
-  margin: clamp(9px, 1.2vh, 14px) 0 0;
-  font-size: clamp(12px, 0.92vw, 15px);
-  line-height: 1.65;
+  margin: clamp(6px, 0.8vh, 9px) 0 0;
+  font-size: clamp(10px, 0.78vw, 13px);
+  line-height: 1.48;
 }
 
 .brand-index {
@@ -1444,12 +1450,12 @@ a.lookbook-index__card:hover > span {
 
 @media (min-width: 901px) and (max-height: 920px) {
   .showroom-about {
-    padding-top: 24px;
-    padding-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 12px;
   }
 
   .showroom-about__statistics {
-    margin-top: 54px;
+    margin-top: 14px;
   }
 }
 
@@ -1460,39 +1466,39 @@ a.lookbook-index__card:hover > span {
   }
 
   .showroom-about__copy {
-    padding-top: 44px;
+    padding-top: 6px;
   }
 
   .showroom-about__rule {
-    margin-block: 24px 26px;
+    margin-block: 12px 14px;
   }
 
   .showroom-about__body {
-    font-size: 12px;
-    line-height: 1.7;
+    font-size: 11px;
+    line-height: 1.55;
   }
 
   .showroom-about__body p + p {
-    margin-top: 22px;
+    margin-top: 12px;
   }
 
   .showroom-about__statistics {
-    margin-top: 20px;
+    margin-top: 12px;
   }
 
   .showroom-about__statistic strong {
-    font-size: 44px;
+    font-size: 36px;
   }
 
   .showroom-about__statistic h2 {
-    margin-top: 12px;
-    font-size: 13px;
+    margin-top: 8px;
+    font-size: 12px;
   }
 
   .showroom-about__statistic p {
-    margin-top: 7px;
-    font-size: 11px;
-    line-height: 1.45;
+    margin-top: 5px;
+    font-size: 10px;
+    line-height: 1.4;
   }
 
   .recap-page {
@@ -1505,7 +1511,7 @@ a.lookbook-index__card:hover > span {
 
 @media (min-width: 1700px) {
   .showroom-about__media {
-    max-width: 1020px;
+    max-width: 920px;
     justify-self: end;
   }
 }
