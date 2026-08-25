@@ -5,6 +5,7 @@ import { BrandRoom } from '@/components/showroom/brand-room'
 import { brandBooks, getBrandBook } from '@/data/brand-books'
 import { brands } from '@/data/showroom'
 import { isLocale, locales } from '@/lib/showroom-i18n'
+import { localePath } from '@/lib/showroom-routing'
 
 export function generateStaticParams() {
   return [
@@ -23,7 +24,7 @@ export default async function BrandRoomPage({
   if (!isLocale(locale)) notFound()
 
   const brandBook = getBrandBook(slug)
-  if (brandBook) return <BrandBook locale={locale} book={brandBook} />
+  if (brandBook) return <BrandBook locale={locale} book={brandBook} closeHref={localePath(locale, '/brands')} />
 
   const index = brands.findIndex((brand) => brand.slug === slug)
   if (index < 0) notFound()

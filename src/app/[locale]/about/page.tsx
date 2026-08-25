@@ -1,8 +1,10 @@
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { MediaFrame } from '@/components/showroom/media-frame'
 import { aboutContent } from '@/data/showroom'
 import { isLocale, localize } from '@/lib/showroom-i18n'
+import { localePath } from '@/lib/showroom-routing'
 
 export default async function AboutPage({
   params,
@@ -24,9 +26,9 @@ export default async function AboutPage({
               <p key={paragraph.en}>{localize(paragraph, locale)}</p>
             ))}
           </div>
-          <a className="showroom-about__more" href="#about-statistics">
+          <Link className="showroom-about__more" href={localePath(locale, '/about/brand-book')}>
             {localize(aboutContent.readMoreLabel, locale)}
-          </a>
+          </Link>
         </section>
 
         <MediaFrame

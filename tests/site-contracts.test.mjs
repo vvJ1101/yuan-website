@@ -18,7 +18,7 @@ async function filesUnder(relativeDirectory) {
 
 test('sitemap publishes clean Chinese and /en English showroom routes', async () => {
   const sitemap = await read('public/sitemap.xml')
-  for (const route of ['', '/en', '/brands', '/en/brands', '/now', '/en/now']) {
+  for (const route of ['', '/en', '/about/brand-book', '/en/about/brand-book', '/brands', '/en/brands', '/now', '/en/now']) {
     assert.match(sitemap, new RegExp(`<loc>https://yuanshowroom.cn${route}</loc>`))
   }
   assert.doesNotMatch(sitemap, /yuanshowroom\.cn\/cn(?:<|\/)/)

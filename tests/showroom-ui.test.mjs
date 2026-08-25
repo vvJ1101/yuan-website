@@ -149,6 +149,21 @@ test('about fits its introduction and statistics into one desktop viewport', asy
   assert.match(css, /\.showroom-about__statistics\s*\{[\s\S]*?margin-top: clamp\(16px, 2\.4vh, 24px\)/)
 })
 
+test('about read more opens the internal company brand book', async () => {
+  const about = await read('src/app/[locale]/about/page.tsx')
+  const book = await read('src/app/[locale]/about/brand-book/page.tsx')
+
+  assert.match(about, /href=\{localePath\(locale, '\/about\/brand-book'\)\}/)
+  assert.match(book, /<BrandBook[\s\S]*?book=\{companyBrandBook\}[\s\S]*?closeHref=\{localePath\(locale, '\/about'\)\}/)
+})
+
+test('about introduction and statistics share the image alignment axis', async () => {
+  const css = await read('src/app/globals.css')
+
+  assert.match(css, /\.showroom-about__intro\s*\{[\s\S]*?grid-template-columns: minmax\(310px, 1fr\) minmax\(0, var\(--ys-nav-column-w\)\)/)
+  assert.match(css, /\.showroom-about__statistics\s*\{[\s\S]*?grid-template-columns: minmax\(310px, 1fr\) repeat\(2, minmax\(0, calc\(var\(--ys-nav-column-w\) \/ 2\)\)\)/)
+})
+
 test('brand index exposes RTW FTW ACC and linked rooms', async () => {
   const grid = await read('src/components/showroom/brand-grid.tsx')
   for (const category of ['RTW', 'FTW', 'ACC']) assert.match(grid, new RegExp(category))

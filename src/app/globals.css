@@ -1084,7 +1084,7 @@ a.lookbook-index__card:hover > span {
 
 .showroom-about__intro {
   display: grid;
-  grid-template-columns: minmax(310px, 40fr) minmax(0, 60fr);
+  grid-template-columns: minmax(310px, 1fr) minmax(0, var(--ys-nav-column-w));
   gap: clamp(24px, 2.2vw, 38px);
   align-items: start;
 }
@@ -1100,7 +1100,7 @@ a.lookbook-index__card:hover > span {
 .showroom-about__copy h1 {
   margin: 0;
   font-size: clamp(40px, 3.7vw, 58px);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.045em;
   line-height: 0.95;
 }
@@ -1136,20 +1136,20 @@ a.lookbook-index__card:hover > span {
 }
 
 .showroom-about__media {
-  width: min(100%, 920px);
+  width: 100%;
   justify-self: end;
 }
 
 .showroom-about__statistics {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(310px, 1fr) repeat(2, minmax(0, calc(var(--ys-nav-column-w) / 2)));
   margin-top: clamp(16px, 2.4vh, 24px);
   scroll-margin-top: var(--ys-header-h);
 }
 
 .showroom-about__statistic {
   min-width: 0;
-  padding: 0 clamp(28px, 5vw, 80px);
+  padding: 0 clamp(18px, 2.5vw, 44px) 0 0;
 }
 
 .showroom-about__statistic:first-child {
@@ -1320,7 +1320,7 @@ a.lookbook-index__card:hover > span {
 }
 
 .brand-book__page--portrait {
-  width: min(48vh, 58vw, 760px);
+  width: min(54vh, 42vw, 760px);
 }
 
 .brand-book__page--landscape {
@@ -1507,13 +1507,6 @@ a.lookbook-index__card:hover > span {
   }
 
   .recap-grid { margin-top: 22px; }
-}
-
-@media (min-width: 1700px) {
-  .showroom-about__media {
-    max-width: 920px;
-    justify-self: end;
-  }
 }
 
 @media (max-width: 900px) {

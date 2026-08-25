@@ -31,3 +31,22 @@ test('unknown brand books remain unavailable', async () => {
   const { getBrandBook } = await import('../src/data/brand-books.ts')
   assert.equal(getBrandBook('not-a-brand'), undefined)
 })
+
+test('YUAN SHOWROOM company brand book omits only its cover', async () => {
+  const { companyBrandBook } = await import('../src/data/company-brand-book.ts')
+
+  assert.equal(companyBrandBook.name, 'YUAN SHOWROOM')
+  assert.equal(companyBrandBook.pages.length, 24)
+  assert.match(companyBrandBook.pages[0].src, /page-02\.webp$/)
+  assert.match(companyBrandBook.pages.at(-1).src, /page-25\.webp$/)
+
+  for (const page of companyBrandBook.pages) {
+    assert.equal(page.width, 1536)
+    assert.equal(page.height, 2048)
+    const file = new URL(`../public${page.src}`, import.meta.url)
+    await access(file)
+    const signature = (await readFile(file)).subarray(0, 12)
+    assert.equal(signature.subarray(0, 4).toString(), 'RIFF')
+    assert.equal(signature.subarray(8, 12).toString(), 'WEBP')
+  }
+})

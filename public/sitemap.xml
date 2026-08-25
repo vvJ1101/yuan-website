@@ -29,6 +29,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://yuanshowroom.cn/about/brand-book</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/about/brand-book" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/about/brand-book" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/about/brand-book</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/about/brand-book" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/about/brand-book" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://yuanshowroom.cn/brands</loc>
     <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/brands" />
     <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands" />

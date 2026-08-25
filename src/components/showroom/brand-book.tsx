@@ -1,19 +1,27 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { localePath } from '@/lib/showroom-routing'
-import type { BrandBook as BrandBookData } from '@/data/brand-books'
 import type { Locale } from '@/types/showroom'
+
+interface BrandBookData {
+  name: string
+  pages: readonly {
+    src: string
+    width: number
+    height: number
+  }[]
+}
 
 interface BrandBookProps {
   locale: Locale
   book: BrandBookData
+  closeHref: string
 }
 
-export function BrandBook({ locale, book }: BrandBookProps) {
+export function BrandBook({ locale, book, closeHref }: BrandBookProps) {
   return (
     <main className="brand-book">
-      <Link className="brand-book__close" href={localePath(locale, '/brands')}>
+      <Link className="brand-book__close" href={closeHref}>
         CLOSE
       </Link>
 
@@ -23,7 +31,7 @@ export function BrandBook({ locale, book }: BrandBookProps) {
       <div className="brand-book__pages" aria-label={`${book.name} Brand Book`}>
         {book.pages.map((page, index) => (
           <figure
-            className="brand-book__page brand-book__page--landscape"
+            className={`brand-book__page brand-book__page--${page.width > page.height ? 'landscape' : 'portrait'}`}
             key={page.src}
           >
             <Image
