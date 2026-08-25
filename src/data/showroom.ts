@@ -170,6 +170,13 @@ const editorialLookbook = [
   { image: showroomImage('now/lookbook/editorial-03.png') },
   { image: showroomImage('now/lookbook/editorial-04.png') },
   { image: showroomImage('now/lookbook/editorial-05.png') },
+  { image: showroomImage('now/lookbook/editorial-03.png') },
+  { image: showroomImage('now/lookbook/editorial-05.png') },
+  { image: showroomImage('now/lookbook/editorial-01.png') },
+  { image: showroomImage('now/lookbook/editorial-04.png') },
+  { image: showroomImage('now/lookbook/editorial-02.png') },
+  { image: showroomImage('now/lookbook/editorial-03.png') },
+  { image: showroomImage('now/lookbook/editorial-05.png') },
 ] as const
 
 export const currentEvent: CurrentEvent = {

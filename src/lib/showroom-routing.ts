@@ -15,3 +15,9 @@ export function localePath(locale: Locale, pathname: string): string {
 export function switchLocalePath(pathname: string, nextLocale: Locale): string {
   return localePath(nextLocale, pathname)
 }
+
+export function isNavigationItemActive(pathname: string, href: string): boolean {
+  const path = cleanPath(pathname)
+  const sectionPath = `/${href}`
+  return path === sectionPath || path.startsWith(`${sectionPath}/`)
+}

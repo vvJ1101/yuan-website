@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { localePath, switchLocalePath } from '@/lib/showroom-routing'
+import { isNavigationItemActive, localePath, switchLocalePath } from '@/lib/showroom-routing'
 import type { Locale } from '@/types/showroom'
 
 const items = [
@@ -38,6 +38,8 @@ function LanguageSwitch({ locale }: { locale: Locale }) {
 }
 
 export function SiteHeader({ locale }: { locale: Locale }) {
+  const pathname = usePathname()
+
   return (
     <header className="site-header">
       <div className="site-header__brand">
@@ -55,7 +57,11 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       <div className="site-header__navigation">
         <nav aria-label={locale === 'cn' ? '主导航' : 'Primary navigation'}>
           {items.map((item) => (
-            <Link key={item.href} href={localePath(locale, `/${item.href}`)}>
+            <Link
+              key={item.href}
+              href={localePath(locale, `/${item.href}`)}
+              aria-current={isNavigationItemActive(pathname, item.href) ? 'page' : undefined}
+            >
               {item.label}
             </Link>
           ))}
