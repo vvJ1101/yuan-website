@@ -1099,9 +1099,9 @@ a.lookbook-index__card:hover > span {
 
 .showroom-about__copy h1 {
   margin: 0;
-  font-size: clamp(40px, 3.7vw, 58px);
-  font-weight: 500;
-  letter-spacing: -0.045em;
+  font-size: clamp(38px, 3.3vw, 52px);
+  font-weight: 400;
+  letter-spacing: -0.035em;
   line-height: 0.95;
 }
 
@@ -1163,7 +1163,7 @@ a.lookbook-index__card:hover > span {
 .showroom-about__statistic strong {
   display: block;
   font-size: clamp(36px, 3.5vw, 54px);
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: -0.04em;
   line-height: 0.9;
 }
@@ -1171,7 +1171,7 @@ a.lookbook-index__card:hover > span {
 .showroom-about__statistic h2 {
   margin: clamp(9px, 1.2vh, 13px) 0 0;
   font-size: clamp(12px, 1vw, 16px);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.15;
 }
 
@@ -1305,7 +1305,12 @@ a.lookbook-index__card:hover > span {
   mix-blend-mode: difference;
   pointer-events: none;
   transform: translateX(-50%);
+  transition: opacity 160ms ease;
   white-space: nowrap;
+}
+
+.brand-book__title--hidden {
+  opacity: 0;
 }
 
 .brand-book__pages {
@@ -1824,7 +1829,7 @@ a.lookbook-index__card:hover > span {
   }
 
   .showroom-about__copy h1 {
-    font-size: 44px;
+    font-size: 38px;
   }
 
   .showroom-about__statistics {

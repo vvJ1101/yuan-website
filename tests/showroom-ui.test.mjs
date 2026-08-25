@@ -223,8 +223,25 @@ test('brand book keeps its identity fixed above the scrolling campaign', async (
   const book = await read('src/components/showroom/brand-book.tsx')
   const css = await read('src/app/globals.css')
 
-  assert.match(book, /className="brand-book__title"[\s\S]*?\{book\.name\}[\s\S]*?BRAND BOOK/)
+  assert.match(book, /className=\{`brand-book__title[\s\S]*?\{book\.name\}[\s\S]*?BRAND BOOK/)
   assert.match(css, /\.brand-book__title\s*\{[\s\S]*?position: fixed/)
+})
+
+test('brand book identity hides while scrolling and returns after scrolling stops', async () => {
+  const book = await read('src/components/showroom/brand-book.tsx')
+  const css = await read('src/app/globals.css')
+
+  assert.match(book, /window\.addEventListener\('scroll', handleScroll, \{ passive: true \}\)/)
+  assert.match(book, /setTimeout\([\s\S]*?setIsScrolling\(false\)[\s\S]*?, 180\)/)
+  assert.match(book, /brand-book__title--hidden/)
+  assert.match(css, /\.brand-book__title--hidden\s*\{[\s\S]*?opacity: 0/)
+})
+
+test('about typography uses a quieter editorial weight hierarchy', async () => {
+  const css = await read('src/app/globals.css')
+
+  assert.match(css, /\.showroom-about__copy h1\s*\{[\s\S]*?font-size: clamp\(38px, 3\.3vw, 52px\)[\s\S]*?font-weight: 400/)
+  assert.match(css, /\.showroom-about__statistic strong\s*\{[\s\S]*?font-weight: 400/)
 })
 
 test('brand book pages share the desktop navigation width', async () => {

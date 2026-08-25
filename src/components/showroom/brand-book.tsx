@@ -1,5 +1,8 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
 
 import type { Locale } from '@/types/showroom'
 
@@ -19,13 +22,32 @@ interface BrandBookProps {
 }
 
 export function BrandBook({ locale, book, closeHref }: BrandBookProps) {
+  const [isScrolling, setIsScrolling] = useState(false)
+  const scrollEndTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolling(true)
+
+      if (scrollEndTimer.current) clearTimeout(scrollEndTimer.current)
+      scrollEndTimer.current = setTimeout(() => setIsScrolling(false), 180)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (scrollEndTimer.current) clearTimeout(scrollEndTimer.current)
+    }
+  }, [])
+
   return (
     <main className="brand-book">
       <Link className="brand-book__close" href={closeHref}>
         CLOSE
       </Link>
 
-      <h1 className="brand-book__title">
+      <h1 className={`brand-book__title${isScrolling ? ' brand-book__title--hidden' : ''}`}>
         {book.name} <span aria-hidden="true">—</span> BRAND BOOK
       </h1>
       <div className="brand-book__pages" aria-label={`${book.name} Brand Book`}>
