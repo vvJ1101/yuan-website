@@ -43,8 +43,8 @@ function Timepiece({ time, location, locale }: { time: string; location: Visitor
         {Array.from({ length: 12 }, (_, index) => <i key={index} style={{ '--tick': index } as React.CSSProperties} />)}
       </div>
       <div className="showroom-cover__place">
-        <span>{copy.label} · {location.timezone}</span>
-        <strong>{location.address}</strong>
+        <span>{copy.time} · {location.timezone}</span>
+        <strong>{copy.label} · {location.address}</strong>
         <time>{time}</time>
         <span>{location.coordinates}</span>
       </div>
@@ -96,12 +96,16 @@ export function HomepageExperience({ locale }: { locale: Locale }) {
 
       try {
         const language = locale === 'cn' ? 'zh-CN' : 'en'
-        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=10&lat=${latitude}&lon=${longitude}&accept-language=${language}`, { headers: { Accept: 'application/json' } })
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=14&lat=${latitude}&lon=${longitude}&accept-language=${language}`, { headers: { Accept: 'application/json' } })
         if (!response.ok) throw new Error('Reverse geocoding failed')
         const result = await response.json() as { display_name?: string; address?: Record<string, string> }
         const address = result.address ?? {}
-        const place = address.city || address.municipality || address.town || address.state
-        const parts = [place, address.country].filter((part, index, values): part is string => Boolean(part) && values.indexOf(part) === index)
+        const displayParts = (result.display_name ?? '').split(/[,，]/).map((part) => part.trim())
+        const rawCity = address.city || address.municipality || address.town
+        const cityFromDisplay = locale === 'cn' ? displayParts.find((part) => /市$/.test(part)) : undefined
+        const district = address.city_district || address.district || address.borough || address.county || (rawCity && /区$|District$/i.test(rawCity) ? rawCity : undefined)
+        const city = rawCity && rawCity !== district ? rawCity : cityFromDisplay || address.state
+        const parts = [city, district, address.country].filter((part, index, values): part is string => Boolean(part) && values.indexOf(part) === index)
         setVisitorLocation({ address: parts.join(' · ') || result.display_name || copy.fallback, coordinates, timezone })
       } catch { setVisitorLocation({ address: copy.fallback, coordinates, timezone }) }
     }, fallback, { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 })
