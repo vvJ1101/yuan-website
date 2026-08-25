@@ -696,8 +696,10 @@ a.lookbook-index__card:hover > span {
 }
 
 .showroom-cover {
-  min-height: calc(100svh - var(--ys-header-h));
+  height: calc(100svh - var(--ys-header-h));
+  min-height: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 @keyframes showroom-collage-entrance {
@@ -916,17 +918,16 @@ a.lookbook-index__card:hover > span {
 
 /* Horizontal kinetic cover */
 .showroom-cover__experience {
-  height: 168svh;
+  height: 100%;
   animation: showroom-collage-entrance 1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .showroom-cover__stage {
   --pointer-x: 0;
   --pointer-y: 0;
-  position: sticky;
-  top: var(--ys-header-h);
-  height: calc(100svh - var(--ys-header-h));
-  min-height: 520px;
+  position: relative;
+  height: 100%;
+  min-height: 0;
   overflow: hidden;
   background: #fff;
   isolation: isolate;
@@ -944,8 +945,8 @@ a.lookbook-index__card:hover > span {
 .showroom-cover__sequence {
   display: flex;
   align-items: center;
-  width: 356vw;
-  min-width: 4860px;
+  width: max-content;
+  min-width: 0;
   padding-inline: clamp(34px, 4.8vw, 92px);
   gap: clamp(52px, 7vw, 128px);
 }
@@ -959,7 +960,15 @@ a.lookbook-index__card:hover > span {
   transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.showroom-cover__panel img { object-fit: cover; }
+.showroom-cover__panel img {
+  object-fit: cover;
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1), filter 700ms ease;
+}
+
+.showroom-cover__panel:hover img {
+  filter: contrast(1.04) saturate(0.94);
+  transform: scale(1.045);
+}
 .showroom-cover__panel--hero { width: 38vw; height: 76%; align-self: flex-start; }
 .showroom-cover__panel--small { width: 17vw; height: 27%; align-self: flex-end; margin-bottom: 8vh; }
 .showroom-cover__panel--tall { width: 24vw; height: 66%; align-self: flex-start; margin-top: 8vh; }
@@ -981,10 +990,10 @@ a.lookbook-index__card:hover > span {
 .showroom-cover__lettering .showroom-cover__word {
   display: block;
   font-family: "Avenir Next", Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-stretch: normal;
   line-height: 0.83;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.005em;
   transform: none;
 }
 
@@ -1035,6 +1044,7 @@ a.lookbook-index__card:hover > span {
 }
 
 .showroom-cover__place { display: grid; gap: 1px; }
+.showroom-cover__place strong { max-width: 34ch; overflow: hidden; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
 .showroom-cover__place time { font-variant-numeric: tabular-nums; font-size: 13px; letter-spacing: 0.06em; }
 
 .showroom-cover__direction {
@@ -1048,6 +1058,7 @@ a.lookbook-index__card:hover > span {
 }
 
 .showroom-cover__stage[data-scrolling='true'] .showroom-cover__direction { opacity: 0.35; }
+.showroom-cover__stage[data-cursor='hidden'] { cursor: none; }
 
 @keyframes showroom-clock-turn { to { transform: rotate(360deg); } }
 
@@ -1853,8 +1864,8 @@ a.lookbook-index__card:hover > span {
 
 @media (max-width: 900px) {
   .showroom-cover__sequence {
-    width: 590vw;
-    min-width: 4200px;
+    width: max-content;
+    min-width: 0;
   }
 
   .showroom-cover__panel--hero { width: 62vw; }
@@ -1882,8 +1893,8 @@ a.lookbook-index__card:hover > span {
 }
 
 @media (max-width: 640px) {
-  .showroom-cover__experience { height: 145svh; }
-  .showroom-cover__stage { min-height: 500px; }
+  .showroom-cover__experience { height: 100%; }
+  .showroom-cover__stage { min-height: 0; }
   .showroom-cover__sequence { gap: 42px; padding-inline: 24px; }
   .showroom-cover__timepiece { transform: scale(0.88); transform-origin: left bottom; }
   .showroom-cover__direction { display: none; }

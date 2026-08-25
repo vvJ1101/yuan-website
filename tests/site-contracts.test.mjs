@@ -65,6 +65,7 @@ test('Next configuration disables disclosure and defines security headers', asyn
   for (const header of ['Content-Security-Policy', 'X-Content-Type-Options', 'Referrer-Policy', 'Permissions-Policy']) {
     assert.match(source, new RegExp(header))
   }
+  assert.match(source, /geolocation=\(self\)/)
 })
 
 test('source tree has no AppleDouble metadata', async () => {
