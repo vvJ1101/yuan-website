@@ -93,7 +93,7 @@ test('cover runs a horizontal gallery that pauses for scroll-controlled movement
   assert.match(experience, /showroom-cover__lettering/)
   assert.match(css, /\.showroom-cover__stage\s*\{[^}]*position: relative/)
   assert.match(css, /\.showroom-cover__track\s*\{[^}]*display: flex/)
-  assert.match(css, /\.showroom-cover__lettering \.showroom-cover__word\s*\{[^}]*font-family: "Helvetica Neue"[^}]*font-weight: 500[^}]*letter-spacing: 0\.012em[^}]*scaleX\(0\.94\)/)
+  assert.match(css, /\.showroom-cover__lettering \.showroom-cover__word\s*\{[^}]*font-family: "Helvetica Neue"[^}]*font-weight: 400[^}]*letter-spacing: 0\.012em[^}]*scaleX\(0\.94\)/)
   assert.match(css, /\.showroom-cover__experience\s*\{[^}]*height: 100%/)
   assert.match(css, /\.showroom-cover__sequence\s*\{[^}]*width: max-content[^}]*min-width: 0/)
   assert.match(css, /\.showroom-cover__stage\[data-cursor='hidden'\]\s*\{[^}]*cursor: none/)
