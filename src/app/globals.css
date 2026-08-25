@@ -29,6 +29,7 @@
     --ys-muted: #777;
     --ys-header-h: clamp(118px, 14vh, 142px);
     --ys-gutter: clamp(32px, 4vw, 68px);
+    --ys-nav-column-w: 54vw;
     --ys-nav-size: clamp(12px, 0.95vw, 16px);
     --ys-body-size: clamp(13px, 1vw, 18px);
   }
@@ -605,7 +606,7 @@ a.lookbook-index__card:hover > span {
 .site-header__navigation {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr minmax(420px, 54vw) 1fr;
+  grid-template-columns: 1fr minmax(420px, var(--ys-nav-column-w)) 1fr;
   align-items: center;
   margin-top: clamp(16px, 2.2vh, 22px);
 }
@@ -1317,7 +1318,7 @@ a.lookbook-index__card:hover > span {
 }
 
 .brand-book__page--landscape {
-  width: min(96vh, 82vw, 1200px);
+  width: min(var(--ys-nav-column-w), 1200px);
 }
 
 .brand-book__page img {

@@ -201,6 +201,14 @@ test('brand book keeps its identity fixed above the scrolling campaign', async (
   assert.match(css, /\.brand-book__title\s*\{[\s\S]*?position: fixed/)
 })
 
+test('brand book pages share the desktop navigation width', async () => {
+  const css = await read('src/app/globals.css')
+
+  assert.match(css, /--ys-nav-column-w: 54vw/)
+  assert.match(css, /\.site-header__navigation\s*\{[\s\S]*?grid-template-columns: 1fr minmax\(420px, var\(--ys-nav-column-w\)\) 1fr/)
+  assert.match(css, /\.brand-book__page--landscape\s*\{[\s\S]*?width: min\(var\(--ys-nav-column-w\), 1200px\)/)
+})
+
 test('NOW landing links all three approved destinations', async () => {
   const source = await read('src/app/[locale]/now/page.tsx')
   for (const path of ['lookbook', 'floor-map', 'appointment']) {
