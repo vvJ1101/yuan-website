@@ -30,6 +30,7 @@ export default async function NowPage({
         ratio="16 / 9"
         sizes="(max-width: 900px) 100vw, 70vw"
         priority
+        unoptimized
       />
 
       <aside className="now-event__sidebar">

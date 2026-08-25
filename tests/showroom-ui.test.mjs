@@ -265,9 +265,11 @@ test('NOW landing links all three approved destinations', async () => {
 
 test('NOW landing is a two-column 16:9 composition contained in one desktop viewport', async () => {
   const source = await read('src/app/[locale]/now/page.tsx')
+  const mediaFrame = await read('src/components/showroom/media-frame.tsx')
   const css = await read('src/app/globals.css')
 
-  assert.match(source, /className="now-event__image"[\s\S]*?ratio="16 \/ 9"/)
+  assert.match(source, /className="now-event__image"[\s\S]*?ratio="16 \/ 9"[\s\S]*?unoptimized/)
+  assert.match(mediaFrame, /unoptimized=\{unoptimized\}/)
   assert.match(source, /className="now-event__sidebar"/)
   assert.match(css, /\.now-event\s*\{[\s\S]*?grid-template-columns: minmax\(0, 1\.85fr\) minmax\(240px, 0\.65fr\)[\s\S]*?height: calc\(100svh - var\(--ys-header-h\)\)[\s\S]*?overflow: hidden/)
 })
