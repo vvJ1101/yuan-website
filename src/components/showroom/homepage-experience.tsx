@@ -31,9 +31,35 @@ interface VisitorLocation {
 }
 
 const locationCopy = {
-  cn: { label: '实时位置', locating: '正在获取位置', fallback: '上海 · 中国', time: '当地时间' },
-  en: { label: 'LIVE LOCATION', locating: 'LOCATING', fallback: 'SHANGHAI · CHINA', time: 'LOCAL TIME' },
+  cn: { label: '实时位置', locating: '正在获取位置', acquired: '已获取位置', unavailable: '定位不可用', time: '当地时间' },
+  en: { label: 'LIVE LOCATION', locating: 'LOCATING', acquired: 'LOCATION ACQUIRED', unavailable: 'LOCATION UNAVAILABLE', time: 'LOCAL TIME' },
 } as const
+
+const nearbyCities = [
+  { cn: '深圳 · 中国', en: 'SHENZHEN · CHINA', latitude: 22.5431, longitude: 114.0579, radius: 70 },
+  { cn: '香港 · 中国', en: 'HONG KONG · CHINA', latitude: 22.3193, longitude: 114.1694, radius: 45 },
+  { cn: '广州 · 中国', en: 'GUANGZHOU · CHINA', latitude: 23.1291, longitude: 113.2644, radius: 70 },
+  { cn: '上海 · 中国', en: 'SHANGHAI · CHINA', latitude: 31.2304, longitude: 121.4737, radius: 85 },
+  { cn: '杭州 · 中国', en: 'HANGZHOU · CHINA', latitude: 30.2741, longitude: 120.1551, radius: 65 },
+  { cn: '北京 · 中国', en: 'BEIJING · CHINA', latitude: 39.9042, longitude: 116.4074, radius: 90 },
+  { cn: '成都 · 中国', en: 'CHENGDU · CHINA', latitude: 30.5728, longitude: 104.0668, radius: 75 },
+] as const
+
+function distanceInKilometres(latitudeA: number, longitudeA: number, latitudeB: number, longitudeB: number) {
+  const toRadians = (degrees: number) => degrees * Math.PI / 180
+  const latitudeDelta = toRadians(latitudeB - latitudeA)
+  const longitudeDelta = toRadians(longitudeB - longitudeA)
+  const value = Math.sin(latitudeDelta / 2) ** 2
+    + Math.cos(toRadians(latitudeA)) * Math.cos(toRadians(latitudeB)) * Math.sin(longitudeDelta / 2) ** 2
+  return 6371 * 2 * Math.atan2(Math.sqrt(value), Math.sqrt(1 - value))
+}
+
+function inferNearbyCity(latitude: number, longitude: number, locale: Locale) {
+  const city = nearbyCities.find((candidate) => (
+    distanceInKilometres(latitude, longitude, candidate.latitude, candidate.longitude) <= candidate.radius
+  ))
+  return city?.[locale]
+}
 
 function Timepiece({ time, location, locale }: { time: string; location: VisitorLocation; locale: Locale }) {
   const copy = locationCopy[locale]
@@ -64,7 +90,7 @@ export function HomepageExperience({ locale }: { locale: Locale }) {
   const [time, setTime] = useState('00:00:00')
   const [visitorLocation, setVisitorLocation] = useState<VisitorLocation>({
     address: locationCopy[locale].locating,
-    coordinates: '31.2304° N  121.4737° E',
+    coordinates: '—',
     timezone: '—',
   })
 
@@ -80,34 +106,20 @@ export function HomepageExperience({ locale }: { locale: Locale }) {
   useEffect(() => {
     const copy = locationCopy[locale]
     const fallback = () => setVisitorLocation({
-      address: copy.fallback,
-      coordinates: '31.2304° N  121.4737° E',
-      timezone: 'Asia/Shanghai',
+      address: copy.unavailable,
+      coordinates: '—',
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '—',
     })
 
     if (!navigator.geolocation) { fallback(); return }
 
-    navigator.geolocation.getCurrentPosition(async ({ coords }) => {
+    navigator.geolocation.getCurrentPosition(({ coords }) => {
       const latitude = coords.latitude
       const longitude = coords.longitude
       const coordinates = `${Math.abs(latitude).toFixed(4)}° ${latitude >= 0 ? 'N' : 'S'}  ${Math.abs(longitude).toFixed(4)}° ${longitude >= 0 ? 'E' : 'W'}`
-      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-      setVisitorLocation({ address: copy.locating, coordinates, timezone })
-
-      try {
-        const language = locale === 'cn' ? 'zh-CN' : 'en'
-        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=14&lat=${latitude}&lon=${longitude}&accept-language=${language}`, { headers: { Accept: 'application/json' } })
-        if (!response.ok) throw new Error('Reverse geocoding failed')
-        const result = await response.json() as { display_name?: string; address?: Record<string, string> }
-        const address = result.address ?? {}
-        const displayParts = (result.display_name ?? '').split(/[,，]/).map((part) => part.trim())
-        const rawCity = address.city || address.municipality || address.town
-        const cityFromDisplay = locale === 'cn' ? displayParts.find((part) => /市$/.test(part)) : undefined
-        const district = address.city_district || address.district || address.borough || address.county || (rawCity && /区$|District$/i.test(rawCity) ? rawCity : undefined)
-        const city = rawCity && rawCity !== district ? rawCity : cityFromDisplay || address.state
-        const parts = [city, district, address.country].filter((part, index, values): part is string => Boolean(part) && values.indexOf(part) === index)
-        setVisitorLocation({ address: parts.join(' · ') || result.display_name || copy.fallback, coordinates, timezone })
-      } catch { setVisitorLocation({ address: copy.fallback, coordinates, timezone }) }
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || '—'
+      const address = inferNearbyCity(latitude, longitude, locale) || copy.acquired
+      setVisitorLocation({ address, coordinates, timezone })
     }, fallback, { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 })
   }, [locale])
 
