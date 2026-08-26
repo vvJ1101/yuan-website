@@ -66,6 +66,7 @@ test('Next configuration disables disclosure and defines security headers', asyn
     assert.match(source, new RegExp(header))
   }
   assert.match(source, /geolocation=\(self\)/)
+  assert.doesNotMatch(source, /nominatim\.openstreetmap\.org/)
 })
 
 test('source tree has no AppleDouble metadata', async () => {
