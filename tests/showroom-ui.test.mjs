@@ -303,6 +303,41 @@ test('lookbook detail is an image-only editorial gallery', async () => {
   assert.doesNotMatch(appointment, /currentEvent\.dates/)
 })
 
+test('appointment presents the themed manual-review flow around a borderless QR code', async () => {
+  const page = await read('src/app/[locale]/now/appointment/page.tsx')
+  const data = await read('src/data/showroom.ts')
+  const css = await read('src/app/globals.css')
+  const qrCss = css.slice(css.indexOf('.appointment-page__qr'), css.indexOf('.appointment-page__scan'))
+
+  assert.match(page, /appointmentContent\.steps\.map/)
+  assert.match(page, /className="appointment-page__theme"/)
+  assert.match(page, /className="appointment-page__review"/)
+  assert.match(page, /unoptimized/)
+  assert.match(data, /ECHOES OF DECO/)
+  assert.match(data, /工作人员审核/)
+  assert.match(data, /短信/)
+  assert.match(data, /reviewed by our team/)
+  assert.match(data, /sent by SMS/)
+  assert.doesNotMatch(qrCss, /border|box-shadow|background/)
+})
+
+test('appointment keeps its desktop invitation and QR inside a 720px viewport', async () => {
+  const css = await read('src/app/globals.css')
+  const desktop = css.slice(css.indexOf('.appointment-page {'), css.indexOf('.onsite-page {'))
+
+  assert.match(desktop, /padding: clamp\(20px, 3vh, 32px\)[^;]+clamp\(28px, 4vh, 42px\)/)
+  assert.match(desktop, /min-height: calc\(100svh - var\(--ys-header-h\) - clamp\(48px, 7vh, 74px\)\)/)
+  assert.match(desktop, /\.appointment-page__qr\s*\{[^}]*width: 100%[^}]*max-width: 340px[^}]*justify-self: center/)
+})
+
+test('appointment CLOSE returns to the locale-aware NOW landing', async () => {
+  const page = await read('src/app/[locale]/now/appointment/page.tsx')
+
+  assert.match(page, /className="appointment-page__close"/)
+  assert.match(page, /href=\{localePath\(locale, '\/now'\)\}/)
+  assert.match(page, />\s*CLOSE\s*<\/Link>/)
+})
+
 test('lookbook detail contains one viewport-fitted five-image hero followed by a simple grid', async () => {
   const detail = await read('src/app/[locale]/now/lookbook/[slug]/page.tsx')
   const css = await read('src/app/globals.css')

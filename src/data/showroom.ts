@@ -87,6 +87,7 @@ const showroomImages = {
   'now/lookbook/le17septembre-06.webp': image('/images/showroom/now/lookbook/le17septembre-06.webp', 'LE17SEPTEMBRE 白色露背细节', 'LE17SEPTEMBRE white open-back detail'),
   'now/floor-map.webp': image('/images/showroom/now/floor-map.webp', 'YUAN SHOWROOM 三层楼层导览图', 'YUAN SHOWROOM three-floor guide map'),
   'now/appointment-qr.webp': image('/images/showroom/now/appointment-qr.webp', '上海时装周订货会预约二维码', 'Shanghai Fashion Week showroom appointment QR code'),
+  'now/appointment-qr-27ps.png': image('/images/showroom/now/appointment-qr-27ps.png', '27PS 上海订货会预约小程序码', '27PS Shanghai ordering season appointment mini-program code'),
   'on-site/aano-caffe-01.webp': image('/images/showroom/on-site/aano-caffe-01.webp', 'Aano caffe 咖啡空间', 'Aano caffe showroom space'),
   'on-site/aano-caffe-02.webp': image('/images/showroom/on-site/aano-caffe-02.webp', 'Aano caffe 咖啡空间', 'Aano caffe showroom space'),
   'on-site/aano-caffe-03.webp': image('/images/showroom/on-site/aano-caffe-03.webp', 'Aano caffe 咖啡空间', 'Aano caffe showroom space'),
@@ -199,8 +200,26 @@ export const currentEvent: CurrentEvent = {
     { slug: 'reindeer', name: 'REINDEER', poster: showroomImage('brands/reindeer.webp'), items: editorialLookbook },
   ],
   floorMapImage: showroomImage('now/floor-map.webp'),
-  appointmentQrImage: showroomImage('now/appointment-qr.webp'),
+  appointmentQrImage: showroomImage('now/appointment-qr-27ps.png'),
 }
+
+export const appointmentContent = {
+  edition: '27PS',
+  theme: 'ECHOES OF DECO',
+  season: '2027 PRE-SPRING',
+  location: { cn: '上海订货会', en: 'Shanghai Ordering Season' },
+  label: { cn: '预约参观', en: 'Appointment' },
+  scan: { cn: '微信扫码填写预约资料', en: 'Scan with WeChat to submit your appointment request' },
+  steps: [
+    { cn: '微信扫码填写预约资料', en: 'Scan with WeChat and complete the appointment form' },
+    { cn: '提交后由工作人员审核', en: 'Your request will be reviewed by our team' },
+    { cn: '审核结果将通过短信发送', en: 'The review result will be sent by SMS' },
+  ],
+  review: {
+    cn: '提交预约不代表审核通过。请准确填写本人手机号，最终预约结果以短信通知为准。',
+    en: 'Submitting a request does not confirm an appointment. Please provide a valid mobile number; the final result will be sent by SMS.',
+  },
+} as const
 
 export const onSiteServices: OnSiteService[] = [{
   id: 'aano-caffe',

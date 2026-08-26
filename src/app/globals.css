@@ -309,43 +309,131 @@ a.lookbook-index__card:hover > span {
 }
 
 .appointment-page {
-  display: grid;
   min-height: calc(100svh - var(--ys-header-h));
-  place-items: center;
-  padding: clamp(46px, 7vh, 78px) var(--ys-gutter) clamp(64px, 9vh, 100px);
-  text-align: center;
+  padding: clamp(20px, 3vh, 32px) var(--ys-gutter) clamp(28px, 4vh, 42px);
 }
 
-.appointment-page h1,
 .appointment-page p {
   margin: 0;
 }
 
-.appointment-page h1 {
-  font-size: clamp(34px, 4vw, 64px);
-  font-weight: 500;
-  letter-spacing: -0.045em;
+.appointment-page__invitation {
+  display: grid;
+  grid-template-areas:
+    "meta meta"
+    "theme action"
+    "steps action"
+    "review action";
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.72fr);
+  column-gap: clamp(64px, 9vw, 160px);
+  max-width: 1500px;
+  min-height: calc(100svh - var(--ys-header-h) - clamp(48px, 7vh, 74px));
+  margin-inline: auto;
+}
+
+.appointment-page__meta {
+  grid-area: meta;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: clamp(24px, 4vw, 72px);
+  align-items: center;
+  padding-bottom: clamp(18px, 2.5vh, 30px);
+  border-bottom: 1px solid #b8b8b8;
+  font-size: 11px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
-.appointment-page__season {
-  margin-top: 12px !important;
-  font-size: clamp(15px, 1.2vw, 20px);
+.appointment-page__close {
+  font-weight: 500;
+}
+
+.appointment-page__close:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+.appointment-page__theme {
+  grid-area: theme;
+  align-self: end;
+  padding-top: clamp(36px, 6vh, 78px);
+}
+
+.appointment-page__theme h1 {
+  margin: 0;
+  font-size: clamp(62px, 7.1vw, 132px);
+  font-weight: 400;
+  letter-spacing: -0.07em;
+  line-height: 0.82;
+  text-transform: uppercase;
+}
+
+.appointment-page__theme h1 span {
+  display: block;
+}
+
+.appointment-page__identity {
+  display: flex;
+  gap: clamp(24px, 4vw, 72px);
+  margin-top: clamp(26px, 4vh, 48px);
+  font-size: clamp(12px, 1vw, 15px);
+  letter-spacing: 0.11em;
+}
+
+.appointment-page__action {
+  grid-area: action;
+  align-self: center;
+  text-align: center;
 }
 
 .appointment-page__qr {
-  width: min(360px, 70vw);
-  margin: clamp(34px, 5vh, 54px) auto;
-  background: #fff;
+  width: 100%;
+  max-width: 340px;
+  justify-self: center;
+  margin-inline: auto;
 }
 
 .appointment-page__qr img {
   object-fit: contain;
 }
 
-.appointment-page__dates {
+.appointment-page__scan {
+  margin-top: 16px !important;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.appointment-page__steps {
+  grid-area: steps;
+  align-self: end;
+  max-width: 680px;
+  margin: clamp(46px, 7vh, 82px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.appointment-page__steps li {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 16px;
+  padding: 13px 0;
+  border-top: 1px solid #c8c8c8;
+  font-size: clamp(14px, 1.05vw, 17px);
+}
+
+.appointment-page__steps li > span {
   color: var(--ys-muted);
-  font-size: clamp(13px, 1vw, 16px);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+
+.appointment-page__review {
+  grid-area: review;
+  max-width: 680px;
+  padding-top: 18px;
+  color: var(--ys-muted);
+  font-size: 12px;
+  line-height: 1.7;
 }
 
 .onsite-page {
@@ -2021,8 +2109,40 @@ a.lookbook-index__card:hover > span {
     padding-top: 30px;
   }
 
+  .appointment-page {
+    padding-top: 28px;
+  }
+
+  .appointment-page__invitation {
+    grid-template-areas:
+      "meta"
+      "theme"
+      "action"
+      "steps"
+      "review";
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .appointment-page__theme {
+    padding-top: 46px;
+  }
+
+  .appointment-page__theme h1 {
+    font-size: clamp(56px, 18vw, 96px);
+  }
+
+  .appointment-page__action {
+    margin-top: 42px;
+  }
+
   .appointment-page__qr {
-    width: min(320px, 82vw);
+    width: min(360px, 86vw);
+  }
+
+  .appointment-page__steps {
+    width: 100%;
+    margin-top: 48px;
   }
 
   .onsite-service h1 {
