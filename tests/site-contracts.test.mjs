@@ -37,6 +37,10 @@ test('metadata contains no verification placeholder', async () => {
   assert.doesNotMatch(source, /Your360VerificationCode/)
 })
 
+test('enterprise WeChat can verify the public website domain', async () => {
+  assert.equal((await read('public/WW_verify_tnhlQ93nMeNw6tbn.txt')).trim(), 'tnhlQ93nMeNw6tbn')
+})
+
 test('root document language is derived from the server-routed locale', async () => {
   const rootLayout = await read('src/app/layout.tsx')
   const proxy = await read('src/proxy.ts')
