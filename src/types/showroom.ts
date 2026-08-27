@@ -63,4 +63,11 @@ export interface Recap {
   title: LocalizedText
   poster: string
   order: number
+  city?: LocalizedText
+  date?: LocalizedText
+  description?: LocalizedText
+  video?: string
+  videoPoster?: string
+  pages: readonly string[]
+  gallery: readonly string[]
 }

@@ -216,6 +216,35 @@ test('brand routes cover both locales, reject unknown slugs, and wrap circularly
   assert.match(page, /brands\[\(index \+ 1\) % brands\.length\]/)
 })
 
+test('recap cards open localized season detail pages', async () => {
+  const page = await read('src/app/[locale]/recap/page.tsx')
+
+  assert.match(page, /import Link from 'next\/link'/)
+  assert.match(page, /localePath\(locale, `\/recap\/\$\{recap\.slug\}`\)/)
+  assert.match(page, /className="recap-card__link"/)
+})
+
+test('recap detail supports a cinematic hero, web pages, close, and season paging', async () => {
+  const page = await read('src/app/[locale]/recap/[slug]/page.tsx')
+  const detail = await read('src/components/showroom/recap-detail.tsx')
+  const css = await read('src/app/globals.css')
+
+  assert.match(page, /generateStaticParams/)
+  assert.match(page, /if \(index < 0\) notFound\(\)/)
+  assert.match(page, /<RecapDetail/)
+  assert.match(detail, /<video/)
+  assert.match(detail, /autoPlay/)
+  assert.match(detail, /muted/)
+  assert.match(detail, /playsInline/)
+  assert.doesNotMatch(detail, /loop/)
+  assert.match(detail, />CLOSE</)
+  assert.match(detail, /recap\.pages\.map/)
+  assert.match(detail, /previous/)
+  assert.match(detail, /next/)
+  assert.match(css, /\.recap-detail__hero\s*\{[^}]*min-height: calc\(100svh - var\(--ys-header-h\)\)/)
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)/)
+})
+
 test('brand room uses one eager hero with responsive image hints', async () => {
   const room = await read('src/components/showroom/brand-room.tsx')
 
