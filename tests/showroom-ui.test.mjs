@@ -313,6 +313,7 @@ test('appointment presents the themed manual-review flow around a borderless QR 
   const qrCss = css.slice(css.indexOf('.appointment-page__qr'), css.indexOf('.appointment-page__scan'))
 
   assert.match(page, /appointmentContent\.steps\.map/)
+  assert.match(data, /appointment-qr-27ps-v2\.png/)
   assert.match(page, /className="appointment-page__theme"/)
   assert.match(page, /className="appointment-page__review"/)
   assert.match(page, /unoptimized/)

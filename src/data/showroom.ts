@@ -88,6 +88,7 @@ const showroomImages = {
   'now/floor-map.webp': image('/images/showroom/now/floor-map.webp', 'YUAN SHOWROOM 三层楼层导览图', 'YUAN SHOWROOM three-floor guide map'),
   'now/appointment-qr.webp': image('/images/showroom/now/appointment-qr.webp', '上海时装周订货会预约二维码', 'Shanghai Fashion Week showroom appointment QR code'),
   'now/appointment-qr-27ps.png': image('/images/showroom/now/appointment-qr-27ps.png', '27PS 上海订货会预约小程序码', '27PS Shanghai ordering season appointment mini-program code'),
+  'now/appointment-qr-27ps-v2.png': image('/images/showroom/now/appointment-qr-27ps-v2.png', '27PS 上海订货会预约小程序码', '27PS Shanghai ordering season appointment mini-program code'),
   'on-site/aano-caffe-01.webp': image('/images/showroom/on-site/aano-caffe-01.webp', 'Aano caffe 咖啡空间', 'Aano caffe showroom space'),
   'on-site/aano-caffe-02.webp': image('/images/showroom/on-site/aano-caffe-02.webp', 'Aano caffe 咖啡空间', 'Aano caffe showroom space'),
   'on-site/aano-caffe-03.webp': image('/images/showroom/on-site/aano-caffe-03.webp', 'Aano caffe 咖啡空间', 'Aano caffe showroom space'),
@@ -200,7 +201,7 @@ export const currentEvent: CurrentEvent = {
     { slug: 'reindeer', name: 'REINDEER', poster: showroomImage('brands/reindeer.webp'), items: editorialLookbook },
   ],
   floorMapImage: showroomImage('now/floor-map.webp'),
-  appointmentQrImage: showroomImage('now/appointment-qr-27ps.png'),
+  appointmentQrImage: showroomImage('now/appointment-qr-27ps-v2.png'),
 }
 
 export const appointmentContent = {
