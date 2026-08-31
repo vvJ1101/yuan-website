@@ -980,10 +980,10 @@ a.lookbook-index__card:hover > span {
   justify-content: space-between;
   gap: clamp(18px, 3.6vw, 62px);
   font-family: var(--ys-font-sans);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   letter-spacing: 0;
-  line-height: 16px;
+  line-height: 14px;
 }
 
 .site-header nav a,
@@ -1523,7 +1523,7 @@ a.lookbook-index__card:hover > span {
 .showroom-about__copy h1 {
   margin: 0;
   font-family: var(--ys-font-display);
-  font-size: clamp(62px, 6vw, 108px);
+  font-size: clamp(54px, 5vw, 92px);
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1.1;
@@ -1886,6 +1886,32 @@ a.lookbook-index__card:hover > span {
 
   .brand-index__card .media-frame {
     aspect-ratio: 2 / 3 !important;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1366px) and (orientation: landscape) {
+  .brand-index {
+    height: calc(100svh - var(--ys-header-h));
+    min-height: 0;
+    padding-top: clamp(22px, 3vh, 30px);
+    padding-bottom: clamp(14px, 2vh, 20px);
+    overflow: hidden;
+  }
+
+  .brand-index__matrix {
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    min-height: 0;
+    align-content: stretch;
+    padding-top: 0;
+  }
+
+  .brand-index__card {
+    height: 100%;
+  }
+
+  .brand-index__card .media-frame {
+    height: 100%;
+    aspect-ratio: auto !important;
   }
 }
 

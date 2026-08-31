@@ -203,6 +203,14 @@ test('brand index uses taller posters across desktop widths', async () => {
   assert.match(css, /@media \(min-width: 901px\)[\s\S]*?\.brand-index__matrix\s*\{[^}]*padding-top: clamp\(12px, 2vh, 24px\)[\s\S]*?\.brand-index__card \.media-frame\s*\{[^}]*aspect-ratio: 2 \/ 3 !important/)
 })
 
+test('brand index fills the available landscape tablet height', async () => {
+  const css = await read('src/app/globals.css')
+
+  assert.match(css, /@media \(min-width: 901px\) and \(max-width: 1366px\) and \(orientation: landscape\)[\s\S]*?\.brand-index\s*\{[^}]*height: calc\(100svh - var\(--ys-header-h\)\)[^}]*overflow: hidden/)
+  assert.match(css, /@media \(min-width: 901px\) and \(max-width: 1366px\) and \(orientation: landscape\)[\s\S]*?\.brand-index__matrix\s*\{[^}]*grid-template-rows: repeat\(2, minmax\(0, 1fr\)\)[^}]*align-content: stretch[^}]*padding-top: 0/)
+  assert.match(css, /@media \(min-width: 901px\) and \(max-width: 1366px\) and \(orientation: landscape\)[\s\S]*?\.brand-index__card \.media-frame\s*\{[^}]*height: 100%[^}]*aspect-ratio: auto !important/)
+})
+
 test('brand room renders paragraph breaks and avoids duplicate auxiliary keys', async () => {
   const room = await read('src/components/showroom/brand-room.tsx')
   const auxiliary = room.slice(room.indexOf('brand.roomImages.slice(1)'), room.indexOf('</div>', room.indexOf('brand.roomImages.slice(1)')))
