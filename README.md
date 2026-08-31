@@ -26,10 +26,11 @@ npm run dev
 常用校验命令：
 
 ```bash
+npm run check:fast
 npm run check
 ```
 
-`check` 会依次运行契约测试、ESLint、TypeScript 类型检查和生产构建。
+`check:fast` 会并行运行测试与 ESLint，再执行包含 TypeScript 校验的生产构建；适合样式、静态文案和图片等低风险调整。`check` 会依次运行契约测试、ESLint、独立 TypeScript 类型检查和生产构建，适合路由、交互、数据、配置等改动。
 
 ## 内容约定
 
@@ -57,7 +58,9 @@ npm run check
 - 应用目录：`/var/www/yuan-website`。
 - PM2 进程：`yuan-website`，本地端口 `3002`。
 - 部署仅更新官网应用，不修改 `yuan-academy` 的文件、端口、进程或 Nginx 配置。
-- 发布前必须运行 `npm run check` 并执行敏感信息扫描；发布后检查中文首页、英文首页、关键栏目与 HTTPS 状态。
+- 样式、静态文案和图片等低风险改动使用 `npm run deploy:fast`；路由、交互、数据和配置改动使用 `npm run deploy:full`。
+- 两种发布方式都要求工作区已提交，并保留生产构建、独立 staging、增量上传、PM2 重启、本机与公网健康检查、失败自动回滚及最近三个备份。
+- 如果 `package-lock.json` 与生产环境不一致，自动发布会在上传前中止，依赖升级需要单独安排维护发布。
 
 ## 相关文档
 
