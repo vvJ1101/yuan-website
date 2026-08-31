@@ -1891,27 +1891,23 @@ a.lookbook-index__card:hover > span {
 
 @media (min-width: 901px) and (max-width: 1366px) and (orientation: landscape) {
   .brand-index {
-    height: calc(100svh - var(--ys-header-h));
-    min-height: 0;
     padding-top: clamp(22px, 3vh, 30px);
     padding-bottom: clamp(14px, 2vh, 20px);
-    overflow: hidden;
   }
 
   .brand-index__matrix {
-    grid-template-rows: repeat(2, minmax(0, 1fr));
-    min-height: 0;
-    align-content: stretch;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-content: start;
     padding-top: 0;
   }
 
   .brand-index__card {
-    height: 100%;
+    height: auto;
   }
 
   .brand-index__card .media-frame {
-    height: 100%;
-    aspect-ratio: auto !important;
+    height: auto;
+    aspect-ratio: 2 / 3 !important;
   }
 }
 
