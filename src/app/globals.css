@@ -1874,6 +1874,21 @@ a.lookbook-index__card:hover > span {
   aspect-ratio: auto !important;
 }
 
+/* Shared optical treatment for editorial titles on white page surfaces. */
+.now-event__summary h1,
+.lookbook-index header h1,
+.floor-map-page h1,
+.showroom-about__copy h1,
+.brand-index__rail h1,
+.onsite-service h1,
+.recap-page > header h1,
+.lookbook-brand__header h1,
+.appointment-page__theme h1 {
+  font-family: var(--ys-font-display);
+  font-weight: 400;
+  -webkit-text-stroke: 0.3px var(--ys-bg);
+}
+
 :focus-visible {
   outline: 2px solid var(--ys-ink);
   outline-offset: 3px;

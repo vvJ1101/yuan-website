@@ -295,6 +295,12 @@ test('about typography uses the approved editorial serif hierarchy', async () =>
   assert.match(css, /\.showroom-about__statistic strong\s*\{[\s\S]*?font-weight: 400/)
 })
 
+test('white-background page titles share the restrained display treatment', async () => {
+  const css = await read('src/app/globals.css')
+
+  assert.match(css, /\.now-event__summary h1,[\s\S]*?\.showroom-about__copy h1,[\s\S]*?\.brand-index__rail h1,[\s\S]*?\.onsite-service h1,[\s\S]*?\.recap-page > header h1,[\s\S]*?\.lookbook-brand__header h1,[\s\S]*?\.appointment-page__theme h1\s*\{[^}]*font-family: var\(--ys-font-display\)[^}]*font-weight: 400[^}]*-webkit-text-stroke: 0\.3px var\(--ys-bg\)/)
+})
+
 test('brand book pages share the desktop navigation width', async () => {
   const book = await read('src/components/showroom/brand-book.tsx')
   const css = await read('src/app/globals.css')
