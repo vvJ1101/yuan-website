@@ -32,6 +32,9 @@
     --ys-nav-column-w: 54vw;
     --ys-nav-size: clamp(12px, 0.95vw, 16px);
     --ys-body-size: clamp(13px, 1vw, 18px);
+    --ys-font-sans: "Work Sans Variable", "Noto Sans SC Variable", "PingFang SC", "Microsoft YaHei", sans-serif;
+    --ys-font-serif: "Castoro", "Noto Serif SC Variable", "Songti SC", "STSong", serif;
+    --ys-font-display: "Song Myung", "Noto Serif SC Variable", "Songti SC", "STSong", serif;
   }
 
   * {
@@ -53,7 +56,7 @@
   }
 
   body {
-    font-family: Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-family: var(--ys-font-sans);
     overflow-x: clip;
   }
 
@@ -78,6 +81,22 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* Reference-led typography roles: editorial display versus functional UI. */
+.now-event__summary h1,
+.lookbook-index header h1,
+.floor-map-page h1,
+.brand-index__rail h1,
+.recap-page > header h1 {
+  font-family: var(--ys-font-serif);
+  font-optical-sizing: auto;
+}
+
+.site-header nav,
+.site-language-switch,
+.showroom-about__more {
+  font-family: var(--ys-font-sans);
 }
 
 .now-event {
@@ -460,14 +479,14 @@ a.lookbook-index__card:hover > span {
 
 .onsite-service__number {
   color: #b69b75;
-  font-family: Georgia, serif;
+  font-family: var(--ys-font-serif);
   font-size: 18px;
   font-style: italic;
 }
 
 .onsite-service h1 {
   margin-top: clamp(32px, 4vh, 44px);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--ys-font-serif);
   font-size: clamp(43px, 4.4vw, 72px);
   font-weight: 400;
   letter-spacing: 0.02em;
@@ -737,7 +756,7 @@ a.lookbook-index__card:hover > span {
 .recap-detail__identity h1 {
   max-width: 11ch;
   margin-top: 10px;
-  font-family: Didot, "Bodoni 72", "Times New Roman", serif;
+  font-family: var(--ys-font-serif);
   font-size: clamp(54px, 8.8vw, 150px);
   font-weight: 400;
   letter-spacing: -0.055em;
@@ -960,7 +979,11 @@ a.lookbook-index__card:hover > span {
   display: flex;
   justify-content: space-between;
   gap: clamp(18px, 3.6vw, 62px);
-  font-size: calc(var(--ys-nav-size) - 1px);
+  font-family: var(--ys-font-sans);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 16px;
 }
 
 .site-header nav a,
@@ -1281,7 +1304,7 @@ a.lookbook-index__card:hover > span {
   gap: 0.015em;
   margin: 0;
   color: inherit;
-  font-family: "Arial Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: var(--ys-font-sans);
   font-size: clamp(64px, 9.8vw, 178px);
   font-stretch: condensed;
   font-weight: 300;
@@ -1390,7 +1413,7 @@ a.lookbook-index__card:hover > span {
 
 .showroom-cover__lettering .showroom-cover__word {
   display: block;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: var(--ys-font-sans);
   font-weight: 400;
   font-stretch: normal;
   line-height: 0.83;
@@ -1494,15 +1517,16 @@ a.lookbook-index__card:hover > span {
   min-height: 100%;
   flex-direction: column;
   align-items: flex-start;
-  padding: clamp(12px, 2.2vh, 22px) clamp(12px, 2vw, 32px) 0 0;
+  padding: clamp(28px, 5vh, 56px) clamp(12px, 2vw, 32px) 0 0;
 }
 
 .showroom-about__copy h1 {
   margin: 0;
-  font-size: clamp(38px, 3.3vw, 52px);
+  font-family: var(--ys-font-display);
+  font-size: clamp(62px, 6vw, 108px);
   font-weight: 400;
-  letter-spacing: -0.035em;
-  line-height: 0.95;
+  letter-spacing: 0;
+  line-height: 1.1;
 }
 
 .showroom-about__rule {
@@ -1513,10 +1537,12 @@ a.lookbook-index__card:hover > span {
 }
 
 .showroom-about__body {
-  max-width: 45ch;
-  font-size: clamp(11px, 0.86vw, 14px);
+  max-width: 50ch;
+  font-family: var(--ys-font-serif);
+  font-size: clamp(12px, 0.85vw, 15px);
   font-weight: 400;
-  line-height: 1.62;
+  letter-spacing: -0.012em;
+  line-height: 1.52;
 }
 
 .showroom-about__body p {
@@ -1853,6 +1879,16 @@ a.lookbook-index__card:hover > span {
   outline-offset: 3px;
 }
 
+@media (min-width: 901px) {
+  .brand-index__matrix {
+    padding-top: clamp(12px, 2vh, 24px);
+  }
+
+  .brand-index__card .media-frame {
+    aspect-ratio: 2 / 3 !important;
+  }
+}
+
 @media (min-width: 901px) and (max-height: 920px) {
   .showroom-about {
     padding-top: 10px;
@@ -1871,7 +1907,7 @@ a.lookbook-index__card:hover > span {
   }
 
   .showroom-about__copy {
-    padding-top: 6px;
+    padding-top: 18px;
   }
 
   .showroom-about__rule {
@@ -1879,8 +1915,8 @@ a.lookbook-index__card:hover > span {
   }
 
   .showroom-about__body {
-    font-size: 11px;
-    line-height: 1.55;
+    font-size: 12px;
+    line-height: 1.5;
   }
 
   .showroom-about__body p + p {

@@ -7,11 +7,11 @@ const read = (relativePath) => readFile(new URL(relativePath, root), 'utf8')
 
 test('showroom header keeps the approved order and no hamburger', async () => {
   const source = await read('src/components/showroom/site-header.tsx')
-  const brands = source.indexOf("label: 'BRANDS'")
-  const about = source.indexOf("label: 'ABOUT'")
-  const now = source.indexOf("label: 'NOW'")
-  const onsite = source.indexOf("label: 'ON-SITE'")
-  const recap = source.indexOf("label: 'RECAP'")
+  const brands = source.indexOf("label: 'Brands'")
+  const about = source.indexOf("label: 'About'")
+  const now = source.indexOf("label: 'Now'")
+  const onsite = source.indexOf("label: 'On-site'")
+  const recap = source.indexOf("label: 'Recap'")
 
   assert.ok(brands < about && about < now && now < onsite && onsite < recap)
   assert.doesNotMatch(source, /Menu|hamburger|aria-expanded/)
@@ -96,7 +96,7 @@ test('cover runs a horizontal gallery that pauses for scroll-controlled movement
   assert.match(experience, /showroom-cover__lettering/)
   assert.match(css, /\.showroom-cover__stage\s*\{[^}]*position: relative/)
   assert.match(css, /\.showroom-cover__track\s*\{[^}]*display: flex/)
-  assert.match(css, /\.showroom-cover__lettering \.showroom-cover__word\s*\{[^}]*font-family: "Helvetica Neue"[^}]*font-weight: 400[^}]*letter-spacing: 0\.012em[^}]*scaleX\(0\.94\)/)
+  assert.match(css, /\.showroom-cover__lettering \.showroom-cover__word\s*\{[^}]*font-family: var\(--ys-font-sans\)[^}]*font-weight: 400[^}]*letter-spacing: 0\.012em[^}]*scaleX\(0\.94\)/)
   assert.match(css, /\.showroom-cover__experience\s*\{[^}]*height: 100%/)
   assert.match(css, /\.showroom-cover__sequence\s*\{[^}]*width: max-content[^}]*min-width: 0/)
   assert.match(css, /\.showroom-cover__stage\[data-cursor='hidden'\]\s*\{[^}]*cursor: none/)
@@ -197,6 +197,12 @@ test('brand index keeps six desktop columns and responsive image hints', async (
   assert.match(grid, /priority=\{index < 6\}/)
 })
 
+test('brand index uses taller posters across desktop widths', async () => {
+  const css = await read('src/app/globals.css')
+
+  assert.match(css, /@media \(min-width: 901px\)[\s\S]*?\.brand-index__matrix\s*\{[^}]*padding-top: clamp\(12px, 2vh, 24px\)[\s\S]*?\.brand-index__card \.media-frame\s*\{[^}]*aspect-ratio: 2 \/ 3 !important/)
+})
+
 test('brand room renders paragraph breaks and avoids duplicate auxiliary keys', async () => {
   const room = await read('src/components/showroom/brand-room.tsx')
   const auxiliary = room.slice(room.indexOf('brand.roomImages.slice(1)'), room.indexOf('</div>', room.indexOf('brand.roomImages.slice(1)')))
@@ -270,10 +276,12 @@ test('brand book identity hides while scrolling and returns after scrolling stop
   assert.match(css, /\.brand-book__title--hidden\s*\{[\s\S]*?opacity: 0/)
 })
 
-test('about typography uses a quieter editorial weight hierarchy', async () => {
+test('about typography uses the approved editorial serif hierarchy', async () => {
   const css = await read('src/app/globals.css')
 
-  assert.match(css, /\.showroom-about__copy h1\s*\{[\s\S]*?font-size: clamp\(38px, 3\.3vw, 52px\)[\s\S]*?font-weight: 400/)
+  assert.match(css, /\.showroom-about__copy\s*\{[\s\S]*?padding: clamp\(28px, 5vh, 56px\)/)
+  assert.match(css, /\.showroom-about__copy h1\s*\{[\s\S]*?font-family: var\(--ys-font-display\)[\s\S]*?font-size: clamp\(54px, 5vw, 92px\)[\s\S]*?font-weight: 400[\s\S]*?letter-spacing: 0[\s\S]*?line-height: 1\.1/)
+  assert.match(css, /\.showroom-about__body\s*\{[^}]*font-size: clamp\(12px, 0\.85vw, 15px\)[^}]*line-height: 1\.52/)
   assert.match(css, /\.showroom-about__statistic strong\s*\{[\s\S]*?font-weight: 400/)
 })
 
@@ -419,4 +427,26 @@ test('recap fills the desktop in five columns with portrait posters', async () =
   assert.doesNotMatch(css.match(/\.recap-grid\s*\{[^}]*\}/)?.[0] ?? '', /max-width:/)
   assert.match(css, /@media \(max-width: 900px\)[\s\S]*?\.recap-grid\s*\{[^}]*repeat\(3, minmax\(0, 1fr\)\)/)
   assert.match(css, /@media \(max-width: 640px\)[\s\S]*?\.recap-grid\s*\{[^}]*repeat\(2, minmax\(0, 1fr\)\)/)
+})
+
+test('showroom self-hosts the approved free bilingual font system', async () => {
+  const layout = await read('src/app/layout.tsx')
+  const css = await read('src/app/globals.css')
+
+  assert.match(layout, /@fontsource-variable\/work-sans\/wght\.css/)
+  assert.match(layout, /@fontsource\/castoro\/400\.css/)
+  assert.match(layout, /@fontsource\/song-myung\/400\.css/)
+  assert.match(layout, /@fontsource-variable\/noto-sans-sc/)
+  assert.match(layout, /@fontsource-variable\/noto-serif-sc/)
+  assert.match(css, /--ys-font-sans: "Work Sans Variable", "Noto Sans SC Variable"/)
+  assert.match(css, /--ys-font-serif: "Castoro", "Noto Serif SC Variable"/)
+  assert.match(css, /--ys-font-display: "Song Myung", "Noto Serif SC Variable"/)
+  assert.match(css, /body\s*\{[^}]*font-family: var\(--ys-font-sans\)/)
+  assert.match(css, /\.site-header nav\s*\{[^}]*font-family: var\(--ys-font-sans\)[^}]*font-size: 14px[^}]*font-weight: 500[^}]*letter-spacing: 0[^}]*line-height: 14px/)
+  assert.match(css, /\.showroom-about__copy h1[\s\S]*?font-family: var\(--ys-font-display\)/)
+  assert.match(css, /\.showroom-about__body\s*\{[^}]*font-family: var\(--ys-font-serif\)[^}]*font-size: clamp\(12px, 0\.85vw, 15px\)[^}]*font-weight: 400[^}]*line-height: 1\.52/)
+  assert.match(css, /@media \(min-width: 901px\) and \(max-height: 820px\)[\s\S]*?\.showroom-about__body\s*\{[^}]*font-size: 12px[^}]*line-height: 1\.5/)
+  assert.match(css, /\.now-event__summary h1,[\s\S]*?\.brand-index__rail h1,[\s\S]*?\.recap-page > header h1\s*\{[^}]*font-family: var\(--ys-font-serif\)/)
+  assert.match(css, /\.site-header nav,[\s\S]*?\.site-language-switch,[\s\S]*?\.showroom-about__more\s*\{[^}]*font-family: var\(--ys-font-sans\)/)
+  assert.doesNotMatch(layout + css, /fonts\.googleapis\.com|fonts\.gstatic\.com/)
 })

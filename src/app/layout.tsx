@@ -1,5 +1,10 @@
 import type { Metadata } from 'next'
 import { headers } from 'next/headers'
+import '@fontsource-variable/work-sans/wght.css'
+import '@fontsource/castoro/400.css'
+import '@fontsource/song-myung/400.css'
+import '@fontsource-variable/noto-sans-sc/wght.css'
+import '@fontsource-variable/noto-serif-sc/wght.css'
 import './globals.css'
 
 export const metadata: Metadata = {

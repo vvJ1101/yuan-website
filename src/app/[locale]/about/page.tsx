@@ -19,7 +19,7 @@ export default async function AboutPage({
     <main className="showroom-about">
       <div className="showroom-about__intro">
         <section className="showroom-about__copy" aria-labelledby="about-title">
-          <h1 id="about-title">ABOUT</h1>
+          <h1 id="about-title">About</h1>
           <span className="showroom-about__rule" aria-hidden="true" />
           <div className="showroom-about__body">
             {aboutContent.introduction.map((paragraph) => (

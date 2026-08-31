@@ -8,11 +8,11 @@ import { isNavigationItemActive, localePath, switchLocalePath } from '@/lib/show
 import type { Locale } from '@/types/showroom'
 
 const items = [
-  { label: 'BRANDS', href: 'brands' },
-  { label: 'ABOUT', href: 'about' },
-  { label: 'NOW', href: 'now' },
-  { label: 'ON-SITE', href: 'on-site' },
-  { label: 'RECAP', href: 'recap' },
+  { label: 'Brands', href: 'brands' },
+  { label: 'About', href: 'about' },
+  { label: 'Now', href: 'now' },
+  { label: 'On-site', href: 'on-site' },
+  { label: 'Recap', href: 'recap' },
 ] as const
 
 function LanguageSwitch({ locale }: { locale: Locale }) {
