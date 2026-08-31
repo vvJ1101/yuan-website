@@ -268,22 +268,24 @@ test('brand room uses one eager hero with responsive image hints', async () => {
   assert.match(room, /className="brand-room__detail-image"[\s\S]*?sizes="\(max-width: 640px\) 50vw, \(max-width: 900px\) 33vw, 22vw"/)
 })
 
-test('brand book keeps its identity fixed above the scrolling campaign', async () => {
+test('brand book keeps its identity above the scrolling campaign', async () => {
   const book = await read('src/components/showroom/brand-book.tsx')
   const css = await read('src/app/globals.css')
 
-  assert.match(book, /className=\{`brand-book__title[\s\S]*?\{book\.name\}[\s\S]*?BRAND BOOK/)
-  assert.match(css, /\.brand-book__title\s*\{[\s\S]*?position: fixed/)
+  assert.match(book, /className="brand-book__title"[\s\S]*?\{book\.name\}[\s\S]*?BRAND BOOK/)
+  assert.match(css, /\.brand-book__identity\s*\{[^}]*position: fixed[^}]*z-index: 90/)
 })
 
-test('brand book identity hides while scrolling and returns after scrolling stops', async () => {
+test('brand book identity stays visible in a fixed right-side rail', async () => {
   const book = await read('src/components/showroom/brand-book.tsx')
   const css = await read('src/app/globals.css')
 
-  assert.match(book, /window\.addEventListener\('scroll', handleScroll, \{ passive: true \}\)/)
-  assert.match(book, /setTimeout\([\s\S]*?setIsScrolling\(false\)[\s\S]*?, 180\)/)
-  assert.match(book, /brand-book__title--hidden/)
-  assert.match(css, /\.brand-book__title--hidden\s*\{[\s\S]*?opacity: 0/)
+  assert.match(book, /className="brand-book__identity"/)
+  assert.match(book, /className="brand-book__identity-rule"/)
+  assert.match(book, /YUAN SHOWROOM \/ BRAND ARCHIVE/)
+  assert.doesNotMatch(book, /useEffect|useRef|useState|addEventListener|brand-book__title--hidden/)
+  assert.match(css, /\.brand-book__identity\s*\{[^}]*position: fixed[^}]*right: var\(--ys-gutter\)/)
+  assert.doesNotMatch(css, /\.brand-book__title--hidden/)
 })
 
 test('about typography uses the approved editorial serif hierarchy', async () => {
@@ -301,15 +303,15 @@ test('white-background page titles share the restrained display treatment', asyn
   assert.match(css, /\.now-event__summary h1,[\s\S]*?\.showroom-about__copy h1,[\s\S]*?\.brand-index__rail h1,[\s\S]*?\.onsite-service h1,[\s\S]*?\.recap-page > header h1,[\s\S]*?\.lookbook-brand__header h1,[\s\S]*?\.appointment-page__theme h1\s*\{[^}]*font-family: var\(--ys-font-display\)[^}]*font-weight: 400[^}]*-webkit-text-stroke: 0\.3px var\(--ys-bg\)/)
 })
 
-test('brand book pages share the desktop navigation width', async () => {
+test('brand book pages widen and shift left beside the fixed identity rail', async () => {
   const book = await read('src/components/showroom/brand-book.tsx')
   const css = await read('src/app/globals.css')
 
-  assert.match(css, /--ys-nav-column-w: 54vw/)
-  assert.match(css, /\.site-header__navigation\s*\{[\s\S]*?grid-template-columns: 1fr minmax\(420px, var\(--ys-nav-column-w\)\) 1fr/)
   assert.match(book, /page\.width > page\.height \? 'landscape' : 'portrait'/)
-  assert.match(css, /\.brand-book__page--portrait\s*\{[\s\S]*?width: min\(var\(--ys-nav-column-w\), 900px\)/)
-  assert.match(css, /\.brand-book__page--landscape\s*\{[\s\S]*?width: min\(var\(--ys-nav-column-w\), 1200px\)/)
+  assert.match(book, /sizes="\(max-width: 640px\) calc\(100vw - 24px\), \(max-width: 900px\) 72vw, 68vw"/)
+  assert.match(css, /\.brand-book__pages\s*\{[^}]*transform: translateX\(-3vw\)/)
+  assert.match(css, /\.brand-book__page--portrait\s*\{[\s\S]*?width: min\(66vw, 1050px\)/)
+  assert.match(css, /\.brand-book__page--landscape\s*\{[\s\S]*?width: min\(68vw, 1400px\)/)
 })
 
 test('NOW landing links all three approved destinations', async () => {
