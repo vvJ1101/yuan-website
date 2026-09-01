@@ -35,6 +35,20 @@
     --ys-font-sans: "Work Sans Variable", "Noto Sans SC Variable", "PingFang SC", "Microsoft YaHei", sans-serif;
     --ys-font-serif: "Castoro", "Noto Serif SC Variable", "Songti SC", "STSong", serif;
     --ys-font-display: "Song Myung", "Noto Serif SC Variable", "Songti SC", "STSong", serif;
+    --ys-type-page-title: clamp(42px, 3.8vw, 68px);
+    --ys-type-section-title: clamp(28px, 2.5vw, 44px);
+    --ys-type-document-title: clamp(11px, 0.8vw, 13px);
+    --ys-type-body: clamp(13px, 0.9vw, 15px);
+    --ys-type-subtitle: clamp(11px, 0.78vw, 13px);
+    --ys-type-caption: clamp(9px, 0.66vw, 11px);
+    --ys-leading-title: 1.04;
+    --ys-leading-body: 1.68;
+  }
+
+  :lang(zh) {
+    --ys-font-sans: "Noto Sans SC Variable", "Work Sans Variable", "PingFang SC", "Microsoft YaHei", sans-serif;
+    --ys-font-serif: "Noto Serif SC Variable", "Castoro", "Songti SC", "STSong", serif;
+    --ys-font-display: "Noto Serif SC Variable", "Song Myung", "Songti SC", "STSong", serif;
   }
 
   * {
@@ -2613,5 +2627,97 @@ a.lookbook-index__card:hover > span {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Site-wide bilingual type hierarchy. Page-specific layout may vary, but the
+   same content role now keeps the same face, scale, weight, and rhythm. */
+.showroom-about__copy h1,
+.brand-index__rail h1,
+.now-event__summary h1,
+.lookbook-index header h1,
+.floor-map-page h1,
+.onsite-service h1,
+.recap-page > header h1 {
+  font-family: var(--ys-font-display);
+  font-size: var(--ys-type-page-title);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: var(--ys-leading-title);
+  -webkit-text-stroke: 0.24px var(--ys-bg);
+}
+
+.lookbook-detail h2,
+.recap-detail__intro h2 {
+  font-family: var(--ys-font-display);
+  font-size: var(--ys-type-section-title);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+.lookbook-brand__header h1,
+.brand-room__details h1,
+.brand-book__title {
+  font-family: var(--ys-font-sans);
+  font-weight: 500;
+}
+
+.lookbook-brand__header h1,
+.brand-room__details h1 {
+  font-size: clamp(24px, 2.1vw, 36px);
+  letter-spacing: -0.025em;
+  line-height: 1.06;
+}
+
+.brand-book__title {
+  font-size: var(--ys-type-document-title);
+  letter-spacing: 0.12em;
+  line-height: 1.35;
+}
+
+.showroom-about__body,
+.lookbook-detail__description,
+.onsite-service__description,
+.brand-room__introduction,
+.recap-detail__intro h2 + p {
+  font-family: var(--ys-font-serif);
+  font-size: var(--ys-type-body);
+  font-weight: 400;
+  letter-spacing: -0.008em;
+  line-height: var(--ys-leading-body);
+}
+
+.now-event__season,
+.lookbook-index header p,
+.floor-map-page p,
+.lookbook-brand__header p,
+.brand-room__city,
+.brand-room__label,
+.showroom-about__statistic h2 {
+  font-family: var(--ys-font-sans);
+  font-size: var(--ys-type-subtitle);
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  line-height: 1.45;
+}
+
+.now-event__eyebrow,
+.lookbook-brand__header > a,
+.brand-book__identity p,
+.recap-page > header p,
+.recap-detail__kicker,
+.recap-detail__intro dt {
+  font-family: var(--ys-font-sans);
+  font-size: var(--ys-type-caption);
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --ys-type-page-title: clamp(40px, 11vw, 56px);
+    --ys-type-section-title: clamp(27px, 7.5vw, 38px);
+    --ys-type-body: clamp(13px, 3.7vw, 15px);
   }
 }
