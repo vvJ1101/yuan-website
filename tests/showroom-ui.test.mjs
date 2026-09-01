@@ -460,7 +460,7 @@ test('showroom self-hosts the approved free bilingual font system', async () => 
   assert.match(css, /--ys-font-serif: "Castoro", "Noto Serif SC Variable"/)
   assert.match(css, /--ys-font-display: "Song Myung", "Noto Serif SC Variable"/)
   assert.match(css, /body\s*\{[^}]*font-family: var\(--ys-font-sans\)/)
-  assert.match(css, /\.site-header nav\s*\{[^}]*font-family: var\(--ys-font-sans\)[^}]*font-size: 14px[^}]*font-weight: 500[^}]*letter-spacing: 0[^}]*line-height: 14px/)
+  assert.match(css, /\.site-header nav\s*\{[^}]*font-family: var\(--ys-font-sans\)[^}]*font-size: 12px[^}]*font-weight: 500[^}]*letter-spacing: 0[^}]*line-height: 1\.2/)
   assert.match(css, /\.showroom-about__copy h1[\s\S]*?font-family: var\(--ys-font-display\)/)
   assert.match(css, /\.showroom-about__body\s*\{[^}]*font-family: var\(--ys-font-serif\)[^}]*font-size: clamp\(12px, 0\.85vw, 15px\)[^}]*font-weight: 400[^}]*line-height: 1\.52/)
   assert.match(css, /@media \(min-width: 901px\) and \(max-height: 820px\)[\s\S]*?\.showroom-about__body\s*\{[^}]*font-size: 12px[^}]*line-height: 1\.5/)

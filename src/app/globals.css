@@ -35,7 +35,7 @@
     --ys-font-sans: "Work Sans Variable", "Noto Sans SC Variable", "PingFang SC", "Microsoft YaHei", sans-serif;
     --ys-font-serif: "Castoro", "Noto Serif SC Variable", "Songti SC", "STSong", serif;
     --ys-font-display: "Song Myung", "Noto Serif SC Variable", "Songti SC", "STSong", serif;
-    --ys-type-page-title: clamp(42px, 3.8vw, 68px);
+    --ys-type-page-title: clamp(36px, 3.1vw, 56px);
     --ys-type-section-title: clamp(28px, 2.5vw, 44px);
     --ys-type-document-title: clamp(11px, 0.8vw, 13px);
     --ys-type-body: clamp(13px, 0.9vw, 15px);
@@ -994,10 +994,10 @@ a.lookbook-index__card:hover > span {
   justify-content: space-between;
   gap: clamp(18px, 3.6vw, 62px);
   font-family: var(--ys-font-sans);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0;
-  line-height: 14px;
+  line-height: 1.2;
 }
 
 .site-header nav a,
@@ -2642,7 +2642,7 @@ a.lookbook-index__card:hover > span {
   font-family: var(--ys-font-display);
   font-size: var(--ys-type-page-title);
   font-weight: 400;
-  letter-spacing: -0.025em;
+  letter-spacing: 0.005em;
   line-height: var(--ys-leading-title);
   -webkit-text-stroke: 0.24px var(--ys-bg);
 }
@@ -2716,7 +2716,7 @@ a.lookbook-index__card:hover > span {
 
 @media (max-width: 900px) {
   :root {
-    --ys-type-page-title: clamp(40px, 11vw, 56px);
+    --ys-type-page-title: clamp(34px, 9vw, 46px);
     --ys-type-section-title: clamp(27px, 7.5vw, 38px);
     --ys-type-body: clamp(13px, 3.7vw, 15px);
   }
