@@ -126,7 +126,7 @@ test('about renders the localized image and exactly three approved statistics', 
   assert.match(page, /localize/)
   assert.match(page, /<MediaFrame/)
   assert.match(data, /about\/showroom\.webp/)
-  for (const value of ['50+', '3000+', "'4'"]) {
+  for (const value of ['6000+ SQM', '3000+', "'4'"]) {
     assert.match(data, new RegExp(value.replace('+', '\\+')))
   }
   assert.match(page, /aboutContent\.statistics\.map/)
@@ -160,11 +160,10 @@ test('about read more opens the internal company brand book', async () => {
   assert.match(book, /<BrandBook[\s\S]*?book=\{companyBrandBook\}[\s\S]*?closeHref=\{localePath\(locale, '\/about'\)\}/)
 })
 
-test('about introduction and statistics share the image alignment axis', async () => {
+test('about statistics use three evenly distributed columns', async () => {
   const css = await read('src/app/globals.css')
 
-  assert.match(css, /\.showroom-about__intro\s*\{[\s\S]*?grid-template-columns: minmax\(310px, 1fr\) minmax\(0, var\(--ys-nav-column-w\)\)/)
-  assert.match(css, /\.showroom-about__statistics\s*\{[\s\S]*?grid-template-columns: minmax\(310px, 1fr\) repeat\(2, minmax\(0, calc\(var\(--ys-nav-column-w\) \/ 2\)\)\)/)
+  assert.match(css, /\.showroom-about__statistics\s*\{[\s\S]*?grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)[\s\S]*?column-gap: clamp\(28px, 4vw, 72px\)/)
 })
 
 test('brand index exposes RTW FTW ACC and linked rooms', async () => {

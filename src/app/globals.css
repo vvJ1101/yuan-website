@@ -1584,14 +1584,15 @@ a.lookbook-index__card:hover > span {
 
 .showroom-about__statistics {
   display: grid;
-  grid-template-columns: minmax(310px, 1fr) repeat(2, minmax(0, calc(var(--ys-nav-column-w) / 2)));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: clamp(28px, 4vw, 72px);
   margin-top: clamp(16px, 2.4vh, 24px);
   scroll-margin-top: var(--ys-header-h);
 }
 
 .showroom-about__statistic {
   min-width: 0;
-  padding: 0 clamp(18px, 2.5vw, 44px) 0 0;
+  padding: 0;
 }
 
 .showroom-about__statistic:first-child {

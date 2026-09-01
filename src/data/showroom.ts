@@ -125,11 +125,11 @@ export const aboutContent: AboutContent = {
   imageAlt: showroomImageAlt('about/showroom-v2.webp'),
   statistics: [
     {
-      value: '50+',
-      label: { cn: 'DESIGNER BRANDS', en: 'DESIGNER BRANDS' },
+      value: '6000+ SQM',
+      label: { cn: '展会面积', en: 'EXHIBITION SPACE' },
       description: {
-        cn: '独家运营中国、欧洲、亚洲等超过 50+ 设计师品牌',
-        en: 'Exclusively representing 50+ designer brands across China, Europe, and Asia',
+        cn: '单季展会面积超过 6000 平方米，覆盖品牌展示、商务洽谈与订货体验。',
+        en: 'More than 6,000 sqm dedicated to brand presentation, buyer meetings, and seasonal ordering.',
       },
     },
     {

@@ -3,7 +3,7 @@ export type BrandCategory = 'RTW' | 'FTW' | 'ACC'
 export type LocalizedText = Record<Locale, string>
 
 export interface AboutStatistic {
-  value: '50+' | '3000+' | '4'
+  value: '6000+ SQM' | '3000+' | '4'
   label: LocalizedText
   description: LocalizedText
 }
