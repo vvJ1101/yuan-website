@@ -1538,7 +1538,7 @@ a.lookbook-index__card:hover > span {
 
 .showroom-about__copy h1 {
   margin: 0;
-  font-family: var(--ys-font-display);
+  font-family: var(--ys-font-serif);
   font-size: clamp(54px, 5vw, 92px);
   font-weight: 400;
   letter-spacing: 0;
@@ -1920,7 +1920,6 @@ a.lookbook-index__card:hover > span {
 .appointment-page__theme h1 {
   font-family: var(--ys-font-display);
   font-weight: 400;
-  -webkit-text-stroke: 0.3px var(--ys-bg);
 }
 
 :focus-visible {
@@ -2642,12 +2641,12 @@ a.lookbook-index__card:hover > span {
 .floor-map-page h1,
 .onsite-service h1,
 .recap-page > header h1 {
-  font-family: var(--ys-font-display);
+  font-family: var(--ys-font-serif);
   font-size: var(--ys-type-page-title);
   font-weight: 400;
   letter-spacing: 0.005em;
   line-height: var(--ys-leading-title);
-  -webkit-text-stroke: 0.24px var(--ys-bg);
+  -webkit-text-stroke: 0;
 }
 
 .lookbook-detail h2,
