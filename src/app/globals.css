@@ -964,13 +964,12 @@ a.lookbook-index__card:hover > span {
   position: relative;
   display: block;
   width: clamp(154px, 12vw, 194px);
-  aspect-ratio: 4.8 / 1;
+  aspect-ratio: 1212 / 261;
   overflow: hidden;
 }
 
 .site-logo__image {
-  object-fit: cover;
-  filter: invert(1);
+  object-fit: contain;
 }
 
 .site-header__navigation {
