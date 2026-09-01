@@ -39,10 +39,13 @@
     --ys-type-section-title: clamp(28px, 2.5vw, 44px);
     --ys-type-document-title: clamp(11px, 0.8vw, 13px);
     --ys-type-body: clamp(13px, 0.9vw, 15px);
+    --ys-type-card-title: clamp(12px, 0.88vw, 15px);
     --ys-type-subtitle: clamp(11px, 0.78vw, 13px);
+    --ys-type-body-small: clamp(10px, 0.74vw, 12px);
     --ys-type-caption: clamp(9px, 0.66vw, 11px);
     --ys-leading-title: 1.04;
     --ys-leading-body: 1.68;
+    --ys-leading-compact: 1.5;
   }
 
   :lang(zh) {
@@ -2680,12 +2683,24 @@ a.lookbook-index__card:hover > span {
 .lookbook-detail__description,
 .onsite-service__description,
 .brand-room__introduction,
-.recap-detail__intro h2 + p {
+.recap-detail__intro h2 + p,
+.appointment-page__review {
   font-family: var(--ys-font-serif);
   font-size: var(--ys-type-body);
   font-weight: 400;
   letter-spacing: -0.008em;
   line-height: var(--ys-leading-body);
+}
+
+.now-event__destinations strong,
+.brand-index__category h2,
+.recap-card h2,
+.recap-detail__pager strong {
+  font-family: var(--ys-font-sans);
+  font-size: var(--ys-type-card-title);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.35;
 }
 
 .now-event__season,
@@ -2694,7 +2709,9 @@ a.lookbook-index__card:hover > span {
 .lookbook-brand__header p,
 .brand-room__city,
 .brand-room__label,
-.showroom-about__statistic h2 {
+.showroom-about__statistic h2,
+.lookbook-detail__season,
+.appointment-page__identity {
   font-family: var(--ys-font-sans);
   font-size: var(--ys-type-subtitle);
   font-weight: 500;
@@ -2702,16 +2719,55 @@ a.lookbook-index__card:hover > span {
   line-height: 1.45;
 }
 
+.showroom-about__statistic p,
+.brand-index__category ul,
+.brand-index__card > span,
+.lookbook-detail dt,
+.lookbook-detail dd,
+.onsite-service dt,
+.onsite-service dd,
+.recap-detail__intro dd,
+.appointment-page__scan,
+.appointment-page__steps li,
+.recap-card p {
+  font-family: var(--ys-font-sans);
+  font-size: var(--ys-type-body-small);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: var(--ys-leading-compact);
+}
+
 .now-event__eyebrow,
+.now-event__destinations span,
+.lookbook-index__card > span,
 .lookbook-brand__header > a,
 .brand-book__identity p,
 .recap-page > header p,
+.recap-detail__identity p,
+.recap-detail__identity span,
+.recap-detail__scroll-cue,
+.recap-detail__pager span,
 .recap-detail__kicker,
-.recap-detail__intro dt {
+.recap-detail__intro dt,
+.appointment-page__meta,
+.appointment-page__steps li > span {
   font-family: var(--ys-font-sans);
   font-size: var(--ys-type-caption);
   font-weight: 500;
+  letter-spacing: 0.1em;
   line-height: 1.45;
+}
+
+.showroom-about__more,
+.brand-room__close,
+.brand-book__close,
+.recap-detail__close,
+.lookbook-brand__header > a {
+  font-family: var(--ys-font-sans);
+  font-size: var(--ys-type-body-small);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
 }
 
 @media (max-width: 900px) {
