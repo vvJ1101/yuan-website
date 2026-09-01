@@ -111,7 +111,7 @@ test('cover runs a horizontal gallery that pauses for scroll-controlled movement
 test('header places the official logo above the navigation row', async () => {
   const header = await read('src/components/showroom/site-header.tsx')
   assert.match(header, /import Image from 'next\/image'/)
-  assert.match(header, /src="\/images\/showroom\/yuan-logo\.png"/)
+  assert.match(header, /src="\/images\/showroom\/yuan-logo-white\.png"/)
   assert.match(header, /className="site-logo__image"/)
   assert.match(header, /className="site-header__brand"/)
   assert.match(header, /className="site-header__navigation"/)

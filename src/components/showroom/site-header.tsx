@@ -46,7 +46,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         <Link className="site-logo" href={localePath(locale, '/')}>
           <Image
             className="site-logo__image"
-            src="/images/showroom/yuan-logo.png"
+            src="/images/showroom/yuan-logo-white.png"
             alt="YUAN SHOWROOM"
             fill
             sizes="170px"
