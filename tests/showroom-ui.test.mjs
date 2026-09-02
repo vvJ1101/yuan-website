@@ -239,7 +239,7 @@ test('recap cards open localized season detail pages', async () => {
   assert.match(page, /className="recap-card__link"/)
 })
 
-test('recap detail supports a cinematic hero, web pages, close, and season paging', async () => {
+test('recap detail only opens with a video hero when that season has a video', async () => {
   const page = await read('src/app/[locale]/recap/[slug]/page.tsx')
   const detail = await read('src/components/showroom/recap-detail.tsx')
   const css = await read('src/app/globals.css')
@@ -252,11 +252,14 @@ test('recap detail supports a cinematic hero, web pages, close, and season pagin
   assert.match(detail, /muted/)
   assert.match(detail, /playsInline/)
   assert.doesNotMatch(detail, /loop/)
+  assert.match(detail, /\{recap\.video && \([\s\S]*?className="recap-detail__video-opening"/)
+  assert.doesNotMatch(detail, /recap\.video \? \([\s\S]*?: \([\s\S]*?<Image/)
   assert.match(detail, />CLOSE</)
+  assert.match(detail, /className="recap-detail__article"/)
   assert.match(detail, /recap\.pages\.map/)
   assert.match(detail, /previous/)
   assert.match(detail, /next/)
-  assert.match(css, /\.recap-detail__hero\s*\{[^}]*min-height: calc\(100svh - var\(--ys-header-h\)\)/)
+  assert.match(css, /\.recap-detail__video-opening\s*\{[^}]*min-height: calc\(100svh - var\(--ys-header-h\)\)/)
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)/)
 })
 

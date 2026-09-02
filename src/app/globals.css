@@ -709,7 +709,7 @@ a.lookbook-index__card:hover > span {
   content: '';
 }
 
-.recap-detail__hero {
+.recap-detail__video-opening {
   position: relative;
   min-height: calc(100svh - var(--ys-header-h));
   overflow: hidden;
@@ -717,30 +717,22 @@ a.lookbook-index__card:hover > span {
   color: #fff;
 }
 
-.recap-detail__hero-media,
-.recap-detail__hero-shade {
+.recap-detail__video-media,
+.recap-detail__video-shade {
   position: absolute;
   inset: 0;
 }
 
-.recap-detail__hero-media img,
-.recap-detail__hero-media video {
+.recap-detail__video-media video {
   width: 100%;
   height: 100%;
-}
-
-.recap-detail__hero-media img {
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   filter: saturate(0.82) contrast(1.05);
   animation: recap-hero-reveal 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.recap-detail__hero-media video {
-  object-fit: cover;
-}
-
-.recap-detail__hero-shade {
+.recap-detail__video-shade {
   background:
     linear-gradient(180deg, rgb(0 0 0 / 0.16) 0%, transparent 34%, rgb(0 0 0 / 0.6) 100%),
     linear-gradient(90deg, rgb(0 0 0 / 0.24), transparent 48%);
@@ -752,25 +744,24 @@ a.lookbook-index__card:hover > span {
   to { opacity: 1; transform: scale(1); }
 }
 
-.recap-detail__identity {
+.recap-detail__video-identity {
   position: absolute;
   right: var(--ys-gutter);
   bottom: clamp(48px, 7vh, 76px);
   left: var(--ys-gutter);
 }
 
-.recap-detail__identity p,
-.recap-detail__identity h1,
-.recap-detail__identity span {
+.recap-detail__video-identity p,
+.recap-detail__video-identity h1 {
   margin: 0;
 }
 
-.recap-detail__identity p {
+.recap-detail__video-identity p {
   font-size: clamp(11px, 0.8vw, 14px);
   letter-spacing: 0.3em;
 }
 
-.recap-detail__identity h1 {
+.recap-detail__video-identity h1 {
   max-width: 11ch;
   margin-top: 10px;
   font-family: var(--ys-font-serif);
@@ -778,13 +769,6 @@ a.lookbook-index__card:hover > span {
   font-weight: 400;
   letter-spacing: -0.055em;
   line-height: 0.86;
-}
-
-.recap-detail__identity span {
-  display: inline-block;
-  margin-top: 22px;
-  font-size: clamp(9px, 0.67vw, 11px);
-  letter-spacing: 0.16em;
 }
 
 .recap-detail__scroll-cue {
@@ -797,15 +781,14 @@ a.lookbook-index__card:hover > span {
 }
 
 .recap-detail__intro {
-  display: grid;
-  grid-template-columns: minmax(150px, 0.45fr) minmax(300px, 1.25fr) minmax(260px, 0.72fr);
-  gap: clamp(36px, 5vw, 86px);
-  padding: clamp(72px, 10vh, 120px) var(--ys-gutter);
-  border-bottom: 1px solid #dedede;
+  width: min(100% - (2 * var(--ys-gutter)), 820px);
+  margin: 0 auto;
+  padding: clamp(74px, 10vh, 124px) 0 clamp(54px, 8vh, 92px);
+  text-align: center;
 }
 
 .recap-detail__intro p,
-.recap-detail__intro h2,
+.recap-detail__intro h1,
 .recap-detail__intro dl,
 .recap-detail__intro dd {
   margin: 0;
@@ -817,31 +800,46 @@ a.lookbook-index__card:hover > span {
   letter-spacing: 0.13em;
 }
 
-.recap-detail__intro h2 {
-  font-size: clamp(36px, 4.4vw, 72px);
+.recap-detail__intro h1 {
+  margin-top: clamp(24px, 3.5vh, 38px);
+  font-family: var(--ys-font-serif);
+  font-size: clamp(42px, 5vw, 76px);
   font-weight: 400;
-  letter-spacing: -0.045em;
-  line-height: 0.96;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
 }
 
-.recap-detail__intro h2 + p {
+.recap-detail__intro h1 span {
+  display: block;
+  margin-bottom: 10px;
+  font-family: var(--ys-font-sans);
+  font-size: clamp(11px, 0.8vw, 14px);
+  letter-spacing: 0.22em;
+  line-height: 1.2;
+}
+
+.recap-detail__lead {
   max-width: 42em;
-  margin-top: clamp(28px, 4vh, 48px);
+  margin: clamp(34px, 5vh, 52px) auto 0 !important;
   color: #575757;
-  font-size: clamp(13px, 0.95vw, 16px);
-  line-height: 1.8;
+  font-family: var(--ys-font-serif);
+  font-size: clamp(15px, 1.05vw, 18px);
+  line-height: 1.9;
+}
+
+.recap-detail__intro dl {
+  display: flex;
+  justify-content: center;
+  gap: clamp(34px, 5vw, 72px);
+  margin-top: clamp(24px, 3.5vh, 36px);
 }
 
 .recap-detail__intro dl > div {
   display: grid;
-  grid-template-columns: 68px 1fr;
-  gap: 20px;
-  padding: 12px 0;
+  gap: 6px;
+  min-width: 120px;
+  padding: 12px 0 10px;
   border-top: 1px solid #bdbdbd;
-}
-
-.recap-detail__intro dl > div:last-child {
-  border-bottom: 1px solid #bdbdbd;
 }
 
 .recap-detail__intro dt {
@@ -854,9 +852,9 @@ a.lookbook-index__card:hover > span {
 
 .recap-detail__book {
   display: grid;
-  gap: 1px;
-  padding: clamp(30px, 4vw, 68px) var(--ys-gutter);
-  background: #e8e8e8;
+  gap: clamp(24px, 4vh, 48px);
+  width: min(100% - (2 * var(--ys-gutter)), 900px);
+  margin: 0 auto clamp(64px, 9vh, 110px);
 }
 
 .recap-detail__book img {
@@ -867,11 +865,14 @@ a.lookbook-index__card:hover > span {
 .recap-detail__gallery {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(14px, 1.6vw, 26px);
-  padding: clamp(56px, 8vh, 100px) var(--ys-gutter);
+  gap: clamp(18px, 2vw, 28px);
+  width: min(100% - (2 * var(--ys-gutter)), 900px);
+  margin: 0 auto;
+  padding-bottom: clamp(72px, 10vh, 120px);
 }
 
-.recap-detail__gallery > :first-child {
+.recap-detail__gallery > :first-child,
+.recap-detail__gallery > :nth-child(5n + 1) {
   grid-column: 1 / -1;
 }
 
@@ -2561,13 +2562,6 @@ a.lookbook-index__card:hover > span {
 
   .showroom-cover__timepiece { left: 8%; bottom: 7%; }
 
-  .recap-detail__intro {
-    grid-template-columns: 1fr 2fr;
-  }
-
-  .recap-detail__intro dl {
-    grid-column: 2;
-  }
 }
 
 @media (max-width: 640px) {
@@ -2581,15 +2575,15 @@ a.lookbook-index__card:hover > span {
     top: calc(var(--ys-header-h) + 14px);
   }
 
-  .recap-detail__hero {
+  .recap-detail__video-opening {
     min-height: min(76svh, 680px);
   }
 
-  .recap-detail__identity {
+  .recap-detail__video-identity {
     bottom: 36px;
   }
 
-  .recap-detail__identity h1 {
+  .recap-detail__video-identity h1 {
     font-size: clamp(52px, 18vw, 82px);
   }
 
@@ -2598,18 +2592,17 @@ a.lookbook-index__card:hover > span {
   }
 
   .recap-detail__intro {
-    grid-template-columns: 1fr;
-    gap: 34px;
     padding-block: 56px;
   }
 
   .recap-detail__intro dl {
-    grid-column: auto;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .recap-detail__gallery {
     gap: 8px;
-    padding-block: 48px;
+    padding-bottom: 48px;
   }
 
   .recap-detail__pager a {
@@ -2649,8 +2642,7 @@ a.lookbook-index__card:hover > span {
   -webkit-text-stroke: 0;
 }
 
-.lookbook-detail h2,
-.recap-detail__intro h2 {
+.lookbook-detail h2 {
   font-family: var(--ys-font-display);
   font-size: var(--ys-type-section-title);
   font-weight: 400;
@@ -2682,7 +2674,7 @@ a.lookbook-index__card:hover > span {
 .lookbook-detail__description,
 .onsite-service__description,
 .brand-room__introduction,
-.recap-detail__intro h2 + p,
+.recap-detail__lead,
 .appointment-page__review {
   font-family: var(--ys-font-serif);
   font-size: var(--ys-type-body);
@@ -2742,8 +2734,7 @@ a.lookbook-index__card:hover > span {
 .lookbook-brand__header > a,
 .brand-book__identity p,
 .recap-page > header p,
-.recap-detail__identity p,
-.recap-detail__identity span,
+.recap-detail__video-identity p,
 .recap-detail__scroll-cue,
 .recap-detail__pager span,
 .recap-detail__kicker,

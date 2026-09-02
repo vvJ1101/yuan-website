@@ -248,8 +248,8 @@ export const recaps: Recap[] = [
     city: { cn: '上海', en: 'Shanghai' },
     date: { cn: '2026 春夏订货季', en: 'Spring / Summer 2026 Ordering Season' },
     description: {
-      cn: '一场连接品牌、买手与空间的订货会现场回顾。完整影片与回顾册将在素材整理完成后上线。',
-      en: 'A review of an ordering season connecting brands, buyers, and space. The full film and digital recap will follow once the archive is complete.',
+      cn: '一场连接品牌、买手与空间的订货会现场回顾，记录当季品牌阵容、空间叙事与现场交流。',
+      en: 'A review of an ordering season connecting brands, buyers, and space through its seasonal edit, spatial narrative, and on-site encounters.',
     },
     videoPoster: showroomImage('recap/ss-2026.webp'),
     pages: [],
