@@ -13,6 +13,14 @@ interface RecapDetailProps {
   next: Recap
 }
 
+const galleryLayouts = [
+  { name: 'feature', ratio: '16 / 9', sizes: '(max-width: 900px) 100vw, 76vw' },
+  { name: 'portrait-left', ratio: '4 / 5', sizes: '(max-width: 900px) 82vw, 34vw' },
+  { name: 'portrait-right', ratio: '4 / 5', sizes: '(max-width: 900px) 76vw, 31vw' },
+  { name: 'wide-offset', ratio: '16 / 10', sizes: '(max-width: 900px) 92vw, 58vw' },
+  { name: 'small', ratio: '4 / 3', sizes: '(max-width: 900px) 72vw, 29vw' },
+] as const
+
 export function RecapDetail({ locale, recap, previous, next }: RecapDetailProps) {
   const title = localize(recap.title, locale)
 
@@ -64,16 +72,21 @@ export function RecapDetail({ locale, recap, previous, next }: RecapDetailProps)
 
         {recap.gallery.length > 0 && (
           <section className="recap-detail__gallery" aria-label={locale === 'cn' ? '现场照片' : 'On-site gallery'}>
-            {recap.gallery.map((src, index) => (
-              <MediaFrame
-                key={`${recap.slug}-gallery-${index + 1}`}
-                src={src}
-                alt={`${recap.season} ${locale === 'cn' ? '现场照片' : 'on-site view'} ${index + 1}`}
-                ratio={index === 0 || index % 5 === 0 ? '16 / 10' : '4 / 5'}
-                sizes={index === 0 || index % 5 === 0 ? '(max-width: 900px) 100vw, 900px' : '(max-width: 900px) 50vw, 442px'}
-                priority={!recap.video && index === 0}
-              />
-            ))}
+            {recap.gallery.map((src, index) => {
+              const layout = galleryLayouts[index % galleryLayouts.length]
+
+              return (
+                <MediaFrame
+                  className={`recap-detail__gallery-item recap-detail__gallery-item--${layout.name}`}
+                  key={`${recap.slug}-gallery-${index + 1}`}
+                  src={src}
+                  alt={`${recap.season} ${locale === 'cn' ? '现场照片' : 'on-site view'} ${index + 1}`}
+                  ratio={layout.ratio}
+                  sizes={layout.sizes}
+                  priority={!recap.video && index === 0}
+                />
+              )
+            })}
           </section>
         )}
       </article>
