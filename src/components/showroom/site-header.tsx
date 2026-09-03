@@ -13,6 +13,8 @@ const items = [
   { label: 'Now', href: 'now' },
   { label: 'On-site', href: 'on-site' },
   { label: 'Recap', href: 'recap' },
+  { label: 'POP-UP EVENTS', href: 'pop-up-events' },
+  { label: 'COLLABORATIONS', href: 'collaborations' },
 ] as const
 
 function LanguageSwitch({ locale }: { locale: Locale }) {
