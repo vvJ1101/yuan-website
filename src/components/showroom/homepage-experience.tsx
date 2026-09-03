@@ -8,8 +8,8 @@ export function HomepageExperience() {
       <ProductTunnel />
       <div className="showroom-cover__statement">
         <h1>
-          <span>Connecting creativity,</span>{' '}
-          <span>markets and the world.</span>
+          <span>Connecting creativity, markets</span>{' '}
+          <span>and the world.</span>
         </h1>
       </div>
     </div>
