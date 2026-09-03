@@ -78,6 +78,12 @@ Do not substitute the ordering-event reservation code.
 An eventual CMS can return the same typed records without changing presentation.
 # 2026-09-03 活动列表素材更新
 
+## COLLABORATIONS 列表排版预览
+
+合作详情采用内容优先的画册式图文预览：页头左侧为项目名、类别与年份，右侧为简介和概念，先了解内容再看主图。横向封面使用 16:9，竖向封面保持原比例并限宽 420px。下方配图与过程、成果说明组成一组，不再为每段文案重复铺设大图。正文上限 65ch，组内间距 24px，章节间距 56–100px；640px 以下按页头、主图、配图、说明顺序单列阅读。FASHION 示例仅使用现有展厅及服装陈列两张图，不混入咖啡馆或建筑立面。图文继续集中于 `src/data/editorial.ts`，保留示例提示，不代表真实合作；活动详情标准不受影响。
+
+精选项目采用整行 16:9 大图，合作名、简述、类别年份和链接位于图下；其余项目使用统一对齐的双列网格，640px 以下切为单列。取消旧版 86% / 72% 交错宽度。字体、筛选、导航与详情页不变，英文合作名称显式使用英文语言字体栈。当前继续使用集中管理的示例内容，等待真实项目素材，不添加虚构合作背书。
+
 ## HELEN KAMINSKI 详情设计预览
 
 **已确认的活动详情标准**：后续 POP-UP EVENTS 详情统一复用 `EventArticle` 与本页排版，按活动添加 `eventStories[slug]` 并替换内容和图片；不新建另一套详情设计。当前链接为 `/en/pop-up-events/sample-showroom-edit`。未整理正文的现有项目暂保持准备中，补齐内容时接入此模板。

@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react'
 
 import { MediaFrame } from './media-frame'
 import { CollaborationContact } from './collaboration-contact'
+import { CollaborationBlocks } from './collaboration-blocks'
 import { collaborationContact } from '@/data/editorial'
 import { eventStories, type EventStory, type StoryImage } from '@/data/event-stories'
 import { featureFirst, filterProjects, projectCategory, sectionPath } from '@/lib/editorial'
@@ -31,10 +32,10 @@ function ProjectCard({ project, locale, featured = false }: { project: Editorial
   return (
     <article className={`${featured ? 'editorial-feature' : 'editorial-card'} ${project.kind === 'event' ? 'event-entry' : 'collaboration-entry'}`}>
       <Link className="recap-card__link" href={localePath(locale, `/${sectionPath(project)}/${project.slug}`)}>
-        <MediaFrame {...project.coverImage} alt={localize(project.coverImage.alt, locale)} priority={featured} sizes={project.kind === 'collaboration' ? '(max-width: 900px) 92vw, 75vw' : featured ? '(max-width: 640px) 80vw, (max-width: 900px) 340px, 360px' : '(max-width: 640px) 30vw, 180px'} />
+        <MediaFrame {...project.coverImage} ratio={project.kind === 'collaboration' && featured ? '16 / 9' : project.coverImage.ratio} alt={localize(project.coverImage.alt, locale)} priority={featured} sizes={project.kind === 'collaboration' ? (featured ? '92vw' : '(max-width: 640px) 92vw, 44vw') : featured ? '(max-width: 640px) 80vw, (max-width: 900px) 340px, 360px' : '(max-width: 640px) 30vw, 180px'} />
         <div className="editorial-card__copy">
           {project.kind === 'event' && project.status && <p className="event-entry__status">{localizeEditorialCategory(project.status, locale)}</p>}
-          <h2><ProjectName project={project} locale={locale} /></h2>
+          <h2 lang={project.kind === 'collaboration' ? 'en' : undefined}><ProjectName project={project} locale={locale} /></h2>
           <ProjectMeta project={project} locale={locale} />
           {featured && project.kind === 'event' && localize(project.venue, locale) && <p>{localize(project.venue, locale)}</p>}
           <span className="editorial-link">{locale === 'cn' ? '查看详情' : project.kind === 'event' ? 'VIEW EVENT' : 'VIEW PROJECT'}</span>
@@ -99,37 +100,37 @@ export function EditorialDetail({ project, locale }: { project: EditorialProject
 
 function CollaborationDetail({ project, locale }: { project: Collaboration; locale: Locale }) {
   const backHref = localePath(locale, '/collaborations')
-  const [processImage, ...outcomeImages] = project.gallery
+  const [coverWidth, coverHeight] = project.coverImage.ratio.split('/').map(Number)
+  const portraitCover = coverWidth < coverHeight
 
   return (
     <main className="collaboration-story">
+      <Link className="editorial-link collaboration-story__back" href={backHref}>{locale === 'cn' ? '返回合作列表' : 'BACK TO COLLABORATIONS'}</Link>
       <header className="collaboration-story__heading">
-        <Link className="editorial-link" lang="en" href={backHref}>COLLABORATIONS</Link>
         <div className="collaboration-story__title">
           <h1 lang="en">YUAN × {project.partner}</h1>
           <p>{localizeEditorialCategory(project.category, locale)} · {project.year}</p>
         </div>
+        <div className="collaboration-story__introduction">
         <p className="collaboration-story__subtitle">{localize(project.subtitle, locale)}</p>
+        <section className="editorial-prose" aria-label={locale === 'cn' ? '合作概念' : 'Concept'}>{project.concept.map((text, index) => <p key={index}>{localize(text, locale)}</p>)}</section>
+        </div>
         {project.isSample && <p className="editorial-sample">{locale === 'cn' ? '示例项目 · 非正式发布' : 'SAMPLE PROJECT · Not an announcement'}</p>}
       </header>
 
-      <MediaFrame src={project.coverImage.src} alt={localize(project.coverImage.alt, locale)} ratio="16 / 9" priority sizes="92vw" />
-
-      <div className="collaboration-story__concept">
-        <section className="editorial-prose" aria-label={locale === 'cn' ? '合作概念' : 'Concept'}>{project.concept.map((text, index) => <p key={index}>{localize(text, locale)}</p>)}</section>
+      <div className={`collaboration-story__hero${portraitCover ? ' collaboration-story__hero--portrait' : ''}`}>
+        <MediaFrame {...project.coverImage} ratio={portraitCover ? project.coverImage.ratio : '16 / 9'} alt={localize(project.coverImage.alt, locale)} priority sizes={portraitCover ? '(max-width: 640px) 92vw, 420px' : '(max-width: 1300px) 92vw, 1200px'} />
       </div>
 
-      <section className="collaboration-story__process" aria-label={locale === 'cn' ? '创作过程' : 'Behind the scenes'}>
-        {processImage && <MediaFrame {...processImage} alt={localize(processImage.alt, locale)} sizes="(max-width: 900px) 92vw, 56vw" />}
-        <TextSection title={locale === 'cn' ? '创作过程' : 'BEHIND THE SCENES'} paragraphs={project.process} locale={locale} />
-      </section>
-
-      <section className="collaboration-story__outcomes" aria-label={locale === 'cn' ? '最终成果' : 'Outcomes'}>
-        <TextSection title={locale === 'cn' ? '最终成果' : 'OUTCOMES'} paragraphs={project.outcomes} locale={locale} />
-        {outcomeImages.length > 0 && <div className="collaboration-story__gallery">
-          {outcomeImages.map((image, index) => <MediaFrame {...image} alt={localize(image.alt, locale)} key={`${image.src}-${index}`} sizes="(max-width: 640px) 92vw, 60vw" />)}
+      {project.blocks ? <CollaborationBlocks blocks={project.blocks} locale={locale} /> : <section className="collaboration-story__process" aria-label={locale === 'cn' ? '创作过程' : 'Behind the scenes'}>
+        {project.gallery.length > 0 && <div className="collaboration-story__pair">
+          {project.gallery.map((image, index) => <MediaFrame {...image} alt={localize(image.alt, locale)} key={`${image.src}-${index}`} sizes="(max-width: 640px) 92vw, 60vw" />)}
         </div>}
-      </section>
+        <div className="collaboration-story__notes">
+        <TextSection title={locale === 'cn' ? '创作过程' : 'BEHIND THE SCENES'} paragraphs={project.process} locale={locale} />
+        <TextSection title={locale === 'cn' ? '最终成果' : 'OUTCOMES'} paragraphs={project.outcomes} locale={locale} />
+        </div>
+      </section>}
 
       <footer className="collaboration-story__closing">
         <TextSection title="CREDITS" paragraphs={project.credits} locale={locale} />

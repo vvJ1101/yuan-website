@@ -6,6 +6,14 @@ export interface EditorialImage {
   ratio: string
 }
 
+export type CollaborationBlock = { id: string } & (
+  | { type: 'text'; heading?: LocalizedText; paragraphs: readonly LocalizedText[] }
+  | { type: 'image'; image: EditorialImage; caption?: LocalizedText }
+  | { type: 'pair'; images: readonly [EditorialImage, EditorialImage]; caption?: LocalizedText }
+  | { type: 'image-text'; image: EditorialImage; heading?: LocalizedText; paragraphs: readonly LocalizedText[] }
+  | { type: 'gallery'; images: readonly EditorialImage[]; caption?: LocalizedText }
+)
+
 interface EditorialEntry {
   title: LocalizedText
   slug: string
@@ -37,6 +45,7 @@ export interface Collaboration extends EditorialEntry {
   concept: readonly LocalizedText[]
   process: readonly LocalizedText[]
   outcomes: readonly LocalizedText[]
+  blocks?: readonly CollaborationBlock[]
 }
 
 export type EditorialProject = PopUpEvent | Collaboration

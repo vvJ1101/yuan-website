@@ -1,4 +1,4 @@
-import type { Collaboration, EditorialImage, PopUpEvent } from '../types/editorial'
+import type { Collaboration, CollaborationBlock, EditorialImage, PopUpEvent } from '../types/editorial'
 
 export const eventCategories = ['CURRENT', 'UPCOMING', 'ARCHIVE'] as const
 export const collaborationCategories = ['FASHION', 'ART', 'DESIGN', 'CULTURE'] as const
@@ -47,16 +47,31 @@ export const popUpEvents: readonly PopUpEvent[] = [
   },
 ]
 
+const sampleLooks: EditorialImage[] = ['ranyepersonal', 'maison-ther', 'tenspher'].map(brand => ({
+  src: `/images/showroom/brands/${brand}-campaign-20260903.jpg`, ratio: '3 / 4',
+  alt: { cn: `${brand} 官网服装图，仅作排版演示`, en: `${brand} website fashion image, for layout demonstration only` },
+}))
+
+const sampleBlocks: readonly CollaborationBlock[] = [
+  { id: 'direction', type: 'text', heading: { cn: '从空间到衣着', en: 'From space to silhouette' }, paragraphs: [{ cn: '以空间、衣着和细节为线索，演示一篇合作故事的阅读节奏。以下图片取自现有官网，不代表品牌参与了实际合作。', en: 'An editorial study in space, silhouette and detail. The following images are drawn from the existing website to demonstrate a longer story, not an actual collaboration.' }] },
+  { id: 'space', type: 'image-text', image: space, heading: { cn: '空间与陈列', en: 'Space and display' }, paragraphs: [{ cn: '从整体空间开始，再走近作品。此处可替换为项目的构思、材料选择或现场布置过程，让文字与对应画面一起阅读。', en: 'Begin with the setting, then move closer to the work. This section can hold the project’s approach, material choices or installation process alongside its corresponding image.' }] },
+  { id: 'silhouettes', type: 'pair', images: [sampleLooks[0], sampleLooks[1]], caption: { cn: '双图排版示例 · 现有官网素材，并非合作成果', en: 'Paired-image study · Existing website imagery, not collaboration outcomes' } },
+  { id: 'outcome', type: 'text', heading: { cn: '作品与细节', en: 'The work, in detail' }, paragraphs: [{ cn: '这里预留最终作品的介绍。文字无需逐张解释图片，可以用一段简短叙述串联设计选择、成品及现场细节。', en: 'A place for the finished work. A short passage can connect the design decisions, final pieces and details without describing every photograph.' }] },
+  { id: 'final-image', type: 'image', image: sampleLooks[2], caption: { cn: '单图示例 · 竖图保持原比例与适当宽度', en: 'Single-image study · Portrait imagery retains its proportions' } },
+  { id: 'selection', type: 'gallery', images: sampleLooks, caption: { cn: '组图模块演示 · 重复使用以上素材，正式发布时替换为项目细节', en: 'Gallery demonstration · Images above are reused here; replace with project details before publication' } },
+]
+
 export const collaborations: readonly Collaboration[] = collaborationCategories.map((category, index) => ({
   kind: 'collaboration', slug: `sample-${category.toLowerCase()}`, partner: 'PARTNER',
   title: { cn: `${category} 合作项目示例`, en: `${category} collaboration sample` },
   category, year: 2026, featured: index === 0, isSample: true,
   subtitle: { cn: '创意相遇的另一种可能 · 排版示例', en: 'Another way for ideas to meet · Layout sample' },
-  coverImage: [display, space, cafe, space][index], gallery: [space, display],
+  coverImage: [display, space, cafe, space][index], gallery: [index === 0 ? space : display],
   concept: [{ cn: '此处将介绍合作缘起、双方的创意方向与共同目标。PARTNER 为占位名称，不代表实际合作关系。', en: 'This space will introduce the partnership, creative direction and shared purpose. PARTNER is a placeholder and does not represent a real partnership.' }],
   process: [{ cn: '此处预留创作过程、实验和幕后记录，后续可以加入对应图片。', en: 'A space for the creative process, experiments and behind-the-scenes documentation, with supporting imagery.' }],
   outcomes: [{ cn: '此处展示正式项目的最终作品与成果，待真实内容确认后替换。', en: 'Final work and project outcomes will appear here once the real content is confirmed.' }],
   credits: sampleCredits,
+  blocks: index === 0 ? sampleBlocks : undefined,
 }))
 
 // Supply the confirmed public contact destination before publishing this section.

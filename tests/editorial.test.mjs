@@ -6,6 +6,22 @@ import { collaborations, popUpEvents, eventCategories, collaborationCategories }
 import { featureFirst, filterProjects, sectionPath } from '../src/lib/editorial.ts'
 import { localePath, switchLocalePath, isNavigationItemActive } from '../src/lib/showroom-routing.ts'
 
+test('collaboration sample provides ordered, uniquely keyed content modules with usable media', () => {
+  const blocks = collaborations[0].blocks
+  assert.ok(Array.isArray(blocks), 'sample must provide content modules')
+  assert.deepEqual(new Set(blocks.map(block => block.type)), new Set(['text', 'image', 'pair', 'image-text', 'gallery']))
+  assert.equal(new Set(blocks.map(block => block.id)).size, blocks.length)
+  for (const block of blocks) {
+    if (block.type === 'pair') assert.equal(block.images.length, 2)
+    for (const image of [...(block.images ?? []), ...(block.image ? [block.image] : [])]) {
+      assert.ok(existsSync(new URL(`../public${image.src}`, import.meta.url)))
+      assert.ok(image.alt.cn && image.alt.en)
+      const [width, height] = image.ratio.split('/').map(Number)
+      assert.ok(width > 0 && height > 0)
+    }
+  }
+})
+
 test('editorial categories filter the supplied records without mutating them', () => {
   for (const [projects, categories, field] of [[popUpEvents, eventCategories, 'status'], [collaborations, collaborationCategories, 'category']]) {
     assert.equal(filterProjects(projects).length, projects.length)
