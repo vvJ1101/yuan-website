@@ -51,7 +51,6 @@ export function BrandGrid({ locale, brands }: BrandGridProps) {
               unoptimized
               priority={index < 6}
             />
-            <span lang="en">{brand.name}</span>
           </Link>
         ))}
       </section>
