@@ -144,10 +144,10 @@ test('brand index keeps six desktop columns and responsive image hints', async (
   assert.match(grid, /priority=\{index < 6\}/)
 })
 
-test('brand index uses taller posters across desktop widths', async () => {
+test('brand index preserves full poster proportions across desktop widths', async () => {
   const css = await read('src/app/globals.css')
 
-  assert.match(css, /@media \(min-width: 901px\)[\s\S]*?\.brand-index__matrix\s*\{[^}]*padding-top: clamp\(12px, 2vh, 24px\)[\s\S]*?\.brand-index__card \.media-frame\s*\{[^}]*aspect-ratio: 2 \/ 3 !important/)
+  assert.match(css, /@media \(min-width: 901px\)[\s\S]*?\.brand-index__card \.media-frame\s*\{[^}]*aspect-ratio: 3 \/ 4 !important/)
 })
 
 test('brand index uses a natural four-column poster grid on landscape tablets', async () => {
@@ -156,7 +156,7 @@ test('brand index uses a natural four-column poster grid on landscape tablets', 
   const tabletRules = css.slice(css.indexOf('@media (min-width: 901px) and (max-width: 1366px)'), css.indexOf('@media (min-width: 901px) and (max-height: 920px)'))
 
   assert.match(tabletRules, /\.brand-index__matrix\s*\{[^}]*grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)[^}]*align-content: start[^}]*padding-top: 0/)
-  assert.match(tabletRules, /\.brand-index__card \.media-frame\s*\{[^}]*height: auto[^}]*aspect-ratio: 2 \/ 3 !important/)
+  assert.match(tabletRules, /\.brand-index__card \.media-frame\s*\{[^}]*height: auto[^}]*aspect-ratio: 3 \/ 4 !important/)
   assert.doesNotMatch(tabletRules, /overflow: hidden|grid-template-rows: repeat\(2|height: 100%|aspect-ratio: auto/)
 })
 
