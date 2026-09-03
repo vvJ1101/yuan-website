@@ -157,7 +157,6 @@ export function ProductTunnel() {
         const life = (mesh.position.z - TAIL_Z) / (CAMERA_Z - TAIL_Z)
         const depthFade = THREE.MathUtils.lerp(0.16, 1, THREE.MathUtils.clamp(life, 0, 1))
         const pulseTime = now * 0.0015 + mesh.userData.pulseDelay
-        const pulse = 1 + Math.sin(pulseTime) * 0.04
         const wobble = Math.sin(now * 0.001 + mesh.userData.wobble) * 0.18
         mesh.material.opacity = easedEntrance * depthFade
         mesh.rotation.z = Math.sin(mesh.position.z * 0.08) * 0.03
