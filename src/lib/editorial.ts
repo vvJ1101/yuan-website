@@ -1,6 +1,6 @@
 import type { EditorialProject, EditorialSection } from '../types/editorial'
 
-export function projectCategory(project: EditorialProject): string {
+export function projectCategory(project: EditorialProject): string | null {
   return project.kind === 'event' ? project.status : project.category
 }
 

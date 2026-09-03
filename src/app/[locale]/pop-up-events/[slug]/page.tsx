@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Params }) {
   const { locale, slug } = await params
   const project = popUpEvents.find((item) => item.slug === slug)
   if (!isLocale(locale) || !project) return {}
-  return editorialMetadata(locale, `/pop-up-events/${slug}`, localize(project.title, locale), Boolean(project.isSample))
+  return editorialMetadata(locale, `/pop-up-events/${slug}`, localize(project.title, locale), Boolean(project.isSample || project.contentPending))
 }
 
 export default async function Page({ params }: { params: Params }) {

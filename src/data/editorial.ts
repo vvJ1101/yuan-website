@@ -20,32 +20,30 @@ const cafe: EditorialImage = {
 }
 const sampleCredits = [{ cn: '图片来自现有官网素材；正式项目署名待补充。', en: 'Images from the existing website; final project credits to be supplied.' }]
 
-// Layout samples only: these records do not announce real events or partnerships.
-// Keep dates/status editorially managed, matching the existing local content system.
+// User-supplied titles and images. Unknown schedules must not inherit sample dates.
+// Existing preview slugs are retained until the complete articles are ready.
 export const popUpEvents: readonly PopUpEvent[] = [
   {
-    kind: 'event', slug: 'sample-showroom-edit', title: { cn: '展厅精选 · 示例活动', en: 'The Showroom Edit · Sample event' },
-    city: { cn: '深圳（示例）', en: 'Shenzhen (sample)' }, venue: { cn: '场地待确认', en: 'Venue to be confirmed' },
-    startDate: '2026-09-01', endDate: '2026-09-30', status: 'CURRENT', featured: true, isSample: true,
-    coverImage: space, gallery: [display, cafe],
-    description: [{ cn: '此处将介绍活动主题、展出内容与到访体验。当前文字、日期及配图仅供排版预览，不代表已公布的活动。', en: 'This space will introduce the event theme, presentation and visitor experience. Text, dates and images are layout samples, not an event announcement.' }],
-    participatingBrands: ['品牌名单待确认 / Line-up to be confirmed'], credits: sampleCredits,
+    kind: 'event', slug: 'sample-showroom-edit', title: { cn: 'HELEN KAMINSKI I 中国首次匠心之旅', en: 'HELEN KAMINSKI I 中国首次匠心之旅' },
+    city: { cn: '', en: '' }, venue: { cn: '', en: '' },
+    startDate: null, endDate: null, status: null, featured: true, contentPending: true,
+    coverImage: { src: '/images/editorial/events/helen-kaminski-cover.webp', ratio: '1080 / 1660', alt: { cn: '树影下的 HELEN KAMINSKI 白色建筑立面', en: 'HELEN KAMINSKI facade framed by trees' } },
+    gallery: [{ src: '/images/editorial/events/helen-kaminski-venue.webp', ratio: '1080 / 1600', alt: { cn: '花园中的 HELEN KAMINSKI 活动空间', en: 'HELEN KAMINSKI event space surrounded by a garden' } }],
+    description: [], participatingBrands: ['HELEN KAMINSKI'], credits: [],
   },
   {
-    kind: 'event', slug: 'sample-next-season', title: { cn: '下一季 · 示例活动', en: 'Next Season · Sample event' },
-    city: { cn: '上海（示例）', en: 'Shanghai (sample)' }, venue: { cn: '场地待确认', en: 'Venue to be confirmed' },
-    startDate: '2026-10-10', endDate: '2026-10-15', status: 'UPCOMING', isSample: true,
-    coverImage: display, gallery: [space],
-    description: [{ cn: '此处预留下一场活动的介绍。真实时间、场地和参与品牌将在确认后替换。', en: 'A preview space for the next event. Confirmed dates, venue and participating brands will replace this sample.' }],
-    participatingBrands: [], credits: sampleCredits,
+    kind: 'event', slug: 'sample-next-season', title: { cn: 'DATT | PRINCESS DIARY', en: 'DATT | PRINCESS DIARY' },
+    city: { cn: '', en: '' }, venue: { cn: '', en: '' },
+    startDate: null, endDate: null, status: null, contentPending: true,
+    coverImage: { src: '/images/editorial/events/datt-princess-diary.webp', ratio: '3 / 4', alt: { cn: 'DATT PRINCESS DIARY：身着白色褶饰套装的模特', en: 'DATT PRINCESS DIARY: model wearing a white ruffled ensemble' } },
+    gallery: [], description: [], participatingBrands: ['DATT'], credits: [],
   },
   {
-    kind: 'event', slug: 'sample-open-house', title: { cn: '开放展厅 · 示例档案', en: 'Open House · Sample archive' },
-    city: { cn: '深圳（示例）', en: 'Shenzhen (sample)' }, venue: { cn: '示例空间', en: 'Sample space' },
-    startDate: '2026-05-15', endDate: '2026-05-18', status: 'ARCHIVE', isSample: true,
-    coverImage: cafe, gallery: [space, display],
-    description: [{ cn: '往期活动档案示例。正式内容可记录活动背景、现场片段以及参与者。', en: 'A sample event archive. Final content can document the background, moments from the event and participants.' }],
-    participatingBrands: [], credits: sampleCredits,
+    kind: 'event', slug: 'sample-open-house', title: { cn: 'NHOJ | KNOT', en: 'NHOJ | KNOT' },
+    city: { cn: '', en: '' }, venue: { cn: '', en: '' },
+    startDate: null, endDate: null, status: null, contentPending: true,
+    coverImage: { src: '/images/editorial/events/nhoj-knot.webp', ratio: '1080 / 1588', alt: { cn: 'NHOJ KNOT：身着红色上衣、站在红色座椅上的模特', en: 'NHOJ KNOT: model in a red top standing on red seats' } },
+    gallery: [], description: [], participatingBrands: ['NHOJ'], credits: [],
   },
 ]
 

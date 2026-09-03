@@ -38,10 +38,23 @@ test('editorial records have unique slugs, valid dates and available captioned i
         assert.ok(existsSync(new URL(`../public${image.src}`, import.meta.url)))
         assert.ok(image.alt.cn && image.alt.en)
       }
-      if (project.kind === 'event') {
+      if (project.kind === 'event' && project.startDate !== null) {
         assert.ok(Number.isFinite(Date.parse(project.startDate)))
         assert.ok(Date.parse(project.endDate) >= Date.parse(project.startDate))
+      } else if (project.kind === 'event') {
+        assert.equal(project.endDate, null)
       }
     }
+  }
+})
+
+test('unverified event schedules stay out of status filters', () => {
+  const pending = popUpEvents.filter((project) => project.contentPending)
+  assert.ok(pending.length > 0)
+  for (const project of pending) {
+    assert.equal(project.startDate, null)
+    assert.equal(project.endDate, null)
+    assert.equal(project.status, null)
+    for (const category of eventCategories) assert.ok(!filterProjects(popUpEvents, category).includes(project))
   }
 })

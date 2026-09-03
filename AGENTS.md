@@ -5,6 +5,12 @@
 - 修改字体、字号或新增文字层级前，先查阅 `docs/typography.md`，复用现有字体及语义变量。
 - 字体标准变化必须同步更新该文档；不要为窄栏标题随意套用大章节字号，也不要顺带重构无关页面。
 
+## POP-UP EVENTS detail standard
+
+- 后续活动详情沿用已确认的 HELEN KAMINSKI 页面（`/en/pop-up-events/sample-showroom-edit`）及 `EventArticle` 模板，不重新设计布局。
+- 内容与图片集中在 `src/data/event-stories.ts`，替换标题、引言、章节和图片即可；保留官网字体、1200px 图片容器、65ch 阅读段落、900px / 640px 断点及现有组图节奏。
+- 不恢复固定右侧信息栏，不嵌入公众号；图片优先用独立原图，临时截图窗口在原图到位后替换。发布前核实文案、日期、场地与署名，预览内容继续明确标注。
+
 ## Verification policy
 
 - Match verification effort to the risk and scope of the current change.

@@ -14,15 +14,16 @@ interface EditorialEntry {
   credits: readonly LocalizedText[]
   featured?: boolean
   isSample?: boolean
+  contentPending?: boolean
 }
 
 export interface PopUpEvent extends EditorialEntry {
   kind: 'event'
   city: LocalizedText
   venue: LocalizedText
-  startDate: string
-  endDate: string
-  status: 'CURRENT' | 'UPCOMING' | 'ARCHIVE'
+  startDate: string | null
+  endDate: string | null
+  status: 'CURRENT' | 'UPCOMING' | 'ARCHIVE' | null
   description: readonly LocalizedText[]
   participatingBrands: readonly string[]
 }
