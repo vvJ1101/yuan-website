@@ -95,6 +95,9 @@ const showroomImages = {
   'on-site/aano-caffe-04.webp': image('/images/showroom/on-site/aano-caffe-04.webp', 'Aano caffe 咖啡空间', 'Aano caffe showroom space'),
   'on-site/aano-caffe-05.webp': image('/images/showroom/on-site/aano-caffe-05.webp', 'Aano caffe 咖啡空间', 'Aano caffe showroom space'),
   'recap/ss-2026.webp': image('/images/showroom/recap/ss-2026.webp', 'SS 2026 订货会海报「无界之境」', 'SS 2026 ordering event poster, Beyond Boundaries'),
+  'recap/ss-2026-layout.jpg': image('/images/showroom/recap/ss-2026-layout.jpg', 'SS 2026 订货会场景：建筑布局', 'SS 2026 recap scene: showroom layout'),
+  'recap/ss-2026-cafe.jpg': image('/images/showroom/recap/ss-2026-cafe.jpg', 'SS 2026 订货会现场：咖啡服务区', 'SS 2026 recap scene: café service area'),
+  'recap/ss-2026-meeting.jpg': image('/images/showroom/recap/ss-2026-meeting.jpg', 'SS 2026 订货会现场：买手洽谈', 'SS 2026 recap scene: buyer meeting'),
   'recap/aw-2025.webp': image('/images/showroom/recap/aw-2025.webp', 'AW 2025 订货会海报「重塑」', 'AW 2025 ordering event poster, Reframed'),
   'recap/ss-2025.webp': image('/images/showroom/recap/ss-2025.webp', 'SS 2025 订货会海报「流动的秩序」', 'SS 2025 ordering event poster, Order in Motion'),
   'recap/aw-2024.webp': image('/images/showroom/recap/aw-2024.webp', 'AW 2024 订货会海报「静默的力量」', 'AW 2024 ordering event poster, The Power of Stillness'),
@@ -243,34 +246,49 @@ export const recaps: Recap[] = [
     slug: 'ss-2026',
     season: 'SS 2026',
     title: { cn: '无界之境', en: 'Beyond Boundaries' },
-    poster: showroomImage('recap/ss-2026.webp'),
+    poster: showroomImage('recap/ss-2026-layout.jpg'),
     order: 1,
     city: { cn: '上海', en: 'Shanghai' },
     date: { cn: '2026 春夏订货季', en: 'Spring / Summer 2026 Ordering Season' },
     description: {
-      cn: '一场连接品牌、买手与空间的订货会现场回顾，记录当季品牌阵容、空间叙事与现场交流。',
-      en: 'A review of an ordering season connecting brands, buyers, and space through its seasonal edit, spatial narrative, and on-site encounters.',
+      cn: '空间的结构与秩序，成为品牌沟通与买手交流的起点。SS 2026 在上海用可持续的布局感，把陈列与谈判并置，形成完整的选货体验。',
+      en: 'Spatial order and rhythm became the starting point for brand communication and buyer dialogue. At SS 2026 in Shanghai, layout-first staging brought merchandising and negotiation into one coherent flow.',
     },
-    videoPoster: showroomImage('recap/ss-2026.webp'),
+    videoPoster: showroomImage('recap/ss-2026-layout.jpg'),
     pages: [],
-    gallery: onSiteServices[0].images,
-    sections: onSiteServices[0].images.map((image, index) => ({
-      image,
-      title: [
-        { cn: '空间', en: 'The Space' },
-        { cn: '细节', en: 'Details' },
-        { cn: '现场', en: 'On Site' },
-        { cn: '片刻', en: 'Moments' },
-        { cn: '回望', en: 'In Retrospect' },
-      ][index],
-      paragraphs: [
-        [ { cn: '从空间出发，回顾品牌、买手与现场相遇的场景。', en: 'An opening view of the space where brands, buyers, and the showroom meet.' } ],
-        [ { cn: '以近处的细节，延续对于当季空间的观察。', en: 'A closer perspective on the details of the seasonal setting.' } ],
-        [ { cn: '记录现场，也记录人与空间之间的关系。', en: 'A record of the setting and the relationship between people and space.' } ],
-        [ { cn: '将目光停留在现场的一个片刻。', en: 'A pause to look at a moment within the showroom.' } ],
-        [ { cn: '以影像留存本季现场，期待下一次相遇。', en: 'Images to remember this edition, until we meet again.' } ],
-      ][index],
-    })),
+    gallery: [],
+    sections: [
+      {
+        image: showroomImage('recap/ss-2026-layout.jpg'),
+        title: { cn: '建筑布局 · 空间主线', en: 'Spatial Planning · Core Layout' },
+        paragraphs: [
+          {
+            cn: '从入口到核心区的走向一体化，既满足品牌陈列的连续感，也保留了买手快速巡览与定向讨论的流线。',
+            en: 'A continuous flow from entrance to core zones balances visual continuity for brand displays with efficient circulation for fast buyer walkthroughs and focused discussions.',
+          },
+        ],
+      },
+      {
+        image: showroomImage('recap/ss-2026-cafe.jpg'),
+        title: { cn: '咖啡厅服务 · 间隙与切换', en: 'Café Service · Pause and Transition' },
+        paragraphs: [
+          {
+            cn: '现场设置的咖啡服务区承担缓冲作用，买手在繁密选样节奏中可短暂停留、交流反馈，并自然过渡到下一段洽谈。',
+            en: 'The café service area worked as a pause point: buyers could reset, exchange feedback, and move smoothly into the next round of consultations.',
+          },
+        ],
+      },
+      {
+        image: showroomImage('recap/ss-2026-meeting.jpg'),
+        title: { cn: '买手洽谈 · 选款决策', en: 'Buyer Consultations · Selection Decisions' },
+        paragraphs: [
+          {
+            cn: '洽谈区域围绕关键单品与配比展开，对接品牌主理人与买手团队，以更高效的方式确定配货节奏和后续合作方向。',
+            en: 'Consultation zones focused on key pieces and lineup balance, enabling brand leads and buyer teams to align on replenishment pace and collaboration direction.',
+          },
+        ],
+      },
+    ],
   },
   { slug: 'aw-2025', season: 'AW 2025', title: { cn: '重塑', en: 'Reframed' }, poster: showroomImage('recap/aw-2025.webp'), order: 2, pages: [], gallery: [] },
   { slug: 'ss-2025', season: 'SS 2025', title: { cn: '流动的秩序', en: 'Order in Motion' }, poster: showroomImage('recap/ss-2025.webp'), order: 3, pages: [], gallery: [] },
