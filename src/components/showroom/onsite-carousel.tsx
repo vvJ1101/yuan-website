@@ -105,19 +105,19 @@ export function OnSiteCarousel({ images, label, locale }: OnSiteCarouselProps) {
         onLostPointerCapture={() => { pointer.current = null; setDragging(false) }}>
         {images.map((src, index) => (
           <Image key={src} src={src} alt={index === active ? `${label} — ${index + 1} / ${count}` : ''}
-            aria-hidden={index !== active} draggable={false} fill sizes="(max-width: 900px) 90vw, 60vw"
+            aria-hidden={index !== active} draggable={false} fill sizes="(max-width: 900px) 90vw, 45vw"
             priority={index === 0} loading={index === 0 ? undefined : 'eager'}
             className={index === active ? 'is-active' : undefined}
             onLoad={() => setLoaded((current) => current.includes(src) ? current : [...current, src])} />
         ))}
       </div>
 
-      {count > 1 && <div className="onsite-carousel__dots" role="group" aria-label={cn ? '选择图片' : 'Choose image'}>
+      {count > 1 && <div className="onsite-carousel__thumbnails" role="group" aria-label={cn ? '选择图片' : 'Choose image'}>
         {images.map((src, index) => (
           <button key={src} type="button" aria-label={cn ? `第 ${index + 1} 张图片` : `Image ${index + 1}`}
             aria-current={index === active ? 'true' : undefined}
             onClick={() => { setActive(index); setInteraction(Date.now()) }}>
-            <span aria-hidden="true" />
+            <Image src={src} alt="" fill sizes="(max-width: 900px) 28vw, 15vw" draggable={false} />
           </button>
         ))}
       </div>}
