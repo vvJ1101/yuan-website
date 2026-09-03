@@ -7,7 +7,10 @@ export function HomepageExperience() {
     <div className="showroom-cover__experience">
       <ProductTunnel />
       <div className="showroom-cover__statement">
-        <h1>Connecting creativity, markets and the world.</h1>
+        <h1>
+          Connecting creativity, markets<br />
+          and the world.
+        </h1>
       </div>
     </div>
   )
