@@ -13,6 +13,8 @@ import {
 const CAMERA_Z = 5
 const TAIL_Z = -78
 const SPACING = 2
+const BASE_SCALE_MULTIPLIER = 1.12
+const BASE_NEAR_SCALE_UP = 0.28
 const SPEED_PRESETS = {
   slow: 0.44,
   normal: 0.6,
@@ -84,12 +86,12 @@ export function ProductTunnel() {
       const mesh = new THREE.Mesh(geometry, material)
       const baseSize = 1 + ((index * 37) % 101) / 100
       mesh.position.set(point.x, point.y, point.z)
-      mesh.scale.set(baseSize * 0.75, baseSize, 1)
-      mesh.userData.baseScaleX = baseSize * 0.75
-      mesh.userData.baseScaleY = baseSize
+      mesh.scale.set(baseSize * BASE_SCALE_MULTIPLIER, baseSize * BASE_SCALE_MULTIPLIER * 1.1, 1)
+      mesh.userData.baseScaleX = baseSize * BASE_SCALE_MULTIPLIER
+      mesh.userData.baseScaleY = baseSize * BASE_SCALE_MULTIPLIER * 1.1
       mesh.userData.baseY = point.y
       mesh.userData.wobble = (index * 0.22) % (Math.PI * 2)
-      mesh.userData.entranceDelay = index * 0.05
+      mesh.userData.entranceDelay = index * 0.035
       mesh.userData.pulseDelay = index * 0.08
       scene.add(mesh)
       meshes.push(mesh)
@@ -117,11 +119,14 @@ export function ProductTunnel() {
           if (aspect >= 1) mesh.scale.set(baseSize * aspect, baseSize, 1)
           else mesh.scale.set(baseSize, baseSize / aspect, 1)
           if (aspect >= 1) {
-            mesh.userData.baseScaleX = baseSize * aspect
-            mesh.userData.baseScaleY = baseSize
+            mesh.userData.baseScaleX = baseSize * aspect * BASE_SCALE_MULTIPLIER
+            mesh.userData.baseScaleY = baseSize * BASE_SCALE_MULTIPLIER * 1.06
           } else {
-            mesh.userData.baseScaleX = baseSize
-            mesh.userData.baseScaleY = baseSize / aspect
+            mesh.userData.baseScaleX = baseSize * BASE_SCALE_MULTIPLIER
+            mesh.userData.baseScaleY = baseSize / aspect * BASE_SCALE_MULTIPLIER
+          }
+          if (mesh.userData.baseScaleY > 0) {
+            mesh.userData.baseScaleY *= 1.05
           }
         })
       }, Math.min(index * 28, 900))
@@ -156,14 +161,15 @@ export function ProductTunnel() {
         const easedEntrance = 1 - (1 - entrance) ** 4
         const life = (mesh.position.z - TAIL_Z) / (CAMERA_Z - TAIL_Z)
         const depthFade = THREE.MathUtils.lerp(0.16, 1, THREE.MathUtils.clamp(life, 0, 1))
+        const nearScale = 1 + THREE.MathUtils.lerp(0, BASE_NEAR_SCALE_UP, THREE.MathUtils.clamp(life, 0, 1))
         const pulseTime = now * 0.0015 + mesh.userData.pulseDelay
         const wobble = Math.sin(now * 0.001 + mesh.userData.wobble) * 0.18
         mesh.material.opacity = easedEntrance * depthFade
         mesh.rotation.z = Math.sin(mesh.position.z * 0.08) * 0.03
         mesh.position.y = mesh.userData.baseY + wobble
         mesh.scale.set(
-          mesh.userData.baseScaleX * (1 + Math.sin(pulseTime) * 0.04),
-          mesh.userData.baseScaleY * (1 - Math.sin(pulseTime) * 0.02),
+          mesh.userData.baseScaleX * nearScale * (1 + Math.sin(pulseTime) * 0.04),
+          mesh.userData.baseScaleY * nearScale * (1 - Math.sin(pulseTime) * 0.02),
           1,
         )
         mesh.position.z = recycleTunnelDepth(mesh.position.z, speed, delta, CAMERA_Z, tail)
