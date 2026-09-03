@@ -6,7 +6,7 @@ import { collaborationContact } from '@/data/editorial'
 import { featureFirst, filterProjects, projectCategory, sectionPath } from '@/lib/editorial'
 import { localize } from '@/lib/showroom-i18n'
 import { localePath } from '@/lib/showroom-routing'
-import type { EditorialProject, EditorialSection } from '@/types/editorial'
+import type { Collaboration, EditorialProject, EditorialSection } from '@/types/editorial'
 import type { Locale, LocalizedText } from '@/types/showroom'
 
 const titles = { 'pop-up-events': 'POP-UP EVENTS', collaborations: 'COLLABORATIONS' }
@@ -82,6 +82,55 @@ function TextSection({ title, paragraphs, locale }: { title: string; paragraphs:
 }
 
 export function EditorialDetail({ project, locale }: { project: EditorialProject; locale: Locale }) {
+  return project.kind === 'collaboration'
+    ? <CollaborationDetail project={project} locale={locale} />
+    : <EventDetail project={project} locale={locale} />
+}
+
+function CollaborationDetail({ project, locale }: { project: Collaboration; locale: Locale }) {
+  const backHref = localePath(locale, '/collaborations')
+  const [processImage, ...outcomeImages] = project.gallery
+
+  return (
+    <main className="collaboration-story">
+      <header className="collaboration-story__heading">
+        <Link className="editorial-link" href={backHref}>COLLABORATIONS</Link>
+        <div className="collaboration-story__title">
+          <h1>YUAN × {project.partner}</h1>
+          <p>{project.category} · {project.year}</p>
+        </div>
+        <p className="collaboration-story__subtitle">{localize(project.subtitle, locale)}</p>
+        {project.isSample && <p className="editorial-sample">{locale === 'cn' ? '示例项目 · 非正式发布' : 'SAMPLE PROJECT · Not an announcement'}</p>}
+      </header>
+
+      <MediaFrame src={project.coverImage.src} alt={localize(project.coverImage.alt, locale)} ratio="16 / 9" priority sizes="92vw" />
+
+      <div className="collaboration-story__concept">
+        <TextSection title={locale === 'cn' ? '合作概念' : 'CONCEPT'} paragraphs={project.concept} locale={locale} />
+      </div>
+
+      <section className="collaboration-story__process" aria-label={locale === 'cn' ? '创作过程' : 'Behind the scenes'}>
+        {processImage && <MediaFrame {...processImage} alt={localize(processImage.alt, locale)} sizes="(max-width: 900px) 92vw, 56vw" />}
+        <TextSection title={locale === 'cn' ? '创作过程' : 'BEHIND THE SCENES'} paragraphs={project.process} locale={locale} />
+      </section>
+
+      <section className="collaboration-story__outcomes" aria-label={locale === 'cn' ? '最终成果' : 'Outcomes'}>
+        <TextSection title={locale === 'cn' ? '最终成果' : 'OUTCOMES'} paragraphs={project.outcomes} locale={locale} />
+        {outcomeImages.length > 0 && <div className="collaboration-story__gallery">
+          {outcomeImages.map((image, index) => <MediaFrame {...image} alt={localize(image.alt, locale)} key={`${image.src}-${index}`} sizes="(max-width: 640px) 92vw, 60vw" />)}
+        </div>}
+      </section>
+
+      <footer className="collaboration-story__closing">
+        <TextSection title="CREDITS" paragraphs={project.credits} locale={locale} />
+        <CollaborationContact locale={locale} contact={collaborationContact} />
+        <Link className="editorial-link" href={backHref}>{locale === 'cn' ? '返回全部合作项目' : 'BACK TO ALL COLLABORATIONS'}</Link>
+      </footer>
+    </main>
+  )
+}
+
+function EventDetail({ project, locale }: { project: EditorialProject; locale: Locale }) {
   const section = sectionPath(project)
   const backHref = localePath(locale, `/${section}`)
   return (
