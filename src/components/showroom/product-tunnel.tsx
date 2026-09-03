@@ -14,9 +14,9 @@ const CAMERA_Z = 5
 const TAIL_Z = -78
 const SPACING = 2
 const SPEED_PRESETS = {
-  slow: 0.22,
-  normal: 0.3,
-  fast: 0.36,
+  slow: 0.44,
+  normal: 0.6,
+  fast: 0.72,
 } as const
 
 function easeOutExpo(value: number) {
