@@ -82,6 +82,7 @@ export interface Recap {
   title: LocalizedText
   poster: string
   order: number
+  posterRatio?: string
   city?: LocalizedText
   date?: LocalizedText
   description?: LocalizedText

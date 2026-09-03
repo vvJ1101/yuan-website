@@ -1,4 +1,4 @@
-// Shuffled mix of 18 product stills and 12 looks from the supplied image packs.
+// Shuffled mix of 14 product stills and 10 distinct looks from the supplied image packs.
 export const productTunnelImages = [
   '/images/showroom/home-tunnel/3c0dcf708f064ef8b2dd9f923fdc6240.webp',
   '/images/showroom/home-tunnel/68c646d716f64710a47244f635cf8eb9.webp',
@@ -9,25 +9,19 @@ export const productTunnelImages = [
   '/images/showroom/home-tunnel/c84198617360468aa70e4af8b4f87cc4.webp',
   '/images/showroom/home-tunnel/af798ee271484f0e9a784c77b9972e8c.webp',
   '/images/showroom/home-tunnel/460e99582f454e9f85a1871c7843a019.webp',
-  '/images/showroom/home-tunnel/dc525c3945894d639f2ae5551fd89f7c.webp',
   '/images/showroom/home-tunnel/4345b4da995e40fcb367fed6234e7ace.webp',
   '/images/showroom/home-tunnel/4df9c35a5115491daee32ffa98f8a834.webp',
   '/images/showroom/home-tunnel/3fd76b2552a5429683289f6b8545c474.webp',
   '/images/showroom/home-tunnel/4f99182a7e73475e8ad9cb124a2c0fec.webp',
-  '/images/showroom/home-tunnel/a01625ebc61f48e396e8d33e4ca7cce8.webp',
-  '/images/showroom/home-tunnel/0aaeb76b9dee4e14918e7ef1d53b9e4e.webp',
   '/images/showroom/home-tunnel/4ac56c81dc1d4545a7ad42bc025154ac.webp',
-  '/images/showroom/home-tunnel/d9276e76a91b4f52b8b8267c3eff4f43.webp',
-  '/images/showroom/home-tunnel/20a4ffeaa1aa40af9bed3c5877200749.webp',
-  '/images/showroom/home-tunnel/b4bcbf410cc24d7f82d89e666735cd55.webp',
+  '/images/showroom/home-tunnel/e3e2ef850eb34e2a87fc22ac1a168ace.webp',
   '/images/showroom/home-tunnel/92a1578d146c476cb83ba244e8d69931.webp',
   '/images/showroom/home-tunnel/8e4d08e5ad6949a990f1e09cd4ac457b.webp',
   '/images/showroom/home-tunnel/f5d15cd55a85442fbe1d04e8ebbf20c9.webp',
   '/images/showroom/home-tunnel/ae359a8c77f84318b0ca73a481087f22.webp',
   '/images/showroom/home-tunnel/5fef74d3ae8c4fef9a864ba1f4074699.webp',
   '/images/showroom/home-tunnel/f9759ea458fb4ce8aee5e86ef5554ea5.webp',
-  '/images/showroom/home-tunnel/053e512d435a4025be8e3b0c4a8ce9de.webp',
   '/images/showroom/home-tunnel/315d79d4ac3a40ba812ba557f8ae4278.webp',
   '/images/showroom/home-tunnel/9413a9dda64744dc9f36c7c5a9027cc5.webp',
-  '/images/showroom/home-tunnel/0f7af041089e4042b007cf1255ea9012.webp',
+  '/images/showroom/home-tunnel/c7d22e3a3c7547029bfaf4cdb0d8c3b3.webp',
 ] as const

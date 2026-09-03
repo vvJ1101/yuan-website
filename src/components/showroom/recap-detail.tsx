@@ -14,7 +14,7 @@ interface RecapDetailProps {
 }
 
 export function RecapDetail({ locale, recap, previous, next }: RecapDetailProps) {
-  const title = recap.title.en
+  const title = localize(recap.title, locale)
   const sections: readonly RecapSection[] = recap.sections ?? recap.gallery.map((image) => ({ image }))
 
   return (
@@ -31,7 +31,7 @@ export function RecapDetail({ locale, recap, previous, next }: RecapDetailProps)
           <div className="recap-detail__video-shade" aria-hidden="true" />
           <div className="recap-detail__video-identity">
             <p lang="en">{recap.season}</p>
-            <h1 id="recap-video-title" lang="en">{title}</h1>
+            <h1 id="recap-video-title" lang={locale === 'cn' ? 'zh-CN' : 'en'}>{title}</h1>
           </div>
           <span className="recap-detail__scroll-cue" aria-hidden="true">SCROLL TO REVIEW ↓</span>
         </section>
@@ -40,7 +40,7 @@ export function RecapDetail({ locale, recap, previous, next }: RecapDetailProps)
       <article className="recap-detail__article" aria-labelledby="recap-article-title">
         <header className="recap-detail__intro">
           <p className="recap-detail__kicker">{locale === 'cn' ? '展会回顾' : 'Seasonal Review'}</p>
-          <h1 id="recap-article-title" lang="en">{title}</h1>
+          <h1 id="recap-article-title" lang={locale === 'cn' ? 'zh-CN' : 'en'}>{title}</h1>
           <p className="recap-detail__meta">{recap.season}{recap.city && ` · ${localize(recap.city, locale)}`}</p>
           {sections.length > 0 && <a className="recap-detail__gallery-preview" href="#recap-gallery">
           <div className="recap-detail__thumbnails" aria-hidden="true">
@@ -78,7 +78,7 @@ export function RecapDetail({ locale, recap, previous, next }: RecapDetailProps)
           className="recap-detail__hero"
           src={recap.poster}
           alt={`${recap.season} ${title}`}
-          ratio="16 / 10"
+          ratio={recap.posterRatio ?? '16 / 10'}
           sizes="(max-width: 700px) 92vw, 66vw"
           priority={!recap.video}
         />

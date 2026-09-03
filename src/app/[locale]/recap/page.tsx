@@ -30,7 +30,7 @@ export default async function RecapPage({
               <MediaFrame
                 src={recap.poster}
                 alt={`${recap.season} ${recap.title.en}`}
-                ratio="3.5 / 5"
+                ratio={recap.posterRatio ?? '3.5 / 5'}
                 sizes="(max-width: 640px) 50vw, (max-width: 900px) 33vw, 20vw"
                 priority={index < 5}
               />

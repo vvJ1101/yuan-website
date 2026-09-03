@@ -94,9 +94,9 @@ test('event brands retain their initial images with an independent RANYEPERSONAL
   assert.doesNotMatch(lookbook, /styleNumber|name:/)
 })
 
-test('recap initializes ten seasons for a balanced five-by-two desktop grid', async () => {
+test('recap includes six supplied events and retains the remaining earlier seasons', async () => {
   const source = await read('src/data/showroom.ts')
   const recapBlock = source.slice(source.indexOf('export const recaps'), source.length)
-  assert.equal([...recapBlock.matchAll(/\bslug:/g)].length, 10)
-  assert.match(recapBlock, /order: 10/)
+  assert.equal([...recapBlock.matchAll(/\bslug:/g)].length, 14)
+  assert.match(recapBlock, /order: 13/)
 })
