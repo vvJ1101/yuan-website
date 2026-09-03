@@ -45,6 +45,8 @@ export interface LookbookProduct {
   name: LocalizedText
   category: 'top' | 'bottom' | 'dress' | 'outerwear' | 'shoes' | 'bag' | 'accessory'
   styleNumber?: string
+  material?: LocalizedText
+  color?: LocalizedText
   description?: LocalizedText
 }
 

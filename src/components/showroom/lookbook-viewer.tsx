@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { ArrowLeft, ArrowRight, X } from 'lucide-react'
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react'
 import { resolveLookProducts } from '@/lib/lookbook-products'
+import { LookbookImageStage } from './lookbook-image-stage'
 import type { Locale, LookbookItem, LookbookProduct } from '@/types/showroom'
 
 const categories = {
@@ -81,18 +82,20 @@ export function LookbookViewer({ looks, products, name, season, locale, children
           <button type="button" autoFocus onClick={close} aria-label={cn ? '关闭' : 'Close'}><X size={20} strokeWidth={1.25} aria-hidden="true" /></button>
         </header>
         <div ref={content} className={`lookbook-viewer__content${linkedProducts.length ? ' lookbook-viewer__content--styled' : ''}`}>
-          <div className="lookbook-viewer__image">
-            <Image src={selected?.image ?? look.image} alt={selected ? selected.name[locale] : `${name} LOOK ${String(active + 1).padStart(2, '0')}`} fill sizes={linkedProducts.length ? '(max-width: 900px) 90vw, 62vw' : '90vw'} />
-          </div>
+          <LookbookImageStage key={`${active}-${selected?.id ?? 'look'}`} src={selected?.image ?? look.image}
+            alt={selected ? selected.name[locale] : `${name} LOOK ${String(active + 1).padStart(2, '0')}`}
+            sizes={linkedProducts.length ? '(max-width: 900px) 90vw, 62vw' : '90vw'} cn={cn} onNavigate={move}
+            onVerticalDrag={delta => { if (content.current) content.current.scrollTop += delta }}>
+            {selected && <button type="button" className="lookbook-viewer__return" onClick={returnToLook}>
+              <span className="lookbook-viewer__look-thumb"><Image src={look.image} alt="" fill sizes="72px" /></span>
+              <span>{cn ? '完整造型' : 'Complete look'}</span><ArrowLeft size={14} strokeWidth={1.25} aria-hidden="true" />
+            </button>}
+          </LookbookImageStage>
           {linkedProducts.length > 0 && <aside ref={productList} className="lookbook-viewer__styling" aria-label={cn ? '造型搭配单品' : 'Pieces in this look'}>
             <div className="lookbook-viewer__styling-heading">
               <h2>{cn ? '造型搭配' : 'In this look'}</h2>
               <span>{String(linkedProducts.length).padStart(2, '0')} {cn ? '件单品' : 'pieces'}</span>
             </div>
-            {selected && <button type="button" className="lookbook-viewer__return" onClick={returnToLook}>
-              <span className="lookbook-viewer__look-thumb"><Image src={look.image} alt="" fill sizes="48px" /></span>
-              <span>{cn ? '返回完整造型' : 'Back to complete look'}</span><ArrowLeft size={16} strokeWidth={1.25} aria-hidden="true" />
-            </button>}
             <div className="lookbook-viewer__products">
               {linkedProducts.map(product => <button type="button" key={product.id}
                 className="lookbook-viewer__product" aria-pressed={selected?.id === product.id}
@@ -107,6 +110,10 @@ export function LookbookViewer({ looks, products, name, season, locale, children
             </div>
             {selected && <div className="lookbook-viewer__product-detail" aria-live="polite">
               <h3>{selected.name[locale]}</h3>
+              {(selected.material?.[locale] || selected.color?.[locale]) && <dl>
+                {selected.material?.[locale] && <div><dt>{cn ? '材质' : 'Material'}</dt><dd>{selected.material[locale]}</dd></div>}
+                {selected.color?.[locale] && <div><dt>{cn ? '颜色' : 'Colour'}</dt><dd>{selected.color[locale]}</dd></div>}
+              </dl>}
               {selected.description?.[locale] && <p>{selected.description[locale]}</p>}
             </div>}
           </aside>}

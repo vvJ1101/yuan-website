@@ -1169,20 +1169,30 @@ a.lookbook-index__card:hover > span {
 .lookbook-viewer__identity > span:last-child { font-size: var(--ys-type-caption); color: var(--ys-muted); }
 .lookbook-viewer__content { display: grid; min-height: 0; min-width: 0; }
 .lookbook-viewer__content--styled { grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr); gap: clamp(32px, 5vw, 80px); }
-.lookbook-viewer__styling { overflow-y: auto; overscroll-behavior: contain; min-width: 0; padding: 24px 8px 24px 0; font-family: var(--ys-font-sans); }
-.lookbook-viewer__styling-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 28px; }
+.lookbook-viewer__styling { overflow-y: auto; overscroll-behavior: contain; min-width: 0; padding: 12px 8px 12px 0; font-family: var(--ys-font-sans); }
+.lookbook-viewer__styling-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
 .lookbook-viewer__styling h2, .lookbook-viewer__styling h3 { margin: 0; font-size: var(--ys-type-card-title); font-weight: 400; }
 .lookbook-viewer__styling-heading > span, .lookbook-viewer__category, .lookbook-viewer__sku { font-size: var(--ys-type-body-small); color: #595959; }
-.lookbook-viewer__products { display: grid; gap: 20px; }
-.lookbook-viewer .lookbook-viewer__product { display: grid; grid-template-columns: minmax(80px, 38%) minmax(0, 1fr); gap: 20px; align-items: center; width: 100%; padding: 0 0 16px; text-align: start; border-bottom: 1px solid #e7e7e7; cursor: zoom-in; }
+.lookbook-viewer__products { display: grid; gap: 12px; }
+.lookbook-viewer .lookbook-viewer__product { display: grid; grid-template-columns: clamp(80px, 16svh, 128px) minmax(0, 1fr); gap: 16px; align-items: center; width: 100%; padding: 0 0 12px; text-align: start; border-bottom: 1px solid #e7e7e7; cursor: zoom-in; }
 .lookbook-viewer__product-image, .lookbook-viewer__look-thumb { position: relative; display: block; aspect-ratio: 3 / 4; }
+.lookbook-viewer__product-image { aspect-ratio: 1; }
 .lookbook-viewer__product-image img, .lookbook-viewer__look-thumb img { object-fit: contain; }
 .lookbook-viewer__product-copy { display: grid; gap: 8px; overflow-wrap: anywhere; font-size: var(--ys-type-card-title); line-height: var(--ys-leading-compact); }
 .lookbook-viewer__product[aria-pressed="true"] .lookbook-viewer__product-image { outline: 1px solid var(--ys-ink); outline-offset: 3px; }
-.lookbook-viewer .lookbook-viewer__return { display: flex; width: 100%; align-items: center; gap: 16px; padding: 0 0 24px; text-align: start; font-size: var(--ys-type-body-small); }
-.lookbook-viewer__look-thumb { width: 44px; flex: 0 0 44px; }
-.lookbook-viewer__return > svg { margin-left: auto; }
+.lookbook-viewer .lookbook-viewer__return { position: absolute; top: 12px; left: 12px; display: grid; justify-items: center; gap: 6px; width: 88px; padding: 8px; background: #fff; border: 1px solid #e7e7e7; font-size: var(--ys-type-caption); }
+.lookbook-viewer__look-thumb { width: 64px; }
+.lookbook-viewer__return > svg { position: absolute; right: 6px; top: 6px; }
+.lookbook-viewer .lookbook-viewer__image-surface { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; overflow: hidden; touch-action: none; user-select: none; cursor: zoom-in; }
+.lookbook-viewer__image-surface[aria-pressed="true"] { cursor: grab; }
+.lookbook-viewer__image-surface[aria-pressed="true"]:active { cursor: grabbing; }
+.lookbook-viewer__image-surface img { pointer-events: none; }
+.lookbook-viewer .lookbook-viewer__zoom { position: absolute; bottom: 12px; right: 12px; display: flex; align-items: center; gap: 8px; padding: 10px; background: #fff; font-size: var(--ys-type-caption); font-variant-numeric: tabular-nums; }
 .lookbook-viewer__product-detail { padding-top: 24px; }
+.lookbook-viewer__product-detail dl { font-size: var(--ys-type-body-small); line-height: var(--ys-leading-compact); }
+.lookbook-viewer__product-detail dl > div { display: grid; grid-template-columns: 64px 1fr; gap: 12px; margin-top: 8px; }
+.lookbook-viewer__product-detail dt { color: #595959; }
+.lookbook-viewer__product-detail dd { margin: 0; }
 .lookbook-viewer__product-detail p { white-space: pre-line; margin: 12px 0 0; font-size: var(--ys-type-body-small); line-height: var(--ys-leading-body); }
 .lookbook-viewer__footer button { display: grid; place-items: center; }
 .lookbook-viewer button:disabled { opacity: 0.3; cursor: default; }
