@@ -4,9 +4,9 @@ import { MediaFrame } from './media-frame'
 import { CollaborationContact } from './collaboration-contact'
 import { collaborationContact } from '@/data/editorial'
 import { featureFirst, filterProjects, projectCategory, sectionPath } from '@/lib/editorial'
-import { localize } from '@/lib/showroom-i18n'
+import { localize, localizeEditorialCategory } from '@/lib/showroom-i18n'
 import { localePath } from '@/lib/showroom-routing'
-import type { EditorialProject, EditorialSection } from '@/types/editorial'
+import type { Collaboration, EditorialProject, EditorialSection } from '@/types/editorial'
 import type { Locale, LocalizedText } from '@/types/showroom'
 
 const titles = { 'pop-up-events': 'POP-UP EVENTS', collaborations: 'COLLABORATIONS' }
@@ -19,18 +19,19 @@ function ProjectMeta({ project, locale }: { project: EditorialProject; locale: L
   return project.kind === 'event' ? (
     <p>{localize(project.city, locale)} · <time dateTime={project.startDate}>{project.startDate.replaceAll('-', '.')}</time> — <time dateTime={project.endDate}>{project.endDate.replaceAll('-', '.')}</time></p>
   ) : (
-    <><p>{localize(project.subtitle, locale)}</p><p>{project.category} · {project.year}</p></>
+    <><p>{localize(project.subtitle, locale)}</p><p>{localizeEditorialCategory(project.category, locale)} · {project.year}</p></>
   )
 }
 
 function ProjectCard({ project, locale, featured = false }: { project: EditorialProject; locale: Locale; featured?: boolean }) {
   return (
-    <article className={featured ? 'editorial-feature' : 'editorial-card'}>
+    <article className={`${featured ? 'editorial-feature' : 'editorial-card'} ${project.kind === 'event' ? 'event-entry' : 'collaboration-entry'}`}>
       <Link className="recap-card__link" href={localePath(locale, `/${sectionPath(project)}/${project.slug}`)}>
-        <MediaFrame {...project.coverImage} alt={localize(project.coverImage.alt, locale)} priority={featured} sizes={featured ? '(max-width: 900px) 92vw, 64vw' : '(max-width: 640px) 92vw, 44vw'} />
+        <MediaFrame {...project.coverImage} alt={localize(project.coverImage.alt, locale)} priority={featured} sizes={project.kind === 'collaboration' ? '(max-width: 900px) 92vw, 75vw' : featured ? '(max-width: 900px) 92vw, 64vw' : '(max-width: 640px) 30vw, 180px'} />
         <div className="editorial-card__copy">
+          {project.kind === 'event' && <ProjectMeta project={project} locale={locale} />}
           <h2><ProjectName project={project} locale={locale} /></h2>
-          <ProjectMeta project={project} locale={locale} />
+          {project.kind === 'collaboration' && <ProjectMeta project={project} locale={locale} />}
           {featured && project.kind === 'event' && <p>{localize(project.venue, locale)}</p>}
           <span className="editorial-link">{locale === 'cn' ? '查看详情' : 'VIEW PROJECT'}</span>
         </div>
@@ -52,24 +53,28 @@ export function EditorialIndex({ locale, section, projects, categories, category
   const others = remaining.filter((item) => !archive.includes(item))
 
   return (
-    <main className="editorial-page">
+    <main className={`editorial-page ${section === 'collaborations' ? 'collaboration-index' : 'event-index'}`}>
       <header className="editorial-heading">
-        <h1>{titles[section]}</h1>
-        <nav className="editorial-filters" aria-label={locale === 'cn' ? '内容分类' : 'Content categories'}>
+        <h1 lang="en">{titles[section]}</h1>
+        <nav className="editorial-filters" lang={locale === 'cn' ? 'zh-CN' : 'en'} aria-label={locale === 'cn' ? '内容分类' : 'Content categories'}>
           {[undefined, ...categories].map((value) => (
             <Link key={value ?? 'all'} href={`${localePath(locale, `/${section}`)}${value ? `?category=${value}` : ''}`} aria-current={value === selected ? 'page' : undefined}>
-              {value ?? 'ALL'}
+              {localizeEditorialCategory(value ?? 'ALL', locale)}
             </Link>
           ))}
         </nav>
         {projects.some((project) => project.isSample) && <p className="editorial-sample">{locale === 'cn' ? '示例内容 · 活动、合作方及日期仅供排版预览' : 'SAMPLE CONTENT · Events, partners and dates are for layout preview only'}</p>}
       </header>
-      {featured ? <ProjectCard project={featured} locale={locale} featured /> : <p role="status">{locale === 'cn' ? '该分类暂无项目。' : 'No projects in this category yet.'}</p>}
-      {others.length > 0 && <section className="editorial-list" aria-label={locale === 'cn' ? '更多项目' : 'More projects'}>
+      {section === 'collaborations' ? (
+        <div className="collaboration-index__projects">
+          {featured ? [featured, ...remaining].map((project, index) => <ProjectCard project={project} locale={locale} featured={index === 0} key={project.slug} />) : <p role="status">{locale === 'cn' ? '该分类暂无项目。' : 'No projects in this category yet.'}</p>}
+        </div>
+      ) : featured ? <ProjectCard project={featured} locale={locale} featured /> : <p role="status">{locale === 'cn' ? '该分类暂无项目。' : 'No projects in this category yet.'}</p>}
+      {section === 'pop-up-events' && others.length > 0 && <section className="editorial-list" aria-label={locale === 'cn' ? '更多活动' : 'More events'}>
         <div className="editorial-grid">{others.map((project) => <ProjectCard project={project} locale={locale} key={project.slug} />)}</div>
       </section>}
       {archive.length > 0 && <section className="editorial-list" aria-labelledby="archive-title">
-        <h2 id="archive-title">ARCHIVE</h2>
+        <h2 id="archive-title">{localizeEditorialCategory('ARCHIVE', locale)}</h2>
         <div className="editorial-grid">{archive.map((project) => <ProjectCard project={project} locale={locale} key={project.slug} />)}</div>
       </section>}
     </main>
@@ -82,6 +87,55 @@ function TextSection({ title, paragraphs, locale }: { title: string; paragraphs:
 }
 
 export function EditorialDetail({ project, locale }: { project: EditorialProject; locale: Locale }) {
+  return project.kind === 'collaboration'
+    ? <CollaborationDetail project={project} locale={locale} />
+    : <EventDetail project={project} locale={locale} />
+}
+
+function CollaborationDetail({ project, locale }: { project: Collaboration; locale: Locale }) {
+  const backHref = localePath(locale, '/collaborations')
+  const [processImage, ...outcomeImages] = project.gallery
+
+  return (
+    <main className="collaboration-story">
+      <header className="collaboration-story__heading">
+        <Link className="editorial-link" lang="en" href={backHref}>COLLABORATIONS</Link>
+        <div className="collaboration-story__title">
+          <h1 lang="en">YUAN × {project.partner}</h1>
+          <p>{localizeEditorialCategory(project.category, locale)} · {project.year}</p>
+        </div>
+        <p className="collaboration-story__subtitle">{localize(project.subtitle, locale)}</p>
+        {project.isSample && <p className="editorial-sample">{locale === 'cn' ? '示例项目 · 非正式发布' : 'SAMPLE PROJECT · Not an announcement'}</p>}
+      </header>
+
+      <MediaFrame src={project.coverImage.src} alt={localize(project.coverImage.alt, locale)} ratio="16 / 9" priority sizes="92vw" />
+
+      <div className="collaboration-story__concept">
+        <section className="editorial-prose" aria-label={locale === 'cn' ? '合作概念' : 'Concept'}>{project.concept.map((text, index) => <p key={index}>{localize(text, locale)}</p>)}</section>
+      </div>
+
+      <section className="collaboration-story__process" aria-label={locale === 'cn' ? '创作过程' : 'Behind the scenes'}>
+        {processImage && <MediaFrame {...processImage} alt={localize(processImage.alt, locale)} sizes="(max-width: 900px) 92vw, 56vw" />}
+        <TextSection title={locale === 'cn' ? '创作过程' : 'BEHIND THE SCENES'} paragraphs={project.process} locale={locale} />
+      </section>
+
+      <section className="collaboration-story__outcomes" aria-label={locale === 'cn' ? '最终成果' : 'Outcomes'}>
+        <TextSection title={locale === 'cn' ? '最终成果' : 'OUTCOMES'} paragraphs={project.outcomes} locale={locale} />
+        {outcomeImages.length > 0 && <div className="collaboration-story__gallery">
+          {outcomeImages.map((image, index) => <MediaFrame {...image} alt={localize(image.alt, locale)} key={`${image.src}-${index}`} sizes="(max-width: 640px) 92vw, 60vw" />)}
+        </div>}
+      </section>
+
+      <footer className="collaboration-story__closing">
+        <TextSection title="CREDITS" paragraphs={project.credits} locale={locale} />
+        <CollaborationContact locale={locale} contact={collaborationContact} />
+        <Link className="editorial-link" href={backHref}>{locale === 'cn' ? '返回全部合作项目' : 'BACK TO ALL COLLABORATIONS'}</Link>
+      </footer>
+    </main>
+  )
+}
+
+function EventDetail({ project, locale }: { project: EditorialProject; locale: Locale }) {
   const section = sectionPath(project)
   const backHref = localePath(locale, `/${section}`)
   return (

@@ -14,7 +14,7 @@ interface RecapDetailProps {
 }
 
 export function RecapDetail({ locale, recap, previous, next }: RecapDetailProps) {
-  const title = localize(recap.title, locale)
+  const title = recap.title.en
   const sections: readonly RecapSection[] = recap.sections ?? recap.gallery.map((image) => ({ image }))
 
   return (
@@ -30,8 +30,8 @@ export function RecapDetail({ locale, recap, previous, next }: RecapDetailProps)
           </div>
           <div className="recap-detail__video-shade" aria-hidden="true" />
           <div className="recap-detail__video-identity">
-            <p>{recap.season}</p>
-            <h1 id="recap-video-title">{title}</h1>
+            <p lang="en">{recap.season}</p>
+            <h1 id="recap-video-title" lang="en">{title}</h1>
           </div>
           <span className="recap-detail__scroll-cue" aria-hidden="true">SCROLL TO REVIEW ↓</span>
         </section>
@@ -40,7 +40,7 @@ export function RecapDetail({ locale, recap, previous, next }: RecapDetailProps)
       <article className="recap-detail__article" aria-labelledby="recap-article-title">
         <header className="recap-detail__intro">
           <p className="recap-detail__kicker">{locale === 'cn' ? '展会回顾' : 'Seasonal Review'}</p>
-          <h1 id="recap-article-title">{title}</h1>
+          <h1 id="recap-article-title" lang="en">{title}</h1>
           <p className="recap-detail__meta">{recap.season}{recap.city && ` · ${localize(recap.city, locale)}`}</p>
           {sections.length > 0 && <a className="recap-detail__gallery-preview" href="#recap-gallery">
           <div className="recap-detail__thumbnails" aria-hidden="true">

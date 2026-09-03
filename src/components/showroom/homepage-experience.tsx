@@ -7,7 +7,7 @@ export function HomepageExperience() {
     <div className="showroom-cover__experience">
       <ProductTunnel />
       <div className="showroom-cover__statement">
-        <h1>
+        <h1 lang="en">
           <span>Connecting creativity, markets</span>{' '}
           <span>and the world.</span>
         </h1>

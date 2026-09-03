@@ -16,7 +16,7 @@ export default async function FloorMapPage({
   return (
     <main className="floor-map-page">
       <header>
-        <h1>FLOOR GUIDE</h1>
+        <h1 lang="en">FLOOR GUIDE</h1>
         <p>楼层介绍</p>
       </header>
       <MediaFrame

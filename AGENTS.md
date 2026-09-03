@@ -1,5 +1,10 @@
 # YUAN SHOWROOM Development Guidance
 
+## Typography
+
+- 修改字体、字号或新增文字层级前，先查阅 `docs/typography.md`，复用现有字体及语义变量。
+- 字体标准变化必须同步更新该文档；不要为窄栏标题随意套用大章节字号，也不要顺带重构无关页面。
+
 ## Verification policy
 
 - Match verification effort to the risk and scope of the current change.
