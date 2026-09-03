@@ -487,7 +487,7 @@ a.lookbook-index__card:hover > span {
 
 .onsite-service {
   display: grid;
-  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.8fr);
+  grid-template-columns: minmax(220px, 1fr) minmax(0, 1fr);
   gap: 28px clamp(40px, 6vw, 100px);
   align-items: center;
 }
@@ -555,14 +555,15 @@ a.lookbook-index__card:hover > span {
 .onsite-carousel {
   position: relative;
   min-width: 0;
+  width: min(100%, clamp(240px, 40svh, 440px));
+  justify-self: center;
 }
 
 .onsite-carousel__viewport {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 1080 / 1622;
   height: auto;
-  max-height: clamp(300px, calc(100svh - var(--ys-header-h) - 210px), 680px);
   overflow: hidden;
   background: #eee;
   touch-action: pan-y;
@@ -574,7 +575,7 @@ a.lookbook-index__card:hover > span {
 .onsite-carousel__viewport:focus-visible { outline: 1px solid currentColor; outline-offset: 5px; }
 
 .onsite-carousel__viewport img {
-  object-fit: cover;
+  object-fit: contain;
   opacity: 0;
   transition: opacity 700ms ease;
 }
@@ -2244,10 +2245,8 @@ a.lookbook-index__card:hover > span {
     grid-template-columns: 1fr;
   }
 
-  .onsite-carousel__viewport {
-    height: auto;
-    max-height: none;
-    aspect-ratio: 3 / 2;
+  .onsite-carousel {
+    width: min(100%, 440px);
   }
 
   .recap-grid {
