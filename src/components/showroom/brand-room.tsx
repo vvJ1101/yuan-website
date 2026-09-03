@@ -22,7 +22,7 @@ export function BrandRoom({ locale, brand, previous, next }: BrandRoomProps) {
       </Link>
 
       <section className="brand-room__details" aria-labelledby="brand-room-title">
-        <h1 id="brand-room-title">{brand.name}</h1>
+        <h1 id="brand-room-title" lang="en">{brand.name}</h1>
         <p className="brand-room__city">{localize(brand.city, locale)}</p>
         <p className="brand-room__label">BRAND ROOM</p>
         <span className="brand-room__rule" aria-hidden="true" />

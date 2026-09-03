@@ -21,7 +21,7 @@ function LanguageSwitch({ locale }: { locale: Locale }) {
   const pathname = usePathname()
 
   return (
-    <div className="site-language-switch" aria-label={locale === 'cn' ? '语言' : 'Language'}>
+    <div className="site-language-switch" lang="en" aria-label={locale === 'cn' ? '语言' : 'Language'}>
       {(['cn', 'en'] as const).map((nextLocale) => (
         <Link
           key={nextLocale}
@@ -44,7 +44,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
 
   return (
     <header className="site-header">
-      <div className="site-header__brand">
+      <div className="site-header__brand" lang="en">
         <Link className="site-logo" href={localePath(locale, '/')}>
           <Image
             className="site-logo__image"
@@ -57,7 +57,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         </Link>
       </div>
       <div className="site-header__navigation">
-        <nav aria-label={locale === 'cn' ? '主导航' : 'Primary navigation'}>
+        <nav lang="en" aria-label={locale === 'cn' ? '主导航' : 'Primary navigation'}>
           {items.map((item) => (
             <Link
               key={item.href}

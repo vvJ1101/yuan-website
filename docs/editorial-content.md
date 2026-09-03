@@ -30,6 +30,18 @@ Next.js App Router with TypeScript content in `src/data`, types in `src/types`,
 shared presentation in `src/components/showroom`. No new CMS or dependency.
 Chinese public routes are unprefixed; English routes retain `/en`.
 
+## Layout direction
+
+Events use a lead event followed by compact dated rows with thumbnails; archives
+remain separate. Collaborations use one work per row with the signature below
+its image, alternating 86% / 72% widths on desktop and full width below 900px.
+Both retain the existing image component, category URLs and font system.
+Collaboration concept prose uses the body scale; generous spacing separates
+image/text groups rather than enlarging every paragraph or repeating labels.
+
+See `typography.md` for approved type roles. These layout refinements are local
+until explicitly deployed.
+
 ## Editing content
 
 Replace the explicitly labelled records in `src/data/editorial.ts`. Keep each slug

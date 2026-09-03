@@ -15,7 +15,7 @@ export function BrandGrid({ locale, brands }: BrandGridProps) {
   return (
     <main className="brand-index">
       <aside className="brand-index__rail" aria-label={locale === 'cn' ? '品牌分类' : 'Brand categories'}>
-        <h1>BRANDS</h1>
+        <h1 lang="en">BRANDS</h1>
         <span className="brand-index__rule" aria-hidden="true" />
 
         <div className="brand-index__taxonomy">
@@ -27,7 +27,7 @@ export function BrandGrid({ locale, brands }: BrandGridProps) {
                   .filter((brand) => brand.category === category)
                   .map((brand) => (
                     <li key={brand.slug}>
-                      <Link href={localePath(locale, `/brands/${brand.slug}`)}>{brand.name}</Link>
+                      <Link lang="en" href={localePath(locale, `/brands/${brand.slug}`)}>{brand.name}</Link>
                     </li>
                   ))}
               </ul>
@@ -51,7 +51,7 @@ export function BrandGrid({ locale, brands }: BrandGridProps) {
               unoptimized
               priority={index < 6}
             />
-            <span>{brand.name}</span>
+            <span lang="en">{brand.name}</span>
           </Link>
         ))}
       </section>

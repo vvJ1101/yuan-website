@@ -25,12 +25,13 @@ function ProjectMeta({ project, locale }: { project: EditorialProject; locale: L
 
 function ProjectCard({ project, locale, featured = false }: { project: EditorialProject; locale: Locale; featured?: boolean }) {
   return (
-    <article className={featured ? 'editorial-feature' : 'editorial-card'}>
+    <article className={`${featured ? 'editorial-feature' : 'editorial-card'} ${project.kind === 'event' ? 'event-entry' : 'collaboration-entry'}`}>
       <Link className="recap-card__link" href={localePath(locale, `/${sectionPath(project)}/${project.slug}`)}>
-        <MediaFrame {...project.coverImage} alt={localize(project.coverImage.alt, locale)} priority={featured} sizes={featured ? '(max-width: 900px) 92vw, 64vw' : '(max-width: 640px) 92vw, 44vw'} />
+        <MediaFrame {...project.coverImage} alt={localize(project.coverImage.alt, locale)} priority={featured} sizes={project.kind === 'collaboration' ? '(max-width: 900px) 92vw, 75vw' : featured ? '(max-width: 900px) 92vw, 64vw' : '(max-width: 640px) 30vw, 180px'} />
         <div className="editorial-card__copy">
+          {project.kind === 'event' && <ProjectMeta project={project} locale={locale} />}
           <h2><ProjectName project={project} locale={locale} /></h2>
-          <ProjectMeta project={project} locale={locale} />
+          {project.kind === 'collaboration' && <ProjectMeta project={project} locale={locale} />}
           {featured && project.kind === 'event' && <p>{localize(project.venue, locale)}</p>}
           <span className="editorial-link">{locale === 'cn' ? '查看详情' : 'VIEW PROJECT'}</span>
         </div>
@@ -52,10 +53,10 @@ export function EditorialIndex({ locale, section, projects, categories, category
   const others = remaining.filter((item) => !archive.includes(item))
 
   return (
-    <main className="editorial-page">
+    <main className={`editorial-page ${section === 'collaborations' ? 'collaboration-index' : 'event-index'}`}>
       <header className="editorial-heading">
-        <h1>{titles[section]}</h1>
-        <nav className="editorial-filters" aria-label={locale === 'cn' ? '内容分类' : 'Content categories'}>
+        <h1 lang="en">{titles[section]}</h1>
+        <nav className="editorial-filters" lang="en" aria-label={locale === 'cn' ? '内容分类' : 'Content categories'}>
           {[undefined, ...categories].map((value) => (
             <Link key={value ?? 'all'} href={`${localePath(locale, `/${section}`)}${value ? `?category=${value}` : ''}`} aria-current={value === selected ? 'page' : undefined}>
               {value ?? 'ALL'}
@@ -64,8 +65,12 @@ export function EditorialIndex({ locale, section, projects, categories, category
         </nav>
         {projects.some((project) => project.isSample) && <p className="editorial-sample">{locale === 'cn' ? '示例内容 · 活动、合作方及日期仅供排版预览' : 'SAMPLE CONTENT · Events, partners and dates are for layout preview only'}</p>}
       </header>
-      {featured ? <ProjectCard project={featured} locale={locale} featured /> : <p role="status">{locale === 'cn' ? '该分类暂无项目。' : 'No projects in this category yet.'}</p>}
-      {others.length > 0 && <section className="editorial-list" aria-label={locale === 'cn' ? '更多项目' : 'More projects'}>
+      {section === 'collaborations' ? (
+        <div className="collaboration-index__projects">
+          {featured ? [featured, ...remaining].map((project, index) => <ProjectCard project={project} locale={locale} featured={index === 0} key={project.slug} />) : <p role="status">{locale === 'cn' ? '该分类暂无项目。' : 'No projects in this category yet.'}</p>}
+        </div>
+      ) : featured ? <ProjectCard project={featured} locale={locale} featured /> : <p role="status">{locale === 'cn' ? '该分类暂无项目。' : 'No projects in this category yet.'}</p>}
+      {section === 'pop-up-events' && others.length > 0 && <section className="editorial-list" aria-label={locale === 'cn' ? '更多活动' : 'More events'}>
         <div className="editorial-grid">{others.map((project) => <ProjectCard project={project} locale={locale} key={project.slug} />)}</div>
       </section>}
       {archive.length > 0 && <section className="editorial-list" aria-labelledby="archive-title">
@@ -94,10 +99,10 @@ function CollaborationDetail({ project, locale }: { project: Collaboration; loca
   return (
     <main className="collaboration-story">
       <header className="collaboration-story__heading">
-        <Link className="editorial-link" href={backHref}>COLLABORATIONS</Link>
+        <Link className="editorial-link" lang="en" href={backHref}>COLLABORATIONS</Link>
         <div className="collaboration-story__title">
-          <h1>YUAN × {project.partner}</h1>
-          <p>{project.category} · {project.year}</p>
+          <h1 lang="en">YUAN × {project.partner}</h1>
+          <p lang="en">{project.category} · {project.year}</p>
         </div>
         <p className="collaboration-story__subtitle">{localize(project.subtitle, locale)}</p>
         {project.isSample && <p className="editorial-sample">{locale === 'cn' ? '示例项目 · 非正式发布' : 'SAMPLE PROJECT · Not an announcement'}</p>}
@@ -106,7 +111,7 @@ function CollaborationDetail({ project, locale }: { project: Collaboration; loca
       <MediaFrame src={project.coverImage.src} alt={localize(project.coverImage.alt, locale)} ratio="16 / 9" priority sizes="92vw" />
 
       <div className="collaboration-story__concept">
-        <TextSection title={locale === 'cn' ? '合作概念' : 'CONCEPT'} paragraphs={project.concept} locale={locale} />
+        <section className="editorial-prose" aria-label={locale === 'cn' ? '合作概念' : 'Concept'}>{project.concept.map((text, index) => <p key={index}>{localize(text, locale)}</p>)}</section>
       </div>
 
       <section className="collaboration-story__process" aria-label={locale === 'cn' ? '创作过程' : 'Behind the scenes'}>
