@@ -383,7 +383,7 @@ test('recap fills the desktop in five columns with portrait posters', async () =
   const css = await read('src/app/globals.css')
   assert.match(source, /recaps[\s\S]*sort/)
   assert.match(source, /recap-grid/)
-  assert.ok(source.includes("ratio={recap.posterRatio ?? '3.5 / 5'}"))
+  assert.ok(source.includes('ratio="640 / 889"'))
   assert.match(css, /\.recap-grid\s*\{[^}]*grid-template-columns: repeat\(5, minmax\(0, 1fr\)\)/)
   assert.doesNotMatch(css.match(/\.recap-grid\s*\{[^}]*\}/)?.[0] ?? '', /max-width:/)
   assert.match(css, /@media \(max-width: 900px\)[\s\S]*?\.recap-grid\s*\{[^}]*repeat\(3, minmax\(0, 1fr\)\)/)

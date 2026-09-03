@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { MediaFrame } from '@/components/showroom/media-frame'
+import { RecapEditorial } from '@/components/showroom/recap-editorial'
 import { localize } from '@/lib/showroom-i18n'
 import { localePath } from '@/lib/showroom-routing'
 import type { Locale, Recap, RecapSection } from '@/types/showroom'
@@ -14,6 +15,7 @@ interface RecapDetailProps {
 }
 
 export function RecapDetail({ locale, recap, previous, next }: RecapDetailProps) {
+  if (recap.slug === '27ps-echoes-of-deco') return <RecapEditorial locale={locale} recap={recap} previous={previous} next={next} />
   const title = localize(recap.title, locale)
   const sections: readonly RecapSection[] = recap.sections ?? recap.gallery.map((image) => ({ image }))
 
@@ -78,7 +80,7 @@ export function RecapDetail({ locale, recap, previous, next }: RecapDetailProps)
           className="recap-detail__hero"
           src={recap.poster}
           alt={`${recap.season} ${title}`}
-          ratio={recap.posterRatio ?? '16 / 10'}
+          ratio="640 / 889"
           sizes="(max-width: 700px) 92vw, 66vw"
           priority={!recap.video}
         />
