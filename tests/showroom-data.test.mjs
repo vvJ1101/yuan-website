@@ -24,8 +24,8 @@ test('brand categories match the approved matrix', async () => {
     ['yifu-lu', 'RTW'],
     ['them-hub', 'RTW'],
     ['veilen', 'RTW'],
-    ['playply', 'RTW'],
     ['alwools', 'RTW'],
+    ['playply', 'RTW'],
     ['4mile', 'RTW'],
     ['pieton-episode', 'FTW'],
     ['reindeer', 'ACC'],
@@ -78,7 +78,7 @@ test('current event places authentic campaign covers before placeholder brands',
   assert.deepEqual(names, [
     'RANYEPERSONAL', 'MAISON THER', 'NHOJ', 'TENSPHER', 'DATT',
     'LUCIA TACCI', 'HELEN KAMINSKI', 'YIFU LU', 'THEM HUB', 'VEILEN',
-    'PLAYPLY', 'ALWOOLS', '4MILE', 'PIÉTON ÉPISODE', 'REINDEER',
+    'ALWOOLS', 'PLAYPLY', '4MILE', 'PIÉTON ÉPISODE', 'REINDEER',
   ])
   assert.doesNotMatch(event, /brands\.map|exhibitionBrandSlugs|A\.NOUR|LE17SEPTEMBRE/)
 })
