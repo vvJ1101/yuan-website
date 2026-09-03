@@ -113,11 +113,11 @@ export function RecapDetail({ locale, recap, previous, next }: RecapDetailProps)
 
       <nav className="recap-detail__pager" aria-label={locale === 'cn' ? '浏览往季回顾' : 'Browse recaps'}>
         <Link href={localePath(locale, `/recap/${previous.slug}`)}>
-          <span>← {locale === 'cn' ? '上一季' : 'PREVIOUS'}</span>
+          <span>← {locale === 'cn' ? '上一季' : 'Previous'}</span>
           <strong>{previous.season}</strong>
         </Link>
         <Link href={localePath(locale, `/recap/${next.slug}`)}>
-          <span>{locale === 'cn' ? '下一季' : 'NEXT'} →</span>
+          <span>{locale === 'cn' ? '下一季' : 'Next'} →</span>
           <strong>{next.season}</strong>
         </Link>
       </nav>
