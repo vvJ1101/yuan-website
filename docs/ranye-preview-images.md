@@ -1,5 +1,7 @@
 # Lookbook preview model images
 
+Current refinement: RANYEPERSONAL opening order is 10, 9, 3, 5, 1 (black shirt portrait at the center); lower row is 6, 4, 11, 7, 12, 16, alternating full-body looks with half-body and garment details. Opening thumbnails have individual optical scale corrections; the large-image viewer retains the complete originals. Brand and season attribution still require the user's mapping before these temporary allocations can be considered authentic collection records.
+
 Superseded: the user confirmed that the showroom does not carry menswear. All six generated images below are unused and removed from public assets. The user approved publishing supplied womenswear images 1, 3, 5, 6, 10, 11 for RANYEPERSONAL's lower row; 4, 7, 9, 12, 13 for MAISON THER; 14, 16, 18, 17, 15, 2, 8 for NHOJ. Numbers refer to the user's two batches in attachment order and `womenswear-upload-N.webp` filenames. These are temporary user-authorized assignments, not confirmed brand attribution. Preserve the supplied originals; only resize/compress, do not crop.
 
 Historical record of six AI-generated layout-preview images, created with the built-in image generation tool. Not authentic RANYEPERSONAL collection or campaign photographs. Originals remain in the generated-image directory. The paths below are historical and are no longer published or referenced by any lookbook.

@@ -296,7 +296,7 @@ test('NOW exhibition posters link to separate lookbook-only brand routes', async
   assert.doesNotMatch(detail, /DESIGNER|CATEGORY|ORIGIN|ESTABLISHED|WEBSITE|description/)
 })
 
-test('lookbook detail is an image-only editorial gallery', async () => {
+test('lookbook gallery keeps product details out of the editorial grid', async () => {
   const detail = await read('src/app/[locale]/now/lookbook/[slug]/page.tsx')
   const types = await read('src/types/showroom.ts')
   const now = await read('src/app/[locale]/now/page.tsx')
@@ -305,7 +305,6 @@ test('lookbook detail is an image-only editorial gallery', async () => {
   assert.match(detail, /firstFive\.map/)
   assert.match(detail, /remainder\.map/)
   assert.doesNotMatch(detail, /styleNumber|item\.name|款号|品名|STYLE NO\.|ITEM/)
-  assert.doesNotMatch(types, /styleNumber|name: LocalizedText/)
   assert.match(types, /interface LookbookItem\s*\{[^}]*image: string/)
   assert.doesNotMatch(now, /currentEvent\.dates/)
   assert.doesNotMatch(appointment, /currentEvent\.dates/)

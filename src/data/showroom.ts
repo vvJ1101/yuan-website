@@ -1,4 +1,5 @@
 import type { AboutContent, Brand, CurrentEvent, LocalizedText, OnSiteService, Recap } from '@/types/showroom'
+import { ranyePreviewProducts } from './lookbook-products'
 
 interface ShowroomImageRecord {
   src: `/images/showroom/${string}`
@@ -185,8 +186,10 @@ const editorialLookbook = [
 // User-supplied womenswear, temporarily assigned for local layout previews.
 const suppliedLook = (number: number) => ({ image: `/images/showroom/now/lookbook/womenswear-upload-${number}.webp` })
 const ranyePreviewLookbook = [
-  ...[10, 9, 3, 5, 1].map(suppliedLook),
-  ...[6, 11, 7, 8, 14, 16].map(suppliedLook),
+  ...[10, 9, 3, 5, 1].map(number => number === 3
+    ? { ...suppliedLook(number), productIds: ranyePreviewProducts.map(product => product.id) }
+    : suppliedLook(number)),
+  ...[6, 4, 11, 7, 12, 16].map(suppliedLook),
 ]
 const maisonPreviewLookbook = [4, 7, 9, 12, 13].map(suppliedLook)
 const nhojPreviewLookbook = [14, 16, 18, 17, 15, 2, 8].map(suppliedLook)
@@ -197,7 +200,7 @@ export const currentEvent: CurrentEvent = {
   season: 'SS 2027',
   heroImage: showroomImage('now/event-v2.jpg'),
   exhibitionBrands: [
-    { slug: 'ranyepersonal', name: 'RANYEPERSONAL', poster: showroomImage('brands/ranyepersonal.webp'), items: ranyePreviewLookbook },
+    { slug: 'ranyepersonal', name: 'RANYEPERSONAL', poster: showroomImage('brands/ranyepersonal.webp'), items: ranyePreviewLookbook, products: ranyePreviewProducts },
     { slug: 'maison-ther', name: 'MAISON THER', poster: showroomImage('brands/maison-ther.webp'), items: maisonPreviewLookbook },
     { slug: 'nhoj', name: 'NHOJ', poster: showroomImage('brands/nhoj.webp'), items: nhojPreviewLookbook },
     { slug: 'playply', name: 'PLAYPLY', poster: showroomImage('brands/playply.webp'), items: editorialLookbook },

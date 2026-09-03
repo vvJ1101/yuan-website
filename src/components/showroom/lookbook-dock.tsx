@@ -3,11 +3,11 @@
 import { useEffect, useRef, type ReactNode } from 'react'
 
 const profiles = [
-  [1.3, 1.06, 0.7, 0.7, 0.7],
-  [0.88, 1.3, 0.88, 0.7, 0.7],
+  [1.12, 0.96, 0.94, 0.82, 0.62],
+  [0.8, 1.16, 1.02, 0.82, 0.66],
   [0.7, 0.88, 1.3, 0.88, 0.7],
-  [0.7, 0.7, 0.88, 1.3, 0.88],
-  [0.7, 0.7, 0.7, 1.06, 1.3],
+  [0.66, 0.82, 1.02, 1.16, 0.8],
+  [0.62, 0.82, 0.94, 0.96, 1.12],
 ]
 
 export function LookbookDock({ children }: { children: ReactNode }) {
@@ -21,7 +21,7 @@ export function LookbookDock({ children }: { children: ReactNode }) {
     let frame = 0
     let previousTime = 0
     const animate = (time: number) => {
-      const amount = 1 - Math.exp(-Math.min(time - previousTime || 16, 64) / 95)
+      const amount = 1 - Math.exp(-Math.min(time - previousTime || 16, 64) / 145)
       previousTime = time
       current = current.map((value, index) => value + (target[index] - value) * amount)
       element.style.gridTemplateColumns = current.map(value => `${value}fr`).join(' ')

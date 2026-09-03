@@ -31,10 +31,21 @@ export interface EventBrand {
   name: string
   poster: string
   items: readonly LookbookItem[]
+  products?: readonly LookbookProduct[]
 }
 
 export interface LookbookItem {
   image: string
+  productIds?: readonly string[]
+}
+
+export interface LookbookProduct {
+  id: string
+  image: string
+  name: LocalizedText
+  category: 'top' | 'bottom' | 'dress' | 'outerwear' | 'shoes' | 'bag' | 'accessory'
+  styleNumber?: string
+  description?: LocalizedText
 }
 
 export interface CurrentEvent {
