@@ -12,7 +12,7 @@ import {
 
 const CAMERA_Z = 5
 const TAIL_Z = -78
-const SPACING = 2
+const SPACING = 1.9
 const BASE_SCALE_MULTIPLIER = 1.12
 const BASE_NEAR_SCALE_UP = 0.28
 const SPEED_PRESETS = {

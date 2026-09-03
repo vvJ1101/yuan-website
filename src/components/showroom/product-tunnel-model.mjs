@@ -19,7 +19,7 @@ export function recycleTunnelDepth(z, speed, delta, nearZ = 5, tailZ = -78) {
 
 export function getTunnelBudget(width, reducedMotion) {
   if (reducedMotion) return { count: 1, dpr: 1 }
-  if (width <= 640) return { count: 32, dpr: 1.25 }
-  if (width <= 1180) return { count: 44, dpr: 1.5 }
-  return { count: 56, dpr: 2 }
+  if (width <= 640) return { count: 28, dpr: 1.25 }
+  if (width <= 1180) return { count: 40, dpr: 1.5 }
+  return { count: 52, dpr: 2 }
 }
