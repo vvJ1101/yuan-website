@@ -23,7 +23,7 @@ export interface Brand {
   city: LocalizedText
   introduction: LocalizedText
   cover: string
-  roomImages: readonly [string, string, string]
+  roomImages: readonly [string, ...string[]]
 }
 
 export interface EventBrand {

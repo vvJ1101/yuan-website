@@ -17,25 +17,29 @@ test('brand categories match the approved matrix', async () => {
     ['ranyepersonal', 'RTW'],
     ['maison-ther', 'RTW'],
     ['nhoj', 'RTW'],
-    ['playply', 'RTW'],
-    ['alwools', 'RTW'],
     ['tenspher', 'RTW'],
-    ['4mile', 'RTW'],
     ['datt', 'RTW'],
-    ['pieton-episode', 'FTW'],
     ['lucia-tacci', 'FTW'],
     ['helen-kaminski', 'ACC'],
+    ['yifu-lu', 'RTW'],
+    ['them-hub', 'RTW'],
+    ['veilen', 'RTW'],
+    ['playply', 'RTW'],
+    ['alwools', 'RTW'],
+    ['4mile', 'RTW'],
+    ['pieton-episode', 'FTW'],
     ['reindeer', 'ACC'],
   ])
 })
 
-test('every brand room has exactly three images', async () => {
+test('brand rooms retain existing galleries and new brands use their supplied image', async () => {
   const source = await read('src/data/showroom.ts')
   const roomImageLists = [...source.matchAll(/roomImages: \[([^\]]+)\]/g)]
 
-  assert.equal(roomImageLists.length, 12)
+  assert.equal(roomImageLists.length, 15)
   for (const [, imageList] of roomImageLists) {
-    assert.equal([...imageList.matchAll(/showroomImage\(/g)].length, 3)
+    const expected = /yifu-lu|them-hub|veilen/.test(imageList) ? 1 : 3
+    assert.equal([...imageList.matchAll(/showroomImage\(/g)].length, expected)
   }
 })
 
@@ -66,14 +70,15 @@ test('current event is Shanghai Fashion Week and has no published dates', async 
   assert.doesNotMatch(event, /巴黎|Paris|dates:/)
 })
 
-test('current event independently initializes the twelve approved exhibition brands', async () => {
+test('current event places authentic campaign covers before placeholder brands', async () => {
   const source = await read('src/data/showroom.ts')
   const event = source.slice(source.indexOf('export const currentEvent'), source.indexOf('export const onSiteServices'))
   const names = [...event.matchAll(/name: '([^']+)', poster:/g)].map((match) => match[1])
 
   assert.deepEqual(names, [
-    'RANYEPERSONAL', 'MAISON THER', 'NHOJ', 'PLAYPLY', 'ALWOOLS', 'TENSPHER',
-    '4MILE', 'DATT', 'PIÉTON ÉPISODE', 'LUCIA TACCI', 'HELEN KAMINSKI', 'REINDEER',
+    'RANYEPERSONAL', 'MAISON THER', 'NHOJ', 'TENSPHER', 'DATT',
+    'LUCIA TACCI', 'HELEN KAMINSKI', 'YIFU LU', 'THEM HUB', 'VEILEN',
+    'PLAYPLY', 'ALWOOLS', '4MILE', 'PIÉTON ÉPISODE', 'REINDEER',
   ])
   assert.doesNotMatch(event, /brands\.map|exhibitionBrandSlugs|A\.NOUR|LE17SEPTEMBRE/)
 })
