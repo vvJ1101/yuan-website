@@ -185,8 +185,8 @@ const editorialLookbook = [
 // User-supplied womenswear, temporarily assigned for local layout previews.
 const suppliedLook = (number: number) => ({ image: `/images/showroom/now/lookbook/womenswear-upload-${number}.webp` })
 const ranyePreviewLookbook = [
-  ...editorialLookbook.slice(0, 5),
-  ...[1, 3, 5, 6, 10, 11].map(suppliedLook),
+  ...[10, 9, 3, 5, 1].map(suppliedLook),
+  ...[6, 11, 7, 8, 14, 16].map(suppliedLook),
 ]
 const maisonPreviewLookbook = [4, 7, 9, 12, 13].map(suppliedLook)
 const nhojPreviewLookbook = [14, 16, 18, 17, 15, 2, 8].map(suppliedLook)
