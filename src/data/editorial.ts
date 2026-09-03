@@ -61,13 +61,19 @@ const sampleBlocks: readonly CollaborationBlock[] = [
   { id: 'selection', type: 'gallery', images: sampleLooks, caption: { cn: '组图模块演示 · 重复使用以上素材，正式发布时替换为项目细节', en: 'Gallery demonstration · Images above are reused here; replace with project details before publication' } },
 ]
 
+const samplePartners = ['ATELIER A', 'STUDIO B', 'DESIGN LAB C', 'COLLECTIVE D']
+const sampleFacade: EditorialImage = {
+  src: '/images/showroom/about/draped-facade-20260903.webp', ratio: '626 / 778',
+  alt: { cn: '织物覆盖的建筑立面，仅作艺术项目排版示例', en: 'Fabric-covered facade, used only as an art project layout sample' },
+}
+
 export const collaborations: readonly Collaboration[] = collaborationCategories.map((category, index) => ({
-  kind: 'collaboration', slug: `sample-${category.toLowerCase()}`, partner: 'PARTNER',
+  kind: 'collaboration', slug: `sample-${category.toLowerCase()}`, partner: samplePartners[index],
   title: { cn: `${category} 合作项目示例`, en: `${category} collaboration sample` },
   category, year: 2026, featured: index === 0, isSample: true,
   subtitle: { cn: '创意相遇的另一种可能 · 排版示例', en: 'Another way for ideas to meet · Layout sample' },
-  coverImage: [display, space, cafe, space][index], gallery: [index === 0 ? space : display],
-  concept: [{ cn: '此处将介绍合作缘起、双方的创意方向与共同目标。PARTNER 为占位名称，不代表实际合作关系。', en: 'This space will introduce the partnership, creative direction and shared purpose. PARTNER is a placeholder and does not represent a real partnership.' }],
+  coverImage: [sampleLooks[0], sampleFacade, space, cafe][index], gallery: [index === 0 ? space : display],
+  concept: [{ cn: '此处将介绍合作缘起、双方的创意方向与共同目标。项目名称均为排版占位，不代表实际合作关系。', en: 'This space will introduce the partnership, creative direction and shared purpose. Project names are layout placeholders and do not represent real partnerships.' }],
   process: [{ cn: '此处预留创作过程、实验和幕后记录，后续可以加入对应图片。', en: 'A space for the creative process, experiments and behind-the-scenes documentation, with supporting imagery.' }],
   outcomes: [{ cn: '此处展示正式项目的最终作品与成果，待真实内容确认后替换。', en: 'Final work and project outcomes will appear here once the real content is confirmed.' }],
   credits: sampleCredits,

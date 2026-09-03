@@ -4,6 +4,7 @@ import type { CSSProperties } from 'react'
 import { MediaFrame } from './media-frame'
 import { CollaborationContact } from './collaboration-contact'
 import { CollaborationBlocks } from './collaboration-blocks'
+import { CollaborationIndex } from './collaboration-index'
 import { collaborationContact } from '@/data/editorial'
 import { eventStories, type EventStory, type StoryImage } from '@/data/event-stories'
 import { featureFirst, filterProjects, projectCategory, sectionPath } from '@/lib/editorial'
@@ -71,9 +72,7 @@ export function EditorialIndex({ locale, section, projects, categories, category
         {projects.some((project) => project.isSample) && <p className="editorial-sample">{locale === 'cn' ? '示例内容 · 活动、合作方及日期仅供排版预览' : 'SAMPLE CONTENT · Events, partners and dates are for layout preview only'}</p>}
       </header>
       {section === 'collaborations' ? (
-        <div className="collaboration-index__projects">
-          {featured ? [featured, ...remaining].map((project, index) => <ProjectCard project={project} locale={locale} featured={index === 0} key={project.slug} />) : <p role="status">{locale === 'cn' ? '该分类暂无项目。' : 'No projects in this category yet.'}</p>}
-        </div>
+        <CollaborationIndex key={selected ?? 'all'} projects={featured ? [featured, ...remaining] : []} locale={locale} />
       ) : featured ? <ProjectCard project={featured} locale={locale} featured /> : <p role="status">{locale === 'cn' ? '该分类暂无项目。' : 'No projects in this category yet.'}</p>}
       {section === 'pop-up-events' && others.length > 0 && <section className="editorial-list" aria-label={locale === 'cn' ? '更多活动' : 'More events'}>
         <h2>{locale === 'cn' ? '更多活动' : 'MORE EVENTS'}</h2>
