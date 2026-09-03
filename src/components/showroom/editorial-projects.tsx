@@ -4,7 +4,7 @@ import { MediaFrame } from './media-frame'
 import { CollaborationContact } from './collaboration-contact'
 import { collaborationContact } from '@/data/editorial'
 import { featureFirst, filterProjects, projectCategory, sectionPath } from '@/lib/editorial'
-import { localize } from '@/lib/showroom-i18n'
+import { localize, localizeEditorialCategory } from '@/lib/showroom-i18n'
 import { localePath } from '@/lib/showroom-routing'
 import type { Collaboration, EditorialProject, EditorialSection } from '@/types/editorial'
 import type { Locale, LocalizedText } from '@/types/showroom'
@@ -19,7 +19,7 @@ function ProjectMeta({ project, locale }: { project: EditorialProject; locale: L
   return project.kind === 'event' ? (
     <p>{localize(project.city, locale)} · <time dateTime={project.startDate}>{project.startDate.replaceAll('-', '.')}</time> — <time dateTime={project.endDate}>{project.endDate.replaceAll('-', '.')}</time></p>
   ) : (
-    <><p>{localize(project.subtitle, locale)}</p><p>{project.category} · {project.year}</p></>
+    <><p>{localize(project.subtitle, locale)}</p><p>{localizeEditorialCategory(project.category, locale)} · {project.year}</p></>
   )
 }
 
@@ -56,10 +56,10 @@ export function EditorialIndex({ locale, section, projects, categories, category
     <main className={`editorial-page ${section === 'collaborations' ? 'collaboration-index' : 'event-index'}`}>
       <header className="editorial-heading">
         <h1 lang="en">{titles[section]}</h1>
-        <nav className="editorial-filters" lang="en" aria-label={locale === 'cn' ? '内容分类' : 'Content categories'}>
+        <nav className="editorial-filters" lang={locale === 'cn' ? 'zh-CN' : 'en'} aria-label={locale === 'cn' ? '内容分类' : 'Content categories'}>
           {[undefined, ...categories].map((value) => (
             <Link key={value ?? 'all'} href={`${localePath(locale, `/${section}`)}${value ? `?category=${value}` : ''}`} aria-current={value === selected ? 'page' : undefined}>
-              {value ?? 'ALL'}
+              {localizeEditorialCategory(value ?? 'ALL', locale)}
             </Link>
           ))}
         </nav>
@@ -74,7 +74,7 @@ export function EditorialIndex({ locale, section, projects, categories, category
         <div className="editorial-grid">{others.map((project) => <ProjectCard project={project} locale={locale} key={project.slug} />)}</div>
       </section>}
       {archive.length > 0 && <section className="editorial-list" aria-labelledby="archive-title">
-        <h2 id="archive-title">ARCHIVE</h2>
+        <h2 id="archive-title">{localizeEditorialCategory('ARCHIVE', locale)}</h2>
         <div className="editorial-grid">{archive.map((project) => <ProjectCard project={project} locale={locale} key={project.slug} />)}</div>
       </section>}
     </main>
@@ -102,7 +102,7 @@ function CollaborationDetail({ project, locale }: { project: Collaboration; loca
         <Link className="editorial-link" lang="en" href={backHref}>COLLABORATIONS</Link>
         <div className="collaboration-story__title">
           <h1 lang="en">YUAN × {project.partner}</h1>
-          <p lang="en">{project.category} · {project.year}</p>
+          <p>{localizeEditorialCategory(project.category, locale)} · {project.year}</p>
         </div>
         <p className="collaboration-story__subtitle">{localize(project.subtitle, locale)}</p>
         {project.isSample && <p className="editorial-sample">{locale === 'cn' ? '示例项目 · 非正式发布' : 'SAMPLE PROJECT · Not an announcement'}</p>}
