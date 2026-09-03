@@ -141,7 +141,7 @@ export function ProductTunnel() {
       const elapsed = Math.min((now - startedAt) / 1100, 1)
       const startupSpeed = 300 + (10 - 300) * easeOutExpo(elapsed)
       interactionBoost *= 0.94
-      const speed = (startupSpeed + interactionBoost * 4) * 0.1
+      const speed = (startupSpeed + interactionBoost * 4) * 0.3
 
       const tail = Math.min(...meshes.map((candidate) => candidate.position.z)) - SPACING
       for (const mesh of meshes) {
