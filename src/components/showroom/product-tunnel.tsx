@@ -54,7 +54,6 @@ export function ProductTunnel() {
     const startedAt = performance.now()
     let previousTime = startedAt
     let animationFrame = 0
-    let interactionBoost = 0
     let disposed = false
     let announcedReady = false
 
@@ -113,23 +112,6 @@ export function ProductTunnel() {
       renderer.setSize(width, height, false)
     }
 
-    const addBoost = (amount: number) => {
-      interactionBoost = Math.min(40, interactionBoost + amount)
-    }
-    const onWheel = (event: WheelEvent) => {
-      event.preventDefault()
-      addBoost(Math.min(Math.abs(event.deltaY) * 0.08, 16))
-    }
-    let previousTouchY: number | null = null
-    const onTouchStart = (event: TouchEvent) => { previousTouchY = event.touches[0]?.clientY ?? null }
-    const onTouchMove = (event: TouchEvent) => {
-      const currentY = event.touches[0]?.clientY
-      if (currentY === undefined || previousTouchY === null) return
-      event.preventDefault()
-      addBoost(Math.min(Math.abs(currentY - previousTouchY) * 0.32, 12))
-      previousTouchY = currentY
-    }
-    const onTouchEnd = () => { previousTouchY = null }
     const onContextLost = (event: Event) => {
       event.preventDefault()
       root.dataset.state = 'fallback'
@@ -140,8 +122,7 @@ export function ProductTunnel() {
       previousTime = now
       const elapsed = Math.min((now - startedAt) / 1100, 1)
       const startupSpeed = 300 + (10 - 300) * easeOutExpo(elapsed)
-      interactionBoost *= 0.94
-      const speed = (startupSpeed + interactionBoost * 4) * 0.3
+      const speed = startupSpeed * 0.3
 
       const tail = Math.min(...meshes.map((candidate) => candidate.position.z)) - SPACING
       for (const mesh of meshes) {
@@ -163,10 +144,6 @@ export function ProductTunnel() {
 
     resize()
     window.addEventListener('resize', resize)
-    root.addEventListener('wheel', onWheel, { passive: false })
-    root.addEventListener('touchstart', onTouchStart, { passive: true })
-    root.addEventListener('touchmove', onTouchMove, { passive: false })
-    root.addEventListener('touchend', onTouchEnd, { passive: true })
     canvas.addEventListener('webglcontextlost', onContextLost)
     animationFrame = window.requestAnimationFrame(render)
 
@@ -174,10 +151,6 @@ export function ProductTunnel() {
       disposed = true
       window.cancelAnimationFrame(animationFrame)
       window.removeEventListener('resize', resize)
-      root.removeEventListener('wheel', onWheel)
-      root.removeEventListener('touchstart', onTouchStart)
-      root.removeEventListener('touchmove', onTouchMove)
-      root.removeEventListener('touchend', onTouchEnd)
       canvas.removeEventListener('webglcontextlost', onContextLost)
       for (const mesh of meshes) mesh.material.dispose()
       for (const texture of textures) texture.dispose()
