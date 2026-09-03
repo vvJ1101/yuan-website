@@ -27,7 +27,7 @@
     --ys-bg: #fff;
     --ys-ink: #0a0a0a;
     --ys-muted: #777;
-    --ys-header-h: clamp(118px, 14vh, 142px);
+    --ys-header-h: clamp(104px, 11vh, 112px);
     --ys-gutter: clamp(32px, 4vw, 68px);
     --ys-nav-column-w: 54vw;
     --ys-nav-size: clamp(12px, 0.95vw, 16px);
@@ -955,7 +955,7 @@ a.lookbook-index__card:hover > span {
   display: flex;
   flex-direction: column;
   min-height: var(--ys-header-h);
-  padding: clamp(18px, 2.5vh, 26px) var(--ys-gutter) clamp(14px, 2vh, 20px);
+  padding: 12px var(--ys-gutter);
   font-size: var(--ys-nav-size);
   font-weight: 500;
   line-height: 1.05;
@@ -985,12 +985,12 @@ a.lookbook-index__card:hover > span {
   display: grid;
   grid-template-columns: 1fr minmax(420px, var(--ys-nav-column-w)) 1fr;
   align-items: center;
-  margin-top: clamp(16px, 2.2vh, 22px);
+  margin-top: 14px;
 }
 
 .site-header__navigation::before {
   position: absolute;
-  top: calc(clamp(16px, 2.2vh, 22px) / -2);
+  top: -7px;
   right: 0;
   left: 0;
   height: 1px;
@@ -2030,7 +2030,7 @@ a.lookbook-index__card:hover > span {
 
 @media (max-width: 900px) {
   .site-header {
-    padding-bottom: 18px;
+    padding-bottom: 12px;
   }
 
   .brand-book__identity {
@@ -2609,7 +2609,7 @@ a.lookbook-index__card:hover > span {
 }
 
 .showroom-cover__statement h1 {
-  max-width: 15ch;
+  max-width: 100%;
   margin: 0;
   color: #111;
   font-family: var(--ys-font-sans);
@@ -2618,13 +2618,16 @@ a.lookbook-index__card:hover > span {
   line-height: 0.98;
   letter-spacing: -0.035em;
   text-align: center;
-  text-wrap: balance;
+}
+
+.showroom-cover__statement h1 span {
+  display: block;
+  white-space: nowrap;
 }
 
 @media (max-width: 1180px) {
   .showroom-cover__statement h1 {
-    max-width: 14ch;
-    font-size: clamp(44px, 7.4vw, 78px);
+    font-size: clamp(38px, 6.1vw, 72px);
   }
 }
 
@@ -2634,8 +2637,7 @@ a.lookbook-index__card:hover > span {
   }
 
   .showroom-cover__statement h1 {
-    max-width: 12ch;
-    font-size: clamp(38px, 11.5vw, 58px);
+    font-size: clamp(20px, 7vw, 44px);
     line-height: 1;
   }
 
