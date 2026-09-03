@@ -17,25 +17,29 @@ test('brand categories match the approved matrix', async () => {
     ['ranyepersonal', 'RTW'],
     ['maison-ther', 'RTW'],
     ['nhoj', 'RTW'],
-    ['playply', 'RTW'],
-    ['alwools', 'RTW'],
     ['tenspher', 'RTW'],
-    ['4mile', 'RTW'],
     ['datt', 'RTW'],
-    ['pieton-episode', 'FTW'],
     ['lucia-tacci', 'FTW'],
     ['helen-kaminski', 'ACC'],
+    ['yifu-lu', 'RTW'],
+    ['them-hub', 'RTW'],
+    ['veilen', 'RTW'],
+    ['alwools', 'RTW'],
+    ['playply', 'RTW'],
+    ['4mile', 'RTW'],
+    ['pieton-episode', 'FTW'],
     ['reindeer', 'ACC'],
   ])
 })
 
-test('every brand room has exactly three images', async () => {
+test('brand rooms retain existing galleries and new brands use their supplied image', async () => {
   const source = await read('src/data/showroom.ts')
   const roomImageLists = [...source.matchAll(/roomImages: \[([^\]]+)\]/g)]
 
-  assert.equal(roomImageLists.length, 12)
+  assert.equal(roomImageLists.length, 15)
   for (const [, imageList] of roomImageLists) {
-    assert.equal([...imageList.matchAll(/showroomImage\(/g)].length, 3)
+    const expected = /yifu-lu|them-hub|veilen/.test(imageList) ? 1 : 3
+    assert.equal([...imageList.matchAll(/showroomImage\(/g)].length, expected)
   }
 })
 
@@ -66,31 +70,33 @@ test('current event is Shanghai Fashion Week and has no published dates', async 
   assert.doesNotMatch(event, /巴黎|Paris|dates:/)
 })
 
-test('current event independently initializes the twelve approved exhibition brands', async () => {
+test('current event places authentic campaign covers before placeholder brands', async () => {
   const source = await read('src/data/showroom.ts')
   const event = source.slice(source.indexOf('export const currentEvent'), source.indexOf('export const onSiteServices'))
   const names = [...event.matchAll(/name: '([^']+)', poster:/g)].map((match) => match[1])
 
   assert.deepEqual(names, [
-    'RANYEPERSONAL', 'MAISON THER', 'NHOJ', 'PLAYPLY', 'ALWOOLS', 'TENSPHER',
-    '4MILE', 'DATT', 'PIÉTON ÉPISODE', 'LUCIA TACCI', 'HELEN KAMINSKI', 'REINDEER',
+    'RANYEPERSONAL', 'MAISON THER', 'NHOJ', 'TENSPHER', 'DATT',
+    'LUCIA TACCI', 'HELEN KAMINSKI', 'YIFU LU', 'THEM HUB', 'VEILEN',
+    'ALWOOLS', 'PLAYPLY', '4MILE', 'PIÉTON ÉPISODE', 'REINDEER',
   ])
   assert.doesNotMatch(event, /brands\.map|exhibitionBrandSlugs|A\.NOUR|LE17SEPTEMBRE/)
 })
 
-test('every initialized event brand starts with twelve images for multi-panel preview', async () => {
+test('event brands retain their initial images with an independent RANYEPERSONAL preview', async () => {
   const source = await read('src/data/showroom.ts')
   const lookbook = source.slice(source.indexOf('const editorialLookbook'), source.indexOf('export const currentEvent'))
   const event = source.slice(source.indexOf('export const currentEvent'), source.indexOf('export const onSiteServices'))
 
   assert.equal([...lookbook.matchAll(/now\/lookbook\/editorial-\d{2}\.png/g)].length, 12)
-  assert.equal([...event.matchAll(/items: editorialLookbook/g)].length, 12)
+  assert.equal([...event.matchAll(/items: editorialLookbook/g)].length, 9)
+  assert.match(event, /slug: 'ranyepersonal'.*items: ranyePreviewLookbook/)
   assert.doesNotMatch(lookbook, /styleNumber|name:/)
 })
 
-test('recap initializes ten seasons for a balanced five-by-two desktop grid', async () => {
+test('recap includes six supplied events and retains the remaining earlier seasons', async () => {
   const source = await read('src/data/showroom.ts')
   const recapBlock = source.slice(source.indexOf('export const recaps'), source.length)
-  assert.equal([...recapBlock.matchAll(/\bslug:/g)].length, 10)
-  assert.match(recapBlock, /order: 10/)
+  assert.equal([...recapBlock.matchAll(/\bslug:/g)].length, 14)
+  assert.match(recapBlock, /order: 13/)
 })

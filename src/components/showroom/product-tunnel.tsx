@@ -17,7 +17,7 @@ const BASE_SCALE_MULTIPLIER = 1.12
 const BASE_NEAR_SCALE_UP = 0.28
 const SPEED_PRESETS = {
   slow: 0.44,
-  normal: 0.6,
+  normal: 0.77,
   fast: 0.72,
 } as const
 
@@ -57,7 +57,6 @@ export function ProductTunnel() {
 
     const scene = new THREE.Scene()
     scene.background = new THREE.Color(0xffffff)
-    scene.fog = new THREE.Fog(0xffffff, 0, 78)
     const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100)
     camera.position.z = CAMERA_Z
 
@@ -160,11 +159,10 @@ export function ProductTunnel() {
         const entrance = Math.min(entranceTime / 0.75, 1)
         const easedEntrance = 1 - (1 - entrance) ** 4
         const life = (mesh.position.z - TAIL_Z) / (CAMERA_Z - TAIL_Z)
-        const depthFade = THREE.MathUtils.lerp(0.16, 1, THREE.MathUtils.clamp(life, 0, 1))
         const nearScale = 1 + THREE.MathUtils.lerp(0, BASE_NEAR_SCALE_UP, THREE.MathUtils.clamp(life, 0, 1))
         const pulseTime = now * 0.0015 + mesh.userData.pulseDelay
         const wobble = Math.sin(now * 0.001 + mesh.userData.wobble) * 0.18
-        mesh.material.opacity = easedEntrance * depthFade
+        mesh.material.opacity = easedEntrance
         mesh.rotation.z = Math.sin(mesh.position.z * 0.08) * 0.03
         mesh.position.y = mesh.userData.baseY + wobble
         mesh.scale.set(
@@ -205,7 +203,7 @@ export function ProductTunnel() {
       <canvas className="product-tunnel__canvas" ref={canvasRef} />
       <div className="product-tunnel__fallback">
         <Image
-          src="/images/showroom/brand-room/ranyepersonal-main.webp"
+          src="/images/showroom/home-tunnel/5fef74d3ae8c4fef9a864ba1f4074699.webp"
           alt=""
           fill
           priority

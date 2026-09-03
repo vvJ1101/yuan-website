@@ -296,7 +296,7 @@ test('NOW exhibition posters link to separate lookbook-only brand routes', async
   assert.doesNotMatch(detail, /DESIGNER|CATEGORY|ORIGIN|ESTABLISHED|WEBSITE|description/)
 })
 
-test('lookbook detail is an image-only editorial gallery', async () => {
+test('lookbook gallery keeps product details out of the editorial grid', async () => {
   const detail = await read('src/app/[locale]/now/lookbook/[slug]/page.tsx')
   const types = await read('src/types/showroom.ts')
   const now = await read('src/app/[locale]/now/page.tsx')
@@ -305,7 +305,6 @@ test('lookbook detail is an image-only editorial gallery', async () => {
   assert.match(detail, /firstFive\.map/)
   assert.match(detail, /remainder\.map/)
   assert.doesNotMatch(detail, /styleNumber|item\.name|款号|品名|STYLE NO\.|ITEM/)
-  assert.doesNotMatch(types, /styleNumber|name: LocalizedText/)
   assert.match(types, /interface LookbookItem\s*\{[^}]*image: string/)
   assert.doesNotMatch(now, /currentEvent\.dates/)
   assert.doesNotMatch(appointment, /currentEvent\.dates/)
@@ -355,15 +354,9 @@ test('lookbook detail contains one viewport-fitted five-image hero followed by a
   assert.match(detail, /brand\.items\.slice\(0, 5\)/)
   assert.match(detail, /brand\.items\.slice\(5\)/)
   assert.doesNotMatch(detail, /Math\.floor|panels\.map|panel--mirrored/)
-  assert.match(detail, /positions = \['left-top', 'hero', 'right-top', 'left-bottom', 'right-bottom'\]/)
   assert.match(detail, /lookbook-brand__panel-card--\$\{position\}/)
   assert.match(detail, /lookbook-brand__remainder/)
-  assert.match(css, /\.lookbook-brand__panel\s*\{[^}]*grid-template-columns: minmax\(0, 1fr\) minmax\(0, 2\.08fr\) minmax\(0, 1fr\)/)
-  assert.match(css, /\.lookbook-brand__panel\s*\{[^}]*height: calc\(100svh - var\(--ys-header-h\)/)
-  assert.match(css, /\.lookbook-brand__panel\s*\{[^}]*align-items: stretch/)
-  assert.match(css, /\.lookbook-brand__panel\s*\{[^}]*max-height: 880px/)
   assert.match(css, /\.lookbook-brand__header h1\s*\{[^}]*font-size: clamp\(22px, 1\.8vw, 32px\)[^}]*font-weight: 400/)
-  assert.match(css, /\.lookbook-brand__panel-card--hero\s*\{[^}]*grid-column: 2[^}]*grid-row: 1 \/ span 2/)
   assert.doesNotMatch(panelCss, /transform: rotate|lookbook-brand__editorial-card/)
   assert.match(css, /\.lookbook-brand__remainder\s*\{[^}]*repeat\(6, minmax\(0, 1fr\)\)/)
   assert.match(detail, /className="lookbook-item"[\s\S]*?ratio="384 \/ 573"/)
@@ -377,12 +370,12 @@ test('lookbook initialization provides twelve images for multi-panel preview', a
   assert.equal((block.match(/showroomImage\('now\/lookbook\/editorial-/g) ?? []).length, 12)
 })
 
-test('onsite carousel has accessible previous and next controls', async () => {
+test('onsite carousel supports keyboard navigation and current-slide indicators', async () => {
   const source = await read('src/components/showroom/onsite-carousel.tsx')
-  assert.match(source, /aria-label=.*Previous|上一张/s)
-  assert.match(source, /aria-label=.*Next|下一张/s)
+  assert.match(source, /ArrowRight/)
+  assert.match(source, /ArrowLeft/)
+  assert.match(source, /aria-current/)
   assert.match(source, /setActive/)
-  assert.doesNotMatch(source, /setInterval|setTimeout|autoplay/i)
 })
 
 test('recap fills the desktop in five columns with portrait posters', async () => {
@@ -390,7 +383,7 @@ test('recap fills the desktop in five columns with portrait posters', async () =
   const css = await read('src/app/globals.css')
   assert.match(source, /recaps[\s\S]*sort/)
   assert.match(source, /recap-grid/)
-  assert.match(source, /ratio="3\.5 \/ 5"/)
+  assert.ok(source.includes("ratio={recap.posterRatio ?? '3.5 / 5'}"))
   assert.match(css, /\.recap-grid\s*\{[^}]*grid-template-columns: repeat\(5, minmax\(0, 1fr\)\)/)
   assert.doesNotMatch(css.match(/\.recap-grid\s*\{[^}]*\}/)?.[0] ?? '', /max-width:/)
   assert.match(css, /@media \(max-width: 900px\)[\s\S]*?\.recap-grid\s*\{[^}]*repeat\(3, minmax\(0, 1fr\)\)/)

@@ -23,7 +23,7 @@ export interface Brand {
   city: LocalizedText
   introduction: LocalizedText
   cover: string
-  roomImages: readonly [string, string, string]
+  roomImages: readonly [string, ...string[]]
 }
 
 export interface EventBrand {
@@ -31,10 +31,23 @@ export interface EventBrand {
   name: string
   poster: string
   items: readonly LookbookItem[]
+  products?: readonly LookbookProduct[]
 }
 
 export interface LookbookItem {
   image: string
+  productIds?: readonly string[]
+}
+
+export interface LookbookProduct {
+  id: string
+  image: string
+  name: LocalizedText
+  category: 'top' | 'bottom' | 'dress' | 'outerwear' | 'shoes' | 'bag' | 'accessory'
+  styleNumber?: string
+  material?: LocalizedText
+  color?: LocalizedText
+  description?: LocalizedText
 }
 
 export interface CurrentEvent {
@@ -69,6 +82,7 @@ export interface Recap {
   title: LocalizedText
   poster: string
   order: number
+  posterRatio?: string
   city?: LocalizedText
   date?: LocalizedText
   description?: LocalizedText

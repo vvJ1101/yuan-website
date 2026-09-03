@@ -482,13 +482,13 @@ a.lookbook-index__card:hover > span {
 
 .onsite-page {
   min-height: calc(100svh - var(--ys-header-h));
-  padding: clamp(72px, 10vh, 112px) var(--ys-gutter) clamp(62px, 8vh, 90px);
+  padding: clamp(32px, 5vh, 64px) var(--ys-gutter) 40px;
 }
 
 .onsite-service {
   display: grid;
-  grid-template-columns: minmax(280px, 1fr) minmax(0, 2fr);
-  gap: clamp(42px, 6vw, 100px);
+  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.8fr);
+  gap: 28px clamp(40px, 6vw, 100px);
   align-items: center;
 }
 
@@ -503,14 +503,14 @@ a.lookbook-index__card:hover > span {
 }
 
 .onsite-service__number {
-  color: #b69b75;
-  font-family: var(--ys-font-serif);
-  font-size: 18px;
-  font-style: italic;
+  color: var(--ys-muted);
+  font-family: var(--ys-font-sans);
+  font-size: 11px;
+  letter-spacing: 0.06em;
 }
 
 .onsite-service h1 {
-  margin-top: clamp(32px, 4vh, 44px);
+  margin-top: 22px;
   font-family: var(--ys-font-serif);
   font-size: clamp(43px, 4.4vw, 72px);
   font-weight: 400;
@@ -519,22 +519,26 @@ a.lookbook-index__card:hover > span {
 }
 
 .onsite-service__description {
-  max-width: 35em;
-  margin-top: clamp(34px, 5vh, 54px);
+  max-width: 29em;
+  margin-top: 28px;
   font-size: clamp(13px, 1vw, 17px);
   line-height: 1.85;
 }
 
 .onsite-service dl {
-  margin: clamp(42px, 6vh, 64px) 0 0;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(24px, 4vw, 64px);
+  margin: 0;
 }
 
 .onsite-service dl > div {
   display: grid;
-  grid-template-columns: minmax(76px, 0.55fr) 1.45fr;
-  gap: 20px;
-  padding: 14px 0;
-  border-bottom: 1px solid #d8d8d8;
+  align-content: start;
+  gap: 10px;
+  padding: 18px 0 0;
+  border-top: 1px solid #e6e6e6;
 }
 
 .onsite-service dt,
@@ -551,70 +555,49 @@ a.lookbook-index__card:hover > span {
 .onsite-carousel {
   position: relative;
   min-width: 0;
-  padding-bottom: 42px;
 }
 
 .onsite-carousel__viewport {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 10;
+  height: auto;
+  max-height: clamp(300px, calc(100svh - var(--ys-header-h) - 210px), 680px);
   overflow: hidden;
   background: #eee;
+  touch-action: pan-y;
+  user-select: none;
+  cursor: grab;
 }
+
+.onsite-carousel__viewport:active { cursor: grabbing; }
+.onsite-carousel__viewport:focus-visible { outline: 1px solid currentColor; outline-offset: 5px; }
 
 .onsite-carousel__viewport img {
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 700ms ease;
 }
 
-.onsite-carousel__arrow {
-  position: absolute;
-  top: calc(50% - 21px);
+.onsite-carousel__viewport img.is-active { opacity: 1; }
+
+.onsite-carousel__dots { display: flex; justify-content: center; padding-top: 4px; }
+.onsite-carousel__dots button {
   display: grid;
-  width: 44px;
-  height: 44px;
-  padding: 0;
   place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
   border: 0;
   background: transparent;
-  color: var(--ys-ink);
-  cursor: pointer;
-  font: inherit;
-  transform: translateY(-50%);
-}
-
-.onsite-carousel__arrow span {
-  font-size: 42px;
-  font-weight: 200;
-  line-height: 1;
-}
-
-.onsite-carousel__arrow--previous {
-  left: -50px;
-}
-
-.onsite-carousel__arrow--next {
-  right: -50px;
-}
-
-.onsite-carousel__dots {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 26px;
-}
-
-.onsite-carousel__dots button {
-  width: 9px;
-  height: 9px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: #c7c7c7;
   cursor: pointer;
 }
+.onsite-carousel__dots button span { width: 5px; height: 5px; border-radius: 50%; background: #c9c9c9; }
+.onsite-carousel__dots button[aria-current='true'] span { background: var(--ys-ink); }
+.onsite-carousel__dots button:focus-visible { outline: 1px solid currentColor; outline-offset: -2px; }
 
-.onsite-carousel__dots button[aria-current='true'] {
-  background: var(--ys-ink);
+@media (prefers-reduced-motion: reduce) {
+  .onsite-carousel__viewport img { transition: none; }
 }
 
 .recap-page {
@@ -1143,15 +1126,12 @@ a.lookbook-index__card:hover > span {
 
 .lookbook-brand__panel {
   display: grid;
-  width: min(100%, calc((100svh - var(--ys-header-h) - clamp(170px, 22vh, 220px)) * 1.9));
-  height: calc(100svh - var(--ys-header-h) - clamp(170px, 22vh, 220px));
-  min-height: 340px;
-  max-height: 880px;
+  width: min(100%, calc((100svh - var(--ys-header-h) - 210px) * 2.7));
   margin-inline: auto;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 2.08fr) minmax(0, 1fr);
-  grid-template-rows: repeat(2, minmax(0, 1fr));
-  gap: clamp(18px, 2vw, 34px) clamp(18px, 2.3vw, 38px);
-  align-items: stretch;
+  grid-template-columns: 0.7fr 0.88fr 1.3fr 0.88fr 0.7fr;
+  aspect-ratio: 2.4;
+  gap: clamp(12px, 2vw, 32px);
+  align-items: end;
 }
 
 .lookbook-item {
@@ -1159,22 +1139,74 @@ a.lookbook-index__card:hover > span {
 }
 
 .lookbook-brand__panel-card { min-width: 0; min-height: 0; }
-.lookbook-brand__panel-card .media-frame { width: 100%; height: 100%; aspect-ratio: auto !important; }
-.lookbook-brand__panel-card--left-top { grid-column: 1; grid-row: 1; }
-.lookbook-brand__panel-card--left-bottom { grid-column: 1; grid-row: 2; }
-.lookbook-brand__panel-card--right-top { grid-column: 3; grid-row: 1; }
-.lookbook-brand__panel-card--right-bottom { grid-column: 3; grid-row: 2; }
-.lookbook-brand__panel-card--hero { grid-column: 2; grid-row: 1 / span 2; }
+.lookbook-image-button { display: block; width: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+.lookbook-image-button:focus-visible { outline: 1px solid currentColor; outline-offset: 5px; }
+.lookbook-brand__panel-card .media-frame { width: 100%; }
+.lookbook-brand__panel-card .media-frame img { transform: scale(var(--lookbook-image-scale, 1)); }
+.lookbook-brand .media-frame img { object-fit: contain; }
 .lookbook-brand__remainder {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: clamp(8px, 0.8vw, 14px);
+  gap: clamp(32px, 5vw, 72px) clamp(12px, 1.4vw, 24px);
   margin-top: clamp(90px, 13vh, 150px);
 }
 
 .lookbook-brand__pending {
   color: var(--ys-muted);
   text-align: center;
+}
+
+.lookbook-viewer { position: fixed; inset: 0; width: 100%; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 24px var(--ys-gutter); border: 0; background: #fff; color: var(--ys-ink); }
+.lookbook-viewer[open] { display: grid; grid-template-rows: 44px minmax(0, 1fr) 52px; gap: 16px; }
+.lookbook-viewer::backdrop { background: #fff; }
+.lookbook-viewer__header, .lookbook-viewer__footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; font-family: var(--ys-font-sans); font-size: 12px; }
+.lookbook-viewer__footer { justify-content: center; gap: 28px; font-variant-numeric: tabular-nums; }
+.lookbook-viewer button { min-width: 44px; min-height: 44px; padding: 8px; border: 0; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.lookbook-viewer button:focus-visible { outline: 1px solid currentColor; }
+.lookbook-viewer__image { position: relative; min-height: 0; }
+.lookbook-viewer__image img { object-fit: contain; }
+.lookbook-viewer__identity { display: grid; gap: 6px; }
+.lookbook-viewer__identity > span:last-child { font-size: var(--ys-type-caption); color: var(--ys-muted); }
+.lookbook-viewer__content { display: grid; min-height: 0; min-width: 0; }
+.lookbook-viewer__content--styled { grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr); gap: clamp(32px, 5vw, 80px); }
+.lookbook-viewer__styling { overflow-y: auto; overscroll-behavior: contain; min-width: 0; padding: 12px 8px 12px 0; font-family: var(--ys-font-sans); }
+.lookbook-viewer__styling-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+.lookbook-viewer__styling h2, .lookbook-viewer__styling h3 { margin: 0; font-size: var(--ys-type-card-title); font-weight: 400; }
+.lookbook-viewer__styling-heading > span, .lookbook-viewer__category, .lookbook-viewer__sku { font-size: var(--ys-type-body-small); color: #595959; }
+.lookbook-viewer__products { display: grid; gap: 12px; }
+.lookbook-viewer .lookbook-viewer__product { display: grid; grid-template-columns: clamp(80px, 16svh, 128px) minmax(0, 1fr); gap: 16px; align-items: center; width: 100%; padding: 0 0 12px; text-align: start; border-bottom: 1px solid #e7e7e7; cursor: zoom-in; }
+.lookbook-viewer__product-image, .lookbook-viewer__look-thumb { position: relative; display: block; aspect-ratio: 3 / 4; }
+.lookbook-viewer__product-image { aspect-ratio: 1; }
+.lookbook-viewer__product-image img, .lookbook-viewer__look-thumb img { object-fit: contain; }
+.lookbook-viewer__product-copy { display: grid; gap: 8px; overflow-wrap: anywhere; font-size: var(--ys-type-card-title); line-height: var(--ys-leading-compact); }
+.lookbook-viewer__product[aria-pressed="true"] .lookbook-viewer__product-image { outline: 1px solid var(--ys-ink); outline-offset: 3px; }
+.lookbook-viewer .lookbook-viewer__return { position: absolute; top: 12px; left: 12px; display: grid; justify-items: center; gap: 6px; width: 88px; padding: 8px; background: #fff; border: 1px solid #e7e7e7; font-size: var(--ys-type-caption); }
+.lookbook-viewer__look-thumb { width: 64px; }
+.lookbook-viewer__return > svg { position: absolute; right: 6px; top: 6px; }
+.lookbook-viewer .lookbook-viewer__image-surface { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; overflow: hidden; touch-action: none; user-select: none; cursor: zoom-in; }
+.lookbook-viewer__image-surface[aria-pressed="true"] { cursor: grab; }
+.lookbook-viewer__image-surface[aria-pressed="true"]:active { cursor: grabbing; }
+.lookbook-viewer__image-surface img { pointer-events: none; }
+.lookbook-viewer .lookbook-viewer__zoom { position: absolute; bottom: 12px; right: 12px; display: flex; align-items: center; gap: 8px; padding: 10px; background: #fff; font-size: var(--ys-type-caption); font-variant-numeric: tabular-nums; }
+.lookbook-viewer__product-detail { padding-top: 24px; }
+.lookbook-viewer__product-detail dl { font-size: var(--ys-type-body-small); line-height: var(--ys-leading-compact); }
+.lookbook-viewer__product-detail dl > div { display: grid; grid-template-columns: 64px 1fr; gap: 12px; margin-top: 8px; }
+.lookbook-viewer__product-detail dt { color: #595959; }
+.lookbook-viewer__product-detail dd { margin: 0; }
+.lookbook-viewer__product-detail p { white-space: pre-line; margin: 12px 0 0; font-size: var(--ys-type-body-small); line-height: var(--ys-leading-body); }
+.lookbook-viewer__footer button { display: grid; place-items: center; }
+.lookbook-viewer button:disabled { opacity: 0.3; cursor: default; }
+@media (hover: hover) and (pointer: fine) {
+  .lookbook-viewer__product:hover .lookbook-viewer__product-image { outline: 1px solid #aaa; outline-offset: 3px; }
+}
+@media (max-width: 900px) {
+  .lookbook-viewer { padding-block: 16px; }
+  .lookbook-viewer__content--styled { display: block; overflow-y: auto; overscroll-behavior: contain; }
+  .lookbook-viewer__content--styled > .lookbook-viewer__image { height: 62svh; min-height: 280px; }
+  .lookbook-viewer__styling { overflow: visible; padding: 32px 4px 16px; }
+  .lookbook-viewer__products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 20px; }
+  .lookbook-viewer .lookbook-viewer__product { display: flex; flex-direction: column; align-items: stretch; gap: 14px; justify-content: flex-start; }
+  .lookbook-viewer__identity { min-width: 0; overflow-wrap: anywhere; }
 }
 
 .showroom-cover {
@@ -2195,7 +2227,6 @@ a.lookbook-index__card:hover > span {
   }
 
   .lookbook-brand__panel {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
     width: 100%;
     height: auto;
     min-height: 0;
@@ -2213,17 +2244,10 @@ a.lookbook-index__card:hover > span {
     grid-template-columns: 1fr;
   }
 
-  .onsite-carousel__arrow--previous {
-    left: 6px;
-  }
-
-  .onsite-carousel__arrow--next {
-    right: 6px;
-  }
-
-  .onsite-carousel__arrow {
-    color: #fff;
-    text-shadow: 0 1px 5px #0008;
+  .onsite-carousel__viewport {
+    height: auto;
+    max-height: none;
+    aspect-ratio: 3 / 2;
   }
 
   .recap-grid {
@@ -2239,6 +2263,7 @@ a.lookbook-index__card:hover > span {
 
   .lookbook-brand__panel {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    aspect-ratio: auto;
     grid-template-rows: none;
     gap: 10px;
   }
@@ -2250,8 +2275,9 @@ a.lookbook-index__card:hover > span {
 
   .lookbook-brand__panel-card .media-frame {
     height: auto;
-    aspect-ratio: 1 / 1 !important;
   }
+
+  .lookbook-brand__panel-card--hero:nth-child(n) { grid-column: 1 / -1; grid-row: 1; width: 65%; justify-self: center; }
 
   :root {
     --ys-gutter: 24px;
@@ -2561,10 +2587,7 @@ a.lookbook-index__card:hover > span {
     margin-top: 48px;
   }
 
-  .onsite-service h1 {
-    font-size: 48px;
-  }
-
+  .onsite-service dl { grid-template-columns: 1fr; gap: 16px; }
   .onsite-service dl > div {
     grid-template-columns: 72px minmax(0, 1fr);
   }
