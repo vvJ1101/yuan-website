@@ -202,7 +202,7 @@ test('recap detail only opens with a video hero when that season has a video', a
   assert.doesNotMatch(detail, /loop/)
   assert.match(detail, /\{recap\.video && \([\s\S]*?className="recap-detail__video-opening"/)
   assert.doesNotMatch(detail, /recap\.video \? \([\s\S]*?: \([\s\S]*?<Image/)
-  assert.match(detail, />CLOSE</)
+  assert.match(detail, /locale === 'cn' \? '关闭' : 'Close'/)
   assert.match(detail, /className="recap-detail__article"/)
   assert.match(detail, /recap\.pages\.map/)
   assert.match(detail, /previous/)

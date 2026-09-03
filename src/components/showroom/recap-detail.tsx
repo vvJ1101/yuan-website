@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { MediaFrame } from '@/components/showroom/media-frame'
 import { localize } from '@/lib/showroom-i18n'
 import { localePath } from '@/lib/showroom-routing'
-import type { Locale, Recap } from '@/types/showroom'
+import type { Locale, Recap, RecapSection } from '@/types/showroom'
 
 interface RecapDetailProps {
   locale: Locale
@@ -13,20 +13,13 @@ interface RecapDetailProps {
   next: Recap
 }
 
-const galleryLayouts = [
-  { name: 'feature', ratio: '16 / 9', sizes: '(max-width: 900px) 100vw, 76vw' },
-  { name: 'portrait-left', ratio: '4 / 5', sizes: '(max-width: 900px) 82vw, 34vw' },
-  { name: 'portrait-right', ratio: '4 / 5', sizes: '(max-width: 900px) 76vw, 31vw' },
-  { name: 'wide-offset', ratio: '16 / 10', sizes: '(max-width: 900px) 92vw, 58vw' },
-  { name: 'small', ratio: '4 / 3', sizes: '(max-width: 900px) 72vw, 29vw' },
-] as const
-
 export function RecapDetail({ locale, recap, previous, next }: RecapDetailProps) {
   const title = localize(recap.title, locale)
+  const sections: readonly RecapSection[] = recap.sections ?? recap.gallery.map((image) => ({ image }))
 
   return (
     <main className="recap-detail">
-      <Link className="recap-detail__close" href={localePath(locale, '/recap')}>CLOSE</Link>
+      <Link className="recap-detail__close" href={localePath(locale, '/recap')}>{locale === 'cn' ? '关闭' : 'Close'}</Link>
 
       {recap.video && (
         <section className="recap-detail__video-opening" aria-labelledby="recap-video-title">
@@ -46,13 +39,24 @@ export function RecapDetail({ locale, recap, previous, next }: RecapDetailProps)
 
       <article className="recap-detail__article" aria-labelledby="recap-article-title">
         <header className="recap-detail__intro">
-          <p className="recap-detail__kicker">YUAN SHOWROOM / RECAP</p>
-          <h1 id="recap-article-title"><span>{recap.season}</span>{title}</h1>
-          <dl>
-            {recap.city && <div><dt>{locale === 'cn' ? '城市' : 'CITY'}</dt><dd>{localize(recap.city, locale)}</dd></div>}
-            {recap.date && <div><dt>{locale === 'cn' ? '季次' : 'SEASON'}</dt><dd>{localize(recap.date, locale)}</dd></div>}
-          </dl>
-          {recap.description && <p className="recap-detail__lead">{localize(recap.description, locale)}</p>}
+          <p className="recap-detail__kicker">{locale === 'cn' ? '展会回顾' : 'Seasonal Review'}</p>
+          <h1 id="recap-article-title">{title}</h1>
+          <p className="recap-detail__meta">{recap.season}{recap.city && ` · ${localize(recap.city, locale)}`}</p>
+          {sections.length > 0 && <a className="recap-detail__gallery-preview" href="#recap-gallery">
+          <div className="recap-detail__thumbnails" aria-hidden="true">
+            {sections.slice(0, 3).map(({ image: src }, index) => (
+              <Image
+                key={`${recap.slug}-thumbnail-${index + 1}`}
+                src={src}
+                alt=""
+                width={42}
+                height={56}
+                sizes="42px"
+              />
+            ))}
+          </div>
+          <span className="recap-detail__view-gallery">{locale === 'cn' ? '查看图片' : 'View gallery'}</span>
+          </a>}
         </header>
 
         {recap.pages.length > 0 && (
@@ -70,23 +74,39 @@ export function RecapDetail({ locale, recap, previous, next }: RecapDetailProps)
           </section>
         )}
 
-        {recap.gallery.length > 0 && (
-          <section className="recap-detail__gallery" aria-label={locale === 'cn' ? '现场照片' : 'On-site gallery'}>
-            {recap.gallery.map((src, index) => {
-              const layout = galleryLayouts[index % galleryLayouts.length]
+        <MediaFrame
+          className="recap-detail__hero"
+          src={recap.poster}
+          alt={`${recap.season} ${title}`}
+          ratio="16 / 10"
+          sizes="(max-width: 700px) 92vw, 66vw"
+          priority={!recap.video}
+        />
 
-              return (
+        {recap.description && (
+          <div className="recap-detail__opening-copy">
+            <p>{localize(recap.description, locale)}</p>
+            {recap.date && <p>{localize(recap.date, locale)}</p>}
+          </div>
+        )}
+
+        {sections.length > 0 && (
+          <section id="recap-gallery" className="recap-detail__gallery" aria-label={locale === 'cn' ? '现场照片' : 'On-site gallery'}>
+            {sections.map((section, index) => (
+              <section className="recap-detail__chapter" key={`${recap.slug}-gallery-${index + 1}`}>
+                {section.title && <h2>{localize(section.title, locale)}</h2>}
                 <MediaFrame
-                  className={`recap-detail__gallery-item recap-detail__gallery-item--${layout.name}`}
-                  key={`${recap.slug}-gallery-${index + 1}`}
-                  src={src}
+                  className="recap-detail__gallery-item"
+                  src={section.image}
                   alt={`${recap.season} ${locale === 'cn' ? '现场照片' : 'on-site view'} ${index + 1}`}
-                  ratio={layout.ratio}
-                  sizes={layout.sizes}
-                  priority={!recap.video && index === 0}
+                  ratio="16 / 10"
+                  sizes="(max-width: 700px) 86vw, 58vw"
                 />
-              )
-            })}
+                {section.paragraphs?.map((paragraph, paragraphIndex) => (
+                  <p key={paragraphIndex}>{localize(paragraph, locale)}</p>
+                ))}
+              </section>
+            ))}
           </section>
         )}
       </article>

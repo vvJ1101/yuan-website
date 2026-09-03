@@ -57,6 +57,12 @@ export interface OnSiteService {
   images: readonly string[]
 }
 
+export interface RecapSection {
+  image: string
+  title?: LocalizedText
+  paragraphs?: readonly LocalizedText[]
+}
+
 export interface Recap {
   slug: string
   season: string
@@ -70,4 +76,5 @@ export interface Recap {
   videoPoster?: string
   pages: readonly string[]
   gallery: readonly string[]
+  sections?: readonly RecapSection[]
 }

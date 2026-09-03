@@ -254,6 +254,23 @@ export const recaps: Recap[] = [
     videoPoster: showroomImage('recap/ss-2026.webp'),
     pages: [],
     gallery: onSiteServices[0].images,
+    sections: onSiteServices[0].images.map((image, index) => ({
+      image,
+      title: [
+        { cn: '空间', en: 'The Space' },
+        { cn: '细节', en: 'Details' },
+        { cn: '现场', en: 'On Site' },
+        { cn: '片刻', en: 'Moments' },
+        { cn: '回望', en: 'In Retrospect' },
+      ][index],
+      paragraphs: [
+        [ { cn: '从空间出发，回顾品牌、买手与现场相遇的场景。', en: 'An opening view of the space where brands, buyers, and the showroom meet.' } ],
+        [ { cn: '以近处的细节，延续对于当季空间的观察。', en: 'A closer perspective on the details of the seasonal setting.' } ],
+        [ { cn: '记录现场，也记录人与空间之间的关系。', en: 'A record of the setting and the relationship between people and space.' } ],
+        [ { cn: '将目光停留在现场的一个片刻。', en: 'A pause to look at a moment within the showroom.' } ],
+        [ { cn: '以影像留存本季现场，期待下一次相遇。', en: 'Images to remember this edition, until we meet again.' } ],
+      ][index],
+    })),
   },
   { slug: 'aw-2025', season: 'AW 2025', title: { cn: '重塑', en: 'Reframed' }, poster: showroomImage('recap/aw-2025.webp'), order: 2, pages: [], gallery: [] },
   { slug: 'ss-2025', season: 'SS 2025', title: { cn: '流动的秩序', en: 'Order in Motion' }, poster: showroomImage('recap/ss-2025.webp'), order: 3, pages: [], gallery: [] },
