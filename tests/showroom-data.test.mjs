@@ -78,13 +78,14 @@ test('current event independently initializes the twelve approved exhibition bra
   assert.doesNotMatch(event, /brands\.map|exhibitionBrandSlugs|A\.NOUR|LE17SEPTEMBRE/)
 })
 
-test('every initialized event brand starts with twelve images for multi-panel preview', async () => {
+test('event brands retain their initial images with an independent RANYEPERSONAL preview', async () => {
   const source = await read('src/data/showroom.ts')
   const lookbook = source.slice(source.indexOf('const editorialLookbook'), source.indexOf('export const currentEvent'))
   const event = source.slice(source.indexOf('export const currentEvent'), source.indexOf('export const onSiteServices'))
 
   assert.equal([...lookbook.matchAll(/now\/lookbook\/editorial-\d{2}\.png/g)].length, 12)
-  assert.equal([...event.matchAll(/items: editorialLookbook/g)].length, 12)
+  assert.equal([...event.matchAll(/items: editorialLookbook/g)].length, 9)
+  assert.match(event, /slug: 'ranyepersonal'.*items: ranyePreviewLookbook/)
   assert.doesNotMatch(lookbook, /styleNumber|name:/)
 })
 

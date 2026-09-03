@@ -89,11 +89,9 @@ const showroomImages = {
   'now/appointment-qr.webp': image('/images/showroom/now/appointment-qr.webp', '上海时装周订货会预约二维码', 'Shanghai Fashion Week showroom appointment QR code'),
   'now/appointment-qr-27ps.png': image('/images/showroom/now/appointment-qr-27ps.png', '27PS 上海订货会预约小程序码', '27PS Shanghai ordering season appointment mini-program code'),
   'now/appointment-qr-27ps-v2.png': image('/images/showroom/now/appointment-qr-27ps-v2.png', '27PS 上海订货会预约小程序码', '27PS Shanghai ordering season appointment mini-program code'),
-  'on-site/aano-caffe-01.webp': image('/images/showroom/on-site/aano-caffe-01.webp', 'Aano caffe 咖啡空间', 'Aano caffe showroom space'),
-  'on-site/aano-caffe-02.webp': image('/images/showroom/on-site/aano-caffe-02.webp', 'Aano caffe 咖啡空间', 'Aano caffe showroom space'),
-  'on-site/aano-caffe-03.webp': image('/images/showroom/on-site/aano-caffe-03.webp', 'Aano caffe 咖啡空间', 'Aano caffe showroom space'),
-  'on-site/aano-caffe-04.webp': image('/images/showroom/on-site/aano-caffe-04.webp', 'Aano caffe 咖啡空间', 'Aano caffe showroom space'),
-  'on-site/aano-caffe-05.webp': image('/images/showroom/on-site/aano-caffe-05.webp', 'Aano caffe 咖啡空间', 'Aano caffe showroom space'),
+  'on-site/aano-cafe-space.webp': image('/images/showroom/on-site/aano-cafe-space.webp', 'Aano Cafe 咖啡空间', 'Aano Cafe space'),
+  'on-site/aano-cafe-coffee.webp': image('/images/showroom/on-site/aano-cafe-coffee.webp', 'Aano Cafe 手冲咖啡', 'Aano Cafe filter coffee'),
+  'on-site/aano-cafe-seating.webp': image('/images/showroom/on-site/aano-cafe-seating.webp', 'Aano Cafe 休憩空间', 'Aano Cafe seating'),
   'recap/ss-2026.webp': image('/images/showroom/recap/ss-2026.webp', 'SS 2026 订货会海报「无界之境」', 'SS 2026 ordering event poster, Beyond Boundaries'),
   'recap/ss-2026-layout.jpg': image('/images/showroom/recap/ss-2026-layout.jpg', 'SS 2026 订货会场景：建筑布局', 'SS 2026 recap scene: showroom layout'),
   'recap/ss-2026-cafe.jpg': image('/images/showroom/recap/ss-2026-cafe.jpg', 'SS 2026 订货会现场：咖啡服务区', 'SS 2026 recap scene: café service area'),
@@ -184,15 +182,24 @@ const editorialLookbook = [
   { image: showroomImage('now/lookbook/editorial-05.png') },
 ] as const
 
+// User-supplied womenswear, temporarily assigned for local layout previews.
+const suppliedLook = (number: number) => ({ image: `/images/showroom/now/lookbook/womenswear-upload-${number}.webp` })
+const ranyePreviewLookbook = [
+  ...editorialLookbook.slice(0, 5),
+  ...[1, 3, 5, 6, 10, 11].map(suppliedLook),
+]
+const maisonPreviewLookbook = [4, 7, 9, 12, 13].map(suppliedLook)
+const nhojPreviewLookbook = [14, 16, 18, 17, 15, 2, 8].map(suppliedLook)
+
 export const currentEvent: CurrentEvent = {
   city: { cn: '上海', en: 'Shanghai' },
   title: { cn: '上海时装周', en: 'Shanghai Fashion Week' },
   season: 'SS 2027',
   heroImage: showroomImage('now/event-v2.jpg'),
   exhibitionBrands: [
-    { slug: 'ranyepersonal', name: 'RANYEPERSONAL', poster: showroomImage('brands/ranyepersonal.webp'), items: editorialLookbook },
-    { slug: 'maison-ther', name: 'MAISON THER', poster: showroomImage('brands/maison-ther.webp'), items: editorialLookbook },
-    { slug: 'nhoj', name: 'NHOJ', poster: showroomImage('brands/nhoj.webp'), items: editorialLookbook },
+    { slug: 'ranyepersonal', name: 'RANYEPERSONAL', poster: showroomImage('brands/ranyepersonal.webp'), items: ranyePreviewLookbook },
+    { slug: 'maison-ther', name: 'MAISON THER', poster: showroomImage('brands/maison-ther.webp'), items: maisonPreviewLookbook },
+    { slug: 'nhoj', name: 'NHOJ', poster: showroomImage('brands/nhoj.webp'), items: nhojPreviewLookbook },
     { slug: 'playply', name: 'PLAYPLY', poster: showroomImage('brands/playply.webp'), items: editorialLookbook },
     { slug: 'alwools', name: 'ALWOOLS', poster: showroomImage('brands/alwools.webp'), items: editorialLookbook },
     { slug: 'tenspher', name: 'TENSPHER', poster: showroomImage('brands/tenspher.webp'), items: editorialLookbook },
@@ -227,17 +234,15 @@ export const appointmentContent = {
 
 export const onSiteServices: OnSiteService[] = [{
   id: 'aano-caffe',
-  name: 'Aano caffe',
-  description: { cn: '订货会现场的休憩与社交空间。在选品间隙，于暖光与咖啡香气中放缓节奏——Aano caffe 为买手与品牌提供一处可信赖的安静角落。', en: 'A place to pause and connect during the ordering session. Between selections, warm light and the aroma of coffee create a trusted, quiet corner for buyers and brands.' },
-  location: { cn: '展厅 2F · 中央庭园旁', en: 'Showroom 2F · Beside the central courtyard' },
+  name: 'Aano Cafe',
+  description: { cn: '选品间隙，停下来喝一杯咖啡。Aano Cafe 为买手与品牌提供一处休憩、交流的安静空间。', en: 'A pause between selections. Aano Cafe offers buyers and brands a quiet place for coffee, conversation, and a moment to reset.' },
+  location: { cn: '签到台右后方', en: 'Behind the check-in desk, to the right' },
   offering: { cn: '手冲咖啡 · 冷萃 · 轻食 · 甜点', en: 'Hand-brewed coffee · Cold brew · Light bites · Desserts' },
-  hours: { cn: '订货会每日 10:00 – 18:00', en: 'Daily during the ordering session, 10:00 – 18:00' },
+  hours: { cn: '活动期间每日 10:00 – 19:00', en: 'Daily during the event, 10:00 – 19:00' },
   images: [
-    showroomImage('on-site/aano-caffe-01.webp'),
-    showroomImage('on-site/aano-caffe-02.webp'),
-    showroomImage('on-site/aano-caffe-03.webp'),
-    showroomImage('on-site/aano-caffe-04.webp'),
-    showroomImage('on-site/aano-caffe-05.webp'),
+    showroomImage('on-site/aano-cafe-space.webp'),
+    showroomImage('on-site/aano-cafe-coffee.webp'),
+    showroomImage('on-site/aano-cafe-seating.webp'),
   ],
 }]
 
