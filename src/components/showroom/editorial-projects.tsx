@@ -30,15 +30,19 @@ function ProjectMeta({ project, locale }: { project: EditorialProject; locale: L
 }
 
 function ProjectCard({ project, locale, featured = false }: { project: EditorialProject; locale: Locale; featured?: boolean }) {
+  const featuredStory = featured && project.kind === 'event' ? eventStories[project.slug] : undefined
+
   return (
     <article className={`${featured ? 'editorial-feature' : 'editorial-card'} ${project.kind === 'event' ? 'event-entry' : 'collaboration-entry'}`}>
       <Link className="recap-card__link" href={localePath(locale, `/${sectionPath(project)}/${project.slug}`)}>
         <MediaFrame {...project.coverImage} ratio={project.kind === 'collaboration' && featured ? '16 / 9' : project.coverImage.ratio} alt={localize(project.coverImage.alt, locale)} priority={featured} sizes={project.kind === 'collaboration' ? (featured ? '92vw' : '(max-width: 640px) 92vw, 44vw') : featured ? '(max-width: 640px) 80vw, (max-width: 900px) 340px, 360px' : '(max-width: 640px) 30vw, 180px'} />
         <div className="editorial-card__copy">
+          {featured && project.kind === 'event' && <p className="event-entry__eyebrow" lang="en">01 / FEATURED EVENT</p>}
           {project.kind === 'event' && project.status && <p className="event-entry__status">{localizeEditorialCategory(project.status, locale)}</p>}
           <h2 lang={project.kind === 'collaboration' ? 'en' : undefined}><ProjectName project={project} locale={locale} /></h2>
           <ProjectMeta project={project} locale={locale} />
           {featured && project.kind === 'event' && localize(project.venue, locale) && <p>{localize(project.venue, locale)}</p>}
+          {featuredStory && <p className="event-entry__intro">{localize(featuredStory.intro, locale)}</p>}
           <span className="editorial-link">{locale === 'cn' ? '查看详情' : project.kind === 'event' ? 'VIEW EVENT' : 'VIEW PROJECT'}</span>
         </div>
       </Link>
