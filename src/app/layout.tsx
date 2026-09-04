@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     description: 'YUAN SHOWROOM是深圳（香港）时胜集团的综合性商业时尚管理平台。集品牌代理、全域营销、文娱传媒与战略投资于一体，融合AI智能与知识管理，赋能商业长期价值。',
     url: 'https://yuanshowroom.cn',
     siteName: 'YUAN SHOWROOM',
-    images: [{ url: '/images/showroom/hero-reference.png', width: 1200, height: 630, alt: 'YUAN SHOWROOM 品牌形象' }],
+    images: [{ url: '/images/showroom/yuan-search-thumbnail.png', width: 1200, height: 1200, alt: 'YUAN SHOWROOM Logo' }],
     locale: 'zh_CN',
     type: 'website',
   },
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'YUAN SHOWROOM国际时尚品牌管理平台',
     description: 'YUAN SHOWROOM是深圳（香港）时胜集团的综合性商业时尚管理平台。集品牌代理、全域营销、文娱传媒与战略投资于一体，融合AI智能与知识管理，赋能商业长期价值。',
-    images: [{ url: '/images/showroom/hero-reference.png', alt: 'YUAN SHOWROOM 品牌形象' }],
+    images: [{ url: '/images/showroom/yuan-search-thumbnail.png', alt: 'YUAN SHOWROOM Logo' }],
   },
   other: {
     'baidu-site-verification': 'codeva-0wAwq3lCfI',
@@ -60,7 +60,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               alternateName: 'YUANSHOWROOM',
               description: '连接国际设计师品牌与中国市场生态的系统性品牌管理支持平台',
               url: 'https://yuanshowroom.cn/',
-              logo: 'https://yuanshowroom.cn/favicon.png',
+              logo: 'https://yuanshowroom.cn/images/showroom/yuan-search-thumbnail.png',
+              image: 'https://yuanshowroom.cn/images/showroom/yuan-search-thumbnail.png',
               contactPoint: {
                 '@type': 'ContactPoint',
                 email: 'heshiya@yuanshowroom.vip',
