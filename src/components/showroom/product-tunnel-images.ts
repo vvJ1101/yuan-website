@@ -1,10 +1,10 @@
-// Keep the tunnel at 52 distinct assets while mixing products, looks and a small number of spatial studies.
+// Keep the tunnel at 52 content-distinct fashion assets: products and front-facing looks only.
 export const productTunnelImages = [
-  '/images/editorial/spatial-studies/sophie-03.webp',
-  '/images/editorial/spatial-studies/sophie-06.webp',
-  '/images/editorial/spatial-studies/sophie-09.webp',
-  '/images/editorial/spatial-studies/casa-02.webp',
-  '/images/editorial/spatial-studies/casa-03.webp',
+  '/images/showroom/home-tunnel/243a05a0f9d04425bd1d141498a236e3.webp',
+  '/images/showroom/home-tunnel/5eae1043526f48aea21365b733bd7275.webp',
+  '/images/showroom/home-tunnel/d9276e76a91b4f52b8b8267c3eff4f43.webp',
+  '/images/showroom/home-tunnel/fbbce468f535494fa8473c9cd91132f5.webp',
+  '/images/showroom/home-tunnel/0aaeb76b9dee4e14918e7ef1d53b9e4e.webp',
   '/images/showroom/home-tunnel/bf354105354545ab9c64c211fa3ee5f1.webp',
   '/images/showroom/home-tunnel/c84198617360468aa70e4af8b4f87cc4.webp',
   '/images/showroom/home-tunnel/af798ee271484f0e9a784c77b9972e8c.webp',
@@ -41,7 +41,7 @@ export const productTunnelImages = [
   '/images/showroom/home-tunnel/b52491378235472599b90f9fa8053b44.webp',
   '/images/showroom/home-tunnel/d09c8f985bf54a41b2beca77c5e2316e.webp',
   '/images/showroom/home-tunnel/e8b28554191a4adaa010f9968bc47ae9.webp',
-  '/images/showroom/home-tunnel/f48d54c038434ea283651d74f857fe00.webp',
+  '/images/showroom/home-tunnel/053e512d435a4025be8e3b0c4a8ce9de.webp',
   '/images/showroom/home-tunnel/y2k-editorial-01.webp',
   '/images/showroom/home-tunnel/y2k-editorial-02.webp',
   '/images/showroom/home-tunnel/y2k-editorial-03.webp',

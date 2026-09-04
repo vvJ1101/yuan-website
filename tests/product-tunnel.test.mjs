@@ -1,8 +1,9 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
+import { createHash } from 'node:crypto'
 import * as tunnelModel from '../src/components/showroom/product-tunnel-model.mjs'
 import { productTunnelImages } from '../src/components/showroom/product-tunnel-images.ts'
-import { existsSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import {
   createTunnelLayout,
   getTunnelBudget,
@@ -18,6 +19,12 @@ test('image pool covers every desktop slot with distinct existing assets', () =>
 test('image pool stays at 52 assets while carrying ten temporary Y2K editorials', () => {
   assert.equal(productTunnelImages.length, 52)
   assert.equal(productTunnelImages.filter(path => path.includes('/y2k-editorial-')).length, 10)
+})
+
+test('homepage image pool contains no spatial studies or duplicate image content', () => {
+  assert.equal(productTunnelImages.some(path => path.includes('/spatial-studies/')), false)
+  const hashes = productTunnelImages.map(path => createHash('sha256').update(readFileSync(new URL(`../public${path}`, import.meta.url))).digest('hex'))
+  assert.equal(new Set(hashes).size, productTunnelImages.length)
 })
 
 test('slot selection never repeats assets, even with a small or duplicated pool', () => {
