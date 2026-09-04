@@ -18,6 +18,14 @@ test('lookbook detail uses the interactive second-screen index', async () => {
   assert.doesNotMatch(page, /lookbook-brand__remainder/)
 })
 
+test('brand detail strip is optional and requires three images', async () => {
+  const source = await read('src/components/showroom/brand-detail-strip.tsx')
+  assert.match(source, /if \(images\.length < 3\) return null/)
+  assert.match(source, /aria-label/)
+  const room = await read('src/components/showroom/brand-room.tsx')
+  assert.match(room, /<BrandDetailStrip/)
+})
+
 test('showroom header keeps the approved order and no hamburger', async () => {
   const source = await read('src/components/showroom/site-header.tsx')
   const brands = source.indexOf("label: 'Brands'")

@@ -166,7 +166,21 @@ export const aboutContent: AboutContent = {
   ],
 }
 
-export const brands: Brand[] = [
+const withDetailImages = (brand: Brand): Brand => brand.roomImages.length < 3 ? brand : {
+  ...brand,
+  detailImages: brand.roomImages.slice(0, 3).map((src, index) => ({
+    src,
+    ratio: index === 0 ? '16 / 15' : '1 / 1',
+    alt: { cn: `${brand.name} 品牌材质与造型细节 ${index + 1}`, en: `${brand.name} material and campaign detail ${index + 1}` },
+    label: [
+      { cn: '形态', en: 'SILHOUETTE' },
+      { cn: '材质', en: 'MATERIAL' },
+      { cn: '细节', en: 'DETAIL' },
+    ][index],
+  })),
+}
+
+const baseBrands: Brand[] = [
   { slug: 'ranyepersonal', name: 'RANYEPERSONAL', category: 'RTW', city: { cn: '上海', en: 'Shanghai' }, introduction: { cn: 'RANYEPERSONAL 以利落廓形和克制细节描绘当代女性的独立姿态，在日常与仪式感之间建立从容的着装语言。', en: 'RANYEPERSONAL frames the independent contemporary woman through precise silhouettes and restrained details, balancing everyday ease with a sense of occasion.' }, cover: showroomImage('brands/ranyepersonal.webp'), roomImages: [showroomImage('brand-room/ranyepersonal-main.webp'), showroomImage('brand-room/ranyepersonal-detail-01.webp'), showroomImage('brand-room/ranyepersonal-detail-02.webp')] },
   { slug: 'maison-ther', name: 'MAISON THER', category: 'RTW', city: { cn: '上海', en: 'Shanghai' }, introduction: { cn: 'MAISON THER 从长期主义出发，以柔和质地、简洁线条与经得起时间考验的衣橱作品回应现代生活。', en: 'Rooted in a long-term view, MAISON THER answers modern life with soft textures, clean lines, and wardrobe pieces designed to endure.' }, cover: showroomImage('brands/maison-ther.webp'), roomImages: [showroomImage('brand-room/maison-ther-main.webp'), showroomImage('brand-room/maison-ther-detail-01.webp'), showroomImage('brand-room/maison-ther-detail-02.webp')] },
   { slug: 'nhoj', name: 'NHOJ', category: 'RTW', city: { cn: '首尔', en: 'Seoul' }, introduction: { cn: 'NHOJ 是一个基于首尔的时装品牌，由设计师 Jung Jinwoo 于 2014 年创立。\n\n品牌以建筑与空间为思考起点，将结构、比例与秩序融入服装语言，探索穿着与空间之间的关系。\n\nNHOJ 的设计克制而精确，以实用性、持久性与中性的美学，构建出独立且一致的衣着系统。\n\n品牌在全球多个高端零售与展厅中呈现，并持续通过设计实践延展其独特的时装语言。', en: 'NHOJ is a Seoul-based fashion label founded by designer Jung Jinwoo in 2014.\n\nTaking architecture and space as its point of departure, the brand brings structure, proportion, and order into clothing to explore the relationship between dress and space.\n\nIts precise, restrained designs form an independent and coherent wardrobe through utility, longevity, and a gender-neutral aesthetic.\n\nPresented through select retailers and showrooms worldwide, NHOJ continues to develop its distinct design language through ongoing practice.' }, cover: showroomImage('brands/nhoj.webp'), roomImages: [showroomImage('brand-room/nhoj-main.webp'), showroomImage('brand-room/nhoj-detail-01.webp'), showroomImage('brand-room/nhoj-detail-02.webp')] },
@@ -183,6 +197,8 @@ export const brands: Brand[] = [
   { slug: 'reindeer', name: 'REINDEER', category: 'ACC', city: { cn: '首尔', en: 'Seoul' }, introduction: { cn: 'REINDEER 以不规则线条与极简语汇探索自由而松弛的配饰表达，为日常造型注入轻盈个性。', en: 'REINDEER explores free, relaxed accessories through irregular lines and a minimalist vocabulary, bringing a light individuality to everyday styling.' }, cover: showroomImage('brands/reindeer.webp'), roomImages: [showroomImage('brand-room/reindeer-main.webp'), showroomImage('brand-room/reindeer-detail-01.webp'), showroomImage('brand-room/reindeer-detail-02.webp')] },
   { slug: 'playply', name: 'PLAYAPLY', category: 'RTW', city: { cn: '上海', en: 'Shanghai' }, introduction: { cn: 'PLAYAPLY 以自然面料与轻盈结构承载柔软而清醒的女性气质，在日常穿着中保留自由的想象空间。', en: 'PLAYAPLY pairs natural fabrics with light construction, creating a soft yet clear-minded femininity and leaving room for freedom in everyday dress.' }, cover: showroomImage('brands/playply.webp'), roomImages: [showroomImage('brand-room/playply-main.webp'), showroomImage('brand-room/playply-detail-01.webp'), showroomImage('brand-room/playply-detail-02.webp')] },
 ]
+
+export const brands: Brand[] = baseBrands.map(withDetailImages)
 
 const editorialLookbook = [
   { image: showroomImage('now/lookbook/editorial-01.png') },
