@@ -15,6 +15,11 @@ test('image pool covers every desktop slot with distinct existing assets', () =>
   for (const path of productTunnelImages) assert.ok(existsSync(new URL(`../public${path}`, import.meta.url)), path)
 })
 
+test('image pool stays at 52 assets while carrying ten temporary Y2K editorials', () => {
+  assert.equal(productTunnelImages.length, 52)
+  assert.equal(productTunnelImages.filter(path => path.includes('/y2k-editorial-')).length, 10)
+})
+
 test('slot selection never repeats assets, even with a small or duplicated pool', () => {
   assert.equal(typeof tunnelModel.selectTunnelImages, 'function')
   for (const count of [28, 40, 52]) {
