@@ -1,16 +1,8 @@
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { MediaFrame } from '@/components/showroom/media-frame'
+import { NowEventDirectory } from '@/components/showroom/now-event-directory'
 import { currentEvent } from '@/data/showroom'
 import { isLocale, localize } from '@/lib/showroom-i18n'
-import { localePath } from '@/lib/showroom-routing'
-
-const destinations = [
-  { path: '/now/lookbook', cn: '参展品牌', en: 'LOOKBOOK' },
-  { path: '/now/floor-map', cn: '楼层介绍', en: 'FLOOR GUIDE' },
-  { path: '/now/appointment', cn: '预约通道', en: 'APPOINTMENT' },
-] as const
 
 export default async function NowPage({
   params,
@@ -21,34 +13,5 @@ export default async function NowPage({
 
   if (!isLocale(locale)) notFound()
 
-  return (
-    <main className="now-event">
-      <MediaFrame
-        className="now-event__image"
-        src={currentEvent.heroImage}
-        alt={`${localize(currentEvent.title, locale)} ${locale === 'cn' ? '展厅现场' : 'showroom'}`}
-        ratio="16 / 9"
-        sizes="(max-width: 900px) 100vw, 70vw"
-        priority
-        unoptimized
-      />
-
-      <aside className="now-event__sidebar">
-        <section className="now-event__summary" aria-labelledby="now-event-title">
-          <p className="now-event__eyebrow">NOW</p>
-          <h1 id="now-event-title">{localize(currentEvent.title, locale)}</h1>
-          <p className="now-event__season">{currentEvent.season}</p>
-        </section>
-
-        <nav className="now-event__destinations" aria-label={locale === 'cn' ? '当前订货会' : 'Current event'}>
-          {destinations.map((destination) => (
-            <Link href={localePath(locale, destination.path)} key={destination.path}>
-              <strong>{locale === 'cn' ? destination.cn : destination.en}</strong>
-              <span>{locale === 'cn' ? destination.en : destination.cn}</span>
-            </Link>
-          ))}
-        </nav>
-      </aside>
-    </main>
-  )
+  return <NowEventDirectory locale={locale} eventTitle={localize(currentEvent.title, locale)} season={currentEvent.season} />
 }

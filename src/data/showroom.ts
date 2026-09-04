@@ -70,6 +70,7 @@ const showroomImages = {
   'brand-room/reindeer-detail-02.webp': image('/images/showroom/brand-room/reindeer-detail-02.webp', 'REINDEER 品牌造型肖像', 'REINDEER campaign portrait'),
   'now/event.webp': image('/images/showroom/now/event.webp', '上海时装周订货会展厅内景', 'Shanghai Fashion Week showroom interior'),
   'now/event-v2.jpg': image('/images/showroom/now/event-v2.jpg', '半透明织物与黑白服装构成的上海时装周订货会空间', 'Shanghai Fashion Week ordering space with translucent textiles and monochrome garments'),
+  'now/event-architecture-20260904.png': image('/images/showroom/now/event-architecture-20260904.png', '石材与清水混凝土构成的现代展馆建筑', 'Modern pavilion architecture in stone and exposed concrete'),
   'now/lookbook/a-nour.webp': image('/images/showroom/now/lookbook/a-nour.webp', 'A.NOUR 展览品牌封面', 'A.NOUR exhibition brand cover'),
   'now/lookbook/blanche.webp': image('/images/showroom/now/lookbook/blanche.webp', 'BLANCHE 展览品牌封面', 'BLANCHE exhibition brand cover'),
   'now/lookbook/insis.webp': image('/images/showroom/now/lookbook/insis.webp', 'INSIS 展览品牌封面', 'INSIS exhibition brand cover'),
@@ -210,7 +211,7 @@ export const currentEvent: CurrentEvent = {
   city: { cn: '上海', en: 'Shanghai' },
   title: { cn: '上海时装周', en: 'Shanghai Fashion Week' },
   season: 'SS 2027',
-  heroImage: showroomImage('now/event-v2.jpg'),
+  heroImage: showroomImage('now/event-architecture-20260904.png'),
   exhibitionBrands: [
     { slug: 'ranyepersonal', name: 'RANYEPERSONAL', poster: showroomImage('brands/ranyepersonal.webp'), items: ranyePreviewLookbook, products: ranyePreviewProducts },
     { slug: 'maison-ther', name: 'MAISON THER', poster: showroomImage('brands/maison-ther.webp'), items: maisonPreviewLookbook },

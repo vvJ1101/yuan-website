@@ -277,21 +277,36 @@ test('brand book pages widen and shift left beside the fixed identity rail', asy
 })
 
 test('NOW landing links all three approved destinations', async () => {
-  const source = await read('src/app/[locale]/now/page.tsx')
+  const source = await read('src/components/showroom/now-event-directory.tsx')
   for (const path of ['lookbook', 'floor-map', 'appointment']) {
     assert.match(source, new RegExp(`/now/${path}`))
   }
   assert.doesNotMatch(source, /Arrow|<hr|<Image[^>]+className="now-link/i)
 })
 
-test('NOW landing is a two-column 16:9 composition contained in one desktop viewport', async () => {
-  const source = await read('src/app/[locale]/now/page.tsx')
-  const mediaFrame = await read('src/components/showroom/media-frame.tsx')
+test('NOW landing presents an interactive numbered editorial directory', async () => {
+  const page = await read('src/app/[locale]/now/page.tsx')
+  const directory = await read('src/components/showroom/now-event-directory.tsx')
   const css = await read('src/app/globals.css')
 
-  assert.match(source, /className="now-event__image"[\s\S]*?ratio="16 \/ 9"[\s\S]*?unoptimized/)
-  assert.match(mediaFrame, /unoptimized=\{unoptimized\}/)
-  assert.match(source, /className="now-event__sidebar"/)
+  assert.match(page, /<NowEventDirectory[\s\S]*?locale=\{locale\}[\s\S]*?eventTitle=\{localize\(currentEvent\.title, locale\)\}/)
+  assert.match(directory, /'use client'/)
+  assert.match(directory, /onMouseEnter=\{\(\) => setActiveIndex\(index\)\}/)
+  assert.match(directory, /onFocus=\{\(\) => setActiveIndex\(index\)\}/)
+  assert.match(directory, /aria-current=\{activeIndex === index \? 'true' : undefined\}/)
+  assert.match(directory, /String\(index \+ 1\)\.padStart\(2, '0'\)/)
+  assert.match(css, /\.now-event__preview\s*\{[^}]*position: relative[^}]*overflow: hidden/)
+  assert.match(css, /\.now-event__preview-image\s*\{[^}]*opacity: 0[^}]*transition: opacity 700ms/)
+  assert.match(css, /\.now-event__preview-image\[data-active='true'\]\s*\{[^}]*opacity: 1/)
+})
+
+test('NOW landing is a two-column 16:9 composition contained in one desktop viewport', async () => {
+  const directory = await read('src/components/showroom/now-event-directory.tsx')
+  const css = await read('src/app/globals.css')
+
+  assert.match(directory, /className="now-event__preview"/)
+  assert.match(directory, /className="now-event__sidebar"/)
+  assert.match(directory, /unoptimized/)
   assert.match(css, /\.now-event\s*\{[\s\S]*?grid-template-columns: minmax\(0, 1\.85fr\) minmax\(240px, 0\.65fr\)[\s\S]*?height: calc\(100svh - var\(--ys-header-h\)\)[\s\S]*?overflow: hidden/)
 })
 
