@@ -94,6 +94,20 @@ test('event brands retain their initial images with an independent RANYEPERSONAL
   assert.doesNotMatch(lookbook, /styleNumber|name:/)
 })
 
+test('the first five RANYEPERSONAL looks each expose three AI preview pieces', async () => {
+  const products = await read('src/data/lookbook-products.ts')
+  const showroom = await read('src/data/showroom.ts')
+  const productIds = [...products.matchAll(/id: '([^']+)'/g)].map((match) => match[1])
+
+  assert.equal(productIds.length, 15)
+  for (const lookNumber of [10, 9, 3, 5, 1]) {
+    const mapped = showroom.match(new RegExp(`\\n\\s*${lookNumber}: \\[([^\\]]+)\\]`))?.[1]
+    assert.ok(mapped, `missing product mapping for look ${lookNumber}`)
+    assert.equal([...mapped.matchAll(/'([^']+)'/g)].length, 3)
+  }
+  assert.match(showroom, /productIdsForLook\(number\)/)
+})
+
 test('recap includes six supplied events and retains the remaining earlier seasons', async () => {
   const source = await read('src/data/showroom.ts')
   const recapBlock = source.slice(source.indexOf('export const recaps'), source.length)

@@ -191,10 +191,16 @@ const editorialLookbook = [
 
 // User-supplied womenswear, temporarily assigned for local layout previews.
 const suppliedLook = (number: number) => ({ image: `/images/showroom/now/lookbook/womenswear-upload-${number}.webp` })
+const ranyeProductIdsByLook: Record<number, readonly string[]> = {
+  10: ['ranye-look10-top-preview', 'ranye-look10-skirt-preview', 'ranye-look10-shoes-preview'],
+  9: ['ranye-look09-top-preview', 'ranye-look09-bottom-preview', 'ranye-look09-shoes-preview'],
+  3: ['ranye-dress-preview', 'ranye-shoes-preview', 'ranye-headpiece-preview'],
+  5: ['ranye-look05-dress-preview', 'ranye-look05-shoes-preview', 'ranye-look05-arm-preview'],
+  1: ['ranye-look01-bodysuit-preview', 'ranye-look01-skirt-preview', 'ranye-look01-headscarf-preview'],
+}
+const productIdsForLook = (number: number) => ranyeProductIdsByLook[number] ?? []
 const ranyePreviewLookbook = [
-  ...[10, 9, 3, 5, 1].map(number => number === 3
-    ? { ...suppliedLook(number), productIds: ranyePreviewProducts.map(product => product.id) }
-    : suppliedLook(number)),
+  ...[10, 9, 3, 5, 1].map(number => ({ ...suppliedLook(number), productIds: productIdsForLook(number) })),
   ...[6, 4, 11, 7, 12, 16].map(suppliedLook),
 ]
 const maisonPreviewLookbook = [4, 7, 9, 12, 13].map(suppliedLook)
