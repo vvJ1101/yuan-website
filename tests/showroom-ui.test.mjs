@@ -115,6 +115,14 @@ test('about statistics use three evenly distributed columns', async () => {
   assert.match(css, /\.showroom-about__statistics\s*\{[\s\S]*?grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)[\s\S]*?column-gap: clamp\(28px, 4vw, 72px\)/)
 })
 
+test('about fills landscape tablet height without leaving an empty lower panel', async () => {
+  const css = await read('src/app/globals.css')
+
+  assert.match(css, /@media \(min-width: 901px\) and \(max-width: 1366px\) and \(orientation: landscape\)[\s\S]*?\.showroom-about\s*\{[^}]*display: grid[^}]*grid-template-rows: minmax\(0, 1fr\) auto/)
+  assert.match(css, /@media \(min-width: 901px\) and \(max-width: 1366px\) and \(orientation: landscape\)[\s\S]*?\.showroom-about__intro\s*\{[^}]*height: 100%/)
+  assert.match(css, /@media \(min-width: 901px\) and \(max-width: 1366px\) and \(orientation: landscape\)[\s\S]*?\.showroom-about__media\s*\{[^}]*height: 100%/)
+})
+
 test('brand index exposes RTW FTW ACC and linked rooms', async () => {
   const grid = await read('src/components/showroom/brand-grid.tsx')
   for (const category of ['RTW', 'FTW', 'ACC']) assert.match(grid, new RegExp(category))
@@ -155,10 +163,11 @@ test('brand index uses a natural four-column poster grid on landscape tablets', 
   const css = await read('src/app/globals.css')
 
   const tabletRules = css.slice(css.indexOf('@media (min-width: 901px) and (max-width: 1366px)'), css.indexOf('@media (min-width: 901px) and (max-height: 920px)'))
+  const brandRules = tabletRules.slice(tabletRules.indexOf('.brand-index'))
 
   assert.match(tabletRules, /\.brand-index__matrix\s*\{[^}]*grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)[^}]*align-content: start[^}]*padding-top: 0/)
   assert.match(tabletRules, /\.brand-index__card \.media-frame\s*\{[^}]*height: auto[^}]*aspect-ratio: 3 \/ 4 !important/)
-  assert.doesNotMatch(tabletRules, /overflow: hidden|grid-template-rows: repeat\(2|height: 100%|aspect-ratio: auto/)
+  assert.doesNotMatch(brandRules, /overflow: hidden|grid-template-rows: repeat\(2|height: 100%|aspect-ratio: auto/)
 })
 
 test('brand room renders paragraph breaks and avoids duplicate auxiliary keys', async () => {
