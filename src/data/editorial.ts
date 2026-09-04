@@ -61,15 +61,20 @@ const sampleBlocks: readonly CollaborationBlock[] = [
   { id: 'selection', type: 'gallery', images: sampleLooks, caption: { cn: '组图模块演示 · 重复使用以上素材，正式发布时替换为项目细节', en: 'Gallery demonstration · Images above are reused here; replace with project details before publication' } },
 ]
 
-const samplePartners = ['ATELIER A', 'STUDIO B', 'DESIGN LAB C', 'COLLECTIVE D']
+const sampleCollaborations = [
+  { partner: 'AERENNE', title: { cn: '静谧间隙', en: 'THE QUIET INTERVAL' } },
+  { partner: 'NULLA STUDIO', title: { cn: '柔软纪念碑', en: 'SOFT MONUMENTS' } },
+  { partner: 'ORBITAL OBJECTS', title: { cn: '暂停中的物件', en: 'OBJECTS IN PAUSE' } },
+  { partner: 'VOLUME N°7', title: { cn: '余晖之后', en: 'AFTERLIGHT' } },
+] as const
 const sampleFacade: EditorialImage = {
   src: '/images/showroom/about/draped-facade-20260903.webp', ratio: '626 / 778',
   alt: { cn: '织物覆盖的建筑立面，仅作艺术项目排版示例', en: 'Fabric-covered facade, used only as an art project layout sample' },
 }
 
 export const collaborations: readonly Collaboration[] = collaborationCategories.map((category, index) => ({
-  kind: 'collaboration', slug: `sample-${category.toLowerCase()}`, partner: samplePartners[index],
-  title: { cn: `${category} 合作项目示例`, en: `${category} collaboration sample` },
+  kind: 'collaboration', slug: `sample-${category.toLowerCase()}`, partner: sampleCollaborations[index].partner,
+  title: sampleCollaborations[index].title,
   category, year: 2026, featured: index === 0, isSample: true,
   subtitle: { cn: '创意相遇的另一种可能 · 排版示例', en: 'Another way for ideas to meet · Layout sample' },
   coverImage: [sampleLooks[0], sampleFacade, space, cafe][index], gallery: [index === 0 ? space : display],

@@ -387,6 +387,30 @@ test('editorial galleries bypass transient optimization for local WebP images', 
   assert.match(recap, /<Image src=\{src\}[^>]*unoptimized/)
 })
 
+test('collaboration directory auto-fades previews and links titles and images to detail pages', async () => {
+  const source = await read('src/components/showroom/collaboration-index.tsx')
+  const detail = await read('src/components/showroom/editorial-projects.tsx')
+  const css = await read('src/app/globals.css')
+
+  assert.match(source, /useEffect/)
+  assert.match(source, /setInterval/)
+  assert.match(source, /}, 3000\)/)
+  assert.match(source, /prefers-reduced-motion/)
+  assert.match(source, /href=\{projectHref\(project\.slug\)\}/)
+  assert.match(source, /href=\{projectHref\(selected\.slug\)\}/)
+  assert.match(source, /onMouseEnter=\{\(\) => setSelectedSlug\(project\.slug\)\}/)
+  assert.match(source, /`YUAN SHOWROOM × \$\{project\.partner\}`/)
+  assert.match(source, /localize\(project\.title, locale\)/)
+  assert.match(detail, /localize\(project\.title, locale\)/)
+  for (const fictionalPartner of ['AERENNE', 'NULLA STUDIO', 'ORBITAL OBJECTS', 'VOLUME N°7']) {
+    assert.match(await read('src/data/editorial.ts'), new RegExp(fictionalPartner))
+  }
+  assert.match(css, /\.collaboration-directory__image[^}]*transition: opacity 700ms/)
+  assert.match(css, /\.collaboration-directory__entry:not\(\[data-preview='true'\]\)[^}]*opacity: 0\.6/)
+  assert.match(css, /scrollbar-color: rgba\(0, 0, 0, 0\.22\) transparent/)
+  assert.match(css, /\.collaboration-directory__title[^}]*font-family: var\(--ys-font-serif\)/)
+})
+
 test('recap fills the desktop in five columns with portrait posters', async () => {
   const source = await read('src/app/[locale]/recap/page.tsx')
   const css = await read('src/app/globals.css')

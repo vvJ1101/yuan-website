@@ -103,6 +103,7 @@ export function EditorialDetail({ project, locale }: { project: EditorialProject
 
 function CollaborationDetail({ project, locale }: { project: Collaboration; locale: Locale }) {
   const backHref = localePath(locale, '/collaborations')
+  const projectTitle = localize(project.title, locale)
   const [coverWidth, coverHeight] = project.coverImage.ratio.split('/').map(Number)
   const portraitCover = coverWidth < coverHeight
   const openingBlock = project.blocks?.[0]?.type === 'text' ? project.blocks[0] : null
@@ -113,7 +114,8 @@ function CollaborationDetail({ project, locale }: { project: Collaboration; loca
       <Link className="editorial-link collaboration-story__back" href={backHref}>{locale === 'cn' ? '返回合作列表' : 'BACK TO COLLABORATIONS'}</Link>
       <header className="collaboration-story__heading">
         <div className="collaboration-story__title">
-          <h1 lang="en">YUAN × {project.partner}</h1>
+          <h1 lang="en">{projectTitle}</h1>
+          <p lang="en">YUAN SHOWROOM × {project.partner}</p>
           <p>{localizeEditorialCategory(project.category, locale)} · {project.year}</p>
         </div>
         {project.isSample && <p className="editorial-sample">{locale === 'cn' ? '示例项目 · 非正式发布' : 'SAMPLE PROJECT · Not an announcement'}</p>}
