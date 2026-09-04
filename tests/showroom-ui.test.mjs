@@ -12,6 +12,12 @@ test('shared story renderer supports each editorial composition', async () => {
   }
 })
 
+test('lookbook detail uses the interactive second-screen index', async () => {
+  const page = await read('src/app/[locale]/now/lookbook/[slug]/page.tsx')
+  assert.match(page, /<LookbookIndexStage/)
+  assert.doesNotMatch(page, /lookbook-brand__remainder/)
+})
+
 test('showroom header keeps the approved order and no hamburger', async () => {
   const source = await read('src/components/showroom/site-header.tsx')
   const brands = source.indexOf("label: 'Brands'")
@@ -363,7 +369,7 @@ test('NOW exhibition posters link to separate lookbook-only brand routes', async
   assert.match(index, /localePath\(locale, `\/now\/lookbook\/\$\{brand\.slug\}`\)/)
   assert.doesNotMatch(index, /href={`#lookbook-/)
   assert.match(detail, /firstFive\.map/)
-  assert.match(detail, /remainder\.map/)
+  assert.match(detail, /<LookbookIndexStage/)
   assert.doesNotMatch(detail, /LOOKBOOK 即将更新/)
   assert.doesNotMatch(detail, /DESIGNER|CATEGORY|ORIGIN|ESTABLISHED|WEBSITE|description/)
 })
@@ -375,7 +381,7 @@ test('lookbook gallery keeps product details out of the editorial grid', async (
   const appointment = await read('src/app/[locale]/now/appointment/page.tsx')
 
   assert.match(detail, /firstFive\.map/)
-  assert.match(detail, /remainder\.map/)
+  assert.match(detail, /<LookbookIndexStage/)
   assert.doesNotMatch(detail, /styleNumber|item\.name|款号|品名|STYLE NO\.|ITEM/)
   assert.match(types, /interface LookbookItem\s*\{[^}]*image: string/)
   assert.doesNotMatch(now, /currentEvent\.dates/)
@@ -418,21 +424,20 @@ test('appointment CLOSE returns to the locale-aware NOW landing', async () => {
   assert.match(page, />\s*CLOSE\s*<\/Link>/)
 })
 
-test('lookbook detail contains one viewport-fitted five-image hero followed by a simple grid', async () => {
+test('lookbook detail contains one viewport-fitted five-image hero followed by an interactive index', async () => {
   const detail = await read('src/app/[locale]/now/lookbook/[slug]/page.tsx')
   const css = await read('src/app/globals.css')
   const panelCss = css.slice(css.indexOf('.lookbook-brand__panels'), css.indexOf('.lookbook-brand__pending'))
 
   assert.match(detail, /brand\.items\.slice\(0, 5\)/)
-  assert.match(detail, /brand\.items\.slice\(5\)/)
+  assert.match(detail, /looks=\{brand\.items\}/)
   assert.doesNotMatch(detail, /Math\.floor|panels\.map|panel--mirrored/)
   assert.match(detail, /lookbook-brand__panel-card--\$\{position\}/)
-  assert.match(detail, /lookbook-brand__remainder/)
+  assert.match(detail, /LookbookIndexStage/)
   assert.match(css, /\.lookbook-brand__header h1\s*\{[^}]*font-size: clamp\(22px, 1\.8vw, 32px\)[^}]*font-weight: 400/)
   assert.doesNotMatch(panelCss, /transform: rotate|lookbook-brand__editorial-card/)
-  assert.match(css, /\.lookbook-brand__remainder\s*\{[^}]*repeat\(6, minmax\(0, 1fr\)\)/)
-  assert.match(detail, /className="lookbook-item"[\s\S]*?ratio="384 \/ 573"/)
-  assert.match(css, /@media \(max-width: 640px\)[\s\S]*?\.lookbook-brand__remainder\s*\{[^}]*repeat\(2, minmax\(0, 1fr\)\)/)
+  assert.match(css, /\.lookbook-index-stage__grid\s*\{[^}]*repeat\(6, minmax\(0, 1fr\)\)/)
+  assert.match(css, /@media \(max-width: 640px\)[\s\S]*?\.lookbook-index-stage__grid\s*\{[^}]*display: flex/)
 })
 
 test('lookbook initialization provides twelve images for multi-panel preview', async () => {

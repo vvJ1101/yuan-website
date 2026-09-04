@@ -1,6 +1,14 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { resolveLookProducts } from '../src/lib/lookbook-products.ts'
+import { normalizeLookIndex } from '../src/lib/lookbook-index.ts'
+
+test('lookbook index wraps selection safely', () => {
+  assert.equal(normalizeLookIndex(0, 5), 0)
+  assert.equal(normalizeLookIndex(5, 5), 0)
+  assert.equal(normalizeLookIndex(-1, 5), 4)
+  assert.equal(normalizeLookIndex(3, 0), 0)
+})
 
 const dress = { id: 'dress', image: '/dress.webp', category: 'dress', name: { cn: '连衣裙', en: 'Dress' } }
 const shoes = { id: 'shoes', image: '/shoes.webp', category: 'shoes', name: { cn: '鞋履', en: 'Shoes' } }

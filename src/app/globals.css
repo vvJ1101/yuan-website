@@ -1580,6 +1580,35 @@ a.lookbook-index__card:hover > span {
   margin-top: clamp(90px, 13vh, 150px);
 }
 
+.lookbook-index-stage { position: relative; min-height: calc(100svh - var(--ys-header-h)); overflow: hidden; padding: clamp(28px, 4vw, 64px); background: #f7f5f1; isolation: isolate; outline-offset: -3px; }
+.lookbook-index-stage__identity { position: absolute; z-index: 3; top: 28px; left: clamp(28px, 4vw, 64px); display: grid; gap: 4px; font-size: var(--ys-type-caption); letter-spacing: 0.08em; text-transform: uppercase; }
+.lookbook-index-stage__grid { position: absolute; inset: clamp(72px, 8vw, 128px) clamp(24px, 3vw, 52px) 28px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1px; opacity: 0.55; }
+.lookbook-index-stage__grid button { min-width: 0; padding: clamp(8px, 1.2vw, 20px); border: 0; background: rgb(255 255 255 / 0.58); cursor: pointer; transition: opacity 300ms ease; }
+.lookbook-index-stage__grid button[aria-pressed='true'] { opacity: 0.15; }
+.lookbook-index-stage__grid .media-frame { height: 100%; background: transparent; }
+.lookbook-index-stage__grid .media-frame img { object-fit: contain; }
+.lookbook-index-stage__focus { position: relative; z-index: 2; width: min(38vw, 520px); margin: 0 auto; filter: drop-shadow(0 16px 28px rgb(0 0 0 / 0.08)); }
+.lookbook-index-stage__focus .media-frame { background: transparent; }
+.lookbook-index-stage__focus .media-frame img { object-fit: contain; }
+.lookbook-index-stage__count { position: absolute; z-index: 3; right: clamp(28px, 4vw, 64px); bottom: 28px; margin: 0; font-size: var(--ys-type-body-small); letter-spacing: 0.06em; }
+.lookbook-index-stage__count span { font-weight: 500; }
+@media (max-width: 1100px) {
+  .lookbook-index-stage__grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .lookbook-index-stage__focus { width: min(44vw, 480px); }
+}
+@media (max-width: 640px) {
+  .lookbook-index-stage { min-height: calc(100svh - var(--ys-header-h)); padding: 64px 20px 112px; }
+  .lookbook-index-stage__grid { inset: auto 20px 28px; display: flex; height: 72px; overflow-x: auto; opacity: 1; scroll-snap-type: x proximity; }
+  .lookbook-index-stage__grid button { flex: 0 0 52px; padding: 3px; scroll-snap-align: center; }
+  .lookbook-index-stage__grid button[aria-pressed='true'] { opacity: 1; outline: 1px solid var(--ys-ink); outline-offset: -1px; }
+  .lookbook-index-stage__focus { width: min(74vw, 390px); }
+  .lookbook-index-stage__count { right: 20px; bottom: 112px; }
+  .lookbook-index-stage__identity { top: 20px; left: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lookbook-index-stage__grid button { transition: none; }
+}
+
 .lookbook-brand__pending {
   color: var(--ys-muted);
   text-align: center;
