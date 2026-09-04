@@ -72,6 +72,7 @@ export interface Collaboration extends EditorialEntry {
   outcomes: readonly LocalizedText[]
   blocks?: readonly CollaborationBlock[]
   story?: readonly StoryBlock[]
+  previewImages?: readonly StoryImage[]
 }
 
 export type EditorialProject = PopUpEvent | Collaboration

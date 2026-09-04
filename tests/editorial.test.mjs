@@ -5,6 +5,7 @@ import { existsSync } from 'node:fs'
 import { collaborations, popUpEvents, eventCategories, collaborationCategories } from '../src/data/editorial.ts'
 import { featureFirst, filterProjects, sectionPath } from '../src/lib/editorial.ts'
 import { localePath, switchLocalePath, isNavigationItemActive } from '../src/lib/showroom-routing.ts'
+import { nextPreviewIndex } from '../src/lib/collaboration-preview.ts'
 import { validateStoryBlocks } from '../src/lib/editorial-blocks.ts'
 import { editorialReferenceAssets } from '../src/data/editorial-reference-assets.js'
 
@@ -26,6 +27,16 @@ test('story blocks validate stable IDs, media and temporary provenance', () => {
 test('sample collaboration provides a complete ordered visual story', () => {
   const types = collaborations[0].story.map((block) => block.type)
   assert.deepEqual(types, ['hero', 'text', 'imageText', 'offsetPair', 'detailStrip', 'statement', 'credits'])
+})
+
+test('collaboration previews wrap without invalid indexes', () => {
+  assert.equal(nextPreviewIndex(0, 3), 1)
+  assert.equal(nextPreviewIndex(2, 3), 0)
+  assert.equal(nextPreviewIndex(0, 1), 0)
+  assert.equal(nextPreviewIndex(0, 0), 0)
+  for (const project of collaborations) {
+    assert.ok(project.previewImages.length >= 2 && project.previewImages.length <= 3)
+  }
 })
 
 test('collaboration sample provides ordered, uniquely keyed content modules with usable media', () => {
