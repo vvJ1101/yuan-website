@@ -115,12 +115,14 @@ test('about statistics use three evenly distributed columns', async () => {
   assert.match(css, /\.showroom-about__statistics\s*\{[\s\S]*?grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)[\s\S]*?column-gap: clamp\(28px, 4vw, 72px\)/)
 })
 
-test('about fills landscape tablet height without leaving an empty lower panel', async () => {
+test('about balances desktop height with restrained image breathing room', async () => {
   const css = await read('src/app/globals.css')
 
-  assert.match(css, /@media \(min-width: 901px\) and \(max-width: 1366px\) and \(orientation: landscape\)[\s\S]*?\.showroom-about\s*\{[^}]*display: grid[^}]*grid-template-rows: minmax\(0, 1fr\) auto/)
-  assert.match(css, /@media \(min-width: 901px\) and \(max-width: 1366px\) and \(orientation: landscape\)[\s\S]*?\.showroom-about__intro\s*\{[^}]*height: 100%/)
-  assert.match(css, /@media \(min-width: 901px\) and \(max-width: 1366px\) and \(orientation: landscape\)[\s\S]*?\.showroom-about__media\s*\{[^}]*height: 100%/)
+  const desktopRules = css.slice(css.indexOf('@media (min-width: 901px) {'), css.indexOf('@media (min-width: 901px) and (max-width: 1366px)'))
+
+  assert.match(desktopRules, /\.showroom-about\s*\{[^}]*display: grid[^}]*grid-template-rows: minmax\(0, 1fr\) auto/)
+  assert.match(desktopRules, /\.showroom-about__intro\s*\{[^}]*height: 100%[^}]*padding-block: clamp\(12px, 1\.8vh, 18px\)/)
+  assert.match(desktopRules, /\.showroom-about__media\s*\{[^}]*height: 100%/)
 })
 
 test('brand index exposes RTW FTW ACC and linked rooms', async () => {

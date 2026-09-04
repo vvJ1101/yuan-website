@@ -2166,6 +2166,34 @@ a.lookbook-index__card:hover > span {
 }
 
 @media (min-width: 901px) {
+  .showroom-about {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+
+  .showroom-about__intro {
+    height: 100%;
+    min-height: 0;
+    align-items: stretch;
+    padding-block: clamp(12px, 1.8vh, 18px);
+  }
+
+  .showroom-about__copy {
+    justify-content: center;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .showroom-about__media {
+    height: 100%;
+    min-height: 0;
+    aspect-ratio: auto !important;
+  }
+
+  .showroom-about__media img {
+    object-fit: cover;
+  }
+
   .brand-index {
     --brand-top: clamp(30px, 4.2vh, 46px);
     --brand-matrix-top: clamp(12px, 2vh, 24px);
@@ -2192,33 +2220,6 @@ a.lookbook-index__card:hover > span {
 }
 
 @media (min-width: 901px) and (max-width: 1366px) and (orientation: landscape) {
-  .showroom-about {
-    display: grid;
-    grid-template-rows: minmax(0, 1fr) auto;
-  }
-
-  .showroom-about__intro {
-    height: 100%;
-    min-height: 0;
-    align-items: stretch;
-  }
-
-  .showroom-about__copy {
-    justify-content: center;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  .showroom-about__media {
-    height: 100%;
-    min-height: 0;
-    aspect-ratio: auto !important;
-  }
-
-  .showroom-about__media img {
-    object-fit: cover;
-  }
-
   .brand-index {
     --brand-top: clamp(22px, 3vh, 30px);
     --brand-matrix-top: 0px;
