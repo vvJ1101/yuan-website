@@ -25,13 +25,14 @@ test('showroom header stays fixed and identical across every page', async () => 
   assert.match(css, /\.brand-room__close\s*\{[^}]*position: absolute/)
 })
 
-test('showroom header persists the selected language across navigation', async () => {
+test('showroom header persists the selected language and scroll position across navigation', async () => {
   const source = await read('src/components/showroom/site-header.tsx')
   assert.match(source, /usePathname\(\)/)
   assert.match(source, /switchLocalePath\(pathname, nextLocale\)/)
   assert.match(source, /document\.cookie/)
   assert.match(source, /showroom-locale/)
   assert.match(source, /prefetch=\{false\}/)
+  assert.match(source, /scroll=\{false\}/)
 })
 
 test('locale layout validates route params before rendering the shared header', async () => {
@@ -376,6 +377,14 @@ test('onsite carousel supports keyboard navigation and current-slide indicators'
   assert.match(source, /ArrowLeft/)
   assert.match(source, /aria-current/)
   assert.match(source, /setActive/)
+})
+
+test('editorial galleries bypass transient optimization for local WebP images', async () => {
+  const projects = await read('src/components/showroom/editorial-projects.tsx')
+  const recap = await read('src/components/showroom/recap-brand-carousel.tsx')
+
+  assert.match(projects, /<MediaFrame \{\.\.\.image\}[^>]*unoptimized/)
+  assert.match(recap, /<Image src=\{src\}[^>]*unoptimized/)
 })
 
 test('recap fills the desktop in five columns with portrait posters', async () => {

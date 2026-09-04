@@ -197,7 +197,7 @@ function ArticleImage({ image, locale, priority = false }: { image: StoryImage; 
     '--crop-top': `${-100 * crop.top / crop.height}%`,
   } as CSSProperties : undefined
   return <div className={crop ? 'event-story__image event-story__image--preview' : 'event-story__image'} style={style}>
-    <MediaFrame {...image} alt={localize(image.alt, locale)} priority={priority} sizes="(max-width: 640px) 100vw, 1200px" />
+    <MediaFrame {...image} alt={localize(image.alt, locale)} priority={priority} unoptimized sizes="(max-width: 640px) 100vw, 1200px" />
   </div>
 }
 
