@@ -5,6 +5,13 @@ import { readFile } from 'node:fs/promises'
 const root = new URL('../', import.meta.url)
 const read = (relativePath) => readFile(new URL(relativePath, root), 'utf8')
 
+test('shared story renderer supports each editorial composition', async () => {
+  const source = await read('src/components/showroom/story-blocks.tsx')
+  for (const type of ['hero', 'imageText', 'offsetPair', 'detailStrip', 'montage', 'video', 'statement', 'credits']) {
+    assert.match(source, new RegExp(`story-block--${type}`))
+  }
+})
+
 test('showroom header keeps the approved order and no hamburger', async () => {
   const source = await read('src/components/showroom/site-header.tsx')
   const brands = source.indexOf("label: 'Brands'")

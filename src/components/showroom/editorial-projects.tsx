@@ -5,6 +5,7 @@ import { MediaFrame } from './media-frame'
 import { CollaborationContact } from './collaboration-contact'
 import { CollaborationBlocks } from './collaboration-blocks'
 import { CollaborationIndex } from './collaboration-index'
+import { StoryBlocks } from './story-blocks'
 import { collaborationContact } from '@/data/editorial'
 import { eventStories, type EventStory, type StoryImage } from '@/data/event-stories'
 import { featureFirst, filterProjects, projectCategory, sectionPath } from '@/lib/editorial'
@@ -121,6 +122,8 @@ function CollaborationDetail({ project, locale }: { project: Collaboration; loca
         {project.isSample && <p className="editorial-sample">{locale === 'cn' ? '示例项目 · 非正式发布' : 'SAMPLE PROJECT · Not an announcement'}</p>}
       </header>
 
+      {project.story?.length ? <StoryBlocks blocks={project.story} locale={locale} surface="collaboration" /> : <>
+
       <section className={`collaboration-story__opening${portraitCover ? ' collaboration-story__opening--portrait' : ''}`} aria-label={locale === 'cn' ? '项目介绍' : 'Project introduction'}>
         <div className="collaboration-story__hero">
           <MediaFrame {...project.coverImage} ratio={portraitCover ? project.coverImage.ratio : '16 / 9'} alt={localize(project.coverImage.alt, locale)} priority sizes={portraitCover ? '(max-width: 640px) 92vw, (max-width: 1300px) 42vw, 520px' : '(max-width: 1300px) 56vw, 760px'} />
@@ -144,9 +147,10 @@ function CollaborationDetail({ project, locale }: { project: Collaboration; loca
         <TextSection title={locale === 'cn' ? '最终成果' : 'OUTCOMES'} paragraphs={project.outcomes} locale={locale} />
         </div>
       </section>}
+      </>}
 
       <footer className="collaboration-story__closing">
-        <TextSection title="CREDITS" paragraphs={project.credits} locale={locale} />
+        {!project.story?.some((block) => block.type === 'credits') && <TextSection title="CREDITS" paragraphs={project.credits} locale={locale} />}
         <CollaborationContact locale={locale} contact={collaborationContact} />
         <Link className="editorial-link" href={backHref}>{locale === 'cn' ? '返回全部合作项目' : 'BACK TO ALL COLLABORATIONS'}</Link>
       </footer>

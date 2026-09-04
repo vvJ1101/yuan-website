@@ -1,8 +1,7 @@
-import type { StoryImage } from '../types/editorial'
-
 const sophieSource = '/Users/vv/Downloads/谷歌浏览器下载/𝑺𝒐𝒑𝒉𝒊𝒆 𝑯. _ 空間設計 __ Behance'
 const casaSource = '/Users/vv/Downloads/谷歌浏览器下载/Casa CLO , Obra del estudio OON __ Behance'
 
+/** @satisfies {readonly import('../types/editorial').StoryImage[]} */
 export const editorialReferenceAssets = [
   {
     src: '/images/editorial/placeholders/sophie-space-wide.jpg',
@@ -34,4 +33,4 @@ export const editorialReferenceAssets = [
     alt: { cn: '自然材质与留白构成的室内空间', en: 'Interior composed with natural materials and open space' },
     ratio: '3/2', sourceLabel: 'Casa CLO / OON / Behance reference', sourcePath: `${casaSource}/fbbfd7254097355.6a7a78f5905f6.jpg`, temporary: true, replacementStatus: 'pending',
   },
-] as const satisfies readonly StoryImage[]
+]

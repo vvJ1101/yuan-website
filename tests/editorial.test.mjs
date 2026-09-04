@@ -6,7 +6,7 @@ import { collaborations, popUpEvents, eventCategories, collaborationCategories }
 import { featureFirst, filterProjects, sectionPath } from '../src/lib/editorial.ts'
 import { localePath, switchLocalePath, isNavigationItemActive } from '../src/lib/showroom-routing.ts'
 import { validateStoryBlocks } from '../src/lib/editorial-blocks.ts'
-import { editorialReferenceAssets } from '../src/data/editorial-reference-assets.ts'
+import { editorialReferenceAssets } from '../src/data/editorial-reference-assets.js'
 
 test('story blocks validate stable IDs, media and temporary provenance', () => {
   const image = editorialReferenceAssets[0]
@@ -21,6 +21,11 @@ test('story blocks validate stable IDs, media and temporary provenance', () => {
     { id: 'duplicate', type: 'statement', text: { cn: '一', en: 'One' } },
     { id: 'duplicate', type: 'statement', text: { cn: '二', en: 'Two' } },
   ]), /duplicate/i)
+})
+
+test('sample collaboration provides a complete ordered visual story', () => {
+  const types = collaborations[0].story.map((block) => block.type)
+  assert.deepEqual(types, ['hero', 'text', 'imageText', 'offsetPair', 'detailStrip', 'statement', 'credits'])
 })
 
 test('collaboration sample provides ordered, uniquely keyed content modules with usable media', () => {
