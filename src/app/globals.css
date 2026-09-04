@@ -3908,6 +3908,9 @@ a.lookbook-index__card:hover > span {
 .story-block--credits { width: min(100%, 68ch); padding-top: 24px; border-top: 1px solid var(--ys-ink); }
 .story-block--credits h2 { margin: 0 0 20px; font-size: var(--ys-type-subtitle); }
 .story-block--credits p { font-size: var(--ys-type-body-small); line-height: var(--ys-leading-compact); }
+.story-blocks--event { width: min(1120px, 100%); margin: clamp(88px, 10vw, 160px) auto 0; }
+.story-blocks--event .story-block--montage { width: 100%; }
+.story-blocks--event .story-block--statement { font-size: clamp(34px, 5vw, 68px); }
 @media (max-width: 900px) {
   .story-block--imageText { grid-template-columns: minmax(0, 1fr); }
   .story-block--offsetPair .media-frame:nth-child(2) { margin-top: 56px; }

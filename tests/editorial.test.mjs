@@ -3,6 +3,7 @@ import assert from 'node:assert/strict'
 import { existsSync } from 'node:fs'
 
 import { collaborations, popUpEvents, eventCategories, collaborationCategories } from '../src/data/editorial.ts'
+import { eventStories } from '../src/data/event-stories.ts'
 import { featureFirst, filterProjects, sectionPath } from '../src/lib/editorial.ts'
 import { localePath, switchLocalePath, isNavigationItemActive } from '../src/lib/showroom-routing.ts'
 import { nextPreviewIndex } from '../src/lib/collaboration-preview.ts'
@@ -37,6 +38,15 @@ test('collaboration previews wrap without invalid indexes', () => {
   for (const project of collaborations) {
     assert.ok(project.previewImages.length >= 2 && project.previewImages.length <= 3)
   }
+})
+
+test('HELEN KAMINSKI story adds montage and closing without inventing schedule data', () => {
+  const story = eventStories['sample-showroom-edit']
+  assert.ok(story.blocks.some((block) => block.type === 'montage'))
+  assert.ok(story.blocks.some((block) => block.type === 'statement'))
+  const event = popUpEvents.find((item) => item.slug === 'sample-showroom-edit')
+  assert.equal(event.startDate, null)
+  assert.equal(event.endDate, null)
 })
 
 test('collaboration sample provides ordered, uniquely keyed content modules with usable media', () => {

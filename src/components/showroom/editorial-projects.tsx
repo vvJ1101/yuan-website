@@ -232,6 +232,7 @@ function EventArticle({ project, story, locale }: { project: EditorialProject; s
             </div>}
           </section>
         ))}
+        {story.blocks?.length && <StoryBlocks blocks={story.blocks} locale={locale} surface="event" />}
         <footer className="event-story__closing">
           <p>{localize(story.closing, locale)}</p>
           <Link className="editorial-link" href={localePath(locale, '/pop-up-events')}>{locale === 'cn' ? '返回全部活动' : 'BACK TO ALL EVENTS'}</Link>
