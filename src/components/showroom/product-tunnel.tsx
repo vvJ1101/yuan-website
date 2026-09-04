@@ -7,23 +7,20 @@ import { productTunnelImages } from './product-tunnel-images'
 import {
   createTunnelLayout,
   getTunnelBudget,
-  recycleTunnelDepth,
+  getTunnelFrame,
+  selectTunnelImages,
 } from './product-tunnel-model.mjs'
 
 const CAMERA_Z = 5
 const TAIL_Z = -78
 const SPACING = 1.9
 const BASE_SCALE_MULTIPLIER = 1.12
-const BASE_NEAR_SCALE_UP = 0.28
+const CYCLE_SECONDS = 12
 const SPEED_PRESETS = {
   slow: 0.44,
   normal: 0.77,
   fast: 0.72,
 } as const
-
-function easeOutExpo(value: number) {
-  return value >= 1 ? 1 : 1 - 2 ** (-10 * value)
-}
 
 function getSpeedMultiplier() {
   if (typeof window === 'undefined') return SPEED_PRESETS.normal
@@ -66,11 +63,13 @@ export function ProductTunnel() {
     const textures: THREE.Texture[] = []
     const startedAt = performance.now()
     let previousTime = startedAt
+    let cycleTime = 0
     let animationFrame = 0
     let disposed = false
     let announcedReady = false
 
-    const { count } = getTunnelBudget(window.innerWidth, false)
+    const imageSlots = selectTunnelImages(productTunnelImages, getTunnelBudget(window.innerWidth, false).count)
+    const count = imageSlots.length
     const speedMultiplier = getSpeedMultiplier()
     const layout = createTunnelLayout(count, { radius: 10, spacing: SPACING, tailZ: TAIL_Z })
 
@@ -88,23 +87,21 @@ export function ProductTunnel() {
       mesh.scale.set(baseSize * BASE_SCALE_MULTIPLIER, baseSize * BASE_SCALE_MULTIPLIER * 1.1, 1)
       mesh.userData.baseScaleX = baseSize * BASE_SCALE_MULTIPLIER
       mesh.userData.baseScaleY = baseSize * BASE_SCALE_MULTIPLIER * 1.1
-      mesh.userData.baseY = point.y
-      mesh.userData.wobble = (index * 0.22) % (Math.PI * 2)
       mesh.userData.entranceDelay = index * 0.035
-      mesh.userData.pulseDelay = index * 0.08
+      mesh.userData.phase = index / count
       scene.add(mesh)
       meshes.push(mesh)
 
       window.setTimeout(() => {
         if (disposed) return
-        textureLoader.load(productTunnelImages[index % productTunnelImages.length], (texture) => {
+        textureLoader.load(imageSlots[index], (texture) => {
           if (disposed) {
             texture.dispose()
             return
           }
           texture.colorSpace = THREE.SRGBColorSpace
-          texture.generateMipmaps = false
-          texture.minFilter = THREE.LinearFilter
+          texture.generateMipmaps = true
+          texture.minFilter = THREE.LinearMipmapLinearFilter
           texture.magFilter = THREE.LinearFilter
           material.map = texture
           material.color.set(0xffffff)
@@ -149,28 +146,20 @@ export function ProductTunnel() {
     const render = (now: number) => {
       const delta = Math.min((now - previousTime) / 1000, 0.05)
       previousTime = now
-      const elapsed = Math.min((now - startedAt) / 1100, 1)
-      const startupSpeed = 300 + (10 - 300) * easeOutExpo(elapsed)
-      const speed = startupSpeed * speedMultiplier
-
-      const tail = Math.min(...meshes.map((candidate) => candidate.position.z)) - SPACING
+      if (!document.hidden) cycleTime += delta * (speedMultiplier / SPEED_PRESETS.normal) / CYCLE_SECONDS
       for (const mesh of meshes) {
         const entranceTime = Math.max(0, (now - startedAt) / 1000 - mesh.userData.entranceDelay)
         const entrance = Math.min(entranceTime / 0.75, 1)
         const easedEntrance = 1 - (1 - entrance) ** 4
-        const life = (mesh.position.z - TAIL_Z) / (CAMERA_Z - TAIL_Z)
-        const nearScale = 1 + THREE.MathUtils.lerp(0, BASE_NEAR_SCALE_UP, THREE.MathUtils.clamp(life, 0, 1))
-        const pulseTime = now * 0.0015 + mesh.userData.pulseDelay
-        const wobble = Math.sin(now * 0.001 + mesh.userData.wobble) * 0.18
-        mesh.material.opacity = easedEntrance
-        mesh.rotation.z = Math.sin(mesh.position.z * 0.08) * 0.03
-        mesh.position.y = mesh.userData.baseY + wobble
+        const frame = getTunnelFrame(mesh.userData.phase + cycleTime)
+        mesh.position.z = frame.z
+        mesh.material.opacity = easedEntrance * frame.opacity
+        mesh.visible = frame.opacity > 0 && mesh.material.map !== null
         mesh.scale.set(
-          mesh.userData.baseScaleX * nearScale * (1 + Math.sin(pulseTime) * 0.04),
-          mesh.userData.baseScaleY * nearScale * (1 - Math.sin(pulseTime) * 0.02),
+          mesh.userData.baseScaleX,
+          mesh.userData.baseScaleY,
           1,
         )
-        mesh.position.z = recycleTunnelDepth(mesh.position.z, speed, delta, CAMERA_Z, tail)
       }
 
       renderer.render(scene, camera)
