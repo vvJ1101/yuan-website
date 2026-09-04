@@ -3,22 +3,45 @@ import type { Collaboration, CollaborationBlock, EditorialImage, PopUpEvent } fr
 export const eventCategories = ['CURRENT', 'UPCOMING', 'ARCHIVE'] as const
 export const collaborationCategories = ['FASHION', 'ART', 'DESIGN', 'CULTURE'] as const
 
-const space: EditorialImage = {
-  src: '/images/showroom/about/showroom.webp',
-  alt: { cn: 'YUAN SHOWROOM 接待与陈列空间，作为示例配图', en: 'YUAN SHOWROOM reception and display space, used as a sample image' },
-  ratio: '4 / 3',
-}
-const display: EditorialImage = {
-  src: '/images/showroom/about/showroom-v2.webp',
-  alt: { cn: '中性色服装陈列，作为示例配图', en: 'Neutral clothing display, used as a sample image' },
-  ratio: '4 / 3',
-}
-const cafe: EditorialImage = {
-  src: '/images/showroom/on-site/aano-caffe-01.webp',
-  alt: { cn: '现有官网咖啡空间照片，作为示例配图', en: 'Existing website photograph of a cafe space, used as a sample image' },
-  ratio: '4 / 3',
-}
-const sampleCredits = [{ cn: '图片来自现有官网素材；正式项目署名待补充。', en: 'Images from the existing website; final project credits to be supplied.' }]
+const spatialStudy = (name: string, ratio: string, cn: string, en: string): EditorialImage => ({
+  src: `/images/editorial/spatial-studies/${name}.webp`, ratio, alt: { cn, en },
+})
+
+const collaborationStudies: readonly (readonly EditorialImage[])[] = [
+  [
+    spatialStudy('sophie-06', '3 / 2', '服装、桌面与浅蓝色瓷砖构成的空间陈列', 'Fashion display, table and pale blue tiled interior'),
+    spatialStudy('sophie-01', '2 / 3', '移动人物与悬挂服装形成的空间叙事', 'Moving figure and suspended garment within the interior'),
+    spatialStudy('sophie-03', '2 / 3', '浅蓝色瓷砖墙前的白色服装陈列', 'White garment displayed against pale blue tiles'),
+    spatialStudy('sophie-08', '2 / 3', '桌椅、沙发与悬挂服装构成的工作室空间', 'Studio interior with furniture and suspended garments'),
+    spatialStudy('sophie-09', '3 / 2', '一黑一白两件服装的对称陈列', 'Symmetrical display of black and white garments'),
+  ],
+  [
+    spatialStudy('casa-02', '3 / 2', '圆窗与混凝土墙构成的建筑立面', 'Architectural facade with circular window and concrete wall'),
+    spatialStudy('casa-03', '2 / 3', '蓝天下的混凝土建筑转角', 'Concrete architectural corner beneath a blue sky'),
+    spatialStudy('casa-05', '2 / 3', '光线穿过混凝土结构的纵深空间', 'Light passing through a deep concrete interior'),
+    spatialStudy('casa-09', '3 / 2', '人物剪影与深色走廊形成的空间层次', 'Human silhouette and layered dark corridor'),
+    spatialStudy('casa-11', '2 / 3', '书墙与人物构成的纵向室内空间', 'Vertical interior with shelving and a human figure'),
+  ],
+  [
+    spatialStudy('casa-01', '3 / 2', '木质中岛与黑色圆柱形成的对称室内构图', 'Symmetrical interior with timber island and black cylinder'),
+    spatialStudy('casa-06', '3 / 2', '混凝土住宅的完整外观', 'Full exterior view of a concrete residence'),
+    spatialStudy('casa-07', '3 / 2', '梁柱与网格天花构成的开放室内空间', 'Open interior framed by beams and a gridded ceiling'),
+    spatialStudy('casa-08', '3 / 2', '遮檐下的室内外过渡空间', 'Covered transition between interior and exterior'),
+    spatialStudy('casa-04', '3 / 2', '人物与长遮檐构成的露台生活场景', 'Terrace scene framed by people and a long canopy'),
+    spatialStudy('casa-10', '3 / 2', '水面前的住宅后立面', 'Rear residential facade facing a reflecting pool'),
+    spatialStudy('casa-12', '3 / 2', '木质吧台与层次丰富的生活空间', 'Layered living space with a timber bar'),
+  ],
+  [
+    spatialStudy('sophie-05', '2 / 3', '绿植环绕的双层工作室外立面', 'Two-storey studio facade surrounded by planting'),
+    spatialStudy('sophie-02', '2 / 3', '木质圆形物件与绿植构成的窗边静物', 'Window still life with timber objects and planting'),
+    spatialStudy('sophie-04', '2 / 3', '彩虹光落在玻璃器皿与镜面上', 'Rainbow light across glassware and a mirrored surface'),
+    spatialStudy('sophie-07', '2 / 3', '自然光下手工缝合的织物细节', 'Hand-stitched textile detail in natural light'),
+    spatialStudy('sophie-10', '2 / 3', '砖墙、镜面与金属层板构成的陈列角落', 'Display corner composed of brick, mirror and metal shelving'),
+    spatialStudy('casa-13', '3 / 2', '夕阳下的建筑露台与水平天际线', 'Architectural terrace and horizon at sunset'),
+  ],
+]
+
+const sampleCredits = [{ cn: '临时演示素材来自用户提供的设计项目参考；正式发布前请确认图片授权与署名。', en: 'Temporary preview imagery supplied as design references; confirm image rights and credits before final publication.' }]
 
 // User-supplied titles and images. Unknown schedules must not inherit sample dates.
 // Existing preview slugs are retained until the complete articles are ready.
@@ -47,18 +70,13 @@ export const popUpEvents: readonly PopUpEvent[] = [
   },
 ]
 
-const sampleLooks: EditorialImage[] = ['ranyepersonal', 'maison-ther', 'tenspher'].map(brand => ({
-  src: `/images/showroom/brands/${brand}-campaign-20260903.jpg`, ratio: '3 / 4',
-  alt: { cn: `${brand} 官网服装图，仅作排版演示`, en: `${brand} website fashion image, for layout demonstration only` },
-}))
-
-const sampleBlocks: readonly CollaborationBlock[] = [
-  { id: 'direction', type: 'text', heading: { cn: '从空间到衣着', en: 'From space to silhouette' }, paragraphs: [{ cn: '以空间、衣着和细节为线索，演示一篇合作故事的阅读节奏。以下图片取自现有官网，不代表品牌参与了实际合作。', en: 'An editorial study in space, silhouette and detail. The following images are drawn from the existing website to demonstrate a longer story, not an actual collaboration.' }] },
-  { id: 'space', type: 'image-text', image: space, heading: { cn: '空间与陈列', en: 'Space and display' }, paragraphs: [{ cn: '从整体空间开始，再走近作品。此处可替换为项目的构思、材料选择或现场布置过程，让文字与对应画面一起阅读。', en: 'Begin with the setting, then move closer to the work. This section can hold the project’s approach, material choices or installation process alongside its corresponding image.' }] },
-  { id: 'silhouettes', type: 'pair', images: [sampleLooks[0], sampleLooks[1]], caption: { cn: '双图排版示例 · 现有官网素材，并非合作成果', en: 'Paired-image study · Existing website imagery, not collaboration outcomes' } },
-  { id: 'outcome', type: 'text', heading: { cn: '作品与细节', en: 'The work, in detail' }, paragraphs: [{ cn: '这里预留最终作品的介绍。文字无需逐张解释图片，可以用一段简短叙述串联设计选择、成品及现场细节。', en: 'A place for the finished work. A short passage can connect the design decisions, final pieces and details without describing every photograph.' }] },
-  { id: 'final-image', type: 'image', image: sampleLooks[2], caption: { cn: '单图示例 · 竖图保持原比例与适当宽度', en: 'Single-image study · Portrait imagery retains its proportions' } },
-  { id: 'selection', type: 'gallery', images: sampleLooks, caption: { cn: '组图模块演示 · 重复使用以上素材，正式发布时替换为项目细节', en: 'Gallery demonstration · Images above are reused here; replace with project details before publication' } },
+const sampleBlocks = (images: readonly EditorialImage[]): readonly CollaborationBlock[] => [
+  { id: 'direction', type: 'text', heading: { cn: '从空间到衣着', en: 'From space to silhouette' }, paragraphs: [{ cn: '以空间、衣着、材料与光线为线索，演示一篇合作故事的阅读节奏。以下图片为临时设计参考，不代表实际合作关系。', en: 'An editorial study in space, clothing, material and light. These temporary reference images do not represent an actual collaboration.' }] },
+  { id: 'space', type: 'image-text', image: images[1], heading: { cn: '空间与陈列', en: 'Space and display' }, paragraphs: [{ cn: '从整体空间开始，再走近物件与材料。画面之间保留距离，让建筑结构、服装陈列与生活痕迹共同形成叙事。', en: 'Begin with the setting, then move closer to objects and materials. Space between images lets architecture, clothing displays and traces of use form a shared narrative.' }] },
+  { id: 'dialogue', type: 'pair', images: [images[2], images[3]], caption: { cn: '空间对话 · 临时演示素材', en: 'Spatial dialogue · Temporary preview imagery' } },
+  { id: 'outcome', type: 'text', heading: { cn: '物件、光线与细节', en: 'Objects, light and detail' }, paragraphs: [{ cn: '不同尺度的图像穿插出现：完整空间建立语境，局部细节减慢阅读速度，也为后续真实合作内容预留清晰的编辑结构。', en: 'Images move between scales: complete spaces establish context while details slow the reading rhythm and preserve a clear editorial structure for future project content.' }] },
+  { id: 'focus', type: 'image', image: images[4], caption: { cn: '单幅空间研究 · 临时演示素材', en: 'Single spatial study · Temporary preview imagery' } },
+  { id: 'selection', type: 'gallery', images: images.length > 5 ? images.slice(5) : [images[1]], caption: { cn: '空间研究组图 · 正式发布时替换为对应项目素材', en: 'Spatial study · Replace with project-specific imagery for final publication' } },
 ]
 
 const sampleCollaborations = [
@@ -67,22 +85,17 @@ const sampleCollaborations = [
   { partner: 'ORBITAL OBJECTS', title: { cn: '暂停中的物件', en: 'OBJECTS IN PAUSE' } },
   { partner: 'VOLUME N°7', title: { cn: '余晖之后', en: 'AFTERLIGHT' } },
 ] as const
-const sampleFacade: EditorialImage = {
-  src: '/images/showroom/about/draped-facade-20260903.webp', ratio: '626 / 778',
-  alt: { cn: '织物覆盖的建筑立面，仅作艺术项目排版示例', en: 'Fabric-covered facade, used only as an art project layout sample' },
-}
-
 export const collaborations: readonly Collaboration[] = collaborationCategories.map((category, index) => ({
   kind: 'collaboration', slug: `sample-${category.toLowerCase()}`, partner: sampleCollaborations[index].partner,
   title: sampleCollaborations[index].title,
   category, year: 2026, featured: index === 0, isSample: true,
   subtitle: { cn: '创意相遇的另一种可能 · 排版示例', en: 'Another way for ideas to meet · Layout sample' },
-  coverImage: [sampleLooks[0], sampleFacade, space, cafe][index], gallery: [index === 0 ? space : display],
+  coverImage: collaborationStudies[index][0], gallery: collaborationStudies[index].slice(1),
   concept: [{ cn: '此处将介绍合作缘起、双方的创意方向与共同目标。项目名称均为排版占位，不代表实际合作关系。', en: 'This space will introduce the partnership, creative direction and shared purpose. Project names are layout placeholders and do not represent real partnerships.' }],
   process: [{ cn: '此处预留创作过程、实验和幕后记录，后续可以加入对应图片。', en: 'A space for the creative process, experiments and behind-the-scenes documentation, with supporting imagery.' }],
   outcomes: [{ cn: '此处展示正式项目的最终作品与成果，待真实内容确认后替换。', en: 'Final work and project outcomes will appear here once the real content is confirmed.' }],
   credits: sampleCredits,
-  blocks: index === 0 ? sampleBlocks : undefined,
+  blocks: sampleBlocks(collaborationStudies[index]),
 }))
 
 // Supply the confirmed public contact destination before publishing this section.

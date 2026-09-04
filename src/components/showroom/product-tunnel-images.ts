@@ -1,10 +1,10 @@
-// 52 distinct supplied assets: shallow-background products and front-facing looks only.
+// Keep the tunnel at 52 distinct assets while mixing products, looks and a small number of spatial studies.
 export const productTunnelImages = [
-  '/images/showroom/home-tunnel/3c0dcf708f064ef8b2dd9f923fdc6240.webp',
-  '/images/showroom/home-tunnel/68c646d716f64710a47244f635cf8eb9.webp',
-  '/images/showroom/home-tunnel/243a05a0f9d04425bd1d141498a236e3.webp',
-  '/images/showroom/home-tunnel/5eae1043526f48aea21365b733bd7275.webp',
-  '/images/showroom/home-tunnel/2de3fa34153340d88eb22a45af9807f8.webp',
+  '/images/editorial/spatial-studies/sophie-03.webp',
+  '/images/editorial/spatial-studies/sophie-06.webp',
+  '/images/editorial/spatial-studies/sophie-09.webp',
+  '/images/editorial/spatial-studies/casa-02.webp',
+  '/images/editorial/spatial-studies/casa-03.webp',
   '/images/showroom/home-tunnel/bf354105354545ab9c64c211fa3ee5f1.webp',
   '/images/showroom/home-tunnel/c84198617360468aa70e4af8b4f87cc4.webp',
   '/images/showroom/home-tunnel/af798ee271484f0e9a784c77b9972e8c.webp',
