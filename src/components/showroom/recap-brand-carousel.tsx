@@ -29,7 +29,7 @@ export function RecapBrandCarousel({ images, name, id, locale }: { images: reado
     <div className="recap-brand-film__track" ref={track}>
       {[0, 1].map(copy => <div className="recap-brand-film__group" key={copy} aria-hidden={copy === 1 ? true : undefined}>
         {images.map((src, index) => <figure key={src}>
-          <Image src={src} alt={copy === 1 ? '' : `${name} ${locale === 'cn' ? '现场陈列' : 'on-site display'} ${index + 1}`} width={1080} height={1622} sizes="(max-width: 640px) 76vw, 27vw" />
+          <Image src={src} alt={copy === 1 ? '' : `${name} ${locale === 'cn' ? '现场陈列' : 'on-site display'} ${index + 1}`} width={1080} height={1622} sizes="(max-width: 640px) 76vw, 27vw" unoptimized />
         </figure>)}
       </div>)}
     </div>

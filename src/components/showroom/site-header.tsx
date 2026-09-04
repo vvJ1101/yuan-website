@@ -27,6 +27,7 @@ function LanguageSwitch({ locale }: { locale: Locale }) {
           key={nextLocale}
           href={switchLocalePath(pathname, nextLocale)}
           prefetch={false}
+          scroll={false}
           aria-current={locale === nextLocale ? 'page' : undefined}
           onClick={() => {
             document.cookie = `showroom-locale=${nextLocale}; Path=/; Max-Age=31536000; SameSite=Lax`
