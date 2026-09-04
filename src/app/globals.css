@@ -3357,18 +3357,22 @@ a.lookbook-index__card:hover > span {
 .collaboration-index .editorial-card__copy h2 { grid-column: 1; margin: 0 0 8px; font-size: var(--ys-type-project-title); font-weight: 400; line-height: 1.3; }
 .collaboration-index .editorial-card__copy p { grid-column: 1; margin: 0; }
 .collaboration-index .editorial-card__copy .editorial-link { grid-column: 2; grid-row: 1 / 4; align-self: start; }
-.collaboration-story__heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px var(--ys-gutter); padding: 24px 0 40px; }
-.collaboration-story__hero--portrait { max-width: 420px; }
+.collaboration-story__heading { padding: 24px 0 40px; }
+.collaboration-story__opening { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, 1fr); align-items: start; gap: var(--ys-gutter); }
+.collaboration-story__opening--portrait { grid-template-columns: minmax(320px, 0.82fr) minmax(320px, 1.18fr); }
+.collaboration-story__opening--portrait .collaboration-story__hero { width: min(100%, 520px); }
 .collaboration-blocks { display: grid; gap: clamp(56px, 6vw, 100px); margin-top: clamp(56px, 6vw, 100px); }
 .collaboration-block { margin: 0; min-width: 0; }
 .collaboration-block .editorial-prose { max-width: 65ch; margin: 0; overflow-wrap: anywhere; }
 .collaboration-block--text { width: min(100%, 65ch); margin-inline: auto; }
 .collaboration-block--image-text { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: var(--ys-gutter); align-items: center; }
 .collaboration-block__images { display: grid; gap: 24px; align-items: start; }
-.collaboration-block--portrait { width: min(100%, 720px); margin-inline: auto; }
+.collaboration-block--portrait { width: min(100%, 520px); margin-inline: auto; }
+.collaboration-block--pair { width: min(100%, 840px); margin-inline: auto; }
 .collaboration-block--pair .collaboration-block__images { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.collaboration-block--gallery { width: min(100%, 1040px); margin-inline: auto; }
 .collaboration-block--gallery .collaboration-block__images { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.collaboration-block figcaption { margin-top: 16px; font-size: var(--ys-type-body-small); line-height: var(--ys-leading-compact); overflow-wrap: anywhere; }
+.collaboration-block figcaption { width: min(100%, 65ch); margin: 14px auto 0; font-size: var(--ys-type-body-small); line-height: var(--ys-leading-compact); overflow-wrap: anywhere; }
 @media (max-width: 900px) {
   .collaboration-block--image-text { gap: 32px; }
   .collaboration-block__images { gap: 16px; }
@@ -3377,6 +3381,7 @@ a.lookbook-index__card:hover > span {
   .collaboration-blocks { gap: 48px; margin-top: 48px; }
   .collaboration-block--image-text { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .collaboration-block--pair .collaboration-block__images { grid-template-columns: minmax(0, 1fr); }
+  .collaboration-block--pair { width: min(100%, 440px); }
   .collaboration-block--gallery .collaboration-block__images { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 .collaboration-story__title { display: block; margin-top: 0; }
@@ -3385,7 +3390,10 @@ a.lookbook-index__card:hover > span {
 .collaboration-story__introduction .collaboration-story__subtitle { margin: 0 0 16px; }
 .collaboration-story__introduction .editorial-prose { margin: 0; }
 .collaboration-story__introduction .editorial-prose p { margin: 0; }
-.collaboration-story__heading > .editorial-sample { grid-column: 1 / -1; margin: 0; }
+.collaboration-story__heading > .editorial-sample { margin: 40px 0 0; }
+.collaboration-story__opening-chapter { margin-top: clamp(48px, 7vw, 96px) !important; padding-top: 24px; border-top: 1px solid var(--ys-ink); }
+.collaboration-story__opening-chapter h2 { margin-bottom: 16px; }
+.collaboration-story__opening-chapter p { margin-top: 16px !important; }
 .collaboration-story__concept { margin-top: 24px; }
 .collaboration-story__concept .editorial-prose { display: block; max-width: 65ch; margin: 0; }
 .collaboration-story__concept .editorial-prose p { font-size: var(--ys-type-body); line-height: var(--ys-leading-body); }
@@ -3409,9 +3417,15 @@ a.lookbook-index__card:hover > span {
   .collaboration-index .editorial-card .editorial-card__copy p { margin-top: 8px; }
   .collaboration-index .editorial-card .editorial-link { margin-top: 12px; }
   .collaboration-story__process { gap: 32px; }
+  .collaboration-story__opening,
+  .collaboration-story__opening--portrait { grid-template-columns: minmax(0, 1fr) minmax(260px, 0.9fr); gap: 32px; }
 }
 @media (max-width: 640px) {
-  .collaboration-story__heading { grid-template-columns: minmax(0, 1fr); padding-top: 0; padding-bottom: 32px; }
+  .collaboration-story__heading { padding-top: 0; padding-bottom: 32px; }
+  .collaboration-story__opening,
+  .collaboration-story__opening--portrait { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .collaboration-story__opening--portrait .collaboration-story__hero { width: 100%; }
+  .collaboration-story__opening-chapter { margin-top: 40px !important; }
   .collaboration-story__process { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .collaboration-story__concept { margin-top: 24px; }
   .collaboration-story__outcomes { display: block; }

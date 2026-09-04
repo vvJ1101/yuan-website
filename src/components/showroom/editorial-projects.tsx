@@ -101,6 +101,8 @@ function CollaborationDetail({ project, locale }: { project: Collaboration; loca
   const backHref = localePath(locale, '/collaborations')
   const [coverWidth, coverHeight] = project.coverImage.ratio.split('/').map(Number)
   const portraitCover = coverWidth < coverHeight
+  const openingBlock = project.blocks?.[0]?.type === 'text' ? project.blocks[0] : null
+  const remainingBlocks = openingBlock ? project.blocks?.slice(1) : project.blocks
 
   return (
     <main className="collaboration-story">
@@ -110,18 +112,24 @@ function CollaborationDetail({ project, locale }: { project: Collaboration; loca
           <h1 lang="en">YUAN × {project.partner}</h1>
           <p>{localizeEditorialCategory(project.category, locale)} · {project.year}</p>
         </div>
-        <div className="collaboration-story__introduction">
-        <p className="collaboration-story__subtitle">{localize(project.subtitle, locale)}</p>
-        <section className="editorial-prose" aria-label={locale === 'cn' ? '合作概念' : 'Concept'}>{project.concept.map((text, index) => <p key={index}>{localize(text, locale)}</p>)}</section>
-        </div>
         {project.isSample && <p className="editorial-sample">{locale === 'cn' ? '示例项目 · 非正式发布' : 'SAMPLE PROJECT · Not an announcement'}</p>}
       </header>
 
-      <div className={`collaboration-story__hero${portraitCover ? ' collaboration-story__hero--portrait' : ''}`}>
-        <MediaFrame {...project.coverImage} ratio={portraitCover ? project.coverImage.ratio : '16 / 9'} alt={localize(project.coverImage.alt, locale)} priority sizes={portraitCover ? '(max-width: 640px) 92vw, 420px' : '(max-width: 1300px) 92vw, 1200px'} />
-      </div>
+      <section className={`collaboration-story__opening${portraitCover ? ' collaboration-story__opening--portrait' : ''}`} aria-label={locale === 'cn' ? '项目介绍' : 'Project introduction'}>
+        <div className="collaboration-story__hero">
+          <MediaFrame {...project.coverImage} ratio={portraitCover ? project.coverImage.ratio : '16 / 9'} alt={localize(project.coverImage.alt, locale)} priority sizes={portraitCover ? '(max-width: 640px) 92vw, (max-width: 1300px) 42vw, 520px' : '(max-width: 1300px) 56vw, 760px'} />
+        </div>
+        <div className="collaboration-story__introduction">
+          <p className="collaboration-story__subtitle">{localize(project.subtitle, locale)}</p>
+          <div className="editorial-prose">{project.concept.map((text, index) => <p key={index}>{localize(text, locale)}</p>)}</div>
+          {openingBlock && <div className="collaboration-story__opening-chapter editorial-prose">
+            {openingBlock.heading && <h2>{localize(openingBlock.heading, locale)}</h2>}
+            {openingBlock.paragraphs.map((text, index) => <p key={index}>{localize(text, locale)}</p>)}
+          </div>}
+        </div>
+      </section>
 
-      {project.blocks ? <CollaborationBlocks blocks={project.blocks} locale={locale} /> : <section className="collaboration-story__process" aria-label={locale === 'cn' ? '创作过程' : 'Behind the scenes'}>
+      {remainingBlocks ? <CollaborationBlocks blocks={remainingBlocks} locale={locale} /> : <section className="collaboration-story__process" aria-label={locale === 'cn' ? '创作过程' : 'Behind the scenes'}>
         {project.gallery.length > 0 && <div className="collaboration-story__pair">
           {project.gallery.map((image, index) => <MediaFrame {...image} alt={localize(image.alt, locale)} key={`${image.src}-${index}`} sizes="(max-width: 640px) 92vw, 60vw" />)}
         </div>}
