@@ -5,6 +5,23 @@ import { existsSync } from 'node:fs'
 import { collaborations, popUpEvents, eventCategories, collaborationCategories } from '../src/data/editorial.ts'
 import { featureFirst, filterProjects, sectionPath } from '../src/lib/editorial.ts'
 import { localePath, switchLocalePath, isNavigationItemActive } from '../src/lib/showroom-routing.ts'
+import { validateStoryBlocks } from '../src/lib/editorial-blocks.ts'
+import { editorialReferenceAssets } from '../src/data/editorial-reference-assets.ts'
+
+test('story blocks validate stable IDs, media and temporary provenance', () => {
+  const image = editorialReferenceAssets[0]
+  assert.equal(image.temporary, true)
+  assert.ok(image.sourceLabel)
+  assert.equal(image.replacementStatus, 'pending')
+  assert.deepEqual(validateStoryBlocks([
+    { id: 'lead', type: 'hero', image },
+    { id: 'close', type: 'statement', text: { cn: '示例收束语', en: 'Sample closing statement' } },
+  ]).map((block) => block.id), ['lead', 'close'])
+  assert.throws(() => validateStoryBlocks([
+    { id: 'duplicate', type: 'statement', text: { cn: '一', en: 'One' } },
+    { id: 'duplicate', type: 'statement', text: { cn: '二', en: 'Two' } },
+  ]), /duplicate/i)
+})
 
 test('collaboration sample provides ordered, uniquely keyed content modules with usable media', () => {
   const blocks = collaborations[0].blocks
