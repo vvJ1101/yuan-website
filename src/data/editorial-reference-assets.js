@@ -1,5 +1,5 @@
-const sophieSource = '/Users/vv/Downloads/谷歌浏览器下载/𝑺𝒐𝒑𝒉𝒊𝒆 𝑯. _ 空間設計 __ Behance'
-const casaSource = '/Users/vv/Downloads/谷歌浏览器下载/Casa CLO , Obra del estudio OON __ Behance'
+const sophieSource = 'Behance download / Sophie H. spatial design'
+const casaSource = 'Behance download / Casa CLO by OON'
 
 /** @satisfies {readonly import('../types/editorial').StoryImage[]} */
 export const editorialReferenceAssets = [
