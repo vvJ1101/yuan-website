@@ -6,12 +6,13 @@ import { CollaborationContact } from './collaboration-contact'
 import { CollaborationBlocks } from './collaboration-blocks'
 import { CollaborationIndex } from './collaboration-index'
 import { StoryBlocks } from './story-blocks'
+import { EventPosterIndex } from './event-poster-index'
 import { collaborationContact } from '@/data/editorial'
 import { eventStories, type EventStory, type StoryImage } from '@/data/event-stories'
-import { featureFirst, filterProjects, projectCategory, sectionPath } from '@/lib/editorial'
+import { featureFirst, filterProjects, sectionPath } from '@/lib/editorial'
 import { localize, localizeEditorialCategory } from '@/lib/showroom-i18n'
 import { localePath } from '@/lib/showroom-routing'
-import type { Collaboration, EditorialProject, EditorialSection } from '@/types/editorial'
+import type { Collaboration, EditorialProject, EditorialSection, PopUpEvent } from '@/types/editorial'
 import type { Locale, LocalizedText } from '@/types/showroom'
 
 const titles = { 'pop-up-events': 'POP-UP EVENTS', collaborations: 'COLLABORATIONS' }
@@ -30,27 +31,6 @@ function ProjectMeta({ project, locale }: { project: EditorialProject; locale: L
   )
 }
 
-function ProjectCard({ project, locale, featured = false }: { project: EditorialProject; locale: Locale; featured?: boolean }) {
-  const featuredStory = featured && project.kind === 'event' ? eventStories[project.slug] : undefined
-
-  return (
-    <article className={`${featured ? 'editorial-feature' : 'editorial-card'} ${project.kind === 'event' ? 'event-entry' : 'collaboration-entry'}`}>
-      <Link className="recap-card__link" href={localePath(locale, `/${sectionPath(project)}/${project.slug}`)}>
-        <MediaFrame {...project.coverImage} ratio={project.kind === 'collaboration' && featured ? '16 / 9' : project.coverImage.ratio} alt={localize(project.coverImage.alt, locale)} priority={featured} sizes={project.kind === 'collaboration' ? (featured ? '92vw' : '(max-width: 640px) 92vw, 44vw') : featured ? '(max-width: 640px) 80vw, (max-width: 900px) 340px, 360px' : '(max-width: 640px) 30vw, 180px'} />
-        <div className="editorial-card__copy">
-          {featured && project.kind === 'event' && <p className="event-entry__eyebrow" lang="en">01 / FEATURED EVENT</p>}
-          {project.kind === 'event' && project.status && <p className="event-entry__status">{localizeEditorialCategory(project.status, locale)}</p>}
-          <h2 lang={project.kind === 'collaboration' ? 'en' : undefined}><ProjectName project={project} locale={locale} /></h2>
-          <ProjectMeta project={project} locale={locale} />
-          {featured && project.kind === 'event' && localize(project.venue, locale) && <p>{localize(project.venue, locale)}</p>}
-          {featuredStory && <p className="event-entry__intro">{localize(featuredStory.intro, locale)}</p>}
-          <span className="editorial-link">{locale === 'cn' ? '查看详情' : project.kind === 'event' ? 'VIEW EVENT' : 'VIEW PROJECT'}</span>
-        </div>
-      </Link>
-    </article>
-  )
-}
-
 export function EditorialIndex({ locale, section, projects, categories, category }: {
   locale: Locale
   section: EditorialSection
@@ -59,9 +39,8 @@ export function EditorialIndex({ locale, section, projects, categories, category
   category?: string
 }) {
   const selected = categories.includes(category ?? '') ? category : undefined
-  const { featured, remaining } = featureFirst(filterProjects(projects, selected))
-  const archive = !selected && section === 'pop-up-events' ? remaining.filter((item) => projectCategory(item) === 'ARCHIVE') : []
-  const others = remaining.filter((item) => !archive.includes(item))
+  const filtered = filterProjects(projects, selected)
+  const { featured, remaining } = featureFirst(filtered)
 
   return (
     <main className={`editorial-page ${section === 'collaborations' ? 'collaboration-index' : 'event-index'}`}>
@@ -78,15 +57,7 @@ export function EditorialIndex({ locale, section, projects, categories, category
       </header>
       {section === 'collaborations' ? (
         <CollaborationIndex key={selected ?? 'all'} projects={featured ? [featured, ...remaining] : []} locale={locale} />
-      ) : featured ? <ProjectCard project={featured} locale={locale} featured /> : <p role="status">{locale === 'cn' ? '该分类暂无项目。' : 'No projects in this category yet.'}</p>}
-      {section === 'pop-up-events' && others.length > 0 && <section className="editorial-list" aria-label={locale === 'cn' ? '更多活动' : 'More events'}>
-        <h2>{locale === 'cn' ? '更多活动' : 'MORE EVENTS'}</h2>
-        <div className="editorial-grid">{others.map((project) => <ProjectCard project={project} locale={locale} key={project.slug} />)}</div>
-      </section>}
-      {archive.length > 0 && <section className="editorial-list" aria-labelledby="archive-title">
-        <h2 id="archive-title">{localizeEditorialCategory('ARCHIVE', locale)}</h2>
-        <div className="editorial-grid">{archive.map((project) => <ProjectCard project={project} locale={locale} key={project.slug} />)}</div>
-      </section>}
+      ) : <EventPosterIndex key={selected ?? 'all'} projects={(featured ? [featured, ...remaining] : []).filter((project): project is PopUpEvent => project.kind === 'event')} locale={locale} />}
     </main>
   )
 }
