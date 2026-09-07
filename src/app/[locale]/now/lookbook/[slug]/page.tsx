@@ -6,6 +6,8 @@ import { MediaFrame } from '@/components/showroom/media-frame'
 import { LookbookImageButton, LookbookViewer } from '@/components/showroom/lookbook-viewer'
 import { LookbookDock } from '@/components/showroom/lookbook-dock'
 import { LookbookIndexStage } from '@/components/showroom/lookbook-index-stage'
+import { LookbookEditorialGallery } from '@/components/showroom/lookbook-editorial-gallery'
+import { LookbookMobileLead } from '@/components/showroom/lookbook-mobile-lead'
 import { currentEvent } from '@/data/showroom'
 import { isLocale, locales } from '@/lib/showroom-i18n'
 import { localePath } from '@/lib/showroom-routing'
@@ -38,6 +40,7 @@ export default async function ExhibitionLookbookPage({ params }: { params: Promi
       </header>
       <LookbookViewer looks={brand.items} products={brand.products} name={brand.name} season={currentEvent.season} locale={locale}>
       <div className="lookbook-brand__panels" aria-label={`${brand.name} LOOKBOOK`}>
+        <LookbookMobileLead looks={firstFive} name={brand.name} locale={locale} />
         <LookbookDock>
           {firstFive.map((item, index) => {
             const position = index === 2 ? 'hero' : 'side'
@@ -57,6 +60,7 @@ export default async function ExhibitionLookbookPage({ params }: { params: Promi
             )
           })}
         </LookbookDock>
+        <LookbookEditorialGallery name={brand.name} season={currentEvent.season} locale={locale} />
         <LookbookIndexStage looks={brand.items} name={brand.name} season={currentEvent.season} locale={locale} />
       </div>
       </LookbookViewer>

@@ -19,6 +19,7 @@ interface StoryChapter {
 export interface EventStory {
   intro: LocalizedText
   hero: StoryImage
+  visuals: readonly StoryImage[]
   chapters: readonly StoryChapter[]
   closing: LocalizedText
   blocks?: readonly StoryBlock[]
@@ -40,6 +41,13 @@ export const eventStories: Readonly<Record<string, EventStory>> = {
       en: 'From a raffia seed to a signature hat. Step into the world of HELEN KAMINSKI, where natural materials, considered spaces and the art of making come together.',
     },
     hero: windowImage(1, 555, 2048, 51, 293, 457, 253, '树木环绕的 HELEN KAMINSKI 活动空间外观', 'The HELEN KAMINSKI event space framed by trees'),
+    visuals: [
+      { src: '/images/editorial/events/helen-garden.webp', ratio: '1080 / 1640', alt: { cn: '绿意环绕的 HELEN KAMINSKI 活动空间', en: 'HELEN KAMINSKI event space surrounded by greenery' } },
+      { src: '/images/editorial/events/helen-craft-making.webp', ratio: '1080 / 1640', alt: { cn: '工匠现场制作迷你拉菲草帽', en: 'Craftsperson making a miniature raffia hat' } },
+      { src: '/images/editorial/events/helen-raffia-space.webp', ratio: '1080 / 1634', alt: { cn: '拉菲草墙面与帽饰展览空间', en: 'Raffia walls and hat displays in the exhibition space' } },
+      { src: '/images/editorial/events/helen-hat-display.webp', ratio: '1080 / 1634', alt: { cn: '帽饰与草编配件陈列', en: 'Display of hats and woven accessories' } },
+      { src: '/images/editorial/events/helen-raffia-hats.webp', ratio: '1080 / 1634', alt: { cn: '自然光下的拉菲草帽', en: 'Raffia hats in natural light' } },
+    ],
     chapters: [
       {
         id: 'nanjing', layout: 'portrait',

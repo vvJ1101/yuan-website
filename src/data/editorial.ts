@@ -91,9 +91,7 @@ const sampleStory: readonly StoryBlock[] = [
   { id: 'story-hero', type: 'hero', image: editorialReferenceAssets[0] },
   { id: 'story-introduction', type: 'text', heading: { cn: '一场关于空间与衣着的相遇', en: 'A meeting of space and silhouette' }, paragraphs: [{ cn: '这是一篇用于检验图文节奏的示例故事。空间、材质与服装图像被组织为连续章节，后续可由真实合作内容逐项替换。', en: 'A sample story used to test editorial rhythm. Space, material and fashion imagery form a sequence that can later be replaced block by block with real collaboration content.' }] },
   { id: 'story-dialogue', type: 'imageText', image: editorialReferenceAssets[4], heading: { cn: '空间成为对话的一部分', en: 'Space becomes part of the conversation' }, paragraphs: [{ cn: '建筑的结构、光线与留白不只是背景，也决定作品被观看的距离和节奏。', en: 'Structure, light and negative space are more than a backdrop; they shape how the work is seen and paced.' }] },
-  { id: 'story-pair', type: 'offsetPair', images: [sampleLooks[0], editorialReferenceAssets[1]], caption: { cn: '形态与空间的并置 · 示例素材', en: 'Silhouette and space in counterpoint · Sample imagery' } },
-  { id: 'story-details', type: 'detailStrip', images: [editorialReferenceAssets[2], editorialReferenceAssets[3], editorialReferenceAssets[5]], caption: { cn: '材料、结构与现场细节 · 临时参考素材', en: 'Material, structure and spatial detail · Temporary reference imagery' } },
-  { id: 'story-statement', type: 'statement', text: { cn: '让工艺、空间与新的观看方式在此相遇。', en: 'A meeting point for craft, space and new perspectives.' } },
+  { id: 'story-showcase', type: 'montage', images: [...collaborationStudies[0], ...collaborationStudies[0].slice(0, 4)], caption: { cn: '空间与造型组图 · 示例素材，用于检验大图排版密度', en: 'Space and silhouette image stream · Sample imagery used to tune large-photo rhythm' } },
   { id: 'story-credits', type: 'credits', items: sampleCredits },
 ]
 export const collaborations: readonly Collaboration[] = collaborationCategories.map((category, index) => ({

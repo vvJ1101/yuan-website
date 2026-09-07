@@ -12,6 +12,20 @@ test('shared story renderer supports each editorial composition', async () => {
   }
 })
 
+test('pop-up detail uses a single-screen clickable visual stage before varied chapters', async () => {
+  const project = await read('src/components/showroom/editorial-projects.tsx')
+  const experience = await read('src/components/showroom/event-experience.tsx')
+  const styles = await read('src/components/showroom/event-experience.module.css')
+
+  assert.match(project, /<EventExperience/)
+  assert.match(experience, /aria-label=.*visual/i)
+  assert.match(experience, /onClick=\{\(\) => setActiveIndex\(index\)\}/)
+  assert.match(experience, /story\.visuals\.map/)
+  assert.match(experience, /image\.crop/, 'composite reference images must render through their configured crop window')
+  assert.match(styles, /height:\s*calc\(100svh - var\(--ys-header-h\)\)/)
+  assert.match(styles, /@media \(max-width: 900px\)/)
+})
+
 test('lookbook detail uses the interactive second-screen index', async () => {
   const page = await read('src/app/[locale]/now/lookbook/[slug]/page.tsx')
   assert.match(page, /<LookbookIndexStage/)
@@ -444,7 +458,19 @@ test('lookbook detail contains one viewport-fitted five-image hero followed by a
   assert.match(detail, /LookbookIndexStage/)
   assert.match(css, /\.lookbook-brand__header h1\s*\{[^}]*font-size: clamp\(22px, 1\.8vw, 32px\)[^}]*font-weight: 400/)
   assert.doesNotMatch(panelCss, /transform: rotate|lookbook-brand__editorial-card/)
-  assert.match(css, /\.lookbook-index-stage__grid\s*\{[^}]*repeat\(6, minmax\(0, 1fr\)\)/)
+  assert.match(css, /\.lookbook-index-stage__wing\s*\{[^}]*repeat\(2, minmax\(0, 1fr\)\)/)
+  assert.match(css, /\.lookbook-index-stage\s*\{[^}]*height: calc\(100svh - var\(--ys-header-h\)\)/)
+  assert.match(detail, /LookbookIndexStage/)
+  const stage = await read('src/components/showroom/lookbook-index-stage.tsx')
+  assert.doesNotMatch(stage, /lookbook-index-stage__portrait--mono/)
+  assert.match(stage, /getLookbookIndexInitialSelection\(looks\.length\)/)
+  assert.match(stage, /getLookbookCutoutPath\(active\.image\)/)
+  assert.match(stage, /getLookbookStageMediaKind\(looks\[index\]\.image\)/)
+  assert.match(stage, /buildLookbookStageSlots\(looks\.length, 18\)/)
+  assert.match(stage, /buildLookbookStageWings\(stageSlots\.length\)/)
+  assert.match(stage, /aria-pressed=\{selected === index\}/)
+  assert.match(stage, /lookbook-index-stage__hint/)
+  assert.match(stage, /onClick=\{\(\) => select\(index, true\)\}/)
   assert.match(css, /@media \(max-width: 640px\)[\s\S]*?\.lookbook-index-stage__grid\s*\{[^}]*display: flex/)
 })
 
@@ -465,31 +491,34 @@ test('onsite carousel supports keyboard navigation and current-slide indicators'
 
 test('editorial galleries bypass transient optimization for local WebP images', async () => {
   const projects = await read('src/components/showroom/editorial-projects.tsx')
+  const eventExperience = await read('src/components/showroom/event-experience.tsx')
   const recap = await read('src/components/showroom/recap-brand-carousel.tsx')
 
-  assert.match(projects, /<MediaFrame \{\.\.\.image\}[^>]*unoptimized/)
+  assert.match(projects, /<MediaFrame \{\.\.\.image\}/)
+  assert.match(eventExperience, /<Image[^>]*unoptimized/)
   assert.match(recap, /<Image src=\{src\}[^>]*unoptimized/)
 })
 
-test('collaboration directory auto-fades previews and links titles and images to detail pages', async () => {
+test('collaboration directory clicks titles to switch previews and uses a separate detail link', async () => {
   const source = await read('src/components/showroom/collaboration-index.tsx')
   const detail = await read('src/components/showroom/editorial-projects.tsx')
   const css = await read('src/app/globals.css')
 
   assert.match(source, /useEffect/)
   assert.match(source, /setInterval/)
-  assert.match(source, /}, 3000\)/)
+  assert.match(source, /nextPreviewIndex\(current, previewImages\.length\)\), 5200\)/)
   assert.match(source, /prefers-reduced-motion/)
-  assert.match(source, /href=\{projectHref\(project\.slug\)\}/)
+  assert.match(source, /onClick=\{\(\) => \{ setSelectedSlug\(project\.slug\); setPreviewIndex\(0\) \}\}/)
   assert.match(source, /href=\{projectHref\(selected\.slug\)\}/)
-  assert.match(source, /onMouseEnter=\{\(\) => setSelectedSlug\(project\.slug\)\}/)
+  assert.doesNotMatch(source, /href=\{projectHref\(project\.slug\)\}/)
+  assert.match(source, /previewImages\.map/)
   assert.match(source, /`YUAN SHOWROOM × \$\{project\.partner\}`/)
   assert.match(source, /localize\(project\.title, locale\)/)
   assert.match(detail, /localize\(project\.title, locale\)/)
   for (const fictionalPartner of ['AERENNE', 'NULLA STUDIO', 'ORBITAL OBJECTS', 'VOLUME N°7']) {
     assert.match(await read('src/data/editorial.ts'), new RegExp(fictionalPartner))
   }
-  assert.match(css, /\.collaboration-directory__image[^}]*transition: opacity 700ms/)
+  assert.match(css, /\.collaboration-directory__image[^}]*transition: opacity 900ms/)
   assert.match(css, /\.collaboration-directory__entry:not\(\[data-preview='true'\]\)[^}]*opacity: 0\.6/)
   assert.match(css, /scrollbar-color: rgba\(0, 0, 0, 0\.22\) transparent/)
   assert.match(css, /\.collaboration-directory__title[^}]*font-family: var\(--ys-font-serif\)/)

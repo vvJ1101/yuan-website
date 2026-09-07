@@ -9,6 +9,7 @@ import { localePath, switchLocalePath, isNavigationItemActive } from '../src/lib
 import { nextPreviewIndex } from '../src/lib/collaboration-preview.ts'
 import { validateStoryBlocks } from '../src/lib/editorial-blocks.ts'
 import { editorialReferenceAssets } from '../src/data/editorial-reference-assets.js'
+import { nextEventVisualIndex } from '../src/lib/event-visual-index.ts'
 
 test('story blocks validate stable IDs, media and temporary provenance', () => {
   const image = editorialReferenceAssets[0]
@@ -27,7 +28,7 @@ test('story blocks validate stable IDs, media and temporary provenance', () => {
 
 test('sample collaboration provides a complete ordered visual story', () => {
   const types = collaborations[0].story.map((block) => block.type)
-  assert.deepEqual(types, ['hero', 'text', 'imageText', 'offsetPair', 'detailStrip', 'statement', 'credits'])
+  assert.deepEqual(types, ['hero', 'text', 'imageText', 'montage', 'credits'])
 })
 
 test('collaboration previews wrap without invalid indexes', () => {
@@ -47,6 +48,13 @@ test('HELEN KAMINSKI story adds montage and closing without inventing schedule d
   const event = popUpEvents.find((item) => item.slug === 'sample-showroom-edit')
   assert.equal(event.startDate, null)
   assert.equal(event.endDate, null)
+})
+
+test('event visual index wraps in both directions for clickable stage navigation', () => {
+  assert.equal(nextEventVisualIndex(0, 1, 5), 1)
+  assert.equal(nextEventVisualIndex(4, 1, 5), 0)
+  assert.equal(nextEventVisualIndex(0, -1, 5), 4)
+  assert.equal(nextEventVisualIndex(0, 1, 0), 0)
 })
 
 test('collaboration sample provides ordered, uniquely keyed content modules with usable media', () => {
