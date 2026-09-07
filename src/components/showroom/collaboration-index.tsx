@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { MediaFrame } from './media-frame'
+import { collaborationTriptych } from '@/lib/editorial'
 import { localize, localizeEditorialCategory } from '@/lib/showroom-i18n'
 import { localePath } from '@/lib/showroom-routing'
 import type { EditorialProject } from '@/types/editorial'
@@ -23,7 +24,7 @@ export function CollaborationIndex({ projects, locale }: { projects: readonly Ed
         const currentIndex = collaborationProjects.findIndex(project => project.slug === current)
         return collaborationProjects[(currentIndex + 1) % collaborationProjects.length].slug
       })
-    }, 3000)
+    }, 4000)
 
     return () => window.clearInterval(timer)
   }, [collaborationProjects, isInteracting])
@@ -40,19 +41,19 @@ export function CollaborationIndex({ projects, locale }: { projects: readonly Ed
       if (!event.currentTarget.contains(event.relatedTarget)) setIsInteracting(false)
     }}
   >
-    <div className="collaboration-directory__list" role="region" aria-label={locale === 'cn' ? '合作项目列表' : 'Collaboration projects'} tabIndex={0}>
+    <div className="collaboration-directory__list" role="tablist" aria-label={locale === 'cn' ? '合作项目列表' : 'Collaboration projects'}>
       {collaborationProjects.map((project, index) => <article key={project.slug}>
-        <Link className="collaboration-directory__entry" href={projectHref(project.slug)} data-preview={selected.slug === project.slug} aria-current={selected.slug === project.slug ? 'true' : undefined} onMouseEnter={() => setSelectedSlug(project.slug)} onFocus={() => setSelectedSlug(project.slug)}>
+        <button className="collaboration-directory__entry" type="button" role="tab" data-preview={selected.slug === project.slug} aria-selected={selected.slug === project.slug} aria-controls="collaboration-preview" onClick={() => setSelectedSlug(project.slug)} onMouseEnter={() => setSelectedSlug(project.slug)} onFocus={() => setSelectedSlug(project.slug)}>
           <span className="collaboration-directory__eyebrow" lang="en">{`YUAN SHOWROOM × ${project.partner}`}</span>
           <span className="collaboration-directory__title">{localize(project.title, locale)}</span>
           <span className="collaboration-directory__meta">{localizeEditorialCategory(project.category, locale)} · {project.year}{project.isSample ? ` · ${String(index + 1).padStart(2, '0')}` : ''}</span>
-        </Link>
+        </button>
       </article>)}
     </div>
-    <aside id="collaboration-preview" className="collaboration-directory__preview" aria-label={locale === 'cn' ? '项目图片预览' : 'Project image preview'}>
+    <aside id="collaboration-preview" className="collaboration-directory__preview" role="tabpanel" aria-label={locale === 'cn' ? '项目图片预览' : 'Project image preview'}>
         <Link className="collaboration-directory__visual" href={projectHref(selected.slug)} aria-label={locale === 'cn' ? `查看 YUAN SHOWROOM × ${selected.partner} 项目` : `View YUAN SHOWROOM × ${selected.partner} project`}>
-          {collaborationProjects.map(project => <div key={project.slug} className="collaboration-directory__image" data-visible={project.slug === selected.slug} aria-hidden={project.slug !== selected.slug}>
-            <MediaFrame {...project.coverImage} alt={localize(project.coverImage.alt, locale)} priority={project === projects[0]} sizes="(max-width: 1300px) 52vw, 680px" />
+          {collaborationProjects.map(project => <div key={project.slug} className="collaboration-directory__triptych" data-visible={project.slug === selected.slug} aria-hidden={project.slug !== selected.slug}>
+            {collaborationTriptych(project).map((image, index) => <MediaFrame key={`${image.src}-${index}`} {...image} alt={localize(image.alt, locale)} priority={project === projects[0]} sizes="(max-width: 640px) 54vw, (max-width: 1100px) 34vw, 420px" className={`collaboration-directory__image collaboration-directory__image--${index + 1}`} />)}
           </div>)}
         </Link>
         <div className="collaboration-directory__caption">

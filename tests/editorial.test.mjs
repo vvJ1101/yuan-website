@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { existsSync } from 'node:fs'
 
 import { collaborations, popUpEvents, eventCategories, collaborationCategories } from '../src/data/editorial.ts'
-import { featureFirst, filterProjects, sectionPath } from '../src/lib/editorial.ts'
+import { collaborationTriptych, featureFirst, filterProjects, sectionPath } from '../src/lib/editorial.ts'
 import { localePath, switchLocalePath, isNavigationItemActive } from '../src/lib/showroom-routing.ts'
 
 test('collaboration sample provides ordered, uniquely keyed content modules with usable media', () => {
@@ -20,6 +20,16 @@ test('collaboration sample provides ordered, uniquely keyed content modules with
       assert.ok(width > 0 && height > 0)
     }
   }
+})
+
+test('collaboration triptych uses the cover and first two gallery images with cover fallbacks', () => {
+  const coverImage = { src: '/cover.webp', ratio: '3 / 2', alt: { cn: '封面', en: 'Cover' } }
+  const first = { src: '/first.webp', ratio: '2 / 3', alt: { cn: '图片一', en: 'First' } }
+  const second = { src: '/second.webp', ratio: '2 / 3', alt: { cn: '图片二', en: 'Second' } }
+
+  assert.deepEqual(collaborationTriptych({ coverImage, gallery: [first, second] }), [first, coverImage, second])
+  assert.deepEqual(collaborationTriptych({ coverImage, gallery: [first] }), [first, coverImage, coverImage])
+  assert.deepEqual(collaborationTriptych({ coverImage, gallery: [] }), [coverImage, coverImage, coverImage])
 })
 
 test('editorial categories filter the supplied records without mutating them', () => {
