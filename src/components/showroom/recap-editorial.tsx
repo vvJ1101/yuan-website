@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { RecapBrandCarousel } from '@/components/showroom/recap-brand-carousel'
 import { recap27psBrands, recap27psIntroduction } from '@/data/recap-27ps'
-import { recap27psStatics } from '@/data/recap-27ps-statics'
 import { localize } from '@/lib/showroom-i18n'
 import { localePath } from '@/lib/showroom-routing'
 import type { Locale, Recap } from '@/types/showroom'
@@ -46,10 +45,6 @@ export function RecapEditorial({ locale, recap, previous, next }: { locale: Loca
             <p className="recap-editorial__prose">{localize(brand.note, locale)}</p>
           </div>
           <RecapBrandCarousel images={brand.images} name={brand.name} id={brand.id} locale={locale} />
-          <figure className="recap-editorial__brand-static">
-            <Image src={recap27psStatics[brand.id].image} alt={`${brand.name} — ${cn ? '精选图像' : 'Selected image'}`} width={1080} height={1622} sizes="(max-width: 640px) 88vw, 42vw" />
-            <figcaption><p>{localize(recap27psStatics[brand.id].caption, locale)}</p></figcaption>
-          </figure>
         </section>)}
       </section>
 

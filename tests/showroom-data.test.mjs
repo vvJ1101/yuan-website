@@ -108,9 +108,10 @@ test('the first five RANYEPERSONAL looks each expose three AI preview pieces', a
   assert.match(showroom, /productIdsForLook\(number\)/)
 })
 
-test('recap includes six supplied events and retains the remaining earlier seasons', async () => {
+test('recap keeps only the five approved ordering seasons', async () => {
   const source = await read('src/data/showroom.ts')
   const recapBlock = source.slice(source.indexOf('export const recaps'), source.length)
-  assert.equal([...recapBlock.matchAll(/\bslug:/g)].length, 14)
-  assert.match(recapBlock, /order: 13/)
+  assert.equal([...recapBlock.matchAll(/\bslug:/g)].length, 5)
+  assert.match(recapBlock, /order: 4/)
+  assert.doesNotMatch(recapBlock, /slug: 'aw-2025'|slug: 'ss-2025'|slug: 'aw-2024'/)
 })
