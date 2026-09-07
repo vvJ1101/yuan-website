@@ -4367,16 +4367,18 @@ html:has(.lookbook-brand) {
 .collaboration-directory__triptych:not([data-visible='true']) .collaboration-directory__image--1 { transform: translate(-82%, -46%) rotate(-3deg) scale(0.8); }
 .collaboration-directory__triptych:not([data-visible='true']) .collaboration-directory__image--2 { transform: translate(-50%, -46%) scale(0.94); }
 .collaboration-directory__triptych:not([data-visible='true']) .collaboration-directory__image--3 { transform: translate(-18%, -46%) rotate(3deg) scale(0.8); }
-.collaboration-directory__caption { position: absolute; top: 50%; right: 0; left: 0; display: flex; justify-content: space-between; align-items: center; gap: 24px; transform: translateY(-50%); pointer-events: none; }
-.collaboration-directory__side-copy { display: grid; gap: 6px; width: min(18vw, 250px); font-size: 9px; line-height: 1.25; letter-spacing: 0.08em; }
+.collaboration-directory__caption { position: absolute; inset: 0; pointer-events: none; }
+.collaboration-directory__side-copy { position: absolute; display: grid; gap: 6px; width: min(18vw, 250px); font-size: 9px; line-height: 1.25; letter-spacing: 0.08em; }
+.collaboration-directory__side-copy--left { top: 50%; left: 0; transform: translateY(-50%); }
 .collaboration-directory__side-copy strong { font-family: var(--ys-font-sans); font-size: clamp(15px, 1.25vw, 20px); font-weight: 500; line-height: 1.08; letter-spacing: -0.02em; }
-.collaboration-directory__side-copy--right { justify-items: end; text-align: right; }
+.collaboration-directory__side-copy--right { top: calc(50% + clamp(88px, 13vh, 128px)); left: calc(50% + clamp(190px, 20vw, 290px)); justify-items: start; text-align: left; }
 .collaboration-directory__side-copy .editorial-link { margin-top: 8px; pointer-events: auto; }
 .collaboration-index .editorial-sample { display: none; }
 @media (max-width: 900px) {
   .collaboration-directory__visual { width: 92vw; }
   .collaboration-directory__image { width: clamp(180px, 31vw, 270px); }
   .collaboration-directory__side-copy { width: min(20vw, 180px); }
+  .collaboration-directory__side-copy--right { left: calc(50% + clamp(145px, 18vw, 190px)); }
 }
 @media (max-width: 640px) {
   .collaboration-index { min-height: 620px; padding-bottom: 12px; }
@@ -4388,8 +4390,11 @@ html:has(.lookbook-brand) {
   .collaboration-directory__image { width: clamp(160px, 45vw, 210px); }
   .collaboration-directory__image--1 { transform: translate(-88%, -48%) rotate(-7deg) scale(0.76); }
   .collaboration-directory__image--3 { transform: translate(-12%, -48%) rotate(7deg) scale(0.76); }
-  .collaboration-directory__caption { position: static; align-items: end; width: 100%; margin-top: 8px; transform: none; }
-  .collaboration-directory__side-copy { width: 46%; }
+  .collaboration-directory__caption { position: static; display: flex; justify-content: space-between; align-items: end; width: 100%; margin-top: 8px; }
+  .collaboration-directory__side-copy,
+  .collaboration-directory__side-copy--left,
+  .collaboration-directory__side-copy--right { position: static; width: 46%; transform: none; }
+  .collaboration-directory__side-copy--right { justify-items: end; text-align: right; }
   .collaboration-directory__side-copy > span { font-size: 8px; letter-spacing: 0.04em; }
   .collaboration-directory__side-copy strong { font-size: 14px; }
   .collaboration-directory__list article { flex-basis: 74vw; min-width: 250px; }
