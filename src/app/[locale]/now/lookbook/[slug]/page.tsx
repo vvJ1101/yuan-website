@@ -5,6 +5,9 @@ import type { CSSProperties } from 'react'
 import { MediaFrame } from '@/components/showroom/media-frame'
 import { LookbookImageButton, LookbookViewer } from '@/components/showroom/lookbook-viewer'
 import { LookbookDock } from '@/components/showroom/lookbook-dock'
+import { LookbookIndexStage } from '@/components/showroom/lookbook-index-stage'
+import { LookbookEditorialGallery } from '@/components/showroom/lookbook-editorial-gallery'
+import { LookbookMobileLead } from '@/components/showroom/lookbook-mobile-lead'
 import { currentEvent } from '@/data/showroom'
 import { isLocale, locales } from '@/lib/showroom-i18n'
 import { localePath } from '@/lib/showroom-routing'
@@ -28,7 +31,6 @@ export default async function ExhibitionLookbookPage({ params }: { params: Promi
   const brand = currentEvent.exhibitionBrands.find((entry) => entry.slug === slug)
   if (!brand) notFound()
   const firstFive = brand.items.slice(0, 5)
-  const remainder = brand.items.slice(5)
 
   return (
     <main className="lookbook-brand">
@@ -38,6 +40,7 @@ export default async function ExhibitionLookbookPage({ params }: { params: Promi
       </header>
       <LookbookViewer looks={brand.items} products={brand.products} name={brand.name} season={currentEvent.season} locale={locale}>
       <div className="lookbook-brand__panels" aria-label={`${brand.name} LOOKBOOK`}>
+        <LookbookMobileLead looks={firstFive} name={brand.name} locale={locale} />
         <LookbookDock>
           {firstFive.map((item, index) => {
             const position = index === 2 ? 'hero' : 'side'
@@ -57,22 +60,8 @@ export default async function ExhibitionLookbookPage({ params }: { params: Promi
             )
           })}
         </LookbookDock>
-        {remainder.length > 0 && (
-          <section className="lookbook-brand__remainder">
-            {remainder.map((item, index) => (
-              <article className="lookbook-item" key={`${brand.slug}-remainder-${index}`}>
-                <LookbookImageButton index={index + 5} label={`${locale === 'cn' ? '查看大图' : 'View image'} — ${brand.name} LOOK ${index + 6}`}>
-                <MediaFrame
-                  src={item.image}
-                  alt={`${brand.name} LOOK ${String(index + 6).padStart(2, '0')}`}
-                  ratio="384 / 573"
-                  sizes="(max-width: 640px) 50vw, 16vw"
-                />
-                </LookbookImageButton>
-              </article>
-            ))}
-          </section>
-        )}
+        <LookbookEditorialGallery name={brand.name} season={currentEvent.season} locale={locale} />
+        <LookbookIndexStage looks={brand.items} name={brand.name} season={currentEvent.season} locale={locale} />
       </div>
       </LookbookViewer>
     </main>

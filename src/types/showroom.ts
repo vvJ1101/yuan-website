@@ -24,6 +24,14 @@ export interface Brand {
   introduction: LocalizedText
   cover: string
   roomImages: readonly [string, ...string[]]
+  detailImages?: readonly BrandDetailImage[]
+}
+
+export interface BrandDetailImage {
+  src: string
+  alt: LocalizedText
+  ratio: string
+  label?: LocalizedText
 }
 
 export interface EventBrand {

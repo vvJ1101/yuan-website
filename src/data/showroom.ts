@@ -166,6 +166,20 @@ export const aboutContent: AboutContent = {
   ],
 }
 
+const withDetailImages = (brand: Brand): Brand => brand.roomImages.length < 3 ? brand : {
+  ...brand,
+  detailImages: brand.roomImages.slice(0, 3).map((src, index) => ({
+    src,
+    ratio: index === 0 ? '16 / 15' : '1 / 1',
+    alt: { cn: `${brand.name} 品牌材质与造型细节 ${index + 1}`, en: `${brand.name} material and campaign detail ${index + 1}` },
+    label: [
+      { cn: '形态', en: 'SILHOUETTE' },
+      { cn: '材质', en: 'MATERIAL' },
+      { cn: '细节', en: 'DETAIL' },
+    ][index],
+  })),
+}
+
 export const brands: Brand[] = [
   { slug: 'ranyepersonal', name: 'RANYEPERSONAL', category: 'RTW', city: { cn: '上海', en: 'Shanghai' }, introduction: { cn: 'RANYEPERSONAL 以利落廓形和克制细节描绘当代女性的独立姿态，在日常与仪式感之间建立从容的着装语言。', en: 'RANYEPERSONAL frames the independent contemporary woman through precise silhouettes and restrained details, balancing everyday ease with a sense of occasion.' }, cover: showroomImage('brands/ranyepersonal.webp'), roomImages: [showroomImage('brand-room/ranyepersonal-main.webp'), showroomImage('brand-room/ranyepersonal-detail-01.webp'), showroomImage('brand-room/ranyepersonal-detail-02.webp')] },
   { slug: 'maison-ther', name: 'MAISON THER', category: 'RTW', city: { cn: '上海', en: 'Shanghai' }, introduction: { cn: 'MAISON THER 从长期主义出发，以柔和质地、简洁线条与经得起时间考验的衣橱作品回应现代生活。', en: 'Rooted in a long-term view, MAISON THER answers modern life with soft textures, clean lines, and wardrobe pieces designed to endure.' }, cover: showroomImage('brands/maison-ther.webp'), roomImages: [showroomImage('brand-room/maison-ther-main.webp'), showroomImage('brand-room/maison-ther-detail-01.webp'), showroomImage('brand-room/maison-ther-detail-02.webp')] },
@@ -198,6 +212,8 @@ const editorialLookbook = [
   { image: showroomImage('now/lookbook/editorial-03.png') },
   { image: showroomImage('now/lookbook/editorial-05.png') },
 ] as const
+
+for (const brand of brands) brand.detailImages = withDetailImages(brand).detailImages
 
 // User-supplied womenswear, temporarily assigned for local layout previews.
 const suppliedLook = (number: number) => ({ image: `/images/showroom/now/lookbook/womenswear-upload-${number}.webp` })

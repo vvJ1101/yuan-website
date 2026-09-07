@@ -1,12 +1,13 @@
 import Link from 'next/link'
-import type { CSSProperties } from 'react'
 
 import { MediaFrame } from './media-frame'
+import { EventExperience } from './event-experience'
 import { CollaborationContact } from './collaboration-contact'
 import { CollaborationBlocks } from './collaboration-blocks'
 import { CollaborationIndex } from './collaboration-index'
+import { StoryBlocks } from './story-blocks'
 import { collaborationContact } from '@/data/editorial'
-import { eventStories, type EventStory, type StoryImage } from '@/data/event-stories'
+import { eventStories } from '@/data/event-stories'
 import { featureFirst, filterProjects, projectCategory, sectionPath } from '@/lib/editorial'
 import { localize, localizeEditorialCategory } from '@/lib/showroom-i18n'
 import { localePath } from '@/lib/showroom-routing'
@@ -121,6 +122,8 @@ function CollaborationDetail({ project, locale }: { project: Collaboration; loca
         {project.isSample && <p className="editorial-sample">{locale === 'cn' ? '示例项目 · 非正式发布' : 'SAMPLE PROJECT · Not an announcement'}</p>}
       </header>
 
+      {project.story?.length ? <StoryBlocks blocks={project.story} locale={locale} surface="collaboration" /> : <>
+
       <section className={`collaboration-story__opening${portraitCover ? ' collaboration-story__opening--portrait' : ''}`} aria-label={locale === 'cn' ? '项目介绍' : 'Project introduction'}>
         <div className="collaboration-story__hero">
           <MediaFrame {...project.coverImage} ratio={portraitCover ? project.coverImage.ratio : '16 / 9'} alt={localize(project.coverImage.alt, locale)} priority sizes={portraitCover ? '(max-width: 640px) 92vw, (max-width: 1300px) 42vw, 520px' : '(max-width: 1300px) 56vw, 760px'} />
@@ -144,9 +147,10 @@ function CollaborationDetail({ project, locale }: { project: Collaboration; loca
         <TextSection title={locale === 'cn' ? '最终成果' : 'OUTCOMES'} paragraphs={project.outcomes} locale={locale} />
         </div>
       </section>}
+      </>}
 
       <footer className="collaboration-story__closing">
-        <TextSection title="CREDITS" paragraphs={project.credits} locale={locale} />
+        {!project.story?.some((block) => block.type === 'credits') && <TextSection title="CREDITS" paragraphs={project.credits} locale={locale} />}
         <CollaborationContact locale={locale} contact={collaborationContact} />
         <Link className="editorial-link" href={backHref}>{locale === 'cn' ? '返回全部合作项目' : 'BACK TO ALL COLLABORATIONS'}</Link>
       </footer>
@@ -156,9 +160,9 @@ function CollaborationDetail({ project, locale }: { project: Collaboration; loca
 
 function EventDetail({ project, locale }: { project: EditorialProject; locale: Locale }) {
   const story = eventStories[project.slug]
-  if (story) return <EventArticle project={project} story={story} locale={locale} />
   const section = sectionPath(project)
   const backHref = localePath(locale, `/${section}`)
+  if (story && project.kind === 'event') return <EventExperience project={project} story={story} locale={locale} backHref={backHref} />
   return (
     <main className={`editorial-detail editorial-detail--${project.kind}`}>
       <div className="editorial-detail__visual">
@@ -185,54 +189,6 @@ function EventDetail({ project, locale }: { project: EditorialProject; locale: L
         {project.kind === 'collaboration' && <CollaborationContact locale={locale} contact={collaborationContact} />}
         <Link className="editorial-link" href={backHref}>{locale === 'cn' ? '返回列表' : 'BACK TO ALL PROJECTS'}</Link>
       </div>
-    </main>
-  )
-}
-
-function ArticleImage({ image, locale, priority = false }: { image: StoryImage; locale: Locale; priority?: boolean }) {
-  const crop = image.crop
-  const [width, height] = image.ratio.split('/').map(Number)
-  const style = crop ? {
-    aspectRatio: `${width * crop.width} / ${height * crop.height}`,
-    '--crop-width': `${100 / crop.width}%`,
-    '--crop-left': `${-100 * crop.left / crop.width}%`,
-    '--crop-top': `${-100 * crop.top / crop.height}%`,
-  } as CSSProperties : undefined
-  return <div className={crop ? 'event-story__image event-story__image--preview' : 'event-story__image'} style={style}>
-    <MediaFrame {...image} alt={localize(image.alt, locale)} priority={priority} unoptimized sizes="(max-width: 640px) 100vw, 1200px" />
-  </div>
-}
-
-function EventArticle({ project, story, locale }: { project: EditorialProject; story: EventStory; locale: Locale }) {
-  return (
-    <main className="event-story">
-      <article>
-        <header className="event-story__heading">
-          <Link className="editorial-link" href={localePath(locale, '/pop-up-events')}>{locale === 'cn' ? '返回活动列表' : 'BACK TO EVENTS'}</Link>
-          <h1><ProjectName project={project} locale={locale} /></h1>
-          <p className="event-story__notice">{locale === 'cn' ? '设计预览 · 临时配图与文案，非正式活动公告' : 'DESIGN PREVIEW · Temporary images and copy, not an event announcement'}</p>
-        </header>
-        <ArticleImage image={story.hero} locale={locale} priority />
-        <p className="event-story__intro">{localize(story.intro, locale)}</p>
-        {story.chapters.map((chapter) => (
-          <section className={`event-story__chapter event-story__chapter--${chapter.layout}`} key={chapter.id} aria-labelledby={`story-${chapter.id}`}>
-            <div className="event-story__chapter-main">
-              <header className="event-story__copy">
-                <h2 id={`story-${chapter.id}`}>{localize(chapter.title, locale)}</h2>
-                {chapter.paragraphs.map((paragraph, index) => <p key={index}>{localize(paragraph, locale)}</p>)}
-              </header>
-              <ArticleImage image={chapter.image} locale={locale} />
-            </div>
-            {chapter.gallery && <div className={`event-story__gallery event-story__gallery--${chapter.gallery.length}`}>
-              {chapter.gallery.map((image, index) => <ArticleImage image={image} locale={locale} key={`${chapter.id}-${index}`} />)}
-            </div>}
-          </section>
-        ))}
-        <footer className="event-story__closing">
-          <p>{localize(story.closing, locale)}</p>
-          <Link className="editorial-link" href={localePath(locale, '/pop-up-events')}>{locale === 'cn' ? '返回全部活动' : 'BACK TO ALL EVENTS'}</Link>
-        </footer>
-      </article>
     </main>
   )
 }

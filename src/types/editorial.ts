@@ -6,6 +6,31 @@ export interface EditorialImage {
   ratio: string
 }
 
+export interface StoryImage extends EditorialImage {
+  temporary?: boolean
+  sourceLabel?: string
+  sourcePath?: string
+  replacementStatus?: 'pending' | 'replaced'
+}
+
+export interface StoryVideo {
+  src: string
+  poster: StoryImage
+  caption?: LocalizedText
+}
+
+export type StoryBlock = { id: string } & (
+  | { type: 'hero'; image: StoryImage }
+  | { type: 'text'; heading?: LocalizedText; paragraphs: readonly LocalizedText[] }
+  | { type: 'imageText'; image: StoryImage; heading?: LocalizedText; paragraphs: readonly LocalizedText[] }
+  | { type: 'offsetPair'; images: readonly [StoryImage, StoryImage]; caption?: LocalizedText }
+  | { type: 'detailStrip'; images: readonly StoryImage[]; caption?: LocalizedText }
+  | { type: 'montage'; images: readonly StoryImage[]; caption?: LocalizedText }
+  | { type: 'video'; video: StoryVideo }
+  | { type: 'statement'; text: LocalizedText }
+  | { type: 'credits'; items: readonly LocalizedText[] }
+)
+
 export type CollaborationBlock = { id: string } & (
   | { type: 'text'; heading?: LocalizedText; paragraphs: readonly LocalizedText[] }
   | { type: 'image'; image: EditorialImage; caption?: LocalizedText }
@@ -46,6 +71,8 @@ export interface Collaboration extends EditorialEntry {
   process: readonly LocalizedText[]
   outcomes: readonly LocalizedText[]
   blocks?: readonly CollaborationBlock[]
+  story?: readonly StoryBlock[]
+  previewImages?: readonly StoryImage[]
 }
 
 export type EditorialProject = PopUpEvent | Collaboration

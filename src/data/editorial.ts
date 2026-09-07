@@ -1,4 +1,5 @@
-import type { Collaboration, CollaborationBlock, EditorialImage, PopUpEvent } from '../types/editorial'
+import { editorialReferenceAssets } from './editorial-reference-assets.js'
+import type { Collaboration, CollaborationBlock, EditorialImage, PopUpEvent, StoryBlock } from '../types/editorial'
 
 export const eventCategories = ['CURRENT', 'UPCOMING', 'ARCHIVE'] as const
 export const collaborationCategories = ['FASHION', 'ART', 'DESIGN', 'CULTURE'] as const
@@ -85,17 +86,27 @@ const sampleCollaborations = [
   { partner: 'ORBITAL OBJECTS', title: { cn: '暂停中的物件', en: 'OBJECTS IN PAUSE' } },
   { partner: 'VOLUME N°7', title: { cn: '余晖之后', en: 'AFTERLIGHT' } },
 ] as const
+
+const sampleStory: readonly StoryBlock[] = [
+  { id: 'story-hero', type: 'hero', image: editorialReferenceAssets[0] },
+  { id: 'story-introduction', type: 'text', heading: { cn: '一场关于空间与衣着的相遇', en: 'A meeting of space and silhouette' }, paragraphs: [{ cn: '这是一篇用于检验图文节奏的示例故事。空间、材质与服装图像被组织为连续章节，后续可由真实合作内容逐项替换。', en: 'A sample story used to test editorial rhythm. Space, material and fashion imagery form a sequence that can later be replaced block by block with real collaboration content.' }] },
+  { id: 'story-dialogue', type: 'imageText', image: editorialReferenceAssets[4], heading: { cn: '空间成为对话的一部分', en: 'Space becomes part of the conversation' }, paragraphs: [{ cn: '建筑的结构、光线与留白不只是背景，也决定作品被观看的距离和节奏。', en: 'Structure, light and negative space are more than a backdrop; they shape how the work is seen and paced.' }] },
+  { id: 'story-showcase', type: 'montage', images: [...collaborationStudies[0], ...collaborationStudies[0].slice(0, 4)], caption: { cn: '空间与造型组图 · 示例素材，用于检验大图排版密度', en: 'Space and silhouette image stream · Sample imagery used to tune large-photo rhythm' } },
+  { id: 'story-credits', type: 'credits', items: sampleCredits },
+]
 export const collaborations: readonly Collaboration[] = collaborationCategories.map((category, index) => ({
   kind: 'collaboration', slug: `sample-${category.toLowerCase()}`, partner: sampleCollaborations[index].partner,
   title: sampleCollaborations[index].title,
   category, year: 2026, featured: index === 0, isSample: true,
   subtitle: { cn: '创意相遇的另一种可能 · 排版示例', en: 'Another way for ideas to meet · Layout sample' },
   coverImage: collaborationStudies[index][0], gallery: collaborationStudies[index].slice(1),
+  previewImages: collaborationStudies[index].slice(0, 3),
   concept: [{ cn: '此处将介绍合作缘起、双方的创意方向与共同目标。项目名称均为排版占位，不代表实际合作关系。', en: 'This space will introduce the partnership, creative direction and shared purpose. Project names are layout placeholders and do not represent real partnerships.' }],
   process: [{ cn: '此处预留创作过程、实验和幕后记录，后续可以加入对应图片。', en: 'A space for the creative process, experiments and behind-the-scenes documentation, with supporting imagery.' }],
   outcomes: [{ cn: '此处展示正式项目的最终作品与成果，待真实内容确认后替换。', en: 'Final work and project outcomes will appear here once the real content is confirmed.' }],
   credits: sampleCredits,
   blocks: sampleBlocks(collaborationStudies[index]),
+  story: index === 0 ? sampleStory : undefined,
 }))
 
 // Supply the confirmed public contact destination before publishing this section.

@@ -3,8 +3,59 @@ import assert from 'node:assert/strict'
 import { existsSync } from 'node:fs'
 
 import { collaborations, popUpEvents, eventCategories, collaborationCategories } from '../src/data/editorial.ts'
+import { eventStories } from '../src/data/event-stories.ts'
 import { collaborationTriptych, featureFirst, filterProjects, sectionPath } from '../src/lib/editorial.ts'
 import { localePath, switchLocalePath, isNavigationItemActive } from '../src/lib/showroom-routing.ts'
+import { nextPreviewIndex } from '../src/lib/collaboration-preview.ts'
+import { validateStoryBlocks } from '../src/lib/editorial-blocks.ts'
+import { editorialReferenceAssets } from '../src/data/editorial-reference-assets.js'
+import { nextEventVisualIndex } from '../src/lib/event-visual-index.ts'
+
+test('story blocks validate stable IDs, media and temporary provenance', () => {
+  const image = editorialReferenceAssets[0]
+  assert.equal(image.temporary, true)
+  assert.ok(image.sourceLabel)
+  assert.equal(image.replacementStatus, 'pending')
+  assert.deepEqual(validateStoryBlocks([
+    { id: 'lead', type: 'hero', image },
+    { id: 'close', type: 'statement', text: { cn: '示例收束语', en: 'Sample closing statement' } },
+  ]).map((block) => block.id), ['lead', 'close'])
+  assert.throws(() => validateStoryBlocks([
+    { id: 'duplicate', type: 'statement', text: { cn: '一', en: 'One' } },
+    { id: 'duplicate', type: 'statement', text: { cn: '二', en: 'Two' } },
+  ]), /duplicate/i)
+})
+
+test('sample collaboration provides a complete ordered visual story', () => {
+  const types = collaborations[0].story.map((block) => block.type)
+  assert.deepEqual(types, ['hero', 'text', 'imageText', 'montage', 'credits'])
+})
+
+test('collaboration previews wrap without invalid indexes', () => {
+  assert.equal(nextPreviewIndex(0, 3), 1)
+  assert.equal(nextPreviewIndex(2, 3), 0)
+  assert.equal(nextPreviewIndex(0, 1), 0)
+  assert.equal(nextPreviewIndex(0, 0), 0)
+  for (const project of collaborations) {
+    assert.ok(project.previewImages.length >= 2 && project.previewImages.length <= 3)
+  }
+})
+
+test('HELEN KAMINSKI story adds montage and closing without inventing schedule data', () => {
+  const story = eventStories['sample-showroom-edit']
+  assert.ok(story.blocks.some((block) => block.type === 'montage'))
+  assert.ok(story.blocks.some((block) => block.type === 'statement'))
+  const event = popUpEvents.find((item) => item.slug === 'sample-showroom-edit')
+  assert.equal(event.startDate, null)
+  assert.equal(event.endDate, null)
+})
+
+test('event visual index wraps in both directions for clickable stage navigation', () => {
+  assert.equal(nextEventVisualIndex(0, 1, 5), 1)
+  assert.equal(nextEventVisualIndex(4, 1, 5), 0)
+  assert.equal(nextEventVisualIndex(0, -1, 5), 4)
+  assert.equal(nextEventVisualIndex(0, 1, 0), 0)
+})
 
 test('collaboration sample provides ordered, uniquely keyed content modules with usable media', () => {
   const blocks = collaborations[0].blocks

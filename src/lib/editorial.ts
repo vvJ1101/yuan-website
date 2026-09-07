@@ -1,4 +1,4 @@
-import type { EditorialImage, EditorialProject, EditorialSection } from '../types/editorial'
+import type { Collaboration, EditorialImage, EditorialProject, EditorialSection } from '../types/editorial'
 
 export function projectCategory(project: EditorialProject): string | null {
   return project.kind === 'event' ? project.status : project.category
@@ -17,6 +17,7 @@ export function featureFirst<T extends EditorialProject>(projects: readonly T[])
   return { featured, remaining: projects.filter((project) => project !== featured) }
 }
 
-export function collaborationTriptych(project: Pick<EditorialProject, 'coverImage' | 'gallery'>): readonly [EditorialImage, EditorialImage, EditorialImage] {
-  return [project.gallery[0] ?? project.coverImage, project.coverImage, project.gallery[1] ?? project.coverImage]
+export function collaborationTriptych(project: Pick<Collaboration, 'coverImage' | 'gallery' | 'previewImages'>): readonly [EditorialImage, EditorialImage, EditorialImage] {
+  const images = project.previewImages?.length ? project.previewImages : [project.coverImage, ...project.gallery]
+  return [images[1] ?? project.coverImage, images[0] ?? project.coverImage, images[2] ?? project.coverImage]
 }

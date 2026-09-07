@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { MediaFrame } from '@/components/showroom/media-frame'
+import { BrandDetailStrip } from '@/components/showroom/brand-detail-strip'
 import { localize } from '@/lib/showroom-i18n'
 import { localePath } from '@/lib/showroom-routing'
 import type { Brand, Locale } from '@/types/showroom'
@@ -49,6 +50,8 @@ export function BrandRoom({ locale, brand, previous, next }: BrandRoomProps) {
           </Link>
         </nav>
       </section>
+
+      <BrandDetailStrip images={brand.detailImages ?? []} locale={locale} brandName={brand.name} />
 
       <section className="brand-room__gallery" aria-label={`${brand.name} ${locale === 'cn' ? '品牌造型' : 'campaign'}`}>
         <MediaFrame
