@@ -818,10 +818,6 @@ a.lookbook-index__card:hover > span {
 .recap-editorial__roster a:hover { text-decoration: underline; text-underline-offset: 5px; }
 .recap-editorial__brand { display: grid; grid-template-columns: 1fr 2fr; gap: 7%; align-items: start; margin-bottom: 100px; scroll-margin-top: 180px; }
 .recap-editorial__brand-copy { padding-top: 12px; }
-.recap-editorial__brand { row-gap: 48px; }
-.recap-editorial__brand-static { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 8%; align-items: center; margin: 0; padding: 0 8%; }
-.recap-editorial__brand-static img { display: block; width: 100%; height: auto; }
-.recap-editorial__brand-static p { font-family: var(--ys-font-serif); font-size: var(--ys-type-body); line-height: var(--ys-leading-body); margin: 0; max-width: 32ch; }
 .recap-brand-gallery__progress { display: flex; justify-content: center; gap: 6px; padding: 18px 0; }
 .recap-brand-gallery__progress span { width: 20px; height: 2px; background: hsl(var(--border)); transition: background-color 200ms ease; }
 .recap-brand-gallery__progress span.is-active { background: var(--ys-ink); }
@@ -871,6 +867,15 @@ a.lookbook-index__card:hover > span {
 .recap-editorial__contact a { overflow-wrap: anywhere; text-underline-offset: 5px; }
 .recap-editorial__contact a:hover { text-decoration: underline; }
 
+@media (min-width: 901px) {
+  .recap-editorial__brand {
+    min-height: calc(100svh - var(--ys-header-h));
+    margin-bottom: 0;
+    padding-block: clamp(36px, 7vh, 80px);
+    align-items: center;
+  }
+}
+
 @media (max-width: 900px) {
   .recap-editorial__opening { gap: 6%; align-items: start; }
   .recap-editorial__facts div { grid-template-columns: 1fr; gap: 4px; }
@@ -890,7 +895,6 @@ a.lookbook-index__card:hover > span {
   .recap-editorial__roster-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
   .recap-editorial__roster-grid > div:first-child { grid-column: 1 / -1; }
   .recap-editorial__brand { margin-bottom: 64px; scroll-margin-top: 180px; }
-  .recap-editorial__brand-static { grid-template-columns: 1fr; gap: 24px; padding: 0; }
   .recap-brand-gallery figure { flex-basis: 86%; }
   .recap-editorial__space-grid { grid-template-columns: 1fr; gap: 36px; }
   .recap-editorial__space figure:nth-child(even) { margin-top: 0; }

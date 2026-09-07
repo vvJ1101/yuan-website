@@ -223,6 +223,14 @@ test('recap detail only opens with a video hero when that season has a video', a
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)/)
 })
 
+test('27PS recap keeps each brand to one desktop screen without a trailing detail image', async () => {
+  const editorial = await read('src/components/showroom/recap-editorial.tsx')
+  const css = await read('src/app/globals.css')
+
+  assert.doesNotMatch(editorial, /recap27psStatics|recap-editorial__brand-static/)
+  assert.match(css, /@media \(min-width: 901px\)[\s\S]*?\.recap-editorial__brand\s*\{[^}]*min-height: calc\(100svh - var\(--ys-header-h\)\)/)
+})
+
 test('brand room uses one eager hero with responsive image hints', async () => {
   const room = await read('src/components/showroom/brand-room.tsx')
 
