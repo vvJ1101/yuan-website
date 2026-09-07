@@ -4336,7 +4336,7 @@ html:has(.lookbook-brand) {
 .event-story__closing > p { margin-bottom: 32px; font-family: var(--ys-font-serif); font-size: var(--ys-type-project-title); line-height: 1.4; }
 .collaboration-index { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 18px; height: calc(100svh - var(--ys-header-h)); min-height: 560px; max-width: none; margin-inline: auto; padding-bottom: 20px; overflow: hidden; }
 .collaboration-index .editorial-heading { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 12px 32px; margin-bottom: 0; }
-.collaboration-index .editorial-heading h1 { margin: 0; font-family: var(--ys-font-sans); font-size: 12px; font-weight: 500; line-height: 1.2; letter-spacing: 0.08em; }
+.collaboration-index .editorial-heading h1 { margin: 0; font-family: var(--ys-font-serif); font-size: var(--ys-type-page-title); font-weight: 400; line-height: var(--ys-leading-title); letter-spacing: 0.005em; }
 .collaboration-directory { display: contents; }
 .collaboration-directory__list { position: relative; grid-row: 3; display: flex; min-width: 0; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; }
 .collaboration-directory__list::before,
