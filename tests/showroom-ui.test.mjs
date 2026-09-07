@@ -457,6 +457,15 @@ test('recap fills the desktop in five columns with portrait posters', async () =
   assert.match(css, /@media \(max-width: 640px\)[\s\S]*?\.recap-grid\s*\{[^}]*repeat\(2, minmax\(0, 1fr\)\)/)
 })
 
+test('recap title uses the shared page-title scale', async () => {
+  const css = await read('src/app/globals.css')
+  const first = css.indexOf('.recap-page > header h1 {', css.indexOf('.recap-page {'))
+  const start = css.indexOf('.recap-page > header h1 {', first + 1)
+  const rule = css.slice(start, css.indexOf('}', start) + 1)
+
+  assert.match(rule, /font-size: var\(--ys-type-page-title\)/)
+})
+
 test('showroom self-hosts the approved free bilingual font system', async () => {
   const layout = await read('src/app/layout.tsx')
   const css = await read('src/app/globals.css')

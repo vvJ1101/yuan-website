@@ -709,9 +709,7 @@ a.lookbook-index__card:hover > span {
 
 .recap-page > header h1 {
   margin-top: 12px;
-  font-size: clamp(26px, 2.3vw, 38px);
-  font-weight: 400;
-  letter-spacing: 0.08em;
+  font-size: var(--ys-type-page-title);
 }
 
 .recap-grid {
