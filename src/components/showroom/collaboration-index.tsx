@@ -79,8 +79,14 @@ export function CollaborationIndex({ projects, locale }: { projects: readonly Ed
         </div>)}
       </Link>
       <div className="collaboration-directory__caption">
-        <span className="collaboration-directory__identity" aria-live="polite" aria-atomic="true">{localizeEditorialCategory(selected.category, locale)} / {selected.year}</span>
-        <Link className="editorial-link" href={projectHref(selected.slug)}>{locale === 'cn' ? '查看项目 ↗' : 'VIEW PROJECT ↗'}</Link>
+        <div className="collaboration-directory__side-copy collaboration-directory__side-copy--left" aria-live="polite" aria-atomic="true">
+          <span lang="en">YUAN SHOWROOM × {selected.partner}</span>
+          <strong>{localize(selected.title, locale)}</strong>
+        </div>
+        <div className="collaboration-directory__side-copy collaboration-directory__side-copy--right">
+          <span>{localizeEditorialCategory(selected.category, locale)} / {selected.year}</span>
+          <Link className="editorial-link" href={projectHref(selected.slug)}>{locale === 'cn' ? '查看项目 ↗' : 'VIEW PROJECT ↗'}</Link>
+        </div>
       </div>
     </aside>
   </div>
