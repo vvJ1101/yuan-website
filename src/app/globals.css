@@ -2894,6 +2894,32 @@ a.lookbook-index__card:hover > span {
   touch-action: none;
 }
 
+.showroom-cover__experience--static {
+  background: #ded8cf;
+  animation: none;
+  touch-action: auto;
+}
+
+.showroom-cover__background {
+  object-fit: cover;
+  object-position: 50% 43%;
+}
+
+.showroom-cover__hero-logo {
+  position: absolute;
+  z-index: 2;
+  top: 64%;
+  left: 32%;
+  width: clamp(420px, 44vw, 720px);
+  aspect-ratio: 2423 / 522;
+  transform: translate(-50%, -50%);
+}
+
+.showroom-cover__hero-logo-image {
+  filter: invert(1);
+  object-fit: contain;
+}
+
 .product-tunnel {
   position: absolute;
   z-index: 1;
@@ -2969,6 +2995,16 @@ a.lookbook-index__card:hover > span {
 }
 
 @media (max-width: 640px) {
+  .showroom-cover__background {
+    object-position: 50% 50%;
+  }
+
+  .showroom-cover__hero-logo {
+    top: 70%;
+    left: 38%;
+    width: 72vw;
+  }
+
   .showroom-cover__statement {
     padding: 24px;
   }
