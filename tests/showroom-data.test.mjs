@@ -108,6 +108,17 @@ test('the first five RANYEPERSONAL looks each expose three AI preview pieces', a
   assert.match(showroom, /productIdsForLook\(number\)/)
 })
 
+test('on-site services publish Aano Cafe and Fruttini as bilingual amenities', async () => {
+  const source = await read('src/data/showroom.ts')
+  const services = source.slice(source.indexOf('export const onSiteServices'), source.indexOf('export const recaps'))
+
+  assert.equal([...services.matchAll(/\n\s*id: '/g)].length, 2)
+  assert.match(services, /id: 'aano-cafe'[\s\S]*category: \{ cn: '咖啡与休憩', en: 'Café & Pause' \}/)
+  assert.match(services, /id: 'fruttini-gelato'[\s\S]*category: \{ cn: '冰淇淋与礼赠', en: 'Gelato & Gifting' \}/)
+  assert.match(services, /name: 'Fruttini Gelato'/)
+  assert.match(services, /detailImages: \[[\s\S]*fruttini-selection-01\.webp[\s\S]*fruttini-selection-08\.webp/)
+})
+
 test('recap keeps only the five approved ordering seasons', async () => {
   const source = await read('src/data/showroom.ts')
   const recapBlock = source.slice(source.indexOf('export const recaps'), source.length)

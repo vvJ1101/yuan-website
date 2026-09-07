@@ -318,6 +318,21 @@ test('NOW landing is a two-column 16:9 composition contained in one desktop view
   assert.match(css, /\.now-event\s*\{[\s\S]*?grid-template-columns: minmax\(0, 1\.85fr\) minmax\(240px, 0\.65fr\)[\s\S]*?height: calc\(100svh - var\(--ys-header-h\)\)[\s\S]*?overflow: hidden/)
 })
 
+test('on-site services use numbered editorial bands with reusable detail viewing', async () => {
+  const page = await read('src/app/[locale]/on-site/page.tsx')
+  const viewer = await read('src/components/showroom/onsite-service-viewer.tsx')
+  const css = await read('src/app/globals.css')
+
+  assert.match(page, /className="onsite-page__intro"/)
+  assert.match(page, /onSiteServices\.map\(\(service, index\)/)
+  assert.match(page, /localize\(service\.category, locale\)/)
+  assert.match(page, /<OnSiteServiceViewer[\s\S]*?images=\{service\.detailImages\}/)
+  assert.match(viewer, /aria-haspopup="dialog"/)
+  assert.match(viewer, /<LookbookImageStage/)
+  assert.match(viewer, /setActive\(\(index\) => \(index \+ direction \+ images\.length\) % images\.length\)/)
+  assert.match(css, /\.onsite-service--reversed\s+\.onsite-service__copy\s*\{[^}]*order: 2/)
+})
+
 test('NOW exhibition posters link to separate lookbook-only brand routes', async () => {
   const index = await read('src/app/[locale]/now/lookbook/page.tsx')
   const detail = await read('src/app/[locale]/now/lookbook/[slug]/page.tsx')

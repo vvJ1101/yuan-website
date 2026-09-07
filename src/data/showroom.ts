@@ -97,6 +97,15 @@ const showroomImages = {
   'on-site/aano-cafe-counter-20260903.webp': image('/images/showroom/on-site/aano-cafe-counter-20260903.webp', 'Aano Café 木质咖啡吧台实景', 'Aano Café wooden coffee counter'),
   'on-site/aano-cafe-seating-20260903.webp': image('/images/showroom/on-site/aano-cafe-seating-20260903.webp', 'Aano Café 沙发休憩区实景', 'Aano Café lounge seating'),
   'on-site/aano-cafe-entrance-20260903.webp': image('/images/showroom/on-site/aano-cafe-entrance-20260903.webp', 'Aano Café 入口标识墙实景', 'Aano Café entrance and logo wall'),
+  'on-site/fruttini-hero-20260907.webp': image('/images/showroom/on-site/fruttini-hero-20260907.webp', 'Fruttini Gelato 水果冰淇淋陈列', 'Fruttini Gelato fruit gelato presentation'),
+  'on-site/fruttini-selection-01.webp': image('/images/showroom/on-site/fruttini-selection-01.webp', 'Fruttini Gelato 精品礼盒系列', 'Fruttini Gelato gift box selection'),
+  'on-site/fruttini-selection-02.webp': image('/images/showroom/on-site/fruttini-selection-02.webp', '邂逅卡普里水果冰淇淋礼盒', 'Encounter in Capri fruit gelato gift box'),
+  'on-site/fruttini-selection-03.webp': image('/images/showroom/on-site/fruttini-selection-03.webp', '恋上凡尔赛水果冰淇淋礼盒', 'Darling in Versailles fruit gelato gift box'),
+  'on-site/fruttini-selection-04.webp': image('/images/showroom/on-site/fruttini-selection-04.webp', '情迷西西里水果冰淇淋礼盒', 'Charmer in Sicily fruit gelato gift box'),
+  'on-site/fruttini-selection-05.webp': image('/images/showroom/on-site/fruttini-selection-05.webp', '挚爱翡冷翠水果冰淇淋礼盒', 'Soulmate in Florence fruit gelato gift box'),
+  'on-site/fruttini-selection-06.webp': image('/images/showroom/on-site/fruttini-selection-06.webp', '梦幻爱琴海水果冰淇淋礼盒', 'Fantasy in Aegean Sea fruit gelato gift box'),
+  'on-site/fruttini-selection-07.webp': image('/images/showroom/on-site/fruttini-selection-07.webp', 'Fruttini Gelato 真水果冰淇淋九宫格礼盒', 'Fruttini Gelato nine-piece fruit gelato gift box'),
+  'on-site/fruttini-selection-08.webp': image('/images/showroom/on-site/fruttini-selection-08.webp', 'Fruttini Gelato 深蓝精品礼盒', 'Fruttini Gelato navy gift box'),
   'recap/ss-2026.webp': image('/images/showroom/recap/ss-2026.webp', 'SS 2026 订货会海报「无界之境」', 'SS 2026 ordering event poster, Beyond Boundaries'),
   'recap/ss-2026-layout.jpg': image('/images/showroom/recap/ss-2026-layout.jpg', 'SS 2026 订货会场景：建筑布局', 'SS 2026 recap scene: showroom layout'),
   'recap/ss-2026-cafe.jpg': image('/images/showroom/recap/ss-2026-cafe.jpg', 'SS 2026 订货会现场：咖啡服务区', 'SS 2026 recap scene: café service area'),
@@ -252,8 +261,9 @@ export const appointmentContent = {
 } as const
 
 export const onSiteServices: OnSiteService[] = [{
-  id: 'aano-caffe',
+  id: 'aano-cafe',
   name: 'Aano Cafe',
+  category: { cn: '咖啡与休憩', en: 'Café & Pause' },
   description: { cn: '选品间隙，停下来喝一杯咖啡。Aano Cafe 为买手与品牌提供一处休憩、交流的安静空间。', en: 'A pause between selections. Aano Cafe offers buyers and brands a quiet place for coffee, conversation, and a moment to reset.' },
   location: { cn: '签到台右后方', en: 'Behind the check-in desk, to the right' },
   offering: { cn: '手冲咖啡 · 冷萃 · 轻食 · 甜点', en: 'Hand-brewed coffee · Cold brew · Light bites · Desserts' },
@@ -262,6 +272,31 @@ export const onSiteServices: OnSiteService[] = [{
     showroomImage('on-site/aano-cafe-counter-20260903.webp'),
     showroomImage('on-site/aano-cafe-seating-20260903.webp'),
     showroomImage('on-site/aano-cafe-entrance-20260903.webp'),
+  ],
+  detailLabel: { cn: '查看菜单', en: 'View menu' },
+  detailImages: ['/images/showroom/on-site/aano-cafe-menu-20260903.jpg'],
+}, {
+  id: 'fruttini-gelato',
+  name: 'Fruttini Gelato',
+  category: { cn: '冰淇淋与礼赠', en: 'Gelato & Gifting' },
+  description: { cn: '创立于 1962 年的意式冰淇淋品牌，以全球优质水果与意大利手工工艺，为现场带来水果冰淇淋品鉴与精品礼赠。', en: 'Italian fruit gelato, handcrafted since 1962 with carefully sourced fruit — available on site for tasting and considered gifting.' },
+  location: { cn: '活动现场服务区', en: 'On-site service area' },
+  offering: { cn: '意大利水果冰淇淋 · 精品礼盒', en: 'Italian fruit gelato · Gift sets' },
+  hours: { cn: '活动期间开放', en: 'Available during the event' },
+  images: [
+    showroomImage('on-site/fruttini-hero-20260907.webp'),
+    showroomImage('on-site/fruttini-selection-08.webp'),
+  ],
+  detailLabel: { cn: '查看礼盒系列', en: 'View selection' },
+  detailImages: [
+    showroomImage('on-site/fruttini-selection-01.webp'),
+    showroomImage('on-site/fruttini-selection-02.webp'),
+    showroomImage('on-site/fruttini-selection-03.webp'),
+    showroomImage('on-site/fruttini-selection-04.webp'),
+    showroomImage('on-site/fruttini-selection-05.webp'),
+    showroomImage('on-site/fruttini-selection-06.webp'),
+    showroomImage('on-site/fruttini-selection-07.webp'),
+    showroomImage('on-site/fruttini-selection-08.webp'),
   ],
 }]
 

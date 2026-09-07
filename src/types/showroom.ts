@@ -63,11 +63,14 @@ export interface CurrentEvent {
 export interface OnSiteService {
   id: string
   name: string
+  category: LocalizedText
   description: LocalizedText
   location: LocalizedText
   offering: LocalizedText
   hours: LocalizedText
   images: readonly string[]
+  detailLabel: LocalizedText
+  detailImages: readonly string[]
 }
 
 export interface RecapSection {
