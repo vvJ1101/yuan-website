@@ -1,5 +1,6 @@
 import Image from 'next/image'
 
+import { shouldBypassImageOptimization } from '@/lib/image-delivery'
 import { cn } from '@/lib/utils'
 
 interface MediaFrameProps {
@@ -17,7 +18,7 @@ export function MediaFrame({
   alt,
   ratio,
   priority = false,
-  unoptimized = false,
+  unoptimized,
   sizes = '(max-width: 900px) 100vw, 64vw',
   className,
 }: MediaFrameProps) {
@@ -28,7 +29,7 @@ export function MediaFrame({
         alt={alt}
         fill
         priority={priority}
-        unoptimized={unoptimized}
+        unoptimized={unoptimized ?? shouldBypassImageOptimization(src)}
         sizes={sizes}
       />
     </div>

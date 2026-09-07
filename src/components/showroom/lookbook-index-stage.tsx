@@ -5,6 +5,7 @@ import Image from 'next/image'
 
 import { MediaFrame } from './media-frame'
 import { buildLookbookStageSlots, buildLookbookStageWings, getLookbookChapterLabel, getLookbookCutoutPath, getLookbookIndexInitialSelection, getLookbookStageMediaKind, normalizeLookIndex } from '@/lib/lookbook-index'
+import { shouldBypassImageOptimization } from '@/lib/image-delivery'
 import type { Locale, LookbookItem } from '@/types/showroom'
 
 export function LookbookIndexStage({ looks, name, season, locale }: {
@@ -74,6 +75,7 @@ export function LookbookIndexStage({ looks, name, season, locale }: {
           fill
           sizes="(max-width: 640px) 88vw, 60vw"
           className="lookbook-index-stage__portrait-image"
+          unoptimized={shouldBypassImageOptimization(activeCutout)}
           priority
         />
       </div>

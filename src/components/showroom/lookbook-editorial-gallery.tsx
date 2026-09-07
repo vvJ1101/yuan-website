@@ -11,6 +11,7 @@ import {
   normalizeLookIndex,
   type CampaignReelDirection,
 } from '@/lib/lookbook-index'
+import { shouldBypassImageOptimization } from '@/lib/image-delivery'
 import type { Locale } from '@/types/showroom'
 
 const campaignFrames = [
@@ -85,13 +86,13 @@ export function LookbookEditorialGallery({ name, season, locale }: { name: strin
       <button type="button" className="lookbook-campaign-reel__preview lookbook-campaign-reel__preview--previous"
         onClick={() => select(previous)} aria-label={`Previous ${name} campaign image`}
         style={frameTransitionStyle(previous)}>
-        <Image src={campaignFrames[previous].src} alt="" fill sizes="16vw" style={{ objectPosition: campaignFrames[previous].position }} />
+        <Image src={campaignFrames[previous].src} alt="" fill sizes="16vw" unoptimized={shouldBypassImageOptimization(campaignFrames[previous].src)} style={{ objectPosition: campaignFrames[previous].position }} />
       </button>
 
       <figure key={`${active.src}-${selected}`} className="lookbook-campaign-reel__hero" data-kind={active.kind}
         data-direction={direction} style={frameTransitionStyle(selected)}>
         <Image src={active.src} alt={`${name} campaign image ${selected + 1}`} fill priority={selected === 0}
-          sizes="(max-width: 640px) 76vw, 70vw" style={{ objectPosition: active.position }} />
+          sizes="(max-width: 640px) 76vw, 70vw" unoptimized={shouldBypassImageOptimization(active.src)} style={{ objectPosition: active.position }} />
         <button type="button" className="lookbook-campaign-reel__hero-action" aria-label={`View ${name} campaign image ${selected + 1} full screen`}
           onPointerDown={(event) => {
             if (event.pointerType === 'touch') pointerStart.current = event.clientX
@@ -120,7 +121,7 @@ export function LookbookEditorialGallery({ name, season, locale }: { name: strin
       <button type="button" className="lookbook-campaign-reel__preview lookbook-campaign-reel__preview--next"
         onClick={() => select(next)} aria-label={`Next ${name} campaign image`}
         style={frameTransitionStyle(next)}>
-        <Image src={campaignFrames[next].src} alt="" fill sizes="16vw" style={{ objectPosition: campaignFrames[next].position }} />
+        <Image src={campaignFrames[next].src} alt="" fill sizes="16vw" unoptimized={shouldBypassImageOptimization(campaignFrames[next].src)} style={{ objectPosition: campaignFrames[next].position }} />
       </button>
 
       <div className="lookbook-campaign-reel__progress" aria-label={`${selected + 1} of ${campaignFrames.length}`}>
@@ -136,7 +137,7 @@ export function LookbookEditorialGallery({ name, season, locale }: { name: strin
         <button type="button" className="lookbook-campaign-viewer__step lookbook-campaign-viewer__step--previous"
           onClick={() => select(selected - 1)} aria-label={`Previous ${name} campaign image`} />
         <figure data-kind={active.kind}>
-          <Image src={active.src} alt={`${name} campaign image ${selected + 1}`} fill sizes="100vw" style={{ objectPosition: active.position }} />
+          <Image src={active.src} alt={`${name} campaign image ${selected + 1}`} fill sizes="100vw" unoptimized={shouldBypassImageOptimization(active.src)} style={{ objectPosition: active.position }} />
         </figure>
         <button type="button" className="lookbook-campaign-viewer__step lookbook-campaign-viewer__step--next"
           onClick={() => select(selected + 1)} aria-label={`Next ${name} campaign image`} />
