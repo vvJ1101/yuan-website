@@ -597,6 +597,7 @@ a.lookbook-index__card:hover > span {
 }
 
 .onsite-page__services {
+  width: 100%;
   max-width: 1500px;
   margin-inline: auto;
 }
