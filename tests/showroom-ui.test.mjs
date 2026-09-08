@@ -21,6 +21,13 @@ test('pop-up detail keeps the approved article reading layout', async () => {
   assert.doesNotMatch(project, /<EventExperience/)
 })
 
+test('pop-up detail keeps later image groups in a calm aligned grid', async () => {
+  const css = await read('src/app/globals.css')
+
+  assert.match(css, /\.event-story__gallery--4\s*\{[^}]*grid-template-columns:\s*repeat\(2,/)
+  assert.match(css, /@media \(max-width: 640px\)[\s\S]*\.event-story__gallery--4,[\s\S]*\.event-story__gallery--2\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\)/)
+})
+
 test('lookbook detail uses the interactive second-screen index', async () => {
   const page = await read('src/app/[locale]/now/lookbook/[slug]/page.tsx')
   assert.match(page, /<LookbookIndexStage/)

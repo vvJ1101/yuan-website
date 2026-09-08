@@ -48,7 +48,7 @@ const sampleCredits = [{ cn: '临时演示素材来自用户提供的设计项�
 // Existing preview slugs are retained until the complete articles are ready.
 export const popUpEvents: readonly PopUpEvent[] = [
   {
-    kind: 'event', slug: 'sample-showroom-edit', title: { cn: 'HELEN KAMINSKI I 中国首次匠心之旅', en: 'HELEN KAMINSKI I 中国首次匠心之旅' },
+    kind: 'event', slug: 'sample-showroom-edit', title: { cn: 'HELEN KAMINSKI I 中国首次匠心之旅', en: 'HELEN KAMINSKI I A JOURNEY OF CRAFT IN CHINA' },
     city: { cn: '', en: '' }, venue: { cn: '', en: '' },
     startDate: null, endDate: null, status: null, featured: true, contentPending: true,
     coverImage: { src: '/images/editorial/events/helen-kaminski-cover.webp', ratio: '1080 / 1660', alt: { cn: '树影下的 HELEN KAMINSKI 白色建筑立面', en: 'HELEN KAMINSKI facade framed by trees' } },

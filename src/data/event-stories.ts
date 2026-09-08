@@ -87,16 +87,6 @@ export const eventStories: Readonly<Record<string, EventStory>> = {
       },
     ],
     blocks: [
-      {
-        id: 'event-montage', type: 'montage',
-        images: [
-          { src: '/images/editorial/events/helen-garden.webp', ratio: '1080 / 1640', alt: { cn: '绿意环绕的 HELEN KAMINSKI 活动外景', en: 'HELEN KAMINSKI event exterior surrounded by greenery' } },
-          { src: '/images/editorial/events/helen-hat-display.webp', ratio: '1080 / 1634', alt: { cn: '帽饰与草编配件的现场陈列', en: 'On-site display of hats and woven accessories' } },
-          { src: '/images/editorial/events/helen-craft-table.webp', ratio: '1080 / 1640', alt: { cn: '工艺演示桌与迷你草帽', en: 'Craft demonstration table with miniature raffia hats' } },
-          { src: '/images/editorial/events/helen-visitor.webp', ratio: '1080 / 1640', alt: { cn: '佩戴草帽参观活动的来宾', en: 'A visitor wearing a raffia hat at the event' } },
-        ],
-        caption: { cn: '现场片段 · 空间、作品与手工过程', en: 'Fragments from the event · Space, objects and craft in process' },
-      },
       { id: 'event-statement', type: 'statement', text: { cn: '从自然取材，让时间与双手留下形状。', en: 'Drawn from nature, shaped by time and hands.' } },
     ],
     closing: { cn: '走进自然，走近匠心。', en: 'Closer to nature. Closer to the craft.' },

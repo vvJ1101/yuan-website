@@ -10,6 +10,7 @@ import { nextPreviewIndex } from '../src/lib/collaboration-preview.ts'
 import { validateStoryBlocks } from '../src/lib/editorial-blocks.ts'
 import { editorialReferenceAssets } from '../src/data/editorial-reference-assets.js'
 import { nextEventVisualIndex } from '../src/lib/event-visual-index.ts'
+import { localize } from '../src/lib/showroom-i18n.ts'
 
 test('story blocks validate stable IDs, media and temporary provenance', () => {
   const image = editorialReferenceAssets[0]
@@ -41,13 +42,20 @@ test('collaboration previews wrap without invalid indexes', () => {
   }
 })
 
-test('HELEN KAMINSKI story adds montage and closing without inventing schedule data', () => {
+test('HELEN KAMINSKI story avoids a repeated closing montage and keeps the closing statement', () => {
   const story = eventStories['sample-showroom-edit']
-  assert.ok(story.blocks.some((block) => block.type === 'montage'))
+  assert.equal(story.blocks.some((block) => block.type === 'montage'), false)
   assert.ok(story.blocks.some((block) => block.type === 'statement'))
   const event = popUpEvents.find((item) => item.slug === 'sample-showroom-edit')
   assert.equal(event.startDate, null)
   assert.equal(event.endDate, null)
+})
+
+test('HELEN KAMINSKI event title switches between Chinese and English', () => {
+  const event = popUpEvents.find((item) => item.slug === 'sample-showroom-edit')
+  assert.match(localize(event.title, 'cn'), /中国首次匠心之旅/)
+  assert.doesNotMatch(localize(event.title, 'en'), /[\u3400-\u9fff]/)
+  assert.notEqual(localize(event.title, 'cn'), localize(event.title, 'en'))
 })
 
 test('event visual index wraps in both directions for clickable stage navigation', () => {
