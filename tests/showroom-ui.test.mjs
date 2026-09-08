@@ -12,13 +12,18 @@ test('shared story renderer supports each editorial composition', async () => {
   }
 })
 
-test('pop-up detail keeps the approved article reading layout', async () => {
+test('pop-up detail uses a single-screen clickable visual stage before varied chapters', async () => {
   const project = await read('src/components/showroom/editorial-projects.tsx')
+  const experience = await read('src/components/showroom/event-experience.tsx')
+  const styles = await read('src/components/showroom/event-experience.module.css')
 
-  assert.match(project, /if \(story\) return <EventArticle/)
-  assert.match(project, /function EventArticle/)
-  assert.match(project, /event-story__chapter--\$\{chapter\.layout\}/)
-  assert.doesNotMatch(project, /<EventExperience/)
+  assert.match(project, /<EventExperience/)
+  assert.match(experience, /aria-label=.*visual/i)
+  assert.match(experience, /onClick=\{\(\) => setActiveIndex\(index\)\}/)
+  assert.match(experience, /story\.visuals\.map/)
+  assert.match(experience, /image\.crop/, 'composite reference images must render through their configured crop window')
+  assert.match(styles, /height:\s*calc\(100svh - var\(--ys-header-h\)\)/)
+  assert.match(styles, /@media \(max-width: 900px\)/)
 })
 
 test('lookbook detail uses the interactive second-screen index', async () => {
