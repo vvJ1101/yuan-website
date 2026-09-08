@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-08T12:21:47+08:00",
+  "title": "Design System: YUAN SHOWROOM",
+  "extensions": {
+    "colorMeta": {
+      "paper": { "role": "neutral", "displayName": "Gallery Paper", "canonical": "#ffffff" },
+      "ink": { "role": "primary", "displayName": "Showroom Ink", "canonical": "#0a0a0a" },
+      "muted-ink": { "role": "neutral", "displayName": "Muted Ink", "canonical": "#686868" },
+      "dark-stage": { "role": "neutral", "displayName": "Event Stage", "canonical": "#11110f" },
+      "warm-light": { "role": "neutral", "displayName": "Warm Light", "canonical": "#eee9dc" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Editorial Display", "purpose": "Page-level titles only." },
+      "title": { "displayName": "Project Title", "purpose": "Services, projects, and detail headings." },
+      "body": { "displayName": "Editorial Body", "purpose": "Long-form bilingual reading." },
+      "label": { "displayName": "Functional Label", "purpose": "Navigation, metadata, and short controls." }
+    },
+    "shadows": [
+      { "name": "media-lift", "value": "0 18px 42px rgba(0, 0, 0, 0.13)", "purpose": "Focused floating media only." }
+    ],
+    "motion": [
+      { "name": "editorial-reveal", "value": "650ms cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Image crossfades and editorial reveals." },
+      { "name": "collaboration-cycle", "value": "3s", "purpose": "Automatic collaboration preview interval." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "640px" },
+      { "name": "tablet", "value": "900px" },
+      { "name": "wide", "value": "1180px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Navigation Link",
+      "kind": "nav",
+      "refersTo": "navigation-link",
+      "description": "Restrained white navigation with a fine active underline.",
+      "html": "<a class=\"ds-nav-link\" href=\"#\">BRANDS</a>",
+      "css": ".ds-nav-link { color: #fff; padding: 0 0 5px; font: 500 12px/1.2 'Work Sans', sans-serif; text-decoration: none; text-underline-offset: .3em; } .ds-nav-link:hover, .ds-nav-link:focus-visible { text-decoration: underline; } .ds-nav-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }"
+    },
+    {
+      "name": "Editorial Link",
+      "kind": "button",
+      "refersTo": "editorial-link",
+      "description": "Text-led action with a fine underline and enlarged hit area.",
+      "html": "<a class=\"ds-editorial-link\" href=\"#\">VIEW PROJECT</a>",
+      "css": ".ds-editorial-link { display: inline-flex; min-height: 44px; align-items: center; color: #0a0a0a; padding: 8px 0; border-bottom: 1px solid currentColor; font: 500 11px/1.3 'Work Sans', sans-serif; letter-spacing: .08em; text-decoration: none; } .ds-editorial-link:focus-visible { outline: 2px solid #0a0a0a; outline-offset: 3px; }"
+    },
+    {
+      "name": "Media Frame",
+      "kind": "custom",
+      "description": "Square-corner image frame whose crop follows the editorial composition.",
+      "html": "<div class=\"ds-media-frame\"><div class=\"ds-media-placeholder\"></div></div>",
+      "css": ".ds-media-frame { position: relative; width: 260px; aspect-ratio: 3 / 4; overflow: hidden; background: #eee; border-radius: 0; } .ds-media-placeholder { width: 100%; height: 100%; background: #f2f2ee; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Editorial Showroom",
+    "overview": "A restrained bilingual editorial system where authentic fashion, showroom, and service imagery leads while the interface recedes.",
+    "keyCharacteristics": ["Bilingual editorial typography", "Image-led hierarchy", "Monochrome restraint", "Sharp corners and fine rules", "Stable responsive composition"],
+    "rules": [
+      { "name": "The Restraint Rule", "body": "Color comes from content or a defined narrative surface, never generic decoration.", "section": "colors" },
+      { "name": "The Role Rule", "body": "Choose typography by content role rather than HTML heading level or available space.", "section": "typography" }
+    ],
+    "dos": ["Use semantic type tokens.", "Test real Chinese and English copy at all three breakpoints.", "Let authentic imagery carry the visual story."],
+    "donts": ["Do not shrink key text below the documented floor.", "Do not repeat a brand name over an image that already contains its logo.", "Do not replace hierarchy with decorative cards or shadows."]
+  }
+}

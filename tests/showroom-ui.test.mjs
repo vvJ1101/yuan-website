@@ -315,14 +315,15 @@ test('about typography uses the approved editorial serif hierarchy', async () =>
 
   assert.match(css, /\.showroom-about__copy\s*\{[\s\S]*?padding: clamp\(28px, 5vh, 56px\)/)
   assert.match(css, /\.showroom-about__copy h1\s*\{[\s\S]*?font-family: var\(--ys-font-serif\)[\s\S]*?font-size: clamp\(54px, 5vw, 92px\)[\s\S]*?font-weight: 400[\s\S]*?letter-spacing: 0[\s\S]*?line-height: 1\.1/)
-  assert.match(css, /\.showroom-about__body\s*\{[^}]*font-size: clamp\(12px, 0\.85vw, 15px\)[^}]*line-height: 1\.52/)
+  assert.match(css, /\.showroom-about__body\s*\{[^}]*font-size: clamp\(14px, 0\.85vw, 16px\)[^}]*line-height: 1\.52/)
   assert.match(css, /\.showroom-about__statistic strong\s*\{[\s\S]*?font-weight: 400/)
 })
 
 test('white-background page titles use clean serif glyphs without an optical stroke', async () => {
   const css = await read('src/app/globals.css')
 
-  assert.match(css, /\.showroom-about__copy h1,[\s\S]*?\.brand-index__rail h1,[\s\S]*?\.now-event__summary h1,[\s\S]*?\.onsite-service h1,[\s\S]*?\.recap-page > header h1\s*\{[^}]*font-family: var\(--ys-font-serif\)[^}]*font-weight: 400[^}]*-webkit-text-stroke: 0/)
+  assert.match(css, /\.showroom-about__copy h1,[\s\S]*?\.brand-index__rail h1,[\s\S]*?\.now-event__summary h1,[\s\S]*?\.lookbook-index header h1,[\s\S]*?\.floor-map-page h1,[\s\S]*?\.recap-page > header h1\s*\{[^}]*font-family: var\(--ys-font-serif\)[^}]*font-weight: 400[^}]*-webkit-text-stroke: 0/)
+  assert.match(css, /\.onsite-service h1\s*\{[^}]*font-family: var\(--ys-font-serif\)[^}]*font-size: var\(--ys-type-project-title\)[^}]*font-weight: 400[^}]*-webkit-text-stroke: 0/)
 })
 
 test('brand book pages widen and shift left beside the fixed identity rail', async () => {
@@ -565,8 +566,8 @@ test('showroom self-hosts the approved free bilingual font system', async () => 
   assert.match(css, /--ys-type-navigation: 12px/)
   assert.match(css, /\.site-header nav\s*\{[^}]*font-family: var\(--ys-font-sans\)[^}]*font-size: var\(--ys-type-navigation\)[^}]*font-weight: 500[^}]*letter-spacing: 0[^}]*line-height: 1\.2/)
   assert.match(css, /\.showroom-about__copy h1[\s\S]*?font-family: var\(--ys-font-serif\)/)
-  assert.match(css, /\.showroom-about__body\s*\{[^}]*font-family: var\(--ys-font-serif\)[^}]*font-size: clamp\(12px, 0\.85vw, 15px\)[^}]*font-weight: 400[^}]*line-height: 1\.52/)
-  assert.match(css, /@media \(min-width: 901px\) and \(max-height: 820px\)[\s\S]*?\.showroom-about__body\s*\{[^}]*font-size: 12px[^}]*line-height: 1\.5/)
+  assert.match(css, /\.showroom-about__body\s*\{[^}]*font-family: var\(--ys-font-serif\)[^}]*font-size: clamp\(14px, 0\.85vw, 16px\)[^}]*font-weight: 400[^}]*line-height: 1\.52/)
+  assert.match(css, /@media \(min-width: 901px\) and \(max-height: 820px\)[\s\S]*?\.showroom-about__body\s*\{[^}]*font-size: 13px[^}]*line-height: 1\.5/)
   assert.match(css, /\.now-event__summary h1,[\s\S]*?\.brand-index__rail h1,[\s\S]*?\.recap-page > header h1\s*\{[^}]*font-family: var\(--ys-font-serif\)/)
   assert.match(css, /\.site-header nav,[\s\S]*?\.site-language-switch,[\s\S]*?\.showroom-about__more\s*\{[^}]*font-family: var\(--ys-font-sans\)/)
   assert.doesNotMatch(layout + css, /fonts\.googleapis\.com|fonts\.gstatic\.com/)
