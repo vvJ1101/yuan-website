@@ -30,6 +30,8 @@ test('story blocks validate stable IDs, media and temporary provenance', () => {
 test('sample collaboration provides a complete ordered visual story', () => {
   const types = collaborations[0].story.map((block) => block.type)
   assert.deepEqual(types, ['hero', 'text', 'imageText', 'montage', 'credits'])
+  const montage = collaborations[0].story.find((block) => block.type === 'montage')
+  assert.equal(new Set(montage.images.map((image) => image.src)).size, montage.images.length)
 })
 
 test('collaboration previews wrap without invalid indexes', () => {
