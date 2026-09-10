@@ -989,7 +989,8 @@ a.lookbook-index__card:hover > span {
 .recap-editorial dt { color: var(--ys-muted); font-size: var(--ys-type-caption); }
 .recap-editorial dd { margin: 0; white-space: pre-line; }
 .recap-editorial__story { max-width: 780px; margin: clamp(80px, 10vw, 136px) auto; }
-.recap-editorial__story p { font-family: var(--ys-font-serif); font-size: clamp(18px, 1.45vw, 24px); line-height: 1.8; margin: 0; }
+.recap-editorial__story p { font-family: var(--ys-font-serif); font-size: var(--ys-type-body); line-height: 1.85; margin: 0; }
+.recap-editorial__story p + p { margin-top: 18px; }
 .recap-editorial__roster { margin-bottom: 100px; }
 .recap-editorial__section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 36px; }
 .recap-editorial__section-heading h2,
