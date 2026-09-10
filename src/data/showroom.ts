@@ -20,6 +20,7 @@ const showroomImages = {
   'now/lookbook/editorial-05.png': image('/images/showroom/now/lookbook/editorial-05.png', '订货会品牌大片 05', 'Ordering-season editorial look 05'),
   'about/showroom.webp': image('/images/showroom/about/showroom.webp', 'YUAN SHOWROOM 前台与接待空间', 'YUAN SHOWROOM reception and showroom interior'),
   'about/showroom-v2.webp': image('/images/showroom/about/draped-facade-20260903.webp', '白色垂帘覆盖的建筑立面', 'Building facade draped in flowing white fabric'),
+  'about/gallery-wall-20260910.jpg': image('/images/showroom/about/gallery-wall-20260910.jpg', '陈列着黑白艺术作品的室内空间', 'Interior display with a wall of monochrome artworks'),
   'brands/ranyepersonal.webp': image('/images/showroom/brands/ranyepersonal-campaign-20260903.jpg', 'RANYEPERSONAL 品牌造型肖像', 'RANYEPERSONAL campaign portrait'),
   'brands/maison-ther.webp': image('/images/showroom/brands/maison-ther-campaign-20260903.jpg', 'MAISON THER 品牌造型肖像', 'MAISON THER campaign portrait'),
   'brands/nhoj.webp': image('/images/showroom/brands/nhoj-campaign-20260903.jpg', 'NHOJ 品牌造型肖像', 'NHOJ campaign portrait'),
@@ -136,8 +137,8 @@ export const aboutContent: AboutContent = {
     },
   ],
   readMoreLabel: { cn: 'READ MORE', en: 'READ MORE' },
-  image: showroomImage('about/showroom-v2.webp'),
-  imageAlt: showroomImageAlt('about/showroom-v2.webp'),
+  image: showroomImage('about/gallery-wall-20260910.jpg'),
+  imageAlt: showroomImageAlt('about/gallery-wall-20260910.jpg'),
   statistics: [
     {
       value: '6000+ SQM',
