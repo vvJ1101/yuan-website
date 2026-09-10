@@ -3391,6 +3391,10 @@ html:has(.lookbook-brand) {
   -webkit-text-stroke: 0;
 }
 
+.recap-page > header h1 {
+  font-size: clamp(32px, 2.5vw, 46px);
+}
+
 .onsite-service h1 {
   font-family: var(--ys-font-serif);
   font-size: var(--ys-type-project-title);
