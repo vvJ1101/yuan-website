@@ -56,11 +56,11 @@ export const popUpEvents: readonly PopUpEvent[] = [
     description: [], participatingBrands: ['HELEN KAMINSKI'], credits: [],
   },
   {
-    kind: 'event', slug: 'sample-next-season', title: { cn: 'DATT | PRINCESS DIARY', en: 'DATT | PRINCESS DIARY' },
-    city: { cn: '', en: '' }, venue: { cn: '', en: '' },
-    startDate: null, endDate: null, status: null, contentPending: true,
-    coverImage: { src: '/images/editorial/events/datt-princess-diary.webp', ratio: '3 / 4', alt: { cn: 'DATT PRINCESS DIARY：身着白色褶饰套装的模特', en: 'DATT PRINCESS DIARY: model wearing a white ruffled ensemble' } },
-    gallery: [], description: [], participatingBrands: ['DATT'], credits: [],
+    kind: 'event', slug: 'sample-next-season', title: { cn: 'PIETON × HUG | SHAPED BY TIME', en: 'PIETON × HUG | SHAPED BY TIME' },
+    city: { cn: '成都 / 深圳', en: 'CHENGDU / SHENZHEN' }, venue: { cn: 'HUG', en: 'HUG' },
+    startDate: null, endDate: null, status: null, contentPending: false,
+    coverImage: { src: '/images/editorial/events/pieton-hug/facade-cover-portrait.png', ratio: '3 / 4', alt: { cn: 'PIETON 与 HUG 的 SHAPED BY TIME 建筑立面', en: 'PIETON and HUG SHAPED BY TIME facade' } },
+    gallery: [], description: [], participatingBrands: ['PIETON', 'HUG'], credits: [],
   },
   {
     kind: 'event', slug: 'sample-open-house', title: { cn: 'NHOJ | KNOT', en: 'NHOJ | KNOT' },

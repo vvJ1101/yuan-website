@@ -1,9 +1,12 @@
 import { notFound } from 'next/navigation'
 
 import { EditorialDetail } from '@/components/showroom/editorial-projects'
+import { EditorialDocumentPage } from '@/components/editorial-document'
 import { popUpEvents } from '@/data/editorial'
+import { pietonHugDocument } from '@/data/editorial-documents'
 import { editorialMetadata } from '@/lib/editorial-metadata'
 import { isLocale, locales, localize } from '@/lib/showroom-i18n'
+import { localePath } from '@/lib/showroom-routing'
 
 type Params = Promise<{ locale: string; slug: string }>
 
@@ -23,5 +26,8 @@ export default async function Page({ params }: { params: Params }) {
   if (!isLocale(locale)) notFound()
   const project = popUpEvents.find((item) => item.slug === slug)
   if (!project) notFound()
+  if (slug === pietonHugDocument.slug) {
+    return <EditorialDocumentPage document={{ ...pietonHugDocument, backHref: localePath(locale, '/pop-up-events') }} showMasthead={false} />
+  }
   return <EditorialDetail project={project} locale={locale} />
 }
