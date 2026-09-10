@@ -11,7 +11,6 @@ export interface ContactMethod {
 
 export interface ContactLocation {
   name: 'SHENZHEN' | 'HONG KONG'
-  access: 'BY APPOINTMENT'
 }
 
 export const contactMethods: readonly ContactMethod[] = [
@@ -36,7 +35,6 @@ export const contactMethods: readonly ContactMethod[] = [
 ] as const
 
 export const contactLocations: readonly ContactLocation[] = [
-  { name: 'SHENZHEN', access: 'BY APPOINTMENT' },
-  { name: 'HONG KONG', access: 'BY APPOINTMENT' },
+  { name: 'SHENZHEN' },
+  { name: 'HONG KONG' },
 ] as const
-

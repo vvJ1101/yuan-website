@@ -8,7 +8,6 @@ import type { Locale } from '@/types/showroom'
 
 const copy = {
   cn: {
-    introduction: '品牌合作、订货与样衣、媒体及特别项目，请选择咨询类别，我们会将信息发送给对应联系人。',
     inquiry: '咨询表单',
     directedTo: '发送至',
     name: '姓名',
@@ -23,12 +22,12 @@ const copy = {
     submitting: '正在提交…',
     unavailable: '后台接收接口尚未启用，当前信息未保存。',
     error: '提交失败，请稍后重试。',
-    showroom: '展厅',
-    wechat: '微信联系',
+    base: 'YUAN BASE',
+    connect: '关注 / 联系',
+    wechat: '企业微信',
     qrPending: '二维码待替换',
   },
   en: {
-    introduction: 'For brand partnerships, buying appointments, press and special projects. Select an inquiry type and we will direct your message to the right contact.',
     inquiry: 'Inquiry form',
     directedTo: 'Directed to',
     name: 'Name',
@@ -43,13 +42,41 @@ const copy = {
     submitting: 'Submitting…',
     unavailable: 'The inquiry storage service is not connected yet. Your information was not saved.',
     error: 'Submission failed. Please try again later.',
-    showroom: 'Showroom',
+    base: 'YUAN BASE',
+    connect: 'Follow / connect',
     wechat: 'WeChat',
     qrPending: 'QR placeholder',
   },
 } as const
 
 const qrCells = [1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1]
+
+const socialPlatforms = [
+  { id: 'wechat', name: 'WeChat' },
+  { id: 'xiaohongshu', name: '小红书', href: 'https://www.xiaohongshu.com/user/profile/608794f1000000000100917f' },
+  { id: 'instagram', name: 'Instagram' },
+  { id: 'douyin', name: '抖音' },
+] as const
+
+function SocialIcon({ platform }: { platform: (typeof socialPlatforms)[number]['id'] }) {
+  if (platform === 'wechat') {
+    return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.2 5.2c-4 0-7.2 2.5-7.2 5.7 0 1.8 1 3.4 2.7 4.5l-.7 2.2 2.6-1.3c.8.2 1.7.4 2.6.4 4 0 7.2-2.6 7.2-5.8s-3.2-5.7-7.2-5.7Z"/><path d="M14.7 10c3.5 0 6.3 2.2 6.3 5 0 1.6-.9 3-2.3 3.9l.6 1.9-2.2-1.1c-.8.2-1.5.3-2.4.3-2.7 0-5-1.3-5.9-3.3.5.1.9.1 1.4.1 4.1 0 7.4-2.6 7.4-5.9v-.3c-.9-.4-1.9-.6-2.9-.6Z"/><circle cx="7.8" cy="9.7" r=".7"/><circle cx="12.2" cy="9.7" r=".7"/></svg>
+  }
+
+  if (platform === 'instagram') {
+    return <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.7" r="1" className="social-icon__fill"/></svg>
+  }
+
+  if (platform === 'douyin') {
+    return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.3 3.5v11.2a4.4 4.4 0 1 1-3.6-4.3v3.1a1.5 1.5 0 1 0 .6 1.2V3.5h3Z"/><path d="M14.3 3.5c.6 2.7 2.2 4.3 4.8 4.8v3c-2-.1-3.6-.8-4.8-1.8"/></svg>
+  }
+
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="16" rx="4"/><text x="12" y="14.6" textAnchor="middle">小红书</text></svg>
+}
+
+function RequiredMark() {
+  return <span className="contact-required" aria-hidden="true">*</span>
+}
 
 export function ContactPage({ locale }: { locale: Locale }) {
   const text = copy[locale]
@@ -72,11 +99,6 @@ export function ContactPage({ locale }: { locale: Locale }) {
 
   return (
     <main className="contact-page">
-      <header className="contact-page__intro">
-        <p>CONTACT / {locale === 'cn' ? '联系我们' : 'YUAN SHOWROOM'}</p>
-        <p>{text.introduction}</p>
-      </header>
-
       <div className="contact-page__main">
         <section className="contact-directory" aria-labelledby="contact-title">
           <h1 id="contact-title">Let&apos;s<br />connect.</h1>
@@ -114,17 +136,17 @@ export function ContactPage({ locale }: { locale: Locale }) {
 
           <form onSubmit={submit}>
             <div className="contact-form__grid">
-              <label><span>{text.name}</span><input name="name" type="text" autoComplete="name" required /></label>
-              <label><span>{text.company}</span><input name="company" type="text" autoComplete="organization" required /></label>
-              <label><span>{text.email}</span><input name="email" type="email" autoComplete="email" required /></label>
+              <label><span>{text.name}<RequiredMark /></span><input name="name" type="text" autoComplete="name" required /></label>
+              <label><span>{text.company}<RequiredMark /></span><input name="company" type="text" autoComplete="organization" required /></label>
+              <label><span>{text.email}<RequiredMark /></span><input name="email" type="email" autoComplete="email" required /></label>
               <label><span>{text.contact}</span><input name="contact" type="text" autoComplete="tel" /></label>
               <label className="contact-form__wide">
-                <span>{text.type}</span>
-                <select name="methodId" value={methodId} onChange={(event) => setMethodId(event.target.value as ContactMethodId)}>
+                <span>{text.type}<RequiredMark /></span>
+                <select name="methodId" value={methodId} required onChange={(event) => setMethodId(event.target.value as ContactMethodId)}>
                   {contactMethods.map((item) => <option key={item.id} value={item.id}>{item.title}</option>)}
                 </select>
               </label>
-              <label className="contact-form__wide"><span>{text.message}</span><textarea name="message" rows={2} required /></label>
+              <label className="contact-form__wide"><span>{text.message}<RequiredMark /></span><textarea name="message" rows={2} required /></label>
             </div>
 
             <div className="contact-form__actions">
@@ -149,17 +171,37 @@ export function ContactPage({ locale }: { locale: Locale }) {
       </div>
 
       <footer className="contact-locations">
-        {contactLocations.map((location, index) => (
+        {contactLocations.map((location) => (
           <section key={location.name}>
-            <p>{text.showroom} {String(index + 1).padStart(2, '0')}</p>
+            <p>{text.base}</p>
             <h2>{location.name}</h2>
-            <span>{location.access}</span>
           </section>
         ))}
-        <section className="contact-locations__wechat">
-          <div><p>{text.wechat}</p><h2>YUAN</h2><span>{text.qrPending}</span></div>
-          <div className="contact-qr-placeholder" aria-label={text.qrPending}>
-            {qrCells.map((cell, index) => <span key={index} data-filled={cell === 1} />)}
+        <section className="contact-locations__connect">
+          <div className="contact-connect__copy">
+            <p>{text.connect}</p>
+            <h2>YUANSHOWROOM</h2>
+            <div className="contact-socials" aria-label={text.connect}>
+              {socialPlatforms.map((platform) => {
+                const content = <><SocialIcon platform={platform.id} /><span>{platform.name}</span></>
+
+                return 'href' in platform ? (
+                  <a key={platform.id} className="contact-socials__item" href={platform.href} target="_blank" rel="noreferrer" aria-label={`${platform.name} · YUAN SHOWROOM`}>
+                    {content}
+                  </a>
+                ) : (
+                  <span key={platform.id} className="contact-socials__item" title={`${platform.name} · ${text.qrPending}`}>
+                    {content}
+                  </span>
+                )
+              })}
+            </div>
+          </div>
+          <div className="contact-connect__qr">
+            <div className="contact-qr-placeholder" aria-label={text.qrPending}>
+              {qrCells.map((cell, index) => <span key={index} data-filled={cell === 1} />)}
+            </div>
+            <span>{text.wechat}</span>
           </div>
         </section>
       </footer>
