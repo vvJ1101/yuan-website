@@ -24,7 +24,7 @@ Inactive choices are visually quieter; the active choice uses weight and contras
 
 ## Inquiry form
 
-Fields: name, brand/company, email, WeChat or phone (optional), inquiry type, message, and attachment (optional). The first release has no server-side form service: submitting opens the visitor's email client with the selected recipient, subject, and entered text. If a file was selected, the page tells the visitor to attach it in the email client because browsers cannot transfer a local file through a `mailto:` URL.
+Fields: name, brand/company, email, WeChat or phone (optional), inquiry type, message, and attachment (optional). The form submits `FormData` to the reserved same-origin `/api/inquiries` contract. Until persistent storage is implemented, the endpoint validates the request and returns `INQUIRY_STORAGE_NOT_CONFIGURED`; the page must state clearly that the information was not saved and must never fall back to email.
 
 ## Locations and WeChat
 
@@ -49,4 +49,3 @@ No street address or door number is displayed.
 - Selecting any contact type updates the displayed email and form type.
 - The page uses a pure white content background.
 - Desktop and landscape iPad layouts have no overlap or horizontal clipping.
-

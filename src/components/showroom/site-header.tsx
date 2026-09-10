@@ -15,6 +15,7 @@ const items = [
   { label: 'Recap', href: 'recap' },
   { label: 'POP-UP EVENTS', href: 'pop-up-events' },
   { label: 'COLLABORATIONS', href: 'collaborations' },
+  { label: 'CONTACT', href: 'contact' },
 ] as const
 
 function LanguageSwitch({ locale }: { locale: Locale }) {

@@ -141,6 +141,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://yuanshowroom.cn/contact</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/contact" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yuanshowroom.cn/en/contact</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/contact" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://yuanshowroom.cn/brands/ranyepersonal</loc>
     <xhtml:link rel="alternate" hreflang="zh-CN" href="https://yuanshowroom.cn/brands/ranyepersonal" />
     <xhtml:link rel="alternate" hreflang="en" href="https://yuanshowroom.cn/en/brands/ranyepersonal" />

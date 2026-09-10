@@ -2,9 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Add the approved bilingual CONTACT page and navigation entry with an interactive contact directory and mail-client inquiry flow.
+**Goal:** Add the approved bilingual CONTACT page and navigation entry with an interactive contact directory and a reserved backend submission contract.
 
-**Architecture:** Keep localized content and mailto serialization in a focused contact module, render the route through the existing `[locale]` app structure, and isolate browser interaction in one client component. Extend the existing global showroom CSS so the page inherits the same typography and responsive tokens as the rest of the public site.
+**Architecture:** Keep localized contact content in a focused module, render the route through the existing `[locale]` app structure, and submit `FormData` from one client component to a reserved same-origin endpoint. The endpoint validates the request but returns a clear not-configured response until persistent storage is implemented.
 
 **Tech Stack:** Next.js 16 App Router, React 19, TypeScript, CSS, Node test runner
 
@@ -16,33 +16,33 @@
 - Use only `#fff` for the page content background; no warm or off-white surface.
 - Preserve the existing header, logo, fonts, and navigation behavior.
 - Fixed acceptance targets are desktop and landscape iPad.
-- Do not add a server-side submission service or dependency in this release.
+- Do not add persistent storage, outbound email, or a new dependency in this release.
 
 ---
 
-### Task 1: Contact content and mailto serialization
+### Task 1: Contact content and reserved submission contract
 
 **Files:**
 - Create: `src/data/contact.ts`
-- Create: `src/lib/contact.ts`
+- Create: `src/app/api/inquiries/route.ts`
 - Test: `tests/contact.test.mjs`
 
 **Interfaces:**
-- Produces: `contactMethods`, `contactLocations`, `buildContactMailto(input)` and their TypeScript types.
+- Produces: `contactMethods`, `contactLocations`, and a validated `/api/inquiries` POST contract.
 
 - [ ] **Step 1: Write the failing test**
 
-Add tests that assert the three approved email mappings and that `buildContactMailto` URL-encodes the recipient, subject, contact details, and message.
+Add tests that assert the three approved email mappings, required field validation, and the explicit not-configured response for a valid submission.
 
 - [ ] **Step 2: Run test to verify it fails**
 
 Run: `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/contact.test.mjs`
 
-Expected: FAIL because `src/data/contact.ts` and `src/lib/contact.ts` do not exist.
+Expected: FAIL because `src/data/contact.ts` and `src/app/api/inquiries/route.ts` do not exist.
 
 - [ ] **Step 3: Write minimal implementation**
 
-Create immutable localized contact records and a pure mailto builder that omits blank optional values.
+Create immutable localized contact records and a route that validates `FormData`, returns `400 INVALID_INQUIRY` for incomplete input, and returns `501 INQUIRY_STORAGE_NOT_CONFIGURED` for valid input without saving it.
 
 - [ ] **Step 4: Run test to verify it passes**
 
@@ -58,7 +58,7 @@ Expected: PASS.
 - Modify: `src/components/showroom/site-header.tsx`
 
 **Interfaces:**
-- Consumes: `contactMethods`, `contactLocations`, and `buildContactMailto(input)` from Task 1.
+- Consumes: `contactMethods`, `contactLocations`, and the `/api/inquiries` contract from Task 1.
 - Produces: locale-aware `/contact` and `/en/contact` pages.
 
 - [ ] **Step 1: Extend navigation coverage**
@@ -73,7 +73,7 @@ Expected: FAIL until the CONTACT entry and route are wired.
 
 - [ ] **Step 3: Implement the route and client component**
 
-Create metadata and locale validation in the route. Render the approved directory, form, locations, and QR placeholder. On selection, synchronize the contact method and inquiry-type select. On submit, validate required fields and navigate to the encoded mailto URL; retain selected attachment metadata locally and show the attach-in-email reminder.
+Create metadata and locale validation in the route. Render the approved directory, form, locations, and QR placeholder. On selection, synchronize the contact method and inquiry-type select. On submit, send `FormData` to `/api/inquiries` and surface pending, unavailable, and error states without email fallback.
 
 - [ ] **Step 4: Add CONTACT to the existing header**
 
@@ -105,4 +105,3 @@ Expected: all commands pass. A production build is not required because this is 
 - [ ] **Step 4: Review locally**
 
 Open `/en/contact` at desktop and landscape iPad dimensions and confirm selection, required-field validation, mailto construction, white backgrounds, and the absence of overlap or clipping.
-
