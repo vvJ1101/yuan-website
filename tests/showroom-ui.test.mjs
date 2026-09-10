@@ -28,6 +28,16 @@ test('pop-up detail keeps later image groups in a calm aligned grid', async () =
   assert.match(css, /@media \(max-width: 640px\)[\s\S]*\.event-story__gallery--4,[\s\S]*\.event-story__gallery--2\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\)/)
 })
 
+test('editorial documents keep restrained project and statement typography', async () => {
+  const css = await read('src/components/editorial-document/editorial-document.module.css')
+
+  assert.match(css, /\.titleBlock\s*\{[^}]*padding:\s*clamp\(40px, 5vw, 72px\) 32px clamp\(44px, 5vw, 72px\)/)
+  assert.match(css, /\.titleBlock h1\s*\{[^}]*max-width:\s*760px[^}]*font-size:\s*clamp\(24px, 2\.1vw, 36px\)[^}]*letter-spacing:\s*-\.02em/)
+  assert.match(css, /\.statement\s*\{[^}]*min-height:\s*min\(560px, 70dvh\)[^}]*padding:\s*clamp\(64px, 8vw, 100px\)/)
+  assert.match(css, /\.statement h2\s*\{[^}]*max-width:\s*760px[^}]*font-size:\s*clamp\(22px, 2\.6vw, 38px\)/)
+  assert.doesNotMatch(css, /font-family:\s*Georgia/)
+})
+
 test('lookbook detail uses the interactive second-screen index', async () => {
   const page = await read('src/app/[locale]/now/lookbook/[slug]/page.tsx')
   assert.match(page, /<LookbookIndexStage/)

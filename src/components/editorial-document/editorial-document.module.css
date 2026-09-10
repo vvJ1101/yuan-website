@@ -28,16 +28,17 @@
 .titleBlock {
   max-width: 1180px;
   margin: 0 auto;
-  padding: clamp(64px, 9vw, 140px) 32px clamp(52px, 7vw, 100px);
+  padding: clamp(40px, 5vw, 72px) 32px clamp(44px, 5vw, 72px);
 }
 
 .titleBlock h1 {
-  max-width: 880px;
+  max-width: 760px;
   margin: 0;
-  font-size: clamp(28px, 3vw, 44px);
+  font-family: var(--ys-font-serif);
+  font-size: clamp(24px, 2.1vw, 36px);
   font-weight: 400;
-  letter-spacing: -.045em;
-  line-height: .96;
+  letter-spacing: -.02em;
+  line-height: 1.05;
 }
 
 .archive {
@@ -61,7 +62,7 @@
 .widthFull > .module { max-width: 1320px; }
 
 .contents { min-height: min(860px, 90dvh); padding: clamp(70px, 9vw, 140px) max(32px, 55%); background: #fff; }
-.contents h2 { margin: 0 0 36px; font-family: Georgia, 'Times New Roman', serif; font-size: 20px; font-weight: 400; }
+.contents h2 { margin: 0 0 36px; font-family: var(--ys-font-serif); font-size: 20px; font-weight: 400; }
 .contents ol { width: min(360px, 40vw); margin: 0; padding: 0; list-style: none; }
 .contents li { display: flex; justify-content: space-between; gap: 24px; padding: 8px 0; font-size: 11px; }
 
@@ -75,24 +76,24 @@
 .collectionIndex h2,
 .makerCopy h2,
 .nameGallery h2,
-.pressLinks h2 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(19px, 1.7vw, 28px); font-weight: 400; line-height: 1.2; }
+.pressLinks h2 { margin: 0; font-family: var(--ys-font-serif); font-size: clamp(19px, 1.7vw, 28px); font-weight: 400; line-height: 1.2; }
 .spreadCopy p,
 .featureCopy p,
 .textColumns p,
 .makerCopy p { margin: 0 0 20px; font-size: 12px; line-height: 1.75; }
 .spreadCopy blockquote,
-.makerCopy blockquote { margin: 34px 0 0; font-family: Georgia, 'Times New Roman', serif; font-size: 16px; font-style: italic; line-height: 1.55; }
+.makerCopy blockquote { margin: 34px 0 0; font-family: var(--ys-font-serif); font-size: 16px; font-style: italic; line-height: 1.55; }
 
 .floatingPair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: 13vw; min-height: min(880px, 90dvh); padding: clamp(80px, 14vw, 210px) max(42px, 14vw); background: #fff; }
 .floatingPair figure { margin: 0; }
 .floatingPair figure:nth-child(2) { transform: translateY(8%); }
 .floatingPair img { display: block; width: 100%; height: auto; }
-.floatingPair figcaption { margin-top: 28px; font-family: Georgia, 'Times New Roman', serif; font-size: 10px; line-height: 1.5; }
+.floatingPair figcaption { margin-top: 28px; font-family: var(--ys-font-serif); font-size: 10px; line-height: 1.5; }
 
 .founderFeature { display: grid; grid-template-columns: 1fr 1fr; min-height: min(920px, 94dvh); background: #fff; }
 .featureReverse .featureCopy { order: 2; }
 .featureCopy { display: grid; grid-template-columns: 1fr 1.35fr; column-gap: 38px; align-content: start; padding: clamp(54px, 7vw, 110px) clamp(34px, 5vw, 82px); }
-.featureCopy h2 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: 24px; font-weight: 400; }
+.featureCopy h2 { margin: 0; font-family: var(--ys-font-serif); font-size: 24px; font-weight: 400; }
 .secondaryImage { grid-column: 2; align-self: end; margin-top: clamp(70px, 15vh, 180px); }
 .secondaryImage img { display: block; width: 100%; height: auto; }
 .featureImage { position: relative; min-height: 620px; }
@@ -112,13 +113,13 @@
 .collectionIndex { min-height: min(880px, 90dvh); padding: clamp(54px, 6vw, 96px) max(34px, 4vw); background: #fff; }
 .collectionIndex > div { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: clamp(100px, 22vh, 240px); }
 .collectionIndex figure { margin: 0; }
-.collectionIndex figcaption { margin-bottom: clamp(45px, 8vh, 90px); font-family: Georgia, 'Times New Roman', serif; font-size: 10px; }
+.collectionIndex figcaption { margin-bottom: clamp(45px, 8vh, 90px); font-family: var(--ys-font-serif); font-size: 10px; }
 .collectionIndex img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4.4; object-fit: cover; }
 
 .collectionCampaign { display: grid; grid-template-columns: 1fr 1fr; min-height: min(920px, 94dvh); background: #fff; }
 .campaignLead { position: relative; min-height: 680px; }
 .campaignLead > div { position: absolute; z-index: 1; left: 8%; bottom: 46%; max-width: 310px; color: #fff; text-shadow: 0 1px 14px rgb(0 0 0 / 28%); }
-.campaignLead h2 { margin: 0 0 24px; font-family: Georgia, 'Times New Roman', serif; font-size: 14px; font-weight: 400; }
+.campaignLead h2 { margin: 0 0 24px; font-family: var(--ys-font-serif); font-size: 14px; font-weight: 400; }
 .campaignLead p { margin: 0; font-size: 11px; line-height: 1.7; }
 .campaignGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; align-content: center; padding: clamp(34px, 5vw, 82px); }
 .campaignGrid > div,
@@ -189,6 +190,7 @@
 .textCopy h2,
 .statement h2 {
   margin: 0;
+  font-family: var(--ys-font-serif);
   font-size: clamp(28px, 3.8vw, 56px);
   font-weight: 400;
   letter-spacing: -.035em;
@@ -241,13 +243,13 @@
 
 .statement {
   display: flex;
-  min-height: min(820px, 88dvh);
-  padding: clamp(90px, 14vw, 220px) max(32px, 9vw);
+  min-height: min(560px, 70dvh);
+  padding: clamp(64px, 8vw, 100px) max(32px, 9vw);
   align-items: center;
   justify-content: center;
   text-align: center;
 }
-.statement h2 { max-width: 1040px; font-size: clamp(32px, 5vw, 72px); }
+.statement h2 { max-width: 760px; font-size: clamp(22px, 2.6vw, 38px); }
 .statement p { max-width: 650px; margin-inline: auto; }
 
 .titleSmall h2 { font-size: clamp(19px, 1.8vw, 28px); }
