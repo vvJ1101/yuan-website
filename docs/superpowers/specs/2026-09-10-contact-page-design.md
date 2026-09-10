@@ -8,7 +8,7 @@ Add a bilingual CONTACT section that matches the current YUAN SHOWROOM editorial
 
 - Keep the existing black site header, white page background, official logo, navigation typography, and sharp-corner system.
 - Use an editorial split layout: approximately 38% contact directory and 62% inquiry form.
-- Prefer whitespace, type weight, and alignment over rules. Keep only the main column divider, input baselines, and the top rule above the city strip.
+- Prefer whitespace, type weight, and alignment over rules. Keep only the light input baselines; do not divide the main columns or city strip with full-width rules.
 - Do not use cards, rounded corners, shadows, gradients, or warm/off-white surfaces.
 - Keep `CONTACT` in the main navigation in English for both locales.
 
@@ -20,7 +20,7 @@ The left column contains three selectable contact types. Selection updates the f
 2. `BUYING & SAMPLES` / `买手订货 / 样衣` → `elson@yuanshowroom.vip`
 3. `PRESS & PROJECTS` / `媒体、活动与跨界合作` → `heshiya@yuanshowroom.vip`
 
-Inactive choices are visually quieter; the active choice uses weight and contrast rather than a box or heavy rule.
+Inactive choices are visually quieter; the active choice uses weight and contrast rather than a box or heavy rule. Email addresses are omitted from the directory and shown only once in the active form header.
 
 ## Inquiry form
 

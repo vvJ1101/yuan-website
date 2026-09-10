@@ -1502,7 +1502,6 @@ a.lookbook-index__card:hover > span {
   min-width: 0;
   flex-direction: column;
   padding: clamp(26px, 4.3vh, 46px) clamp(28px, 4vw, 68px) 22px var(--ys-gutter);
-  border-right: 1px solid #dfdfdf;
 }
 
 .contact-directory h1 {
@@ -1522,7 +1521,7 @@ a.lookbook-index__card:hover > span {
 
 .contact-directory__methods button {
   display: grid;
-  grid-template-columns: 28px minmax(0, 1fr) auto;
+  grid-template-columns: 28px minmax(0, 1fr);
   gap: 10px;
   align-items: center;
   min-height: 56px;
@@ -1559,11 +1558,6 @@ a.lookbook-index__card:hover > span {
   color: var(--ys-muted);
   font-size: var(--ys-type-caption);
   line-height: 1.4;
-}
-
-.contact-directory__email {
-  font-size: var(--ys-type-caption);
-  letter-spacing: 0.02em;
 }
 
 .contact-form {
@@ -1626,7 +1620,7 @@ a.lookbook-index__card:hover > span {
   min-width: 0;
   margin-bottom: clamp(9px, 1.4vh, 16px);
   padding-bottom: 7px;
-  border-bottom: 1px solid #d8d8d8;
+  border-bottom: 1px solid color-mix(in srgb, var(--ys-ink) 12%, transparent);
 }
 
 .contact-form__grid label > span {
@@ -1709,7 +1703,6 @@ a.lookbook-index__card:hover > span {
 .contact-locations {
   display: grid;
   grid-template-columns: 1fr 1fr minmax(230px, 0.8fr);
-  border-top: 1px solid #d8d8d8;
 }
 
 .contact-locations > section {
@@ -1762,7 +1755,6 @@ a.lookbook-index__card:hover > span {
   .contact-directory,
   .contact-form { padding-top: 30px; }
   .contact-directory { padding-right: 30px; }
-  .contact-directory__email { display: none; }
   .contact-form { padding-left: 38px; }
   .contact-form__grid { column-gap: 24px; }
 }

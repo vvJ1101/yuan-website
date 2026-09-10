@@ -96,7 +96,6 @@ export function ContactPage({ locale }: { locale: Locale }) {
                     <strong>{item.title}</strong>
                     <small>{localize(item.description, locale)}</small>
                   </span>
-                  <span className="contact-directory__email">{item.email}</span>
                 </button>
               )
             })}
