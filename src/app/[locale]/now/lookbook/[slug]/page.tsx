@@ -33,7 +33,7 @@ export default async function ExhibitionLookbookPage({ params }: { params: Promi
   const firstFive = brand.items.slice(0, 5)
 
   return (
-    <main className="lookbook-brand">
+    <main className={`lookbook-brand${slug === 'ranyepersonal' ? ' lookbook-brand--pure-white' : ''}`}>
       <header className="lookbook-brand__header">
         <div><h1>{brand.name}</h1><p>{currentEvent.season} LOOKBOOK</p></div>
         <Link href={localePath(locale, '/now/lookbook')}>CLOSE</Link>
