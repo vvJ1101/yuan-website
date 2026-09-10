@@ -100,7 +100,7 @@ if [ "$(curl -sS -o /dev/null -w '%{http_code}' "http://127.0.0.1:$PORT/")" != "
   exit 1
 fi
 
-for path in / /about/brand-book /en/about/brand-book; do
+for path in / /about/brand-book /en/about/brand-book /en/pop-up-events /en/pop-up-events/sample-next-season; do
   if [ "$(curl -L -sS -o /dev/null -w '%{http_code}' "$PUBLIC_URL$path")" != "200" ]; then
     rollback
     exit 1
@@ -118,7 +118,7 @@ pm2 describe "$PM2_NAME" | sed -n '/status/p;/uptime/p'
 REMOTE
 
 echo "Verifying public routes..."
-for path in / /about/brand-book /en/about/brand-book; do
+for path in / /about/brand-book /en/about/brand-book /en/pop-up-events /en/pop-up-events/sample-next-season; do
   STATUS=$(curl -L -sS -o /dev/null -w '%{http_code}' "$PUBLIC_URL$path")
   if [ "$STATUS" != "200" ]; then
     echo "Post-deployment verification failed for $PUBLIC_URL$path ($STATUS)." >&2
