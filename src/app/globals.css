@@ -3347,8 +3347,9 @@ html:has(.lookbook-brand) {
 
 .showroom-cover__introduction strong {
   color: #fff;
-  font-weight: 600;
-  letter-spacing: 0.006em;
+  font-family: var(--ys-font-serif);
+  font-weight: 400;
+  letter-spacing: 0.025em;
 }
 
 @media (max-width: 640px) {
