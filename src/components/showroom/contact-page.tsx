@@ -9,7 +9,7 @@ import type { Locale } from '@/types/showroom'
 const copy = {
   cn: {
     inquiry: '咨询表单',
-    directedTo: '发送至',
+    directContact: '直接联系方式',
     name: '姓名',
     company: '品牌 / 公司',
     email: '邮箱',
@@ -22,14 +22,14 @@ const copy = {
     submitting: '正在提交…',
     unavailable: '后台接收接口尚未启用，当前信息未保存。',
     error: '提交失败，请稍后重试。',
-    base: 'YUAN BASE',
+    base: 'BASED IN',
     connect: '关注 / 联系',
     wechat: '企业微信',
     qrPending: '二维码待替换',
   },
   en: {
     inquiry: 'Inquiry form',
-    directedTo: 'Directed to',
+    directContact: 'Direct contact',
     name: 'Name',
     company: 'Brand / company',
     email: 'Email',
@@ -42,7 +42,7 @@ const copy = {
     submitting: 'Submitting…',
     unavailable: 'The inquiry storage service is not connected yet. Your information was not saved.',
     error: 'Submission failed. Please try again later.',
-    base: 'YUAN BASE',
+    base: 'BASED IN',
     connect: 'Follow / connect',
     wechat: 'WeChat',
     qrPending: 'QR placeholder',
@@ -131,7 +131,6 @@ export function ContactPage({ locale }: { locale: Locale }) {
               <h2 id="contact-form-title">{method.title}</h2>
               <span>{localize(method.description, locale)}</span>
             </div>
-            <p className="contact-form__recipient"><span>{text.directedTo}</span><strong>{method.email}</strong></p>
           </header>
 
           <form onSubmit={submit}>
@@ -158,7 +157,10 @@ export function ContactPage({ locale }: { locale: Locale }) {
                 />
                 <span>＋ {text.attachment}</span>
               </label>
-              <button type="submit" disabled={status === 'submitting'}>{text.send} ↗</button>
+              <div className="contact-form__submit-group">
+                <p className="contact-form__direct"><span>{text.directContact}</span><strong>{method.email}</strong></p>
+                <button type="submit" disabled={status === 'submitting'}>{text.send} ↗</button>
+              </div>
             </div>
             <p className="contact-form__notice" aria-live="polite">
               {status === 'submitting' && text.submitting}
@@ -171,37 +173,39 @@ export function ContactPage({ locale }: { locale: Locale }) {
       </div>
 
       <footer className="contact-locations">
-        {contactLocations.map((location) => (
-          <section key={location.name}>
-            <p>{text.base}</p>
-            <h2>{location.name}</h2>
-          </section>
-        ))}
+        <section className="contact-locations__base">
+          <p>{text.base}</p>
+          <h2>
+            <span>{contactLocations[0].name}</span>
+            <span className="contact-locations__separator" aria-hidden="true">/</span>
+            <span>{contactLocations[1].name}</span>
+          </h2>
+        </section>
         <section className="contact-locations__connect">
-          <div className="contact-connect__copy">
+          <div className="contact-connect__identity">
             <p>{text.connect}</p>
             <h2>YUANSHOWROOM</h2>
-            <div className="contact-socials" aria-label={text.connect}>
-              {socialPlatforms.map((platform) => {
-                const content = <><SocialIcon platform={platform.id} /><span>{platform.name}</span></>
-
-                return 'href' in platform ? (
-                  <a key={platform.id} className="contact-socials__item" href={platform.href} target="_blank" rel="noreferrer" aria-label={`${platform.name} · YUAN SHOWROOM`}>
-                    {content}
-                  </a>
-                ) : (
-                  <span key={platform.id} className="contact-socials__item" title={`${platform.name} · ${text.qrPending}`}>
-                    {content}
-                  </span>
-                )
-              })}
-            </div>
           </div>
-          <div className="contact-connect__qr">
-            <div className="contact-qr-placeholder" aria-label={text.qrPending}>
-              {qrCells.map((cell, index) => <span key={index} data-filled={cell === 1} />)}
-            </div>
-            <span>{text.wechat}</span>
+          <div className="contact-socials" aria-label={text.connect}>
+            {socialPlatforms.map((platform) => {
+              const content = <><SocialIcon platform={platform.id} /><span>{platform.name}</span></>
+
+              return 'href' in platform ? (
+                <a key={platform.id} className="contact-socials__item" href={platform.href} target="_blank" rel="noreferrer" aria-label={`${platform.name} · YUAN SHOWROOM`}>
+                  {content}
+                </a>
+              ) : (
+                <span key={platform.id} className="contact-socials__item" title={`${platform.name} · ${text.qrPending}`}>
+                  {content}
+                </span>
+              )
+            })}
+          </div>
+        </section>
+        <section className="contact-locations__qr">
+          <p>{text.wechat}</p>
+          <div className="contact-qr-placeholder" aria-label={text.qrPending}>
+            {qrCells.map((cell, index) => <span key={index} data-filled={cell === 1} />)}
           </div>
         </section>
       </footer>

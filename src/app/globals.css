@@ -1499,8 +1499,8 @@ a.lookbook-index__card:hover > span {
 
 .contact-directory__methods {
   display: grid;
-  gap: clamp(3px, 0.7vh, 8px);
-  margin-top: clamp(72px, 13vh, 100px);
+  gap: clamp(2px, 0.45vh, 6px);
+  margin-top: clamp(56px, 9vh, 76px);
 }
 
 .contact-directory__methods button {
@@ -1546,21 +1546,17 @@ a.lookbook-index__card:hover > span {
 
 .contact-form {
   min-width: 0;
-  padding: clamp(20px, 3.2vh, 32px) var(--ys-gutter) 12px clamp(36px, 5vw, 82px);
+  padding: clamp(20px, 3.2vh, 32px) clamp(76px, 6vw, 112px) 12px clamp(36px, 5vw, 82px);
 }
 
 .contact-form__header {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 24px;
-  align-items: start;
   margin-bottom: clamp(14px, 2vh, 22px);
 }
 
 .contact-form__header p,
 .contact-form__header h2 { margin: 0; }
 .contact-form__header > div > p,
-.contact-form__recipient span,
+.contact-form__direct span,
 .contact-form__grid label > span,
 .contact-locations p {
   font-size: var(--ys-type-caption);
@@ -1587,13 +1583,18 @@ a.lookbook-index__card:hover > span {
   line-height: var(--ys-leading-compact);
 }
 
-.contact-form__recipient { text-align: right; }
-.contact-form__recipient span { display: block; color: var(--ys-muted); }
-.contact-form__recipient strong {
+.contact-form__direct {
+  margin: 0;
+  text-align: right;
+}
+
+.contact-form__direct span { display: block; color: var(--ys-muted); }
+.contact-form__direct strong {
   display: block;
-  margin-top: 8px;
+  margin-top: 5px;
   font-size: var(--ys-type-caption);
   font-weight: 400;
+  white-space: nowrap;
 }
 
 .contact-form__grid {
@@ -1673,7 +1674,13 @@ a.lookbook-index__card:hover > span {
 }
 
 .contact-form__attachment:focus-within { outline: 1px solid currentColor; outline-offset: 3px; }
-.contact-form__actions > button {
+.contact-form__submit-group {
+  display: flex;
+  gap: clamp(16px, 2vw, 28px);
+  align-items: center;
+}
+
+.contact-form__submit-group > button {
   min-width: 154px;
   min-height: 46px;
   padding: 12px 22px;
@@ -1697,12 +1704,16 @@ a.lookbook-index__card:hover > span {
 
 .contact-locations {
   display: grid;
-  grid-template-columns: 0.8fr 0.8fr minmax(320px, 1.2fr);
+  grid-template-columns: 38% minmax(420px, 1fr) auto;
+  gap: clamp(28px, 4vw, 64px);
+  min-height: 124px;
+  padding: 16px var(--ys-gutter) 20px;
+  align-items: start;
 }
 
 .contact-locations > section {
-  min-height: 92px;
-  padding: 14px var(--ys-gutter);
+  min-width: 0;
+  padding: 0;
 }
 
 .contact-locations p,
@@ -1716,18 +1727,50 @@ a.lookbook-index__card:hover > span {
   letter-spacing: -0.02em;
 }
 
+.contact-locations__base h2 {
+  display: flex;
+  gap: clamp(8px, 1vw, 14px);
+  align-items: baseline;
+  font-family: var(--ys-font-sans);
+  font-size: var(--ys-type-card-title);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.contact-locations__separator {
+  color: var(--ys-muted);
+  font-family: var(--ys-font-sans);
+  font-size: 0.8em;
+  font-weight: 400;
+}
+
 .contact-locations__connect {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 24px;
-  align-items: center;
+  gap: 10px;
+  align-content: start;
+  justify-items: start;
+}
+
+.contact-connect__identity {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+.contact-connect__identity h2 {
+  margin: 0;
+  font-family: var(--ys-font-sans);
+  font-size: var(--ys-type-card-title);
+  font-weight: 500;
+  letter-spacing: 0.04em;
 }
 
 .contact-socials {
   display: flex;
-  gap: 16px;
+  gap: clamp(14px, 1.35vw, 20px);
   align-items: flex-start;
-  margin-top: 9px;
+  justify-content: flex-start;
 }
 
 .contact-socials__item {
@@ -1763,23 +1806,27 @@ a.contact-socials__item:focus-visible { outline: 1px solid currentColor; outline
 
 .contact-socials__item > svg .social-icon__fill { fill: currentColor; stroke: none; }
 .contact-socials__item > span,
-.contact-connect__qr > span {
+.contact-locations__qr > span {
   color: var(--ys-muted);
   font-size: var(--ys-type-caption);
   letter-spacing: 0.04em;
   white-space: nowrap;
 }
 
-.contact-connect__qr {
+.contact-locations__qr {
   display: grid;
-  gap: 5px;
+  gap: 9px;
   justify-items: center;
+}
+
+.contact-locations__qr > p {
+  justify-self: center;
 }
 
 .contact-qr-placeholder {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  width: 60px;
+  width: 52px;
   aspect-ratio: 1;
   padding: 5px;
   border: 1px solid var(--ys-ink);
@@ -1793,8 +1840,9 @@ a.contact-socials__item:focus-visible { outline: 1px solid currentColor; outline
   .contact-directory,
   .contact-form { padding-top: 24px; }
   .contact-directory { padding-right: 30px; }
-  .contact-form { padding-left: 38px; }
+  .contact-form { padding-right: var(--ys-gutter); padding-left: 38px; }
   .contact-form__grid { column-gap: 24px; }
+  .contact-locations { grid-template-columns: 42% minmax(0, 1fr) auto; gap: 24px; }
 }
 
 @media (max-width: 760px) {
@@ -1811,12 +1859,17 @@ a.contact-socials__item:focus-visible { outline: 1px solid currentColor; outline
   .contact-form { padding-left: var(--ys-gutter); }
   .contact-form__header,
   .contact-form__grid { grid-template-columns: 1fr; }
-  .contact-form__recipient { text-align: left; }
   .contact-form__wide { grid-column: auto; }
-  .contact-locations { grid-template-columns: 1fr; }
-  .contact-locations > section { min-height: 108px; }
+  .contact-locations { grid-template-columns: minmax(0, 1fr) auto; gap: 24px; min-height: 0; padding-top: 28px; }
+  .contact-locations > section { min-height: 0; }
   .contact-form__actions { align-items: stretch; flex-direction: column; }
-  .contact-form__actions > button { width: 100%; }
+  .contact-form__submit-group { align-items: stretch; flex-direction: column; }
+  .contact-form__direct { text-align: left; }
+  .contact-form__submit-group > button { width: 100%; }
+  .contact-locations__base h2 { flex-wrap: wrap; gap: 8px 12px; }
+  .contact-locations__base { grid-column: 1 / -1; }
+  .contact-locations__connect { grid-column: 1; }
+  .contact-locations__qr { grid-column: 2; }
 }
 
 .site-header nav a,
