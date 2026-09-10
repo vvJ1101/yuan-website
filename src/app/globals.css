@@ -3298,7 +3298,7 @@ html:has(.lookbook-brand) {
   }
 }
 
-/* Homepage static cover */
+/* Homepage introduction */
 .showroom-cover,
 .showroom-cover__experience {
   height: calc(100dvh - var(--ys-header-h));
@@ -3306,36 +3306,56 @@ html:has(.lookbook-brand) {
 }
 
 .showroom-cover__experience {
-  position: relative;
+  display: grid;
+  place-items: center;
   width: 100%;
   overflow: hidden;
-  background: #ded8cf;
-  isolation: isolate;
+  color: #fff;
+  background: #050505;
 }
 
-.showroom-cover__background {
-  object-fit: cover;
-  object-position: 50% 43%;
+.showroom-cover__introduction {
+  width: min(calc(100% - 48px), 900px);
+  color: rgb(255 255 255 / 0.68);
+  font-family: var(--ys-font-sans);
+  font-size: clamp(14px, 1.05vw, 18px);
+  font-weight: 300;
+  letter-spacing: 0.012em;
+  line-height: 1.55;
+  text-align: center;
+  transform: translateY(clamp(44px, 8vh, 88px));
 }
 
-.showroom-cover__hero-logo {
-  position: absolute;
-  z-index: 2;
-  top: 64%;
-  left: 32%;
-  width: clamp(420px, 44vw, 720px);
-  aspect-ratio: 2423 / 522;
-  transform: translate(-50%, -50%);
+.showroom-cover__introduction p {
+  margin: 0 auto;
+  text-wrap: balance;
 }
 
-.showroom-cover__hero-logo-image {
-  filter: invert(1);
-  object-fit: contain;
+.showroom-cover__introduction p + p {
+  margin-top: clamp(20px, 2.7vh, 30px);
+}
+
+.showroom-cover__introduction p:nth-child(2) {
+  max-width: 790px;
+}
+
+.showroom-cover__introduction strong {
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.006em;
 }
 
 @media (max-width: 640px) {
-  .showroom-cover__background { object-position: 50% 50%; }
-  .showroom-cover__hero-logo { top: 70%; left: 38%; width: 72vw; }
+  .showroom-cover__introduction {
+    width: calc(100% - 40px);
+    font-size: 14px;
+    line-height: 1.7;
+    transform: translateY(3vh);
+  }
+
+  .showroom-cover__introduction p + p {
+    margin-top: 22px;
+  }
 }
 
 @media (max-width: 640px) {
