@@ -6,15 +6,9 @@ import type { Locale, Recap } from '@/types/showroom'
 
 export function RecapEditorial({ locale, recap, previous, next }: { locale: Locale; recap: Recap; previous: Recap; next: Recap }) {
   const cn = locale === 'cn'
-  const stories = cn ? [
-    { label: '主题', title: '装饰艺术的回声', text: '几何线条、对称秩序与温润金色，是装饰艺术留下的视觉记忆。Echoes of Deco 以此为起点，让经典美学在当代语境里再次发生。' },
-    { label: '风格', title: '秩序、光泽与当代剪影', text: '空间以清晰的轴线串联起衣物、器物与人。金属光泽、深色木质和克制的几何细节，在柔和光线中建立出冷静而温暖的节奏。' },
-    { label: '故事', title: '从图像走向真实的相遇', text: '一个季度的想象，由海报上的线条开始，逐渐落入可以触摸的材质、可以穿行的展场，以及订货会中真实的交流。人们在此停留、观看与对话，也让主题继续向外延伸。' },
-  ] : [
-    { label: 'Theme', title: 'An echo of Art Deco', text: 'Geometric lines, symmetry and the warmth of gold recall the visual language of Art Deco. Echoes of Deco begins with these enduring codes and brings their classical elegance into a contemporary setting.' },
-    { label: 'Style', title: 'Order, lustre and modern silhouettes', text: 'Clear spatial axes connect clothing, objects and people. Metallic accents, dark timber and restrained geometry establish a mood that feels precise yet warm, shaped by softened light and deliberate pauses.' },
-    { label: 'Story', title: 'From an image to a shared encounter', text: 'The season begins as lines on a poster, then unfolds through tactile materials, a space to move through and the conversations of the ordering period. Visitors pause, look and meet, allowing the theme to continue beyond the room.' },
-  ]
+  const story = cn
+    ? '几何线条、对称秩序与温润金色，是装饰艺术留下的视觉记忆。Echoes of Deco 以此为起点，以金属光泽、深色木质和克制的几何细节，让经典美学在当代语境里再次发生。一个季度的想象由海报上的线条开始，逐渐落入可以触摸的材质、可以穿行的展场，以及订货会中真实的相遇。'
+    : 'Geometric lines, symmetry and the warmth of gold recall the visual language of Art Deco. Echoes of Deco begins with these enduring codes, using metallic accents, dark timber and restrained geometry to bring classical elegance into a contemporary setting. The season begins as lines on a poster, then unfolds through tactile materials, a space to move through and the real encounters of the ordering period.'
   const captions = cn ? ['建筑秩序', '会面之间', '光线与器物', '主题的回声'] : ['Spatial order', 'Between meetings', 'Light & objects', 'Echo of the theme']
   return <main className="recap-editorial">
     <Link className="recap-editorial__back" href={localePath(locale, '/recap')}>← {cn ? '全部订货会回顾' : 'All seasonal reviews'}</Link>
@@ -35,10 +29,7 @@ export function RecapEditorial({ locale, recap, previous, next }: { locale: Loca
       </header>
 
       <section className="recap-editorial__story" aria-label={cn ? '主题故事' : 'Theme story'}>
-        {stories.map((story, index) => <article key={story.label}>
-          <div className="recap-editorial__story-index"><span>{String(index + 1).padStart(2, '0')}</span>{story.label}</div>
-          <div><h2>{story.title}</h2><p>{story.text}</p></div>
-        </article>)}
+        <p>{story}</p>
       </section>
 
       <section className="recap-editorial__space" aria-labelledby="space-title">
