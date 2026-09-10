@@ -6,9 +6,13 @@ import type { Locale, Recap } from '@/types/showroom'
 
 export function RecapEditorial({ locale, recap, previous, next }: { locale: Locale; recap: Recap; previous: Recap; next: Recap }) {
   const cn = locale === 'cn'
-  const story = cn
-    ? '几何线条、对称秩序与温润金色，是装饰艺术留下的视觉记忆。Echoes of Deco 以此为起点，以金属光泽、深色木质和克制的几何细节，让经典美学在当代语境里再次发生。一个季度的想象由海报上的线条开始，逐渐落入可以触摸的材质、可以穿行的展场，以及订货会中真实的相遇。'
-    : 'Geometric lines, symmetry and the warmth of gold recall the visual language of Art Deco. Echoes of Deco begins with these enduring codes, using metallic accents, dark timber and restrained geometry to bring classical elegance into a contemporary setting. The season begins as lines on a poster, then unfolds through tactile materials, a space to move through and the real encounters of the ordering period.'
+  const story = cn ? [
+    '几何线条、对称秩序与温润金色，是装饰艺术留下的视觉记忆。Echoes of Deco 以此为起点，以金属光泽、深色木质和克制的几何细节，让经典美学在当代语境里再次发生。',
+    '一个季度的想象由海报上的线条开始，逐渐落入可以触摸的材质、可以穿行的展场，以及订货会中真实的相遇。',
+  ] : [
+    'Geometric lines, symmetry and the warmth of gold recall the visual language of Art Deco. Echoes of Deco begins with these enduring codes, using metallic accents, dark timber and restrained geometry to bring classical elegance into a contemporary setting.',
+    'The season begins as lines on a poster, then unfolds through tactile materials, a space to move through and the real encounters of the ordering period.',
+  ]
   const captions = cn ? ['建筑秩序', '会面之间', '光线与器物', '主题的回声'] : ['Spatial order', 'Between meetings', 'Light & objects', 'Echo of the theme']
   return <main className="recap-editorial">
     <Link className="recap-editorial__back" href={localePath(locale, '/recap')}>← {cn ? '全部订货会回顾' : 'All seasonal reviews'}</Link>
@@ -29,7 +33,7 @@ export function RecapEditorial({ locale, recap, previous, next }: { locale: Loca
       </header>
 
       <section className="recap-editorial__story" aria-label={cn ? '主题故事' : 'Theme story'}>
-        <p>{story}</p>
+        {story.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
       </section>
 
       <section className="recap-editorial__space" aria-labelledby="space-title">
