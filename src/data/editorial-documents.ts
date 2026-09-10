@@ -24,7 +24,7 @@ const collab = {
 
 const pietonPath = '/images/editorial/events/pieton-hug'
 const pieton = {
-  hero: image(`${pietonPath}/facade-cover-wide.png`, 'PIETON × HUG SHAPED BY TIME 建筑立面', 1672, 941),
+  hero: image(`${pietonPath}/space-hero.webp`, 'PIETON × HUG 快闪空间效果图', 1230, 744),
   inspiration: [
     image(`${pietonPath}/p07-01-382x453.webp`, '砂砾与垂直构件形成的装置灵感', 382, 453),
     image(`${pietonPath}/p07-02-340x454.webp`, '重复堆叠的石材雕塑', 340, 454),
