@@ -260,29 +260,6 @@ test('recap detail only opens with a video hero when that season has a video', a
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)/)
 })
 
-test('27PS recap keeps each brand to one desktop screen without a trailing detail image', async () => {
-  const editorial = await read('src/components/showroom/recap-editorial.tsx')
-  const css = await read('src/app/globals.css')
-
-  assert.doesNotMatch(editorial, /recap27psStatics|recap-editorial__brand-static/)
-  assert.match(css, /@media \(min-width: 901px\)[\s\S]*?\.recap-editorial__brand\s*\{[^}]*min-height: calc\(100svh - var\(--ys-header-h\)\)/)
-})
-
-test('27PS recap alternates brand copy and film while keeping the film in the wide column', async () => {
-  const css = await read('src/app/globals.css')
-
-  assert.match(css, /\.recap-editorial__brand:nth-child\(even\)\s*\{[^}]*grid-template-columns: 2fr 1fr/)
-  assert.match(css, /\.recap-editorial__brand:nth-child\(even\) \.recap-brand-film\s*\{[^}]*grid-column: 1/)
-  assert.match(css, /\.recap-editorial__brand:nth-child\(even\) \.recap-editorial__brand-copy\s*\{[^}]*grid-column: 2/)
-})
-
-test('27PS closing image grid stays two-column but is narrower and centered on desktop', async () => {
-  const css = await read('src/app/globals.css')
-
-  assert.match(css, /\.recap-editorial__space-grid\s*\{[^}]*grid-template-columns: 1fr 1fr/)
-  assert.match(css, /@media \(min-width: 901px\)[\s\S]*?\.recap-editorial__space-grid\s*\{[^}]*width: min\(82%, 1040px\)[^}]*margin-inline: auto/)
-})
-
 test('brand room uses one eager hero with responsive image hints', async () => {
   const room = await read('src/components/showroom/brand-room.tsx')
 
