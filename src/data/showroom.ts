@@ -12,7 +12,6 @@ const showroomImages = {
   'brands/yifu-lu-campaign-20260903.jpg': image('/images/showroom/brands/yifu-lu-campaign-20260903.jpg', 'YIFU LU 品牌封面', 'YIFU LU campaign cover'),
   'brands/them-hub-campaign-20260903.jpg': image('/images/showroom/brands/them-hub-campaign-20260903.jpg', 'THEM HUB 品牌封面', 'THEM HUB campaign cover'),
   'brands/veilen-campaign-20260903.jpg': image('/images/showroom/brands/veilen-campaign-20260903.jpg', 'VEILEN 品牌封面', 'VEILEN campaign cover'),
-  'hero-reference.png': image('/images/showroom/hero-reference.png', 'YUAN SHOWROOM 首页版式参考', 'YUAN SHOWROOM homepage layout reference'),
   'now/lookbook/editorial-01.png': image('/images/showroom/now/lookbook/editorial-01.png', '订货会品牌大片 01', 'Ordering-season editorial look 01'),
   'now/lookbook/editorial-02.png': image('/images/showroom/now/lookbook/editorial-02.png', '订货会品牌大片 02', 'Ordering-season editorial look 02'),
   'now/lookbook/editorial-03.png': image('/images/showroom/now/lookbook/editorial-03.png', '订货会品牌大片 03', 'Ordering-season editorial look 03'),
