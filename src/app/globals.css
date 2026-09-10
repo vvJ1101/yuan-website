@@ -1590,6 +1590,23 @@ html:has(.lookbook-brand) {
   margin-top: clamp(90px, 13vh, 150px);
 }
 
+/* RANYEPERSONAL uses a neutral white canvas across all three lookbook screens. */
+.lookbook-brand--pure-white,
+.lookbook-brand--pure-white .lookbook-brand__panels,
+.lookbook-brand--pure-white .lookbook-brand__panel,
+.lookbook-brand--pure-white .lookbook-campaign-reel,
+.lookbook-brand--pure-white .lookbook-campaign-reel__hero,
+.lookbook-brand--pure-white .lookbook-campaign-reel__preview,
+.lookbook-brand--pure-white .lookbook-index-stage {
+  background: #fff;
+}
+
+.lookbook-brand--pure-white .lookbook-campaign-viewer,
+.lookbook-brand--pure-white .lookbook-campaign-viewer::backdrop,
+.lookbook-brand--pure-white .lookbook-campaign-reel__expand {
+  background: #fff;
+}
+
 .lookbook-campaign-reel {
   position: relative;
   display: grid;
@@ -1903,6 +1920,7 @@ html:has(.lookbook-brand) {
     border-bottom: 1px solid rgb(10 10 10 / 0.12);
     background: #f7f4f2;
   }
+  .lookbook-brand--pure-white .lookbook-campaign-reel__chapter { background: #fff; }
   .lookbook-campaign-reel[data-active-kind='portrait'] {
     grid-template-columns: 14vw minmax(0, 1fr) 18vw;
   }
