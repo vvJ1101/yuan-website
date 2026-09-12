@@ -128,7 +128,7 @@ verify_public_assets() {
   html=$(curl -fsSL "$PUBLIC_URL/en") || return 1
   css_path=$(printf '%s' "$html" | sed -n 's/.*href="\([^"]*\.css[^"]*\)".*/\1/p' | tail -n 1)
   js_path=$(printf '%s' "$html" | sed -n 's/.*src="\([^"]*\.js[^"]*\)".*/\1/p' | tail -n 1)
-  image_path=$(printf '%s' "$html" | sed -n 's/.*src="\(\/images\/[^"]*\)".*/\1/p' | tail -n 1)
+  image_path=$(printf '%s' "$html" | grep -o '/images/[^"\\ ]*' | sed -n '1p')
   [ -n "$css_path" ] && [ -n "$js_path" ] && [ -n "$image_path" ] || return 1
   [ "$(curl -sS -o /dev/null -w '%{http_code}' "$PUBLIC_URL$css_path")" = "200" ] || return 1
   [ "$(curl -sS -o /dev/null -w '%{http_code}' "$PUBLIC_URL$js_path")" = "200" ] || return 1

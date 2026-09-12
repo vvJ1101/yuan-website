@@ -35,6 +35,7 @@ test('production deployment stages releases and rolls back failed health checks'
   assert.match(script, /curl[^\n]*\$PUBLIC_URL/)
   assert.match(script, /\.css/)
   assert.match(script, /\.js/)
+  assert.match(script, /grep -o ['"]\/images\//)
   assert.match(script, /deployment_failed_rolled_back/)
   assert.match(script, /release[^\n]*!=[^\n]*NEXT_RELEASE/)
   assert.match(script, /release[^\n]*!=[^\n]*PREVIOUS_RELEASE/)
