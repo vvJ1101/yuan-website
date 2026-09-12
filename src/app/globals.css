@@ -3734,13 +3734,13 @@ html:has(.lookbook-brand) {
 }
 
 .showroom-cover__introduction {
-  width: min(calc(100% - 48px), 900px);
-  color: rgb(255 255 255 / 0.68);
+  width: min(calc(100% - 56px), 980px);
+  color: rgb(255 255 255 / 0.62);
   font-family: var(--ys-font-sans);
-  font-size: clamp(14px, 1.05vw, 18px);
+  font-size: clamp(14px, 0.98vw, 17px);
   font-weight: 300;
-  letter-spacing: 0.012em;
-  line-height: 1.55;
+  letter-spacing: 0.018em;
+  line-height: 1.68;
   text-align: center;
   transform: translateY(clamp(44px, 8vh, 88px));
 }
@@ -3751,18 +3751,42 @@ html:has(.lookbook-brand) {
 }
 
 .showroom-cover__introduction p + p {
-  margin-top: clamp(20px, 2.7vh, 30px);
+  margin-top: clamp(22px, 2.8vh, 30px);
+}
+
+.showroom-cover__introduction p:first-child {
+  width: min(100%, 940px);
+  color: rgb(255 255 255 / 0.72);
+  font-size: 1.04em;
 }
 
 .showroom-cover__introduction p:nth-child(2) {
-  max-width: 790px;
+  width: min(100%, 620px);
 }
 
-.showroom-cover__introduction strong {
-  color: #fff;
-  font-family: var(--ys-font-serif);
-  font-weight: 400;
-  letter-spacing: 0.025em;
+.showroom-cover__introduction p:last-child {
+  width: min(100%, 900px);
+  margin-top: clamp(30px, 4vh, 42px);
+  text-wrap: pretty;
+}
+
+.showroom-cover__inline-logo {
+  display: inline-block;
+  width: 8.35em;
+  margin-inline: 0.14em 0.08em;
+  line-height: 0;
+  vertical-align: -0.06em;
+  mix-blend-mode: screen;
+}
+
+.showroom-cover__introduction p:first-child .showroom-cover__inline-logo {
+  margin-left: 0;
+}
+
+.showroom-cover__inline-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 @media (max-width: 640px) {
@@ -3775,6 +3799,10 @@ html:has(.lookbook-brand) {
 
   .showroom-cover__introduction p + p {
     margin-top: 22px;
+  }
+
+  .showroom-cover__introduction p:last-child {
+    margin-top: 28px;
   }
 }
 
