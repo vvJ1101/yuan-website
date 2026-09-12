@@ -35,15 +35,29 @@ RELEASE_ID=$(git rev-parse --short HEAD)
 BUILD_ID=$(cat .next/BUILD_ID)
 STAGE_SUFFIX="$RELEASE_ID-$BUILD_ID"
 
-# A changed lockfile needs a separately staged dependency installation.
-# Refuse instead of mutating or hard-linking an incompatible dependency tree.
+# Reuse a release with the exact dependency lock while keeping the currently
+# active release as the independent rollback target.
 LOCAL_LOCK_HASH=$(shasum -a 256 package-lock.json | awk '{print $1}')
-REMOTE_LOCK_HASH=$(ssh "$SERVER" "shasum -a 256 '$REMOTE_DIR/current/package-lock.json' | cut -d' ' -f1")
-if [ "$LOCAL_LOCK_HASH" != "$REMOTE_LOCK_HASH" ]; then
-  echo "package-lock.json differs from production; automated deployment stopped before upload." >&2
+BASE_RELEASE=$(ssh "$SERVER" bash -s -- "$REMOTE_DIR" "$LOCAL_LOCK_HASH" <<'REMOTE_FIND'
+set -euo pipefail
+REMOTE_DIR=$1
+LOCAL_LOCK_HASH=$2
+for candidate in "$REMOTE_DIR/current" "$REMOTE_DIR"/releases/*; do
+  resolved=$(readlink -f "$candidate")
+  [ -f "$resolved/package-lock.json" ] || continue
+  candidate_hash=$(shasum -a 256 "$resolved/package-lock.json" | cut -d' ' -f1)
+  if [ "$candidate_hash" = "$LOCAL_LOCK_HASH" ]; then
+    printf '%s\n' "$resolved"
+    exit 0
+  fi
+done
+exit 1
+REMOTE_FIND
+) || {
+  echo "No production release has a matching package-lock.json." >&2
   echo "Use a dependency-aware maintenance deployment for this release." >&2
   exit 1
-fi
+}
 
 git push origin HEAD:main
 
@@ -55,7 +69,7 @@ rsync -az --delete --exclude='._*' .next/ "$SERVER:$NEXT_UPLOAD/"
 rsync -az --delete --exclude='._*' public/ "$SERVER:$PUBLIC_UPLOAD/"
 
 ssh "$SERVER" bash -s -- \
-  "$REMOTE_DIR" "$NEXT_UPLOAD" "$PUBLIC_UPLOAD" "$PM2_NAME" "$PORT" "$PUBLIC_URL" "$RELEASE_ID" <<'REMOTE'
+  "$REMOTE_DIR" "$NEXT_UPLOAD" "$PUBLIC_UPLOAD" "$PM2_NAME" "$PORT" "$PUBLIC_URL" "$RELEASE_ID" "$BASE_RELEASE" <<'REMOTE'
 set -euo pipefail
 
 REMOTE_DIR=$1
@@ -65,6 +79,7 @@ PM2_NAME=$4
 PORT=$5
 PUBLIC_URL=$6
 RELEASE_ID=$7
+BASE_RELEASE=$8
 STAMP=$(date +%Y%m%dT%H%M%SZ)
 RELEASES_DIR="$REMOTE_DIR/releases"
 CURRENT_LINK="$REMOTE_DIR/current"
@@ -72,11 +87,12 @@ PREVIOUS_RELEASE=$(readlink -f "$CURRENT_LINK")
 NEXT_RELEASE="$RELEASES_DIR/$STAMP-$RELEASE_ID"
 
 test -d "$PREVIOUS_RELEASE"
+test -d "$BASE_RELEASE"
 test -f "$NEXT_UPLOAD/BUILD_ID"
 test -d "$PUBLIC_UPLOAD"
 
 mkdir -p "$RELEASES_DIR"
-cp -al "$PREVIOUS_RELEASE" "$NEXT_RELEASE"
+cp -al "$BASE_RELEASE" "$NEXT_RELEASE"
 rm -rf "$NEXT_RELEASE/.next" "$NEXT_RELEASE/public"
 mv "$NEXT_UPLOAD" "$NEXT_RELEASE/.next"
 mv "$PUBLIC_UPLOAD" "$NEXT_RELEASE/public"
@@ -127,8 +143,12 @@ for path in / /about/brand-book /en/about/brand-book /en/pop-up-events /en/pop-u
   fi
 done
 
-# Preserve the active release and one rollback release; remove older named releases only.
-find "$RELEASES_DIR" -mindepth 1 -maxdepth 1 -type d -print | sort -r | tail -n +3 | xargs -r rm -rf --
+# Preserve the newly active release and the exact release verified before switching.
+for release in "$RELEASES_DIR"/*; do
+  if [ "$release" != "$NEXT_RELEASE" ] && [ "$release" != "$PREVIOUS_RELEASE" ]; then
+    rm -rf -- "$release"
+  fi
+done
 
 printf 'previous_release=%s\n' "$PREVIOUS_RELEASE"
 printf 'new_release=%s\n' "$NEXT_RELEASE"

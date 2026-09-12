@@ -7,13 +7,13 @@ export function proxy(request: NextRequest) {
   const savedLocale = request.cookies.get('showroom-locale')?.value
 
   if (pathname === '/cn' || pathname.startsWith('/cn/')) {
-    const url = request.nextUrl.clone()
+    const url = new URL(request.url)
     url.pathname = pathname.slice(3) || '/'
     return NextResponse.redirect(url, 308)
   }
 
   if (savedLocale === 'en' && pathname !== '/en' && !pathname.startsWith('/en/')) {
-    const url = request.nextUrl.clone()
+    const url = new URL(request.url)
     url.pathname = pathname === '/' ? '/en' : `/en${pathname}`
     return NextResponse.redirect(url, 307)
   }
@@ -25,7 +25,9 @@ export function proxy(request: NextRequest) {
 
   if (locale === 'en') return NextResponse.next({ request: { headers: requestHeaders } })
 
-  const url = request.nextUrl.clone()
+  // Keep the listening origin. NextURL canonicalizes 127.0.0.1 to localhost,
+  // which turns this internal rewrite into an HTTPS self-proxy in production.
+  const url = new URL(request.url)
   url.pathname = pathname === '/' ? '/cn' : `/cn${pathname}`
   return NextResponse.rewrite(url, { request: { headers: requestHeaders } })
 }
