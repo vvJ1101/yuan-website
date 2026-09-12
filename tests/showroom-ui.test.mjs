@@ -96,6 +96,8 @@ test('proxy serves Chinese at clean root and redirects legacy /cn URLs', async (
   assert.match(source, /NextResponse\.redirect\(url, 308\)/)
   assert.match(source, /pathname === '\/' \? '\/cn'/)
   assert.match(source, /const url = new URL\(request\.url\)/)
+  assert.match(source, /url\.protocol = 'http:'/)
+  assert.match(source, /request\.headers\.get\('x-showroom-locale'\)/)
 })
 
 test('proxy restores the saved English preference on clean public URLs', async () => {

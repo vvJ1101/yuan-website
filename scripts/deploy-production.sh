@@ -99,6 +99,8 @@ mv "$PUBLIC_UPLOAD" "$NEXT_RELEASE/public"
 
 # Nginx workers must be able to traverse the release path to serve static files.
 chmod 755 "$RELEASES_DIR" "$NEXT_RELEASE"
+find "$NEXT_RELEASE/.next/static" "$NEXT_RELEASE/public" -type d -exec chmod 755 {} +
+find "$NEXT_RELEASE/.next/static" "$NEXT_RELEASE/public" -type f -exec chmod 644 {} +
 
 rollback() {
   ln -sfn "$PREVIOUS_RELEASE" "$CURRENT_LINK.rollback"
@@ -122,13 +124,15 @@ if [ "$(curl -sS -o /dev/null -w '%{http_code}' "http://127.0.0.1:$PORT/en")" !=
 fi
 
 verify_public_assets() {
-  local html css_path js_path
+  local html css_path js_path image_path
   html=$(curl -fsSL "$PUBLIC_URL/en") || return 1
   css_path=$(printf '%s' "$html" | sed -n 's/.*href="\([^"]*\.css[^"]*\)".*/\1/p' | tail -n 1)
   js_path=$(printf '%s' "$html" | sed -n 's/.*src="\([^"]*\.js[^"]*\)".*/\1/p' | tail -n 1)
-  [ -n "$css_path" ] && [ -n "$js_path" ] || return 1
+  image_path=$(printf '%s' "$html" | sed -n 's/.*src="\(\/images\/[^"]*\)".*/\1/p' | tail -n 1)
+  [ -n "$css_path" ] && [ -n "$js_path" ] && [ -n "$image_path" ] || return 1
   [ "$(curl -sS -o /dev/null -w '%{http_code}' "$PUBLIC_URL$css_path")" = "200" ] || return 1
   [ "$(curl -sS -o /dev/null -w '%{http_code}' "$PUBLIC_URL$js_path")" = "200" ] || return 1
+  [ "$(curl -sS -o /dev/null -w '%{http_code}' "$PUBLIC_URL$image_path")" = "200" ] || return 1
 }
 
 if ! verify_public_assets; then

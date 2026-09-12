@@ -28,6 +28,8 @@ test('production deployment stages releases and rolls back failed health checks'
   assert.match(script, /current/)
   assert.match(script, /BASE_RELEASE/)
   assert.match(script, /chmod 755/)
+  assert.match(script, /find[^\n]*-type d[^\n]*chmod 755/)
+  assert.match(script, /find[^\n]*-type f[^\n]*chmod 644/)
   assert.match(script, /curl[^\n]*127\.0\.0\.1:\$PORT/)
   assert.match(script, /PUBLIC_URL=\$\{YUAN_PUBLIC_URL:-https:\/\/yuanshowroom\.cn\}/)
   assert.match(script, /curl[^\n]*\$PUBLIC_URL/)

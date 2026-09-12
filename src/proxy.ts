@@ -5,6 +5,11 @@ export function proxy(request: NextRequest) {
   if (/\.[^/]+$/.test(pathname)) return NextResponse.next()
 
   const savedLocale = request.cookies.get('showroom-locale')?.value
+  const routedLocale = request.headers.get('x-showroom-locale')
+
+  if (routedLocale === 'zh-CN' && (pathname === '/cn' || pathname.startsWith('/cn/'))) {
+    return NextResponse.next()
+  }
 
   if (pathname === '/cn' || pathname.startsWith('/cn/')) {
     const url = new URL(request.url)
@@ -28,6 +33,7 @@ export function proxy(request: NextRequest) {
   // Keep the listening origin. NextURL canonicalizes 127.0.0.1 to localhost,
   // which turns this internal rewrite into an HTTPS self-proxy in production.
   const url = new URL(request.url)
+  url.protocol = 'http:'
   url.pathname = pathname === '/' ? '/cn' : `/cn${pathname}`
   return NextResponse.rewrite(url, { request: { headers: requestHeaders } })
 }
