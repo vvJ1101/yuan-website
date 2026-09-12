@@ -36,9 +36,9 @@ BUILD_ID=$(cat .next/BUILD_ID)
 STAGE_SUFFIX="$RELEASE_ID-$BUILD_ID"
 
 # A changed lockfile needs a separately staged dependency installation.
-# Refuse instead of mutating the live node_modules directory.
+# Refuse instead of mutating or hard-linking an incompatible dependency tree.
 LOCAL_LOCK_HASH=$(shasum -a 256 package-lock.json | awk '{print $1}')
-REMOTE_LOCK_HASH=$(ssh "$SERVER" "shasum -a 256 '$REMOTE_DIR/package-lock.json' | cut -d' ' -f1")
+REMOTE_LOCK_HASH=$(ssh "$SERVER" "shasum -a 256 '$REMOTE_DIR/current/package-lock.json' | cut -d' ' -f1")
 if [ "$LOCAL_LOCK_HASH" != "$REMOTE_LOCK_HASH" ]; then
   echo "package-lock.json differs from production; automated deployment stopped before upload." >&2
   echo "Use a dependency-aware maintenance deployment for this release." >&2
@@ -47,47 +47,52 @@ fi
 
 git push origin HEAD:main
 
-NEXT_STAGE="$REMOTE_DIR/.next.stage-$STAGE_SUFFIX"
-PUBLIC_STAGE="$REMOTE_DIR/public.stage-$STAGE_SUFFIX"
+NEXT_UPLOAD="$REMOTE_DIR/.next.upload-$STAGE_SUFFIX"
+PUBLIC_UPLOAD="$REMOTE_DIR/public.upload-$STAGE_SUFFIX"
 
 echo "Uploading release $RELEASE_ID ($BUILD_ID)..."
-rsync -az --delete --exclude='._*' .next/ "$SERVER:$NEXT_STAGE/"
-rsync -az --delete --exclude='._*' public/ "$SERVER:$PUBLIC_STAGE/"
+rsync -az --delete --exclude='._*' .next/ "$SERVER:$NEXT_UPLOAD/"
+rsync -az --delete --exclude='._*' public/ "$SERVER:$PUBLIC_UPLOAD/"
 
 ssh "$SERVER" bash -s -- \
-  "$REMOTE_DIR" "$NEXT_STAGE" "$PUBLIC_STAGE" "$PM2_NAME" "$PORT" "$PUBLIC_URL" <<'REMOTE'
+  "$REMOTE_DIR" "$NEXT_UPLOAD" "$PUBLIC_UPLOAD" "$PM2_NAME" "$PORT" "$PUBLIC_URL" "$RELEASE_ID" <<'REMOTE'
 set -euo pipefail
 
 REMOTE_DIR=$1
-NEXT_STAGE=$2
-PUBLIC_STAGE=$3
+NEXT_UPLOAD=$2
+PUBLIC_UPLOAD=$3
 PM2_NAME=$4
 PORT=$5
 PUBLIC_URL=$6
-STAMP=$(date +%Y%m%d_%H%M%S)
+RELEASE_ID=$7
+STAMP=$(date +%Y%m%dT%H%M%SZ)
+RELEASES_DIR="$REMOTE_DIR/releases"
+CURRENT_LINK="$REMOTE_DIR/current"
+PREVIOUS_RELEASE=$(readlink -f "$CURRENT_LINK")
+NEXT_RELEASE="$RELEASES_DIR/$STAMP-$RELEASE_ID"
 
-cd "$REMOTE_DIR"
-test -f "$NEXT_STAGE/BUILD_ID"
-test -d "$PUBLIC_STAGE"
+test -d "$PREVIOUS_RELEASE"
+test -f "$NEXT_UPLOAD/BUILD_ID"
+test -d "$PUBLIC_UPLOAD"
 
-PREVIOUS_BUILD=$(cat .next/BUILD_ID 2>/dev/null || true)
-NEXT_BACKUP=".next.backup.$STAMP"
-PUBLIC_BACKUP=".public.backup.$STAMP"
+mkdir -p "$RELEASES_DIR"
+cp -al "$PREVIOUS_RELEASE" "$NEXT_RELEASE"
+rm -rf "$NEXT_RELEASE/.next" "$NEXT_RELEASE/public"
+mv "$NEXT_UPLOAD" "$NEXT_RELEASE/.next"
+mv "$PUBLIC_UPLOAD" "$NEXT_RELEASE/public"
 
-mv .next "$NEXT_BACKUP"
-mv "$NEXT_STAGE" .next
-mv public "$PUBLIC_BACKUP"
-mv "$PUBLIC_STAGE" public
+# Nginx workers must be able to traverse the release path to serve static files.
+chmod 755 "$RELEASES_DIR" "$NEXT_RELEASE"
 
 rollback() {
-  pm2 stop "$PM2_NAME" >/dev/null 2>&1 || true
-  mv .next ".next.failed.$STAMP"
-  mv "$NEXT_BACKUP" .next
-  mv public ".public.failed.$STAMP"
-  mv "$PUBLIC_BACKUP" public
-  pm2 restart "$PM2_NAME" --update-env >/dev/null
+  ln -sfn "$PREVIOUS_RELEASE" "$CURRENT_LINK.rollback"
+  mv -Tf "$CURRENT_LINK.rollback" "$CURRENT_LINK"
+  pm2 restart "$PM2_NAME" --update-env >/dev/null 2>&1 || true
   echo "deployment_failed_rolled_back" >&2
 }
+
+ln -sfn "$NEXT_RELEASE" "$CURRENT_LINK.next"
+mv -Tf "$CURRENT_LINK.next" "$CURRENT_LINK"
 
 if ! pm2 restart "$PM2_NAME" --update-env >/dev/null; then
   rollback
@@ -95,7 +100,22 @@ if ! pm2 restart "$PM2_NAME" --update-env >/dev/null; then
 fi
 
 sleep 2
-if [ "$(curl -sS -o /dev/null -w '%{http_code}' "http://127.0.0.1:$PORT/")" != "200" ]; then
+if [ "$(curl -sS -o /dev/null -w '%{http_code}' "http://127.0.0.1:$PORT/en")" != "200" ]; then
+  rollback
+  exit 1
+fi
+
+verify_public_assets() {
+  local html css_path js_path
+  html=$(curl -fsSL "$PUBLIC_URL/en") || return 1
+  css_path=$(printf '%s' "$html" | sed -n 's/.*href="\([^"]*\.css[^"]*\)".*/\1/p' | tail -n 1)
+  js_path=$(printf '%s' "$html" | sed -n 's/.*src="\([^"]*\.js[^"]*\)".*/\1/p' | tail -n 1)
+  [ -n "$css_path" ] && [ -n "$js_path" ] || return 1
+  [ "$(curl -sS -o /dev/null -w '%{http_code}' "$PUBLIC_URL$css_path")" = "200" ] || return 1
+  [ "$(curl -sS -o /dev/null -w '%{http_code}' "$PUBLIC_URL$js_path")" = "200" ] || return 1
+}
+
+if ! verify_public_assets; then
   rollback
   exit 1
 fi
@@ -107,18 +127,17 @@ for path in / /about/brand-book /en/about/brand-book /en/pop-up-events /en/pop-u
   fi
 done
 
-# Keep the newest rollback points and remove only explicitly named old backups.
-find . -maxdepth 1 -type d -name '.next.backup.*' -print | sort -r | tail -n +4 | xargs -r rm -rf --
-find . -maxdepth 1 -type d -name '.public.backup.*' -print | sort -r | tail -n +4 | xargs -r rm -rf --
+# Preserve the active release and one rollback release; remove older named releases only.
+find "$RELEASES_DIR" -mindepth 1 -maxdepth 1 -type d -print | sort -r | tail -n +3 | xargs -r rm -rf --
 
-printf 'previous_build=%s\n' "$PREVIOUS_BUILD"
-printf 'new_build=%s\n' "$(cat .next/BUILD_ID)"
-printf 'backup_stamp=%s\n' "$STAMP"
+printf 'previous_release=%s\n' "$PREVIOUS_RELEASE"
+printf 'new_release=%s\n' "$NEXT_RELEASE"
+printf 'new_build=%s\n' "$(cat "$CURRENT_LINK/.next/BUILD_ID")"
 pm2 describe "$PM2_NAME" | sed -n '/status/p;/uptime/p'
 REMOTE
 
-echo "Verifying public routes..."
-for path in / /about/brand-book /en/about/brand-book /en/pop-up-events /en/pop-up-events/sample-next-season; do
+echo "Verifying public routes and assets..."
+for path in / /en /about/brand-book /en/about/brand-book /en/pop-up-events /en/pop-up-events/sample-next-season; do
   STATUS=$(curl -L -sS -o /dev/null -w '%{http_code}' "$PUBLIC_URL$path")
   if [ "$STATUS" != "200" ]; then
     echo "Post-deployment verification failed for $PUBLIC_URL$path ($STATUS)." >&2

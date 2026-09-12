@@ -24,15 +24,16 @@ test('fast checks retain tests lint and a production build', async () => {
 test('production deployment stages releases and rolls back failed health checks', async () => {
   const script = await read('scripts/deploy-production.sh')
 
-  assert.match(script, /\.next\.stage-/)
-  assert.match(script, /public\.stage-/)
-  assert.match(script, /\.next\.backup\./)
-  assert.match(script, /\.public\.backup\./)
+  assert.match(script, /releases/)
+  assert.match(script, /current/)
+  assert.match(script, /chmod 755/)
   assert.match(script, /curl[^\n]*127\.0\.0\.1:\$PORT/)
   assert.match(script, /PUBLIC_URL=\$\{YUAN_PUBLIC_URL:-https:\/\/yuanshowroom\.cn\}/)
   assert.match(script, /curl[^\n]*\$PUBLIC_URL/)
+  assert.match(script, /\.css/)
+  assert.match(script, /\.js/)
   assert.match(script, /deployment_failed_rolled_back/)
-  assert.match(script, /tail -n \+4/)
+  assert.match(script, /tail -n \+3/)
 })
 
 test('production deployment never targets the academy service', async () => {
