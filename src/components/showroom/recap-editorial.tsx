@@ -15,14 +15,27 @@ export function RecapEditorial({ locale, recap, previous, next }: { locale: Loca
   ]
   const captions = cn ? ['建筑秩序', '会面之间', '光线与器物', '主题的回声'] : ['Spatial order', 'Between meetings', 'Light & objects', 'Echo of the theme']
   return <main className="recap-editorial">
-    <Link className="recap-editorial__back" href={localePath(locale, '/recap')}>← {cn ? '全部订货会回顾' : 'All seasonal reviews'}</Link>
+    <section className="recap-editorial__video-opening" aria-label={cn ? '2027 早春订货会现场视频' : '2027 Pre-Spring ordering presentation film'}>
+      <video
+        src="/videos/showroom/recap/27ps-echoes-of-deco.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+      />
+      <div className="recap-editorial__video-shade" aria-hidden="true" />
+      <Link className="recap-editorial__back recap-editorial__back--hero" href={localePath(locale, '/recap')}>← {cn ? '全部订货会回顾' : 'All seasonal reviews'}</Link>
+      <div className="recap-editorial__video-title">
+        <p>YUAN SHOWROOM · 2027 PRE-SPRING</p>
+        <h1 lang="en">{recap.title.en}</h1>
+      </div>
+      <span className="recap-editorial__video-scroll" aria-hidden="true">{cn ? '向下浏览' : 'Scroll to review'} ↓</span>
+    </section>
     <article>
       <header className="recap-editorial__opening">
-        <a className="recap-editorial__poster" href={recap.poster} target="_blank" rel="noreferrer" aria-label={cn ? '查看完整海报（新窗口）' : 'View full poster (new window)'}>
-          <Image src={recap.poster} alt="Echoes of Deco — 2027 Pre-Spring" width={1772} height={2362} sizes="(max-width: 640px) 84vw, 38vw" priority />
-        </a>
         <div className="recap-editorial__opening-text">
-          <h1 lang="en">{recap.title.en}</h1>
+          <h2 lang="en">{recap.title.en}</h2>
           <p className="recap-editorial__season">{cn ? '2027 早春 & 胶囊系列' : '2027 Pre-Spring & Capsule Collection'}</p>
           <p className="recap-editorial__summary">{cn ? '一场围绕经典美学、当代衣着与真实相遇展开的季度订货会。' : 'A seasonal ordering presentation shaped by classical aesthetics, contemporary clothing and real encounters.'}</p>
           <dl className="recap-editorial__facts">
@@ -36,6 +49,17 @@ export function RecapEditorial({ locale, recap, previous, next }: { locale: Loca
         {story.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
       </section>
 
+      <figure className="recap-editorial__brand-collection">
+        <Image
+          src="/images/showroom/recap/27ps/brand-collection.jpg"
+          alt={cn ? 'Echoes of Deco 2027 早春订货会品牌合集' : 'Echoes of Deco 2027 Pre-Spring brand collection'}
+          width={2200}
+          height={1886}
+          sizes="(max-width: 640px) 88vw, 1100px"
+        />
+        <figcaption>{cn ? '本季品牌合集' : 'The seasonal edit'}</figcaption>
+      </figure>
+
       <section className="recap-editorial__space" aria-labelledby="space-title">
         <div className="recap-editorial__section-heading"><h2 id="space-title">{cn ? '空间现场' : 'Inside the showroom'}</h2><p>{cn ? '光线、物件与相聚的片刻。' : 'Light, objects and moments of encounter.'}</p></div>
         <div className="recap-editorial__space-grid">{captions.map((caption, i) => <figure key={caption}>
@@ -44,6 +68,10 @@ export function RecapEditorial({ locale, recap, previous, next }: { locale: Loca
           <figcaption>{String(i + 1).padStart(2, '0')}</figcaption>
         </figure>)}</div>
       </section>
+
+      <a className="recap-editorial__poster-archive" href={recap.poster} target="_blank" rel="noreferrer">
+        {cn ? '查看本季完整海报' : 'View the seasonal poster'} ↗
+      </a>
     </article>
     <nav className="recap-detail__pager" aria-label={cn ? '浏览往季回顾' : 'Browse recaps'}>
       <Link href={localePath(locale, `/recap/${previous.slug}`)}><span>← {cn ? '上一季' : 'Previous'}</span><strong>{previous.season}</strong></Link>

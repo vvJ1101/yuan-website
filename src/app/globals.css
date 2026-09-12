@@ -973,12 +973,32 @@ a.lookbook-index__card:hover > span {
 }
 
 .recap-editorial__back { display: inline-flex; align-items: center; min-height: 44px; }
-.recap-editorial__opening { display: grid; grid-template-columns: minmax(260px, 0.62fr) 1fr; gap: 10%; align-items: start; margin: 40px 0 100px; }
-.recap-editorial__poster { width: min(100%, 390px); justify-self: center; }
-.recap-editorial__poster img { display: block; width: 100%; height: auto; }
-.recap-editorial__opening-text { padding-top: clamp(72px, 8vw, 108px); }
+.recap-editorial__video-opening {
+  position: relative;
+  width: 100vw;
+  min-height: calc(100svh - var(--ys-header-h));
+  margin: -32px 0 clamp(56px, 7vw, 96px) calc(50% - 50vw);
+  overflow: hidden;
+  background: #0a0a0a;
+  color: #fff;
+}
+.recap-editorial__video-opening video,
+.recap-editorial__video-shade { position: absolute; inset: 0; }
+.recap-editorial__video-opening video { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.recap-editorial__video-shade {
+  background: linear-gradient(180deg, rgb(0 0 0 / 0.28), transparent 38%, rgb(0 0 0 / 0.52));
+  pointer-events: none;
+}
+.recap-editorial__back--hero { position: absolute; top: 22px; left: var(--ys-gutter); z-index: 1; color: #fff; }
+.recap-editorial__video-title { position: absolute; right: var(--ys-gutter); bottom: clamp(46px, 7vh, 76px); left: var(--ys-gutter); z-index: 1; }
+.recap-editorial__video-title p { margin: 0 0 12px; font-size: clamp(10px, 0.7vw, 12px); letter-spacing: 0.16em; }
+.recap-editorial .recap-editorial__video-title h1 { max-width: 12ch; margin: 0; color: #fff; font-size: clamp(44px, 6.5vw, 104px); line-height: 0.92; }
+.recap-editorial__video-scroll { position: absolute; right: var(--ys-gutter); bottom: clamp(48px, 7vh, 78px); z-index: 1; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+.recap-editorial__opening { width: min(100%, 780px); margin: clamp(72px, 9vw, 128px) auto clamp(80px, 9vw, 120px); }
+.recap-editorial__opening-text { padding-top: 0; }
 .recap-editorial__category { margin: -12px 0 24px; color: var(--ys-muted); }
-.recap-editorial h1 { font-family: var(--ys-font-serif); font-size: var(--ys-type-page-title); font-weight: 400; line-height: 1.08; margin: 0 0 20px; }
+.recap-editorial h1,
+.recap-editorial__opening-text h2 { font-family: var(--ys-font-serif); font-size: var(--ys-type-page-title); font-weight: 400; line-height: 1.08; margin: 0 0 20px; }
 .recap-editorial__season { font-size: var(--ys-type-subtitle); margin: 0 0 24px; }
 .recap-editorial__summary { font-family: var(--ys-font-serif); font-size: var(--ys-type-body); line-height: var(--ys-leading-body); max-width: 540px; margin: 0; }
 .recap-editorial__prose { font-family: var(--ys-font-serif); font-size: var(--ys-type-body); line-height: var(--ys-leading-body); }
@@ -991,6 +1011,9 @@ a.lookbook-index__card:hover > span {
 .recap-editorial__story { max-width: 780px; margin: clamp(80px, 10vw, 136px) auto; }
 .recap-editorial__story p { font-family: var(--ys-font-serif); font-size: var(--ys-type-body); line-height: 1.85; margin: 0; }
 .recap-editorial__story p + p { margin-top: 18px; }
+.recap-editorial__brand-collection { width: min(100%, 1120px); margin: 0 auto clamp(80px, 10vw, 144px); }
+.recap-editorial__brand-collection img { display: block; width: 100%; height: auto; }
+.recap-editorial__brand-collection figcaption { margin-top: 14px; color: var(--ys-muted); font-size: var(--ys-type-caption); letter-spacing: 0.08em; text-align: right; }
 .recap-editorial__roster { margin-bottom: 100px; }
 .recap-editorial__section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 36px; }
 .recap-editorial__section-heading h2,
@@ -1049,6 +1072,8 @@ a.lookbook-index__card:hover > span {
 .recap-editorial__space img { display: block; width: 100%; height: auto; }
 .recap-editorial__space figcaption { margin-top: 14px; }
 .recap-editorial__space figcaption span { color: var(--ys-muted); }
+.recap-editorial__poster-archive { display: flex; width: fit-content; min-height: 44px; align-items: center; margin: clamp(56px, 7vw, 96px) auto; font-size: var(--ys-type-body-small); letter-spacing: 0.06em; text-underline-offset: 6px; }
+.recap-editorial__poster-archive:hover { text-decoration: underline; }
 .recap-editorial__contact { max-width: 800px; margin: 120px auto; }
 .recap-editorial__contact > p { font-size: var(--ys-type-body); margin: 24px 0 40px; }
 .recap-editorial__contact dl { margin: 0; }
@@ -1083,8 +1108,6 @@ a.lookbook-index__card:hover > span {
 }
 
 @media (max-width: 900px) {
-  .recap-editorial__opening { gap: 6%; align-items: start; }
-  .recap-editorial__opening-text { padding-top: 44px; }
   .recap-editorial__facts div { grid-template-columns: 1fr; gap: 4px; }
   .recap-editorial__brand { grid-template-columns: 1fr; gap: 28px; }
   .recap-editorial__brand-copy { max-width: 560px; }
@@ -1093,9 +1116,12 @@ a.lookbook-index__card:hover > span {
 
 @media (max-width: 640px) {
   .recap-editorial { padding: 20px 6vw 0; }
-  .recap-editorial__opening { grid-template-columns: 1fr; gap: 40px; margin: 24px 0 64px; }
-  .recap-editorial__poster { width: min(72%, 340px); margin: 0 auto; }
-  .recap-editorial__opening-text { padding-top: 0; }
+  .recap-editorial__video-opening { margin-top: -20px; }
+  .recap-editorial__video-opening video { object-position: 50% center; }
+  .recap-editorial__video-title { bottom: 42px; }
+  .recap-editorial .recap-editorial__video-title h1 { font-size: clamp(40px, 14vw, 64px); }
+  .recap-editorial__video-scroll { display: none; }
+  .recap-editorial__opening { margin: 64px auto 72px; }
   .recap-editorial__section-heading { display: block; }
   .recap-editorial__section-heading > span,
   .recap-editorial__section-heading > p { display: block; margin-top: 16px; }
@@ -3772,10 +3798,10 @@ html:has(.lookbook-brand) {
 
 .showroom-cover__inline-logo {
   display: inline-block;
-  width: 8.35em;
+  width: 9.2em;
   margin-inline: 0.14em 0.08em;
   line-height: 0;
-  vertical-align: -0.06em;
+  vertical-align: -0.08em;
   mix-blend-mode: screen;
 }
 

@@ -28,6 +28,31 @@ test('pop-up detail keeps later image groups in a calm aligned grid', async () =
   assert.match(css, /@media \(max-width: 640px\)[\s\S]*\.event-story__gallery--4,[\s\S]*\.event-story__gallery--2\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\)/)
 })
 
+test('27PS recap opens with an immersive autoplay video before the editorial content', async () => {
+  const source = await read('src/components/showroom/recap-editorial.tsx')
+
+  assert.match(source, /className="recap-editorial__video-opening"/)
+  assert.match(source, /src="\/videos\/showroom\/recap\/27ps-echoes-of-deco\.mp4"/)
+  assert.match(source, /autoPlay/)
+  assert.match(source, /muted/)
+  assert.match(source, /loop/)
+  assert.match(source, /playsInline/)
+})
+
+test('27PS recap keeps the brand collection in the main flow and moves its poster to an archive link', async () => {
+  const source = await read('src/components/showroom/recap-editorial.tsx')
+  const opening = source.indexOf('recap-editorial__opening')
+  const story = source.indexOf('recap-editorial__story')
+  const collection = source.indexOf('recap-editorial__brand-collection')
+  const space = source.indexOf('recap-editorial__space')
+  const posterArchive = source.indexOf('recap-editorial__poster-archive')
+
+  assert.ok(opening < story && story < collection && collection < space && space < posterArchive)
+  assert.doesNotMatch(source, /className="recap-editorial__poster"/)
+  assert.match(source, /href=\{recap\.poster\}/)
+  assert.match(source, /src="\/images\/showroom\/recap\/27ps\/brand-collection\.jpg"/)
+})
+
 test('editorial documents keep restrained project and statement typography', async () => {
   const css = await read('src/components/editorial-document/editorial-document.module.css')
 
